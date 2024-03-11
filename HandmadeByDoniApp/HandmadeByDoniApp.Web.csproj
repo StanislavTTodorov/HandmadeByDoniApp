@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HandmadeByDoniApp.Common\HandmadeByDoniApp.Common.csproj" />
+  </ItemGroup>
+
 </Project>

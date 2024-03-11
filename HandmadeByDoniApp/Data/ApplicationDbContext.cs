@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HandmadeByDoniApp.Data
+namespace HandmadeByDoniApp.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

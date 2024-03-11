@@ -1,4 +1,4 @@
-namespace HandmadeByDoniApp.Models
+namespace HandmadeByDoniApp.Web.Models
 {
     public class ErrorViewModel
     {

@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HandmadeByDoniApp</title>
+    <title>@ViewData["Title"] - Handmade By Doni</title>
      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/leayout.css" asp-append-version="true" />
@@ -30,7 +31,7 @@
                         </a>
                         <button type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
+                           <span></span>
                         </button>
                     </div>
                     <div class="menu">
@@ -46,8 +47,8 @@
         </div>
         <footer class="site-footer">
             <div class="container-footer">
-                    <p>&copy; Handmade By Doni 2024 @* @ReleaseYear*/*@
-                    @if (DateTime.UtcNow.Year != 2024/*ReleaseYear*/)
+                    <p>&copy; Handmade By Doni  @ReleaseYear
+                    @if (DateTime.UtcNow.Year != ReleaseYear)
                     {
                         @Html.Raw($" - {DateTime.UtcNow.Year}")
                         ;
