@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandmadeByDoniApp.Web", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeByDoniApp.Common", "HandmadeByDoniApp.Common\HandmadeByDoniApp.Common.csproj", "{5015ED5B-6812-4BCC-A70C-F734FD6093A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9D81ACC0-A502-4B9A-A667-73DADA259776}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{469630A5-C659-4113-9549-BFF17205F69E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeByDoniApp.Data", "HandmadeByDoniApp.Data\HandmadeByDoniApp.Data.csproj", "{B0CD48E8-11E9-4E47-99BD-854D3143631B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeByDoniApp.Data.Models", "HandmadeByDoniApp.Data.Models\HandmadeByDoniApp.Data.Models.csproj", "{ACA8C1A1-A752-4D84-894D-176E6006C186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeByDoniApp.Web.ViewModels", "HandmadeByDoniApp.Web.ViewModels\HandmadeByDoniApp.Web.ViewModels.csproj", "{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +31,27 @@ Global
 		{5015ED5B-6812-4BCC-A70C-F734FD6093A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5015ED5B-6812-4BCC-A70C-F734FD6093A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5015ED5B-6812-4BCC-A70C-F734FD6093A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0CD48E8-11E9-4E47-99BD-854D3143631B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0CD48E8-11E9-4E47-99BD-854D3143631B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0CD48E8-11E9-4E47-99BD-854D3143631B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0CD48E8-11E9-4E47-99BD-854D3143631B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA8C1A1-A752-4D84-894D-176E6006C186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA8C1A1-A752-4D84-894D-176E6006C186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA8C1A1-A752-4D84-894D-176E6006C186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA8C1A1-A752-4D84-894D-176E6006C186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19616FA5-452C-490B-A5BC-FD08DAF2ADD3} = {9D81ACC0-A502-4B9A-A667-73DADA259776}
+		{B0CD48E8-11E9-4E47-99BD-854D3143631B} = {469630A5-C659-4113-9549-BFF17205F69E}
+		{ACA8C1A1-A752-4D84-894D-176E6006C186} = {469630A5-C659-4113-9549-BFF17205F69E}
+		{20928A0F-5DD3-4CC9-8D6D-2F44D16BC9FA} = {9D81ACC0-A502-4B9A-A667-73DADA259776}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFB0BFDB-88FD-49B1-82EC-62B6FE7E4927}

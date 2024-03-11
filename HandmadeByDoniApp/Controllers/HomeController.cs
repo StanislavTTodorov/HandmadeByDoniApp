@@ -1,4 +1,4 @@
-﻿using HandmadeByDoniApp.Web.Models;
+﻿using HandmadeByDoniApp.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

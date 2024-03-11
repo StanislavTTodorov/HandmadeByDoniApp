@@ -1,4 +1,4 @@
-namespace HandmadeByDoniApp.Web.Models
+namespace HandmadeByDoniApp.Web.ViewModels.Home
 {
     public class ErrorViewModel
     {
