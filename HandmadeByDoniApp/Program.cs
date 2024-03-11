@@ -1,49 +1,50 @@
-using HandmadeByDoniApp.Data;
-using HandmadeByDoniApp.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
+using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception();
-
-builder.Services.AddDbContext<HandmadeByDoniAppDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+public class Program
 {
-    options.SignIn.RequireConfirmedAccount = true;
-})
-  .AddEntityFrameworkStores<HandmadeByDoniAppDbContext>();
+    public static void Main(string[] args)
+    {
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+        builder.Services.AddApplicationDbContext(builder.Configuration);
+        builder.Services.AddApplicationIdentiry(builder.Configuration);
 
-WebApplication app = builder.Build();
+        builder.Services
+               .AddControllersWithViews();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-    app.UseDeveloperExceptionPage();
+        builder.Services.AddApplicationServises();
+
+
+
+
+        WebApplication app = builder.Build();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseMigrationsEndPoint();
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.MapRazorPages();
+
+        app.Run();
+    }
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
-
-await app.RunAsync();

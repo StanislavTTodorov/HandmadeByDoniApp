@@ -9,10 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.27" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.27" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +24,7 @@
     <ProjectReference Include="..\HandmadeByDoniApp.Data.Models\HandmadeByDoniApp.Data.Models.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Data\HandmadeByDoniApp.Data.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Web.ViewModels\HandmadeByDoniApp.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\HandmadeByDoniApp.Wep.Infrastructure\HandmadeByDoniApp.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
