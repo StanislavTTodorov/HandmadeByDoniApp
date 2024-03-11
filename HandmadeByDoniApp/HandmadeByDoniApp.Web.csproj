@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HandmadeByDoniApp.Common\HandmadeByDoniApp.Common.csproj" />
+    <ProjectReference Include="..\HandmadeByDoniApp.Data.Models\HandmadeByDoniApp.Data.Models.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Data\HandmadeByDoniApp.Data.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Web.ViewModels\HandmadeByDoniApp.Web.ViewModels.csproj" />
   </ItemGroup>
