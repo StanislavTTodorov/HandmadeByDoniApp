@@ -7,8 +7,9 @@
 /* header */
 .site-header
 {
+  /*
  border-bottom: 2px solid black;
-
+*/
 }
 
 .navbar-menu
@@ -17,8 +18,8 @@
 }
 
 .navbar-menu, 
-.menu,
 .logo,
+.menu,
 .loginPartial-menu
 {
   display: flex;
@@ -28,17 +29,23 @@
  
 }
 
-.header-navbar,
 .navbar-menu, 
 .menu
 {
-  font-size: 1.2em;
+  font-size: 1em;
+}
+.navbar-menu{
+  background-image: url(//img.pikbest.com/wp/202345/painted-rainbow-wine-glasses-painting-on-a_9586196.jpg!w700wp);
+  background-position:center;
+  background-size: contain;
 }
 .logo
 {
   max-width: 150px;
-  font-size: 1em; 
   position: relative;
+}
+.logo button{
+  display: none;
 }
 .img-logo
 {
@@ -48,7 +55,9 @@
 }
 .img-logo:hover
 {
+  position: absolute;
   max-width: 250px;  
+  transform: translate(-50%,-40%);
 }
 
 .header-navbar
@@ -74,7 +83,7 @@
 .container-main
 {
   flex-grow: 1;
-  padding: 0.5em 2em;
+  padding: 1em 2em;
 }
 
 
