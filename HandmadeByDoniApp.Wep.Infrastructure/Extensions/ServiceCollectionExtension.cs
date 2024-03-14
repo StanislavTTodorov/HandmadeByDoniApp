@@ -9,17 +9,17 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        /*
+     
                 /// <summary>
                 ///  This method registers all services with their interfaces and implementations of given assembly.
                 ///  The assembly is taken from the type of random service implementation provided. 
                 /// </summary>
                 /// <param name="serviceType"></param>
                 /// <returns></returns>
-                /// <exception cref="InvalidOperationException"></exception>*/
-        public static IServiceCollection AddApplicationServises(this IServiceCollection services)//, Type serviceType)
+                /// <exception cref="InvalidOperationException"></exception>
+        public static IServiceCollection AddApplicationServises(this IServiceCollection services, Type serviceType)
         {
-            /*
+            
             Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
             if (serviceAssembly == null)
             {
@@ -38,7 +38,7 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
                     throw new InvalidOperationException($"No Interface is provided for the service whih name: {implamentationType.Name}");
                 }
                 services.AddScoped(interfaceType, implamentationType);
-            }*/
+            }
 
             return services;
         }

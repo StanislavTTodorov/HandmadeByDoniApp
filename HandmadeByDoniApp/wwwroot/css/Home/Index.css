@@ -1,0 +1,26 @@
+﻿
+.card-product {
+    display: flex;
+    flex-direction: row;
+  
+    gap: 1em;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+
+}
+
+.min-card
+{
+    border: 2px solid black ;
+    
+}
+.card-body{
+    display: flex;
+    justify-content: center;
+}
+.img
+{
+    max-height: 80%;
+    min-height: 80%;
+}

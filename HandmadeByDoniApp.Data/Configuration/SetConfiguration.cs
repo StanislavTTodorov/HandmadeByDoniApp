@@ -11,6 +11,8 @@ namespace HandmadeByDoniApp.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Set> builder)
         {
+            builder.Property(h => h.CreateOn)
+            .HasDefaultValueSql("GETDATE()");
 
             builder.Property(h => h.IsActive)
                 .HasDefaultValue(true);

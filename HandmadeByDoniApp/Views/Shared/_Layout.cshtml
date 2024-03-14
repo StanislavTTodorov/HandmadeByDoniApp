@@ -18,7 +18,20 @@
 <body>
     <div class="site">
         <header class="site-header">
-            <nav class="navbar-menu">          
+            <div class="logo">
+                <a class="site-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="img-logo" src="~/Images/logo.webp">
+                </a>
+                <button type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                </button>
+            </div>
+            <nav class="navbar-menu"> 
+                  <div class="left-menu">
                     <ul class="menu">
                         <li>
                             <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -26,39 +39,29 @@
                         <li>
                             <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">All</a>
                         </li>
-                        <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Product</a>
-                            <ul>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Glass</a>
-                                </li>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Box</a>
-                                    <ul>
-                                        <li><a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Decanter</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
-                    <div class="logo">
-                        <a class="site-logo" asp-area="" asp-controller="Home" asp-action="Index">
-                            <img class="img-logo" src="~/Images/logo.webp">
-                        </a>
-                        <button type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="navbar-collapse"
-                                aria-controls="navbarSupportedContent"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation">
-                        </button>
-                    </div>
-                    <div class="menu">
+                  </div>                
+                <div class="right-menu"></div>
+                    <ul class="menu">
+                    <li>
+                        <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Product</a>
+                        <ul>
+                            <li>
+                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Glass</a>
+                            </li>
+                            <li>
+                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Box</a>
+                                <ul>
+                                    <li><a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Decanter</a>
+                            </li>
+                        </ul>
+                    </li>
                         <partial name="_LoginPartial" />
-                    </div>
+                    </ul>
             </nav>
         </header>
         <div class="container-main">

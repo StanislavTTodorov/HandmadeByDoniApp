@@ -7,6 +7,7 @@
 /* header */
 .site-header
 {
+  position: relative;
   /*
  border-bottom: 2px solid black;
 */
@@ -14,21 +15,26 @@
 
 .navbar-menu
 {
-  padding: 2em 1em;
+  padding: 2em 1em; 
 }
-
 .navbar-menu, 
-.logo,
+.left-menu,
+.right-menu,
 .menu,
 .loginPartial-menu
 {
   display: flex;
   gap:1em;
-  justify-content: space-between;
   align-items: center;
- 
+  justify-content: space-between;
 }
-
+.left-menu
+{
+ justify-content: start;
+}
+.right-menu{
+  justify-content: end;
+}
 .navbar-menu, 
 .menu
 {
@@ -41,23 +47,23 @@
 }
 .logo
 {
-  max-width: 150px;
-  position: relative;
+  position: absolute;
+  max-width: 150px;  
+  top: 0;
+  left: 50%;
 }
 .logo button{
   display: none;
 }
 .img-logo
 {
-  position: absolute;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-15%);
    max-width: 150px;  
 }
 .img-logo:hover
 {
-  position: absolute;
   max-width: 250px;  
-  transform: translate(-50%,-40%);
+  transform: translate(-50%,-15%);
 }
 
 .header-navbar
@@ -83,9 +89,11 @@
 .container-main
 {
   flex-grow: 1;
-  padding: 1em 2em;
+  padding: 1.5em 2em;
 }
-
+.title{
+  padding-top: 1em;
+}
 
 /* footer */
 .site-footer

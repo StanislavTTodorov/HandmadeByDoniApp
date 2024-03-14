@@ -1,4 +1,5 @@
 
+using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 
 public class Program
@@ -13,7 +14,7 @@ public class Program
         builder.Services
                .AddControllersWithViews();
 
-        builder.Services.AddApplicationServises();
+        builder.Services.AddApplicationServises(typeof(IProductService));
 
 
 

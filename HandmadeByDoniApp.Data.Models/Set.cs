@@ -32,6 +32,9 @@ namespace HandmadeByDoniApp.Data.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
+        [Required]
+        public DateTime CreateOn { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Glass> Glasss { get; set; }
