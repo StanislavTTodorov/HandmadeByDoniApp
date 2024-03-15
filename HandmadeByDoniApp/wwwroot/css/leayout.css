@@ -92,7 +92,11 @@
 }
 
 .title {
-  padding-top: 1em;
+  margin-top: 0.5em;
+  padding: 0.2em;
+  background-color: rgb(211, 77, 37);
+  color: white;
+
 }
 
 /* footer */

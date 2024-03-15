@@ -16,8 +16,6 @@ namespace HandmadeByDoniApp.Data.Configuration
             builder.Property(h => h.IsActive)
                    .HasDefaultValue(true);
 
-            builder.Property(h => h.IsSet)
-                   .HasDefaultValue(false);
         }
     }
 }

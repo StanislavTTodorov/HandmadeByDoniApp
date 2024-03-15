@@ -41,7 +41,5 @@ namespace HandmadeByDoniApp.Data.Models
         public DateTime CreateOn { get; set; }
 
         public bool IsActive { get; set; }
-
-        public bool IsSet { get; set; }
     }
 }
