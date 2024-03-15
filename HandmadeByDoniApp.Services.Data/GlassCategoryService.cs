@@ -10,10 +10,12 @@ namespace HandmadeByDoniApp.Services.Data
     public class GlassCategoryService : IGlassCategoryService
     {
         private readonly HandmadeByDoniAppDbContext dbContext;
+
         public GlassCategoryService(HandmadeByDoniAppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
+
         public async Task<IEnumerable<GlassSelectCategoryFormModel>> AllGlassCategoriesAsync()
         {
             IEnumerable<GlassSelectCategoryFormModel> allGlassCategory =

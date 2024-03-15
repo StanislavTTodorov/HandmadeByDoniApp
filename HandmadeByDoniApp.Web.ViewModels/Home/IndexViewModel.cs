@@ -10,5 +10,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Home
 
         public string ImageUrl { get; set; } = null!;
 
+        public DateTime CreatedOn { get; set; }
+
     }
 }

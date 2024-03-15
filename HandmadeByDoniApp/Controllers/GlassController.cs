@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -55,8 +56,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
-                this.ModelState.AddModelError(string.Empty, 
-                    $"Unexpected error occurred while trying to add you new {typeof(Glass)}! Please try agenin later.");
+                this.ModelState.AddModelError(string.Empty,UnexpectedError);
                 return View(formModel);
             }
 

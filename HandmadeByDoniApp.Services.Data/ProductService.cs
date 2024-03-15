@@ -27,7 +27,9 @@ namespace HandmadeByDoniApp.Services.Data
                  {
                      Id = g.Id.ToString(),
                      Title = g.Title,
-                     ImageUrl = g.ImageUrl
+                     ImageUrl = g.ImageUrl,
+                     CreatedOn = g.CreateOn
+                     
                  }).ToArrayAsync();
 
             IEnumerable<IndexViewModel>? lastThreeBoxs = await this.dbContext
@@ -38,7 +40,8 @@ namespace HandmadeByDoniApp.Services.Data
                {
                    Id = b.Id.ToString(),
                    Title = b.Title,
-                   ImageUrl = b.ImageUrl
+                   ImageUrl = b.ImageUrl,
+                    CreatedOn = b.CreateOn
                }).ToArrayAsync();
 
             IEnumerable<IndexViewModel>? lastThreeDecanters = await this.dbContext
@@ -49,7 +52,8 @@ namespace HandmadeByDoniApp.Services.Data
                {
                    Id = d.Id.ToString(),
                    Title = d.Title,
-                   ImageUrl = d.ImageUrl
+                   ImageUrl = d.ImageUrl,
+                   CreatedOn = d.CreateOn
                }).ToArrayAsync();
 
             IEnumerable<IndexViewModel>? lastThreeSet = await this.dbContext
@@ -60,7 +64,8 @@ namespace HandmadeByDoniApp.Services.Data
               {
                   Id = s.Id.ToString(),
                   Title = s.Title,
-                  ImageUrl = s.ImageUrl
+                  ImageUrl = s.ImageUrl,
+                  CreatedOn = s.CreateOn
               }).ToArrayAsync();
 
             List<IndexViewModel> lastProduct = new List<IndexViewModel>();
@@ -68,7 +73,7 @@ namespace HandmadeByDoniApp.Services.Data
             lastProduct.AddRange(lastThreeBoxs);
             lastProduct.AddRange(lastThreeSet);
             lastProduct.AddRange(lastThreeDecanters);
-            IEnumerable<IndexViewModel> models = lastProduct.ToArray();
+            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g=>g.CreatedOn);
 
             return models;
 
