@@ -1,117 +1,116 @@
-.site
-{
+.site {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 /* header */
-.site-header
-{
+.site-header {
   position: relative;
   /*
  border-bottom: 2px solid black;
 */
 }
 
-.navbar-menu
-{
-  padding: 2em 1em; 
+.navbar-menu {
+  padding: 2em 1em;
 }
-.navbar-menu, 
+
+.navbar-menu,
 .left-menu,
 .right-menu,
 .menu,
-.loginPartial-menu
-{
+.loginPartial-menu {
   display: flex;
-  gap:1em;
+  gap: 1em;
   align-items: center;
   justify-content: space-between;
 }
-.left-menu
-{
- justify-content: start;
+
+.left-menu {
+  justify-content: start;
 }
-.right-menu{
+
+.right-menu {
   justify-content: end;
 }
-.navbar-menu, 
-.menu
-{
+
+.navbar-menu,
+.menu {
   font-size: 1em;
 }
-.navbar-menu{
+
+.navbar-menu {
   background-image: url(//img.pikbest.com/wp/202345/painted-rainbow-wine-glasses-painting-on-a_9586196.jpg!w700wp);
-  background-position:center;
+  background-position: center;
   background-size: contain;
 }
-.logo
-{
+
+.logo {
   position: absolute;
-  max-width: 150px;  
+  max-width: 150px;
   top: 0;
   left: 50%;
 }
-.logo button{
+
+.logo button {
   display: none;
 }
-.img-logo
-{
-  transform: translate(-50%,-15%);
-   max-width: 150px;  
-}
-.img-logo:hover
-{
-  max-width: 250px;  
-  transform: translate(-50%,-15%);
+
+.img-logo {
+  transform: translate(-50%, -15%);
+  max-width: 150px;
 }
 
-.header-navbar
-{
+.img-logo:hover {
+  max-width: 250px;
+  transform: translate(-50%, -15%);
+}
+
+.header-navbar {
   /* border: 6px solid green; */
 }
-.navbar-menu
-{
+
+.navbar-menu {
   /* border: 6px solid gray; */
 }
-.menu
-{
+
+.menu {
   /* border: 3px solid black; */
-} 
-.menu li 
-{
+}
+
+.menu li {
   list-style: none;
   color: black;
 }
 
 
 /* main */
-.container-main
-{
+.container-main {
   flex-grow: 1;
   padding: 1.5em 2em;
 }
-.title{
+
+.title {
   padding-top: 1em;
 }
 
 /* footer */
-.site-footer
-{
- 
+.site-footer {
+
   border-top: 2px solid black;
+  background-color: gray;
 }
+
 .site-footer,
-.container-footer
-{
+.container-footer {
   display: flex;
   font-size: 1em;
 }
 
-.container-footer
-{
+.container-footer {
   flex-basis: 40%;
   flex-direction: column;
-  padding: 0.5em 2em;
-
+  padding: 0.5em 1em;
+  color: lavender;
 }
