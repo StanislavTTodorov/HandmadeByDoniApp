@@ -73,7 +73,7 @@ namespace HandmadeByDoniApp.Services.Data
             lastProduct.AddRange(lastThreeBoxs);
             lastProduct.AddRange(lastThreeSet);
             lastProduct.AddRange(lastThreeDecanters);
-            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g=>g.CreatedOn);
+            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g=>g.CreatedOn).ToArray();
 
             return models;
 

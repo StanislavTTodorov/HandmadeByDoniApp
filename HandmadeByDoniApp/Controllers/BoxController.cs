@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -39,6 +40,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty,UnexpectedError);
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return View(formModel);
             }
 

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -57,6 +58,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
                 this.ModelState.AddModelError(string.Empty,UnexpectedError);
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return View(formModel);
             }
 
