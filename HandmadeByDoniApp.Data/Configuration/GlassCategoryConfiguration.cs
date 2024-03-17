@@ -19,7 +19,7 @@ namespace HandmadeByDoniApp.Data.Configuration
             GlassCategory wineCategory = new GlassCategory()
             {
                 Id = 1,
-                Name = "Wine glasse"
+                Name = "Wine glass"
             };
 
             GlassCategory beerCategory = new GlassCategory()
@@ -48,7 +48,7 @@ namespace HandmadeByDoniApp.Data.Configuration
             GlassCategory champagneCategory = new GlassCategory()
             {
                 Id = 6,
-                Name = "champagne glass"
+                Name = "Champagne glass"
             };
 
             ICollection<GlassCategory> glassCategory = new HashSet<GlassCategory>();

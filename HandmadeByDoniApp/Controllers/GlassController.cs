@@ -65,5 +65,28 @@ namespace HandmadeByDoniApp.Web.Controllers
             return this.RedirectToAction("Index", "Home");
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            bool isGlass = await this.glassService.ExistsByIdAsync(id);
+            if (isGlass==false)
+            {
+                this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                return this.RedirectToAction("All", "Pcoduct");
+            }
+
+            try
+            {
+                GlassDetailsViewModel viewModel = await this.glassService.GetGlassDetailsByIdAsync(id);
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                return this.RedirectToAction("All", "Product"); ;
+            }
+            
+        }
     }
 }

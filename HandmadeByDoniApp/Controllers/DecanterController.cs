@@ -1,5 +1,6 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
+using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
@@ -45,6 +46,27 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             return this.RedirectToAction("Index", "Home");
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
+            if (isDecanter == false)
+            {
+                this.TempData[ErrorMessage] = "Decanter with the provided id does not exist!";
+                return this.RedirectToAction("All", "Pcoduct");
+            }
+
+            try
+            {
+                DecanterDetailsViewModel viewModel = await this.decanterService.GetDecanterDetailsByIdAsync(id);
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                return this.RedirectToAction("All", "Product"); ;
+            }
         }
     }
 }

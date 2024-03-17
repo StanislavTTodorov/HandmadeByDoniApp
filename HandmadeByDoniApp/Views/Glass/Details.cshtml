@@ -1,0 +1,48 @@
+﻿@model GlassDetailsViewModel
+
+@{
+    ViewBag.Title = "Glass Details";
+}
+
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="Glass Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>@Model.Description</p>
+            <p>Category: <b>@Model.Category</b></p>
+            <p><i>(@(Model.IsSet ? "In Set" : "Not Set"))</i></p>
+            @if (Model.IsSet)
+            {
+                <form class="ml-2" asp-controller="" asp-action="" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="See Set" />
+                </form>
+            }
+            else
+            {
+                <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
+                <form class="ml-2" asp-controller="" asp-action="" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="Buy" />
+                </form>
+            }
+
+            <div class="form-inline">
+                @* TODO  // TODO Authorize only for the Admin     *@
+                @if (this.User.Identity?.IsAuthenticated ?? false)
+                {
+                    <a class="btn btn-warning" asp-controller="Glass" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Glass" aspaction="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
