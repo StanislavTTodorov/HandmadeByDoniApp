@@ -36,6 +36,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.boxService.CreateBoxAsync(formModel);
+                TempData[SuccessMessage] = "Box was added successfully!";
             }
             catch (Exception)
             {

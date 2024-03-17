@@ -53,6 +53,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.glassService.CreateGlassAsync(formModel);
+                TempData[SuccessMessage] = "Glass was added successfully!";
             }
             catch (Exception)
             {

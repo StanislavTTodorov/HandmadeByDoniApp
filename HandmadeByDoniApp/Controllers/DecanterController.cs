@@ -36,6 +36,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.decanterService.CreateDecanterAsync(formModel);
+                TempData[SuccessMessage] = "Decanter was added successfully!";
             }
             catch (Exception)
             {

@@ -19,8 +19,10 @@ namespace HandmadeByDoniApp.Web.ViewModels.Decanter
         public string ImageUrl { get; set; } = null!;
 
         [Display(Name = "Capacity in Milliliters")]
+        [Range(typeof(int),CapacityMinLength,CapacityMaxLength)]
         public int Capacity { get; set; }
 
+        [Range(typeof(int), PriceMinLength, PriceMaxLength)]
         public decimal Price { get; set; }
 
 
