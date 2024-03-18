@@ -1,14 +1,19 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@using Microsoft.AspNetCore.Identity
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
 @using HandmadeByDoniApp.Data.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
+@inject IUserService UserService
+@{
+    string userFullName = await UserService.GetFullNameByIdAsync(User.GetId());
+}
 
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="button-memu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="button-memu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @userFullName</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -19,10 +24,17 @@
 else
 {
     <li class="nav-item">
+        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+    </li>
+    /*
+    <li class="nav-item">
             <a class="button-memu" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
     <li class="nav-item">
             <a class="nav-link button-memu" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    </li>*/
 }
 

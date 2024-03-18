@@ -20,11 +20,13 @@ namespace HandmadeByDoniApp.Data.Models
             this.Decanters = new HashSet<Decanter>();
             this.Boxes = new HashSet<Box>();
         }
+        [Required]
         [MaxLength(FirstNameMaxLength)]
-        public string? FirstName {  get; set; }
+        public string FirstName {  get; set; }
 
+        [Required]
         [MaxLength(LastNameMaxLength)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
         public ICollection<Set> Sets { get; set; }
 
