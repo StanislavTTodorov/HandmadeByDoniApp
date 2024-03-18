@@ -15,7 +15,7 @@
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>
             <p>@Model.Description</p>
-            <p><i>Capacity: @(Model.Capacity) glasses can store</i> </p>
+            <p><i>Capacity: Can store @(Model.Capacity) glasses. </i> </p>
 
             <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
             <form class="ml-2" asp-controller="" asp-action="" asp-route-id="@Model.Id" method="post">

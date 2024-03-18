@@ -1,27 +1,26 @@
-﻿
-
-using HandmadeByDoniApp.Data;
+﻿using HandmadeByDoniApp.Data;
+using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Category;
 using Microsoft.EntityFrameworkCore;
 
-namespace HandmadeByDoniApp.Services.Data
+namespace HandmadeByDoniApp.Services.Data.Service
 {
     public class GlassCategoryService : IGlassCategoryService
     {
-        private readonly HandmadeByDoniAppDbContext dbContext;
+        private readonly IRepository repository;
 
-        public GlassCategoryService(HandmadeByDoniAppDbContext dbContext)
+        public GlassCategoryService(IRepository repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<IEnumerable<GlassSelectCategoryFormModel>> AllGlassCategoriesAsync()
         {
             IEnumerable<GlassSelectCategoryFormModel> allGlassCategory =
-            await this.dbContext
-                    .GlassCategories
-                    .AsNoTracking()
+            await this.repository
+                    .AllReadOnly<GlassCategory>()
                     .Select(c => new GlassSelectCategoryFormModel
                     {
                         Id = c.Id,
@@ -34,8 +33,8 @@ namespace HandmadeByDoniApp.Services.Data
 
         public async Task<bool> ExistsIdAsync(int id)
         {
-            bool exists = await this.dbContext
-                .GlassCategories
+            bool exists = await this.repository
+                .All<GlassCategory>()
                 .AnyAsync(g => g.Id == id);
 
             return exists;

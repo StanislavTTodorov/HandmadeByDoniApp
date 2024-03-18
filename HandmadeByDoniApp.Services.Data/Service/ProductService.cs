@@ -1,26 +1,26 @@
-﻿
-
-using HandmadeByDoniApp.Data;
+﻿using HandmadeByDoniApp.Data;
+using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Home;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
-namespace HandmadeByDoniApp.Services.Data
+namespace HandmadeByDoniApp.Services.Data.Service
 {
     public class ProductService : IProductService
     {
-        private readonly HandmadeByDoniAppDbContext dbContext;
+        private readonly IRepository repository;
 
-        public ProductService(HandmadeByDoniAppDbContext dbContext)
+        public ProductService(IRepository repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<IEnumerable<IndexViewModel>> LastTwelveProductsAsync()
         {
-            IEnumerable<IndexViewModel>? lastThreeGlass = await this.dbContext
-                 .Glasses
+            IEnumerable<IndexViewModel>? lastThreeGlass = await this.repository
+                 .All<Glass>()
                  .OrderByDescending(g => g.CreateOn)
                  .Take(3)
                  .Select(g => new IndexViewModel()
@@ -29,11 +29,11 @@ namespace HandmadeByDoniApp.Services.Data
                      Title = g.Title,
                      ImageUrl = g.ImageUrl,
                      CreatedOn = g.CreateOn
-                     
+
                  }).ToArrayAsync();
 
-            IEnumerable<IndexViewModel>? lastThreeBoxs = await this.dbContext
-               .Boxs
+            IEnumerable<IndexViewModel>? lastThreeBoxs = await this.repository
+               .All<Box>()
                .OrderByDescending(b => b.CreateOn)
                .Take(3)
                .Select(b => new IndexViewModel()
@@ -41,11 +41,11 @@ namespace HandmadeByDoniApp.Services.Data
                    Id = b.Id.ToString(),
                    Title = b.Title,
                    ImageUrl = b.ImageUrl,
-                    CreatedOn = b.CreateOn
+                   CreatedOn = b.CreateOn
                }).ToArrayAsync();
 
-            IEnumerable<IndexViewModel>? lastThreeDecanters = await this.dbContext
-               .Decaners
+            IEnumerable<IndexViewModel>? lastThreeDecanters = await this.repository
+               .All<Decanter>()
                .OrderByDescending(d => d.CreateOn)
                .Take(3)
                .Select(d => new IndexViewModel()
@@ -56,8 +56,8 @@ namespace HandmadeByDoniApp.Services.Data
                    CreatedOn = d.CreateOn
                }).ToArrayAsync();
 
-            IEnumerable<IndexViewModel>? lastThreeSet = await this.dbContext
-              .Sets
+            IEnumerable<IndexViewModel>? lastThreeSet = await this.repository
+              .All<Set>()
               .OrderByDescending(s => s.CreateOn)
               .Take(3)
               .Select(s => new IndexViewModel()
@@ -73,7 +73,7 @@ namespace HandmadeByDoniApp.Services.Data
             lastProduct.AddRange(lastThreeBoxs);
             lastProduct.AddRange(lastThreeSet);
             lastProduct.AddRange(lastThreeDecanters);
-            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g=>g.CreatedOn).ToArray();
+            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g => g.CreatedOn).ToArray();
 
             return models;
 

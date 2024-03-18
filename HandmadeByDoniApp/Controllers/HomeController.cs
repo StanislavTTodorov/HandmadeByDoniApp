@@ -1,11 +1,12 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Home;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> logger;
         private readonly IProductService product;
@@ -16,7 +17,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.logger = logger;
             this.product = product;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<IndexViewModel> viewModels =
@@ -24,6 +25,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             return View(viewModels);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

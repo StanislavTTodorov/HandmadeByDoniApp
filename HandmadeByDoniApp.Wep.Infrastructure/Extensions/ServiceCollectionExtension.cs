@@ -1,5 +1,7 @@
 ﻿using HandmadeByDoniApp.Data;
 using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Services.Data.DataRepository;
+using HandmadeByDoniApp.Services.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +51,8 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 
             services.AddDbContext<HandmadeByDoniAppDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             return services;
 

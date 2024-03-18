@@ -1,13 +1,14 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class DecanterController : Controller
+    public class DecanterController : BaseController
     {
         private readonly IDecanterService decanterService;
 
@@ -15,6 +16,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             this.decanterService = decanterService;
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -49,6 +51,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             bool isDecanter = await this.decanterService.ExistsByIdAsync(id);

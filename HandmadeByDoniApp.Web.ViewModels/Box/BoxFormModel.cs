@@ -23,7 +23,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Box
         [Display(Name = "Number of cups inside")]
         public int Capacity { get; set; }
 
-        [Range(typeof(int), PriceMinLength, PriceMaxLength)]
+        [Range(typeof(decimal), PriceMinLength, PriceMaxLength)]
         public decimal Price { get; set; }
     }
 }

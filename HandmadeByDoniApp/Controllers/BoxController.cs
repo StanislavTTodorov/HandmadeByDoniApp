@@ -2,13 +2,14 @@
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class BoxController : Controller
+    public class BoxController : BaseController
     {
         private readonly IBoxService boxService;
         public BoxController(IBoxService boxService)
@@ -49,6 +50,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             bool isBox = await this.boxService.ExistsByIdAsync(id);

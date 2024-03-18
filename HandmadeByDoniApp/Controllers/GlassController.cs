@@ -11,7 +11,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 {
     // TODO Authorize only for the Admin
 
-    public class GlassController : Controller
+    public class GlassController : BaseController
     {
         private readonly IGlassService glassService;
         private readonly IGlassCategoryService glassCategoryServise;
@@ -68,6 +68,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             bool isGlass = await this.glassService.ExistsByIdAsync(id);

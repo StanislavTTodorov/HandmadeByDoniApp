@@ -22,7 +22,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Decanter
         [Range(typeof(int),CapacityMinLength,CapacityMaxLength)]
         public int Capacity { get; set; }
 
-        [Range(typeof(int), PriceMinLength, PriceMaxLength)]
+        [Range(typeof(decimal), PriceMinLength, PriceMaxLength)]
         public decimal Price { get; set; }
 
 

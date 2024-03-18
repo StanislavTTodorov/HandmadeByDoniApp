@@ -1,10 +1,11 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private readonly IGlassService glassService;
         private readonly IDecanterService decanterService;
@@ -21,7 +22,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.boxService = boxService;
             this.setService = setService;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             bool isGlass = await this.glassService.ExistsByIdAsync(id);
