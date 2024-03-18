@@ -1,6 +1,8 @@
 ﻿
 
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using static HandmadeByDoniApp.Common.EntityValidationConstants.User;
 
 namespace HandmadeByDoniApp.Data.Models
 {
@@ -18,7 +20,11 @@ namespace HandmadeByDoniApp.Data.Models
             this.Decanters = new HashSet<Decanter>();
             this.Boxes = new HashSet<Box>();
         }
+        [MaxLength(FirstNameMaxLength)]
+        public string? FirstName {  get; set; }
 
+        [MaxLength(LastNameMaxLength)]
+        public string? LastName { get; set; }
 
         public ICollection<Set> Sets { get; set; }
 

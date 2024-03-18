@@ -8,7 +8,6 @@ namespace HandmadeByDoniApp.Common
         {
             public const int NameMaxLength = 100;
             public const int NameMinLength = 2;
-
         }
 
         public static class Glass
@@ -55,6 +54,7 @@ namespace HandmadeByDoniApp.Common
             public const string PriceMaxLength = "7000";
             public const string PriceMinLength = "0";
         }
+
         public static class Box
         {
             public const int TitleMaxLength = 200;
@@ -70,11 +70,19 @@ namespace HandmadeByDoniApp.Common
             public const string PriceMinLength = "0";
 
         }
+
         public static class Comment 
         { 
             public const int TextMaxLength = 500;
             public const int TextMinLength = 1;
         }
 
+        public static class User
+        {
+            public const int FirstNameMaxLength = 100;
+            public const int FirstNameMinLength = 1;
+            public const int LastNameMaxLength =100;
+            public const int LastNameMinLength = 1;
+        }
     }
 }
