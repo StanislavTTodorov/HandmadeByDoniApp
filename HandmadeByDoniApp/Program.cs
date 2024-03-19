@@ -1,6 +1,7 @@
 
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
+using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 public class Program
 {
@@ -14,7 +15,7 @@ public class Program
         builder.Services
                .AddControllersWithViews();
 
-        builder.Services.AddApplicationServises(typeof(IProductService));
+        builder.Services.AddApplicationServises();
 
 
 
@@ -40,6 +41,8 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.SeedAdministrator(DevelopmentAdminEmail);
 
         app.MapControllerRoute(
             name: "default",

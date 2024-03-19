@@ -6,41 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
+using HandmadeByDoniApp.Services.Data.Interfaces;
 
 namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
      
-                /// <summary>
-                ///  This method registers all services with their interfaces and implementations of given assembly.
-                ///  The assembly is taken from the type of random service implementation provided. 
-                /// </summary>
-                /// <param name="serviceType"></param>
-                /// <returns></returns>
-                /// <exception cref="InvalidOperationException"></exception>
-        public static IServiceCollection AddApplicationServises(this IServiceCollection services, Type serviceType)
+        public static IServiceCollection AddApplicationServises(this IServiceCollection services)
         {
-            
-            Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
-            if (serviceAssembly == null)
-            {
-                throw new InvalidOperationException("Invalid Service type provided!");
-            }
-            Type[] serviceTypes = serviceAssembly
-                .GetTypes()
-                .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
-                .ToArray();
-            foreach (Type implamentationType in serviceTypes)
-            {
-                Type? interfaceType = implamentationType.GetInterface($"I{implamentationType.Name}");
 
-                if (interfaceType == null)
-                {
-                    throw new InvalidOperationException($"No Interface is provided for the service whih name: {implamentationType.Name}");
-                }
-                services.AddScoped(interfaceType, implamentationType);
-            }
+            services.AddServices(typeof(IProductService));
 
             return services;
         }
@@ -69,6 +46,7 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
                 options.Password.RequireUppercase = config.GetValue<bool>("Identity:Password:RequireUppercase");
                 options.Password.RequiredLength = config.GetValue<int>("Identity:Password:RequiredLength");
             })
+              .AddRoles<IdentityRole<Guid>>()
               .AddEntityFrameworkStores<HandmadeByDoniAppDbContext>();
             return services;
         }
