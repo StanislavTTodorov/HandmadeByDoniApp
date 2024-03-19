@@ -88,5 +88,19 @@ namespace HandmadeByDoniApp.Common
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;
         }
+
+        public static class Address
+        {
+            public const int CountryNameMaxLength = 60;
+            public const int CountryNameMinLength = 3;
+
+            public const int CityNameMaxLength = 90;
+            public const int CityNameMinLength = 3;
+
+            public const int StreetMaxLength = 90;
+            public const int StreetMinLength = 1;
+
+        }
+
     }
 }

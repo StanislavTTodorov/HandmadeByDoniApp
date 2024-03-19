@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HandmadeByDoniApp.Data.Migrations
 {
     [DbContext(typeof(HandmadeByDoniAppDbContext))]
-    partial class HandmadeByDoniAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319145932_RenoveBoxFromSet")]
+    partial class RenoveBoxFromSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +94,9 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -120,6 +125,8 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -378,12 +385,7 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.ToTable("Orders");
                 });
@@ -592,6 +594,17 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Comment", b =>
                 {
                     b.HasOne("HandmadeByDoniApp.Data.Models.Box", null)
@@ -636,17 +649,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasForeignKey("SetId");
 
                     b.Navigation("GlassCategory");
-                });
-
-            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Order", b =>
-                {
-                    b.HasOne("HandmadeByDoniApp.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Set", b =>

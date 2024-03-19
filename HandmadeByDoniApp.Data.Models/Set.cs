@@ -43,10 +43,6 @@ namespace HandmadeByDoniApp.Data.Models
         public Guid? DecanterId { get; set; }
         public virtual Decanter? Decanter { get; set; }
 
-        [ForeignKey(nameof(Box))]
-        public Guid? BoxId { get; set; }
-        public virtual Box? Box { get; set; }
-
         public bool IsActive { get; set; }
     }
 }
