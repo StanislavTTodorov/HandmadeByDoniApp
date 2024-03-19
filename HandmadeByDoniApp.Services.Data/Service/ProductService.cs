@@ -21,6 +21,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             IEnumerable<IndexViewModel>? lastThreeGlass = await this.repository
                  .All<Glass>()
+                 .Where(g=>g.IsActive &&
+                           g.IsSet==false)
                  .OrderByDescending(g => g.CreateOn)
                  .Take(3)
                  .Select(g => new IndexViewModel()
@@ -34,6 +36,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             IEnumerable<IndexViewModel>? lastThreeBoxs = await this.repository
                .All<Box>()
+               .Where(b => b.IsActive)
                .OrderByDescending(b => b.CreateOn)
                .Take(3)
                .Select(b => new IndexViewModel()
@@ -46,6 +49,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             IEnumerable<IndexViewModel>? lastThreeDecanters = await this.repository
                .All<Decanter>()
+               .Where(g => g.IsActive &&
+                           g.IsSet == false)
                .OrderByDescending(d => d.CreateOn)
                .Take(3)
                .Select(d => new IndexViewModel()
@@ -58,6 +63,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             IEnumerable<IndexViewModel>? lastThreeSet = await this.repository
               .All<Set>()
+              .Where(b => b.IsActive)
               .OrderByDescending(s => s.CreateOn)
               .Take(3)
               .Select(s => new IndexViewModel()

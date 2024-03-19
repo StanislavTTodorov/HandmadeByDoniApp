@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +8,9 @@ using HandmadeByDoniApp.Web.ViewModels.User;
 
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using HandmadeByDoniApp.Data.Models;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -57,8 +57,11 @@ namespace HandmadeByDoniApp.Web.Controllers
                 LastName = model.LastName
             };
 
-            await userManager.SetEmailAsync(user, model.Email);
-            await userManager.SetUserNameAsync(user, model.Email);
+            // await this.userManager.AddClaimAsync(user, new Claim("FirstName", model.FirstName));
+            // await this.userManager.AddClaimAsync(user, new Claim("LastName", model.LastName));
+
+            await this.userManager.SetEmailAsync(user, model.Email);
+            await this.userManager.SetUserNameAsync(user, model.Email);
 
             IdentityResult result = 
                 await userManager.CreateAsync(user, model.Password);
