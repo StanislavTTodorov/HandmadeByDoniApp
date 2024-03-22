@@ -1,5 +1,6 @@
 ﻿using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Authorization;
@@ -17,17 +18,17 @@ namespace HandmadeByDoniApp.Web.Controllers
              this.boxService = boxService;
         }
         [HttpGet]
+        [IsAdmin]
         public IActionResult Add()
-        {
-            // TODO Authorize only for the Admin
+        {        
             BoxFormModel model = new BoxFormModel();
          
             return this.View(model);
         }
         [HttpPost]
+        [IsAdmin]
         public async Task<IActionResult> Add(BoxFormModel formModel)
         {
-            // TODO Authorize only for the Admin
 
             if (this.ModelState.IsValid == false)
             {

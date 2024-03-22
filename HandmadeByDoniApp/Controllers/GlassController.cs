@@ -1,5 +1,6 @@
 ﻿using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,6 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    // TODO Authorize only for the Admin
-
     public class GlassController : BaseController
     {
         private readonly IGlassService glassService;
@@ -22,9 +21,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.glassCategoryServise = glassCategoryServise;
         }
         [HttpGet]
+        [IsAdmin]
         public async Task<IActionResult> Add()
         {
-            // TODO Authorize only for the Admin
             GlassFormModel model = new GlassFormModel()
             {
                 Categories = await this.glassCategoryServise.AllGlassCategoriesAsync()              
@@ -32,9 +31,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             return this.View(model);
         }
         [HttpPost]
+        [IsAdmin]
         public async Task<IActionResult> Add(GlassFormModel formModel)
         {
-            // TODO Authorize only for the Admin
             bool glassCategoryExists = await this.glassCategoryServise
                                                  .ExistsIdAsync(formModel.CategoryId);
 
@@ -53,7 +52,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.glassService.CreateGlassAsync(formModel);
-                TempData[SuccessMessage] = "Glass was added successfully!";
+                this.TempData[SuccessMessage] = "Glass was added successfully!";
             }
             catch (Exception)
             {

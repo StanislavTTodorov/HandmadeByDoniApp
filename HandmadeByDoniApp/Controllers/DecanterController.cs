@@ -1,4 +1,5 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Authorization;
@@ -18,17 +19,17 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
 
         [HttpGet]
+        [IsAdmin]
         public IActionResult Add()
         {
-            // TODO Authorize only for the Admin
             DecanterFormModel model = new DecanterFormModel();
 
             return this.View(model);
         }
         [HttpPost]
+        [IsAdmin]
         public async Task<IActionResult> Add(DecanterFormModel formModel)
         {
-            // TODO Authorize only for the Admin
 
             if (this.ModelState.IsValid == false)
             {
