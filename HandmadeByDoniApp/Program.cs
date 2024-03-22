@@ -1,6 +1,7 @@
 
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
+using HandmadeByDoniApp.Web.Infrastructure.ModelBinders;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 public class Program
@@ -13,7 +14,11 @@ public class Program
         builder.Services.AddApplicationIdentiry(builder.Configuration);
 
         builder.Services
-               .AddControllersWithViews();
+               .AddControllersWithViews()
+               .AddMvcOptions(options =>
+               {
+                   options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+               });
 
         builder.Services.AddApplicationServises();
 
