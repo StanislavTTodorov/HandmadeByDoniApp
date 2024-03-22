@@ -1,4 +1,6 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Servises.Data.Models.Product;
+using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
@@ -11,16 +13,22 @@ namespace HandmadeByDoniApp.Web.Controllers
         private readonly IDecanterService decanterService;
         private readonly IBoxService boxService;
         private readonly ISetService setService;
+        private readonly IProductService productService;
+        private readonly IGlassCategoryService categoryService;
 
         public ProductController(IGlassService glassService,
                                  IDecanterService decanterService,
                                  IBoxService boxService,
-                                 ISetService setService)
+                                 ISetService setService,
+                                 IProductService productService,
+                                 IGlassCategoryService categoryService)
         {
             this.glassService = glassService;
             this.decanterService = decanterService;
             this.boxService = boxService;
             this.setService = setService;
+            this.productService = productService;
+            this.categoryService = categoryService;
         }
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
@@ -52,6 +60,19 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose.";
             return this.RedirectToAction("All", "Product");
 
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromQuery] AllProductsQueryModel queryModel)
+        {
+            AllProductFilteredAndPagedServiceModel serviceModel = await this.productService.AllProductsAsync(queryModel);
+
+            queryModel.Products =serviceModel.Products;
+            queryModel.TotalProduct = serviceModel.TotalProductCount;
+            queryModel.GlassCategories = await this.categoryService.AllCategoryNameAsync();
+
+            return this.View(queryModel);
         }
     }
 }

@@ -16,6 +16,15 @@ namespace HandmadeByDoniApp.Services.Data.Service
             this.repository = repository;
         }
 
+        public async Task<IEnumerable<string>> AllCategoryNameAsync()
+        {
+            IEnumerable<string> allName = await this.repository.All<GlassCategory>()
+                .Select (x => x.Name)
+                .ToArrayAsync ();
+
+            return allName;
+        }
+
         public async Task<IEnumerable<GlassSelectCategoryFormModel>> AllGlassCategoriesAsync()
         {
             IEnumerable<GlassSelectCategoryFormModel> allGlassCategory =

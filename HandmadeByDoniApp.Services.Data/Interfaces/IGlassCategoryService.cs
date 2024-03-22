@@ -9,6 +9,6 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
 
         Task<bool> ExistsIdAsync(int id);
 
-        //Task<IEnumerable<string>> AllCategoryNameAsync();
+        Task<IEnumerable<string>> AllCategoryNameAsync();
     }
 }

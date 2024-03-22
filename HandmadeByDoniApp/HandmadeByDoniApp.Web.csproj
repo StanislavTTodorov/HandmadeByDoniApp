@@ -24,6 +24,7 @@
     <ProjectReference Include="..\HandmadeByDoniApp.Data.Models\HandmadeByDoniApp.Data.Models.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Data\HandmadeByDoniApp.Data.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Services.Data\HandmadeByDoniApp.Services.Data.csproj" />
+    <ProjectReference Include="..\HandmadeByDoniApp.Servises.Data.Models\HandmadeByDoniApp.Servises.Data.Models.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Web.ViewModels\HandmadeByDoniApp.Web.ViewModels.csproj" />
     <ProjectReference Include="..\HandmadeByDoniApp.Wep.Infrastructure\HandmadeByDoniApp.Web.Infrastructure.csproj" />
   </ItemGroup>

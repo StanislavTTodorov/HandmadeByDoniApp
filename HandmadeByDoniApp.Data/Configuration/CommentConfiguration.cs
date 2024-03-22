@@ -10,7 +10,7 @@ namespace HandmadeByDoniApp.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.Property(h => h.CreateOn)
+            builder.Property(h => h.CreatedOn)
                .HasDefaultValueSql("GETDATE()");
         }
     }

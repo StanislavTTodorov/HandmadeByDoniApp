@@ -30,7 +30,7 @@ namespace HandmadeByDoniApp.Data.Models
         public virtual ApplicationUser User { get; set; } =  null!;
 
         [Required]
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

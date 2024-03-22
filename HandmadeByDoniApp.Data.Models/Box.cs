@@ -38,7 +38,7 @@ namespace HandmadeByDoniApp.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public bool IsActive { get; set; }
     }

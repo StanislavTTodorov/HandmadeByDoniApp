@@ -1,4 +1,5 @@
-﻿@model GlassDetailsViewModel
+﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@model GlassDetailsViewModel
 
 @{
     ViewBag.Title = "Glass Details";
@@ -19,21 +20,18 @@
             <p><i>(@(Model.IsSet ? "In Set" : "Not Set"))</i></p>
             @if (Model.IsSet)
             {
-                <form class="ml-2" asp-controller="" asp-action="" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-primary" type="submit" value="See Set" />
-                </form>
+                <a class="ml-2" asp-controller="Details" asp-action="Product"
+                   asp-route-id="@Model.Id">See Set</a>
             }
             else
             {
                 <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
-                <form class="ml-2" asp-controller="" asp-action="" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-primary" type="submit" value="Buy" />
-                </form>
+                <a class="ml-2 btn " asp-controller="" asp-action=""
+                   asp-route-id="@Model.Id">Buy</a>
             }
 
             <div class="form-inline">
-                @* TODO  // TODO Authorize only for the Admin     *@
-                @if (this.User.Identity?.IsAuthenticated ?? false)
+                @if (User.IsAdmin())
                 {
                     <a class="btn btn-warning" asp-controller="Glass" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>

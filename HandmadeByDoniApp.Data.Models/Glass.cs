@@ -43,7 +43,7 @@ namespace HandmadeByDoniApp.Data.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         [Required]
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public bool IsActive { get; set; }
 
