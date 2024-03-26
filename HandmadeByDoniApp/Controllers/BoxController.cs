@@ -17,6 +17,8 @@ namespace HandmadeByDoniApp.Web.Controllers
     {
         private readonly IBoxService boxService;
         private readonly ICommentService commentService;
+      
+
 
         public BoxController(IBoxService boxService,
                              ICommentService commentService)

@@ -40,6 +40,18 @@ namespace HandmadeByDoniApp.Services.Data.Service
             }
         }
 
+        public async Task EditCommentByIdAndFormModelAsync(string commentId, CommentFormModel formModel)
+        {
+           Comment comment = await this.repository
+                .All<Comment>()
+                .FirstAsync(c=>c.Id.ToString()==commentId);
+
+            comment.Text = formModel.Text;
+            comment.CreatedOn = DateTime.Now;
+
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistsByIdAsync(string Id)
         {
             bool exists = await this.repository
@@ -49,7 +61,26 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return exists;
         }
 
-     
-        
+        public async Task<CommentFormModel> GetCommentForEditByIdAsync(string commentId)
+        {
+            Comment comment = await this.repository
+                .All<Comment>()
+                .FirstAsync(c => c.Id.ToString() == commentId);
+
+            return new CommentFormModel
+            {
+                Text = comment.Text
+            };
+        }
+
+        public async Task<bool> HasUserCommentByUserIdAndByCommentIdAsync(string userId, string commentId)
+        {
+            Comment comment = await this.repository
+                .AllReadOnly<Comment>()
+                .Include(c => c.User)
+                .FirstAsync(c => c.Id.ToString() == commentId);
+            bool isYour = comment.User.Id.ToString() == userId;
+            return isYour;
+        }
     }
 }

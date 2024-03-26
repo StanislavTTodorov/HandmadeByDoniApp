@@ -1,5 +1,7 @@
-﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
 @model AllProductCommentViewModel
+@inject ICommentService CommentService
 
 @{
     ViewBag.Title = "Comment";
@@ -23,7 +25,7 @@
     </div>
     <section class="comment-section">
         <div class="write-comment">
-            <a class="ml-2 btn btn-info" asp-controller="Product" asp-action="WriteComment"
+            <a class="ml-2 btn btn-info" asp-controller="Comment" asp-action="WriteComment"
                asp-route-id="@Model.Id">Write a comment</a>
         </div>
         <article>
@@ -36,10 +38,18 @@
                         <section class="comment-title">
                             <h4 class="">@comment.UserName</h4>
                             <a class="ml-2 btn btn-info"
-                               asp-controller="Product"
+                               asp-controller="Comment"
                                asp-action="WriteToComment"
                                asp-route-id="@Model.Id"
                                asp-route-commentId="@comment.Id">Write to @comment.UserName</a>
+                            @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), comment.Id))
+                            {
+                                <a class="ml-2 btn btn-warning"
+                                   asp-controller="Comment"
+                                   asp-action="Edit"
+                                   asp-route-id="@Model.Id"
+                                   asp-route-commentId="@comment.Id">Edit</a>
+                            }
                             @*<p>Answers @comment.Comments.Count()</p>*@
                             <p class="">@comment.Time</p>
                         </section>
@@ -54,6 +64,14 @@
                                 <div class="card comment-comment">
                                     <section class="comment-title">
                                         <h4 class="">@com.UserName</h4>
+                                        @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), com.Id))
+                                        {
+                                            <a class="ml-2 btn btn-warning"
+                                               asp-controller="Comment"
+                                               asp-action="Edit"
+                                               asp-route-id="@Model.Id"
+                                               asp-route-commentId="@com.Id">Edit</a>
+                                        }
                                         <p class="">@com.Time</p>
                                     </section>
                                     <section class="comment-text">

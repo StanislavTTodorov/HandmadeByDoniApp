@@ -3,7 +3,6 @@ using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

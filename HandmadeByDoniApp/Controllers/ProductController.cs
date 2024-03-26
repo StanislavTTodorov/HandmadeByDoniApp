@@ -19,15 +19,13 @@ namespace HandmadeByDoniApp.Web.Controllers
         private readonly ISetService setService;
         private readonly IProductService productService;
         private readonly IGlassCategoryService categoryService;
-        private readonly ICommentService commentService;
 
         public ProductController(IGlassService glassService,
                                  IDecanterService decanterService,
                                  IBoxService boxService,
                                  ISetService setService,
                                  IProductService productService,
-                                 IGlassCategoryService categoryService,
-                                 ICommentService commentService)
+                                 IGlassCategoryService categoryService)
         {
             this.glassService = glassService;
             this.decanterService = decanterService;
@@ -35,7 +33,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.setService = setService;
             this.productService = productService;
             this.categoryService = categoryService;
-            this.commentService = commentService;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -83,105 +80,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             return this.View(queryModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Comment(string id)
-        {
-            bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            if (isGlass)
-            {
-                return this.RedirectToAction("Comment", "Glass", new { id });
-            }
-
-            bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            if (isDecanter)
-            {
-                return this.RedirectToAction("Comment", "Decanter", new { id });
-            }
-
-            bool isBox = await this.boxService.ExistsByIdAsync(id);
-            if (isBox)
-            {
-                return this.RedirectToAction("Comment", "Box", new { id });
-            }
-
-            bool isSet = await this.setService.ExistsByIdAsync(id);
-            if (isSet)
-            {
-                return this.RedirectToAction("Comment", "Set", new { id });
-            }
-
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can comment.";
-            return this.RedirectToAction("All", "Product");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> WriteComment(string id)
-        {
-            bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            if (isGlass)
-            {
-                return this.RedirectToAction("WriteComment", "Glass", new { id });
-            }
-
-            bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            if (isDecanter)
-            {
-                return this.RedirectToAction("WriteComment", "Decanter", new { id });
-            }
-
-            bool isBox = await this.boxService.ExistsByIdAsync(id);
-            if (isBox)
-            {
-                return this.RedirectToAction("WriteComment", "Box", new { id });
-            }
-
-            bool isSet = await this.setService.ExistsByIdAsync(id);
-            if (isSet)
-            {
-                return this.RedirectToAction("WriteComment", "Set", new { id });
-            }
-
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can comment.";
-            return this.RedirectToAction("All", "Product");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> WriteToComment(string id,string commentId)
-        {
-            bool isCommentidExist = await this.commentService.ExistsByIdAsync(commentId);
-
-            if (string.IsNullOrEmpty(commentId) == false && isCommentidExist == false)
-            {
-                this.TempData[ErrorMessage] = "Comment with the provided id does not exist!";
-                return this.RedirectToAction("Comment", "Pcoduct",new {id});
-            }
-
-            CommentFormModel model = new CommentFormModel();
-
-            return this.View(model);
-        }
-        [HttpPost]
-        public async Task<IActionResult> WriteToComment(string id,string commentId, CommentFormModel formModel)
-        {            
-            if (this.ModelState.IsValid == false)
-            {
-                return this.View(formModel);
-            }
-
-            try
-            {
-                string userId = User.GetId();
-               await this.commentService.CreateCommentToCommentByUserIdAndByCommentIdAsync(userId!, formModel, commentId);
-                TempData[SuccessMessage] = "Comment was added successfully!";
-            }
-            catch (Exception)
-            {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return this.View(id);
-            }
-
-            return this.RedirectToAction("Comment", "Product", new { id });
-        }
+        
     }
 }
