@@ -100,7 +100,8 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
 
                 AllProductCommentViewModel viewModel = await this.boxService.GetBoxCommentByIdAsync(id);
-                return this.View(viewModel);
+                return this.View("~/Views/Comment/Comment.cshtml", viewModel);
+               // return this.View(viewModel);
 
             }
             catch (Exception)
@@ -123,7 +124,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             CommentFormModel model = new CommentFormModel();
 
-            return this.View(model);
+            return this.View("~/Views/Comment/WriteToComment.cshtml", model);
         }
         [HttpPost]
         public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
@@ -137,7 +138,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (this.ModelState.IsValid == false)
             {
-                return this.View(formModel);
+                return this.View("~/Views/Comment/WriteToComment.cshtml", formModel);
             }
 
             try
@@ -150,7 +151,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 this.ModelState.AddModelError(string.Empty, UnexpectedError);
                 this.TempData[ErrorMessage] = UnexpectedError;
-                return this.View(id);
             }
 
             return this.RedirectToAction("Comment", "Box", new { id });

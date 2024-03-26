@@ -131,7 +131,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can comment.";
             return this.RedirectToAction("All", "Product");
         }
-
         [HttpGet]
         public async Task<IActionResult> WriteComment(string id)
         {
