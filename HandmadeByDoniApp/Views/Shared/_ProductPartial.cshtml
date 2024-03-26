@@ -28,9 +28,10 @@
 
 
             <a asp-area="" asp-controller="House" asp-action="Index" asp-route-id="@Model.Id"
-               class="btn btn-warning">Buy</a>
-
-                       
+               class="btn btn-primary">Buy</a>
+            <a class="ml-2 btn btn-info" asp-area="" asp-controller="Product" asp-action="Comment"
+               asp-route-id="@Model.Id">Comment</a>
+                      
         </div>
     </div>
 </div>

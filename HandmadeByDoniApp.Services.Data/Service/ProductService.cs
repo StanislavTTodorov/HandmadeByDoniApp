@@ -3,6 +3,8 @@ using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Servises.Data.Models.Product;
+using HandmadeByDoniApp.Web.ViewModels.Box;
+using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Home;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Web.ViewModels.Product.Enums;
@@ -65,84 +67,104 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 .Where(g => EF.Functions.Like(g.Title, wildCard) ||
                            (!string.IsNullOrEmpty(g.Description) && EF.Functions.Like(g.Description, wildCard)));
             }
-            
+
             glassesQuery = queryModel.ProductSorting switch
             {
                 ProductSorting.Newest => glassesQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.CreatedOn),
                 ProductSorting.Oldest => glassesQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => glassesQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => glassesQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => glassesQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
                 _ => glassesQuery
-                      .OrderBy(h => !h.IsActive)
-                      .ThenByDescending(h => h.CreatedOn)
+                     .Where(h => !h.IsActive)
+                     .OrderBy(h => h.CreatedOn)
             };
             decanterQuery = queryModel.ProductSorting switch
             {
                 ProductSorting.Newest => decanterQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.CreatedOn),
                 ProductSorting.Oldest => decanterQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => decanterQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => decanterQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => decanterQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
                 _ => decanterQuery
-                     .OrderBy(h => !h.IsActive)
-                     .ThenByDescending(h => h.CreatedOn)
+                     .Where(h => !h.IsActive)
+                     .OrderBy(h => h.CreatedOn)
             };
             boxQuery = queryModel.ProductSorting switch
             {
                 ProductSorting.Newest => boxQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.CreatedOn),
                 ProductSorting.Oldest => boxQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => boxQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => boxQuery
+                    .Where(h => h.IsActive)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => boxQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
                 _ => boxQuery
-                     .OrderBy(h => !h.IsActive)
-                     .ThenByDescending(h => h.CreatedOn)
+                     .Where(h => !h.IsActive)
+                     .OrderBy(h => h.CreatedOn)
             };
             setQuery = queryModel.ProductSorting switch
             {
                 ProductSorting.Newest => setQuery
+                .Where(h => h.IsActive)
                     .OrderByDescending(h => h.CreatedOn),
                 ProductSorting.Oldest => setQuery
+                .Where(h => h.IsActive)
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => setQuery
+                .Where(h => h.IsActive)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => setQuery
+                .Where(h => h.IsActive)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => setQuery
+                    .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
                 _ => setQuery
-                     .OrderBy(h => !h.IsActive)
-                     .ThenByDescending(h => h.CreatedOn)
+                     .Where(h => !h.IsActive)
+                     .OrderBy(h => h.CreatedOn)
             };
 
             List<ProductsAllViewModel> allProductsModels = new List<ProductsAllViewModel>();
             switch (queryModel.ProductsName)
             {
                 case ProductsName.All:
-                  allProductsModels =await Sort(allProductsModels, glassesQuery, decanterQuery, setQuery, boxQuery, queryModel.ProductSorting);
+                    allProductsModels = await Sort(allProductsModels, glassesQuery, decanterQuery, setQuery, boxQuery, queryModel.ProductSorting);
                     break;
                 case ProductsName.Gllass:
-                allProductsModels = await glassesQuery.Select(g => new ProductsAllViewModel 
+                    allProductsModels = await glassesQuery.Select(g => new ProductsAllViewModel
                     {
                         Id = g.Id.ToString(),
                         Title = g.Title,
@@ -151,10 +173,10 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         Price = g.Price,
                         CreatedOn = g.CreatedOn,
                         IsActive = g.IsActive
-                    }) .ToListAsync();
+                    }).ToListAsync();
                     break;
                 case ProductsName.Decanter:
-                    allProductsModels =await decanterQuery.Select(d => new ProductsAllViewModel
+                    allProductsModels = await decanterQuery.Select(d => new ProductsAllViewModel
                     {
                         Id = d.Id.ToString(),
                         Title = d.Title,
@@ -202,25 +224,25 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     }).ToListAsync();
                     break;
             }
-            
-            IEnumerable<ProductsAllViewModel> allViewModels = allProductsModels.Skip((queryModel.CurrentPage-1)*queryModel.ProductPerPage)
+
+            IEnumerable<ProductsAllViewModel> allViewModels = allProductsModels.Skip((queryModel.CurrentPage - 1) * queryModel.ProductPerPage)
                                                                             .Take(queryModel.ProductPerPage).ToArray();
 
             int totalProduct = allProductsModels.Count();
 
-            return new AllProductFilteredAndPagedServiceModel() 
-            { 
-               TotalProductCount = totalProduct,
-               Products = allViewModels
+            return new AllProductFilteredAndPagedServiceModel()
+            {
+                TotalProductCount = totalProduct,
+                Products = allViewModels
             };
 
         }
 
-        private async Task<List<ProductsAllViewModel>> Sort(List<ProductsAllViewModel> allProductModels, 
+        private async Task<List<ProductsAllViewModel>> Sort(List<ProductsAllViewModel> allProductModels,
                                                IQueryable<Glass> glassesQuery,
                                                IQueryable<Decanter> decanterQuery,
-                                               IQueryable<Set> setQuery, 
-                                               IQueryable<Box> boxQuery, 
+                                               IQueryable<Set> setQuery,
+                                               IQueryable<Box> boxQuery,
                                                ProductSorting? productSorting)
         {
             List<ProductsAllViewModel> glassModels = await glassesQuery.Select(x => new ProductsAllViewModel
@@ -231,7 +253,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = x.ImageUrl,
                 Price = x.Price,
                 CreatedOn = x.CreatedOn,
-                IsActive = x.IsActive              
+                IsActive = x.IsActive
             }).ToListAsync();
             List<ProductsAllViewModel> decanterModels = await decanterQuery.Select(x => new ProductsAllViewModel
             {
@@ -268,11 +290,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
             allProductModels.AddRange(decanterModels);
             allProductModels.AddRange(boxModels);
             allProductModels.AddRange(setModels);
+
             List<ProductsAllViewModel> allProductModelsSort;
             switch (productSorting)
             {
                 case ProductSorting.Newest:
-                  allProductModelsSort =  allProductModels.OrderByDescending(h => h.CreatedOn).ToList();
+                    allProductModelsSort = allProductModels.OrderByDescending(h => h.CreatedOn).ToList();
                     break;
                 case ProductSorting.Oldest:
                     allProductModelsSort = allProductModels.OrderBy(h => h.CreatedOn).ToList();
@@ -283,13 +306,13 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 case ProductSorting.PriceDescending:
                     allProductModelsSort = allProductModels.OrderByDescending(h => h.Price).ToList();
                     break;
-                  case  ProductSorting.Active:
+                case ProductSorting.Active:
                     allProductModelsSort = allProductModels.OrderBy(h => h.IsActive)
                           .ThenByDescending(h => h.CreatedOn).ToList();
                     break;
                 case ProductSorting.NotActive:
-                    allProductModelsSort = allProductModels.OrderBy(h => !h.IsActive)
-                           .ThenByDescending(h => h.CreatedOn).ToList();
+                    allProductModelsSort = allProductModels.Where(h => !h.IsActive)
+                           .OrderBy(h => h.CreatedOn).ToList();
                     break;
                 default:
                     allProductModelsSort = allProductModels.ToList();
@@ -300,11 +323,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
 
 
-        //private ProductsAllViewModel Sort<T>(this IQueryable<T> glassesQuery, ProductSorting? productSorting)
-
-
-
-
+        //private ProductsAllViewModel Sort<T>(this IQueryable<T> productQuery, ProductSorting? productSorting)
+ 
 
         public async Task<IEnumerable<IndexViewModel>> LastTwelveProductsAsync()
         {
@@ -373,5 +393,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return models;
 
         }
+
+       
     }
 }

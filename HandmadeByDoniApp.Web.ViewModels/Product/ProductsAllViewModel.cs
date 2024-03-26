@@ -19,7 +19,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
         [Display(Name = "Create On")]
         public DateTime CreatedOn { get; set; }
 
-        [Display(Name = "Active")]
+        //[Display(Name = "Active")]
         public bool IsActive { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 @model GlassDetailsViewModel
 
 @{
-    ViewBag.Title = "Glass Details";
+    ViewBag.Title = "Box Details";
 }
 
 <h2 class="text-center title">@ViewBag.Title</h2>
@@ -18,18 +18,22 @@
             <p>@Model.Description</p>
             <p>Category: <b>@Model.Category</b></p>
             <p><i>(@(Model.IsSet ? "In Set" : "Not Set"))</i></p>
-            @if (Model.IsSet)
-            {
-                <a class="ml-2" asp-controller="Details" asp-action="Product"
-                   asp-route-id="@Model.Id">See Set</a>
-            }
-            else
-            {
-                <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
-                <a class="ml-2 btn " asp-controller="" asp-action=""
-                   asp-route-id="@Model.Id">Buy</a>
-            }
 
+            <div class="form-inline">
+                @if (Model.IsSet)
+                {
+                    <a class="ml-2 btn-primary" asp-controller="Details" asp-action="Product"
+                       asp-route-id="@Model.Id">See Set</a>
+                }
+                else
+                {
+                    <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
+                    <a class="ml-2 btn btn-primary" asp-controller="" asp-action=""
+                       asp-route-id="@Model.Id">Buy</a>
+                }
+                <a class="ml-2 btn btn-info" asp-controller="Product" asp-action="Comment"
+                   asp-route-id="@Model.Id">Comment</a>
+            </div>
             <div class="form-inline">
                 @if (User.IsAdmin())
                 {

@@ -19,11 +19,14 @@
             <p><i>Capacity: Can store @(Model.Capacity) glasses. </i> </p>
 
             <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
-            <a class="ml-2 btn " asp-controller="" asp-action=""
-               asp-route-id="@Model.Id">Buy</a>
-
             <div class="form-inline">
-               
+                <a class="ml-2 btn btn-primary" asp-controller="" asp-action=""
+                   asp-route-id="@Model.Id">Buy</a>
+                <a class="ml-2 btn btn-info" asp-controller="Product" asp-action="Comment"
+                   asp-route-id="@Model.Id">Comment</a>
+            </div>
+            <div class="form-inline">
+
                 @if (User.IsAdmin())
                 {
                     <a class="btn btn-warning" asp-controller="Box" asp-action="Edit"
