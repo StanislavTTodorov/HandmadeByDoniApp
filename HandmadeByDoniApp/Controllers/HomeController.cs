@@ -8,13 +8,10 @@ namespace HandmadeByDoniApp.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> logger;
         private readonly IProductService product;
 
-        public HomeController(ILogger<HomeController> logger,
-                              IProductService product)
+        public HomeController(IProductService product)
         {
-            this.logger = logger;
             this.product = product;
         }
         [AllowAnonymous]
@@ -27,9 +24,19 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode == 400 || statusCode == 404)
+            {
+                return View("Error404");
+            }
+
+            if (statusCode == 401)
+            {
+                return View("Error401");
+            }
+
+            return View();
         }
     }
 }
