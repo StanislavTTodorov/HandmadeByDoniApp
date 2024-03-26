@@ -12,7 +12,7 @@
         <div class="form-group col-md-2">
             <div class="form-group">
                 <label asp-for="ProductsName"></label>
-                <select asp-for="ProductsName" class="form-control">
+                <select asp-for="ProductsName" class="form-control" onchange="this.form.submit()">
                     <option value="0">All</option>
                     <option value="1">Gllass</option>
                     <option value="2">Decanter</option>
@@ -25,17 +25,17 @@
           
             <div class="form-group">
                 <label asp-for="ProductPerPage"></label>
-                <select asp-for="ProductPerPage" class="form-control">
-                    <option value="3">3</option>
-                    <option value="6">6</option>
+                <select asp-for="ProductPerPage" class="form-control" onchange="this.form.submit()">
                     <option value="9">9</option>
+                    <option value="18">18</option>
+                    <option value="27">27</option>
                 </select>
             </div>
             @if ((int)Model.ProductsName == 1)
             {
                 <div class="form-group">
                     <label asp-for="GlassCategory"></label>
-                    <select asp-for="GlassCategory" class="form-control">
+                    <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
                         <option value="">All</option>
                         @foreach (var category in Model.GlassCategories)
                         {
@@ -48,13 +48,13 @@
 
         <div class="form-group col-md-3">
             <label asp-for="SearchString"></label>
-            <input asp-for="SearchString" class="form-control" placeholder="...">
+            <input asp-for="SearchString" class="form-control" placeholder="..." onchange="this.form.submit()">
         </div>
 
         <div class="form-group col-md-2">
             <div class="form-group">
                 <label asp-for="ProductSorting"></label>
-                <select asp-for="ProductSorting" class="form-control">
+                <select asp-for="ProductSorting" class="form-control" onchange="this.form.submit()">
                     <option value="0">Newest</option>
                     <option value="1">Oldest</option>
                     <option value="2">Price (Ascending)</option>
