@@ -1,8 +1,7 @@
-﻿using HandmadeByDoniApp.Web.Controllers;
+﻿
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Attributes

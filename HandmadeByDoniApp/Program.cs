@@ -14,6 +14,14 @@ public class Program
         builder.Services.AddApplicationDbContext(builder.Configuration);
         builder.Services.AddApplicationIdentiry(builder.Configuration);
 
+        builder.Services.AddRecaptchaService();
+
+        builder.Services.ConfigureApplicationCookie(cfg =>
+        {
+            cfg.LoginPath = "/User/Login";
+            cfg.AccessDeniedPath = "/Home/Error/401";
+        });
+
         builder.Services
                .AddControllersWithViews()
                .AddMvcOptions(options =>

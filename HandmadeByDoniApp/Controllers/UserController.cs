@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+using Griesoft.AspNetCore.ReCaptcha;
 using HandmadeByDoniApp.Data.Models;
 using Microsoft.Extensions.Caching.Memory;
 using HandmadeByDoniApp.Web.ViewModels.User;
 
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using System.Security.Claims;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 
@@ -41,11 +42,11 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-       // [ValidateRecaptcha(Action = nameof(Register),
-        //ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
+        [ValidateRecaptcha(Action = nameof(Register),
+        ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             { 
                 model.LastName = string.Empty;
                 return View(model);
@@ -77,7 +78,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
 
             await signInManager.SignInAsync(user, false);
-           // this.memoryCache.Remove(UsersCacheKey);
+            //this.memoryCache.Remove(UsersCacheKey);
 
             return RedirectToAction("Index", "Home");
         }
@@ -100,7 +101,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid==false)
             {
                 return View(model);
             }
@@ -108,7 +109,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             var result = 
                 await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
-            if (!result.Succeeded)
+            if (result.Succeeded==false)
             {
                 TempData[ErrorMessage] =
                     "There was an error while logging you in! Please try again later or contact an administrator.";
