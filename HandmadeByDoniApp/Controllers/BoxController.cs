@@ -1,10 +1,10 @@
 ﻿using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
-using HandmadeByDoniApp.Web.Attributes;
+
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
+
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,42 +25,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
              this.boxService = boxService;
              this.commentService = commentService;
-        }
-
-        [HttpGet]
-        [IsAdmin]
-        public IActionResult Add()
-        {        
-            BoxFormModel model = new BoxFormModel();
-         
-            return this.View(model);
-        }
-
-        [HttpPost]
-        [IsAdmin]
-        public async Task<IActionResult> Add(BoxFormModel formModel)
-        {
-
-            if (this.ModelState.IsValid == false)
-            {
-                return this.View(formModel);
-            }
-
-            try
-            {
-                await this.boxService.CreateBoxAsync(formModel);
-                TempData[SuccessMessage] = "Box was added successfully!";
-            }
-            catch (Exception)
-            {
-                this.ModelState.AddModelError(string.Empty,UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
-            }
-
-            return this.RedirectToAction("Index", "Home");
-
-        }
+        }      
 
         [HttpGet]
         [AllowAnonymous]

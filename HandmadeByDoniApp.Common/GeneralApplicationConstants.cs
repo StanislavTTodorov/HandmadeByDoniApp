@@ -9,8 +9,8 @@
         public const int DefaultPage = 1;
         public const int DefaultEntitiesPerPage = 3;
 
+        public const string AdminAreaName  = "Admin";
         public const string AdminiRoleName = "Administrator";
-
         public const string DevelopmentAdminEmail = "admin@handmadebydoni.bg";
 
 

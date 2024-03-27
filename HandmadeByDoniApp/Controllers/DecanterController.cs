@@ -19,41 +19,6 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             this.decanterService = decanterService;
         }
-
-        [HttpGet]
-        [IsAdmin]
-        public IActionResult Add()
-        {
-            DecanterFormModel model = new DecanterFormModel();
-
-            return this.View(model);
-        }
-        [HttpPost]
-        [IsAdmin]
-        public async Task<IActionResult> Add(DecanterFormModel formModel)
-        {
-
-            if (this.ModelState.IsValid == false)
-            {
-                return this.View(formModel);
-            }
-
-            try
-            {
-                await this.decanterService.CreateDecanterAsync(formModel);
-                TempData[SuccessMessage] = "Decanter was added successfully!";
-            }
-            catch (Exception)
-            {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
-            }
-
-            return this.RedirectToAction("Index", "Home");
-
-        }
-        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {

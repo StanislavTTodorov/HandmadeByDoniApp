@@ -23,51 +23,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.glassService = glassService;
             this.glassCategoryServise = glassCategoryServise;
         }
-        [HttpGet]
-        [IsAdmin]
-        public async Task<IActionResult> Add()
-        {
-            GlassFormModel model = new GlassFormModel()
-            {
-                Categories = await this.glassCategoryServise.AllGlassCategoriesAsync()
-            };
-            return this.View(model);
-        }
-        [HttpPost]
-        [IsAdmin]
-        public async Task<IActionResult> Add(GlassFormModel formModel)
-        {
-            bool glassCategoryExists = await this.glassCategoryServise
-                                                 .ExistsIdAsync(formModel.CategoryId);
-
-            if (glassCategoryExists == false)
-            {
-                this.ModelState.AddModelError(nameof(formModel.CategoryId), "Selected category does not exist!");
-            }
-
-            if (this.ModelState.IsValid == false)
-            {
-                formModel.Categories = await this.glassCategoryServise
-                                                 .AllGlassCategoriesAsync();
-                return this.View(formModel);
-            }
-
-            try
-            {
-                await this.glassService.CreateGlassAsync(formModel);
-                this.TempData[SuccessMessage] = "Glass was added successfully!";
-            }
-            catch (Exception)
-            {
-                formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
-            }
-
-            return this.RedirectToAction("Index", "Home");
-
-        }
 
         [HttpGet]
         [AllowAnonymous]
