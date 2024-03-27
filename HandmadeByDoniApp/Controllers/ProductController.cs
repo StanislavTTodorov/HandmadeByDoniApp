@@ -5,8 +5,7 @@ using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
-using HandmadeByDoniApp.Web.Infrastructure.Extensions;
+
 
 
 namespace HandmadeByDoniApp.Web.Controllers

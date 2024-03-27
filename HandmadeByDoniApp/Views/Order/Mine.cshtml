@@ -1,0 +1,47 @@
+﻿@model MineProductViewModel
+
+@{
+    ViewBag.Title = "Shop List";
+}
+
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+<div class="text-center">
+    <p>Price: @Model.totalPrice  BGN</p>
+    <a asp-area="" asp-controller="Order" asp-action="" asp-route-product="@Model.Products"
+       class="btn btn-outline-primary">Buy</a>
+</div>
+@if (Model.Products.Any())
+{
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="@product.ImageUrl" alt="House Image">
+                    <div class="card-body text-center">
+                        <h4>@product.Title</h4>
+                        <h6>
+                            Price<b>@($"{product.Price:f2}") BGN</b>
+                        </h6>
+                        <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id"
+                           class="btn btn-success">Details</a>
+
+                        <a asp-area="" asp-controller="Order" asp-action="" asp-route-id="@product.Id"
+                           class="btn btn-primary">Remove</a>
+
+                        <a class="ml-2 btn btn-info" asp-area="" asp-controller="Comment" asp-action="Comment"
+                           asp-route-id="@product.Id">Comment</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="lead">
+        There are no product in the shop list.
+    </p>
+}

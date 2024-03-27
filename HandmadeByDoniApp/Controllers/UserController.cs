@@ -37,7 +37,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (ModelState.IsValid == false)
             { 
                 model.LastName = string.Empty;
-                return View(model);
+                return this.View(model);
             }
 
             ApplicationUser user = new ApplicationUser()
@@ -74,13 +74,13 @@ namespace HandmadeByDoniApp.Web.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-                return View(model);
+                return this.View(model);
             }
 
             await signInManager.SignInAsync(user, false);
             //this.memoryCache.Remove(UsersCacheKey);
 
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -94,7 +94,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 ReturnUrl = returnUrl
             };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -103,7 +103,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             if (ModelState.IsValid==false)
             {
-                return View(model);
+                return this.View(model);
             }
 
             var result = 
@@ -114,10 +114,10 @@ namespace HandmadeByDoniApp.Web.Controllers
                 TempData[ErrorMessage] =
                     "There was an error while logging you in! Please try again later or contact an administrator.";
 
-                return View(model);
+                return this.View(model);
             }
 
-            return Redirect(model.ReturnUrl ?? "/Home/Index");
+            return this.Redirect(model.ReturnUrl ?? "/Home/Index");
         }
     }
 }
