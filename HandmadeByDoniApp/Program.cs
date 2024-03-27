@@ -2,6 +2,7 @@
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.Infrastructure.ModelBinders;
+using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 public class Program
@@ -18,6 +19,7 @@ public class Program
                .AddMvcOptions(options =>
                {
                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                   options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                });
 
         builder.Services.AddApplicationServises();
@@ -53,12 +55,16 @@ public class Program
         {
             app.SeedAdministrator(DevelopmentAdminEmail);
         }
-      
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-        app.MapRazorPages();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                      name: "default",
+                      pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapDefaultControllerRoute();
+            endpoints.MapRazorPages();
+        });
+
 
         app.Run();
     }

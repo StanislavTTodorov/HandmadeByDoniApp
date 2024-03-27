@@ -323,7 +323,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
 
 
-        //private ProductsAllViewModel Sort<T>(this IQueryable<T> productQuery, ProductSorting? productSorting)
+        //private ProductsAllViewModel Sort<T>(this IQueryable<T> productQuery, ProductSorting? productSorting)where T : class
+      
  
 
         public async Task<IEnumerable<IndexViewModel>> LastTwelveProductsAsync()

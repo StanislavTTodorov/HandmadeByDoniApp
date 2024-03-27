@@ -1,4 +1,5 @@
-﻿@using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,23 +47,26 @@
                 </div>
                 <div class="right-menu">
                     <ul class="menu">
-                        <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add New Products</a>
-                            <ul>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Glass" asp-action="Add">Add Glass</a>
-                                </li>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Box" asp-action="Add">Add Box</a>
-                                </li>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Set</a>
-                                </li>
-                                <li>
-                                    <a class="button-memu" asp-area="" asp-controller="Decanter" asp-action="Add">Add Decanter</a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (User.IsAdmin())
+                        {
+                            <li>
+                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add New Products</a>
+                                <ul>
+                                    <li>
+                                        <a class="button-memu" asp-area="" asp-controller="Glass" asp-action="Add">Add Glass</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-memu" asp-area="" asp-controller="Box" asp-action="Add">Add Box</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Set</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-memu" asp-area="" asp-controller="Decanter" asp-action="Add">Add Decanter</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>
