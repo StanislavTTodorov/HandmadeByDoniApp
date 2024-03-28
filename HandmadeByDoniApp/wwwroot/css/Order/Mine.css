@@ -1,0 +1,30 @@
+﻿.product-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+}
+
+
+.card-body-list,
+.card-list{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+.card-img-list{
+    max-height: 200px;
+}
+.product-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+.text-size{
+    font-size: 2.5em;
+}

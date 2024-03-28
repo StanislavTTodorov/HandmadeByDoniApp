@@ -15,5 +15,8 @@ namespace HandmadeByDoniApp.Services.Data.DataRepository
         Task DeleteAsync<T>(T entity) where T : class;
 
         Task<int> SaveChangesAsync();
+
+        Task<int> Save<T>(T entity) where T : class;
+
     }
 }

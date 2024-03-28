@@ -50,7 +50,12 @@ namespace HandmadeByDoniApp.Services.Data.DataRepository
         {
            return await this.dbContext.SaveChangesAsync();
         }
+        public async Task<int> Save<T>(T entity)where T : class
+        {
+            this.dbContext.Update(entity);
+ 
+          return await this.dbContext.SaveChangesAsync();
+        }
 
-        
     }
 }

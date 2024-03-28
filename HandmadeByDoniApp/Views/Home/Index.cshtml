@@ -32,7 +32,7 @@ else
                 <img src="@product.ImageUrl" class="d-block w-100 img" alt="@product.Title">
                 <div class="card-body">
                     <h5 class="card">
-                        <a class="btn btn-primary" asp-controller="Product" asp-action="Details"
+                        <a class="btn btn-primary" asp-area="" asp-controller="Product" asp-action="Details"
                            asp-route-id="@product.Id"> @product.Title</a>
                     </h5>
                 </div>

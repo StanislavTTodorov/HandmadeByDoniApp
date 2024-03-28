@@ -18,11 +18,17 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task<MineProductViewModel> AllMineProductsAsync(string userId)
         {
-            ApplicationUser? user = await this.repository.All<ApplicationUser>().FirstAsync(u => u.Id.ToString() == userId);
+            ApplicationUser? user = await this.repository
+                .All<ApplicationUser>()
+                .Include(u=>u.Boxs)
+                .Include(u => u.Sets)
+                .Include(u => u.Glasses)
+                .Include(u => u.Decanters)
+                .FirstAsync(u => u.Id.ToString() == userId);
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (user != null)
             {
-                IEnumerable<ProductsAllViewModel> boxs = user.Boxs.Select(x => new ProductsAllViewModel()
+                List<ProductsAllViewModel> boxs = user.Boxs.Select(x => new ProductsAllViewModel()
                 {
                     Id = x.Id.ToString(),
                     Title = x.Title,
@@ -31,8 +37,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Price = x.Price,
                     IsActive = x.IsActive,
                     ImageUrl = x.ImageUrl
-                });
-                IEnumerable<ProductsAllViewModel> glasses = user.Glasses.Select(x => new ProductsAllViewModel()
+                }).ToList();
+                List<ProductsAllViewModel> glasses = user.Glasses.Select(x => new ProductsAllViewModel()
                 {
                     Id = x.Id.ToString(),
                     Title = x.Title,
@@ -41,8 +47,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Price = x.Price,
                     IsActive = x.IsActive,
                     ImageUrl = x.ImageUrl
-                });
-                IEnumerable<ProductsAllViewModel> sets = user.Sets.Select(x => new ProductsAllViewModel()
+                }).ToList();
+                List<ProductsAllViewModel> sets = user.Sets.Select(x => new ProductsAllViewModel()
                 {
                     Id = x.Id.ToString(),
                     Title = x.Title,
@@ -51,8 +57,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Price = x.Price,
                     IsActive = x.IsActive,
                     ImageUrl = x.ImageUrl
-                });
-                IEnumerable<ProductsAllViewModel> decanters = user.Decanters.Select(x => new ProductsAllViewModel()
+                }).ToList();
+                List<ProductsAllViewModel> decanters = user.Decanters.Select(x => new ProductsAllViewModel()
                 {
                     Id = x.Id.ToString(),
                     Title = x.Title,
@@ -61,7 +67,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Price = x.Price,
                     IsActive = x.IsActive,
                     ImageUrl = x.ImageUrl
-                });
+                }).ToList();
                 products.AddRange(boxs);
                 products.AddRange(glasses);
                 products.AddRange(sets);

@@ -31,11 +31,17 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Cart itams ! Please try agenin later.";
-               return this.RedirectToAction("Index", "Home");
+               return this.RedirectToAction("Index", "Home" ,new { area = "" });
             }           
         }
 
-        //[HttpGet]
-       // public async  Task<IActionResult> Add(string id) 
+        [HttpGet]
+        public async  Task<IActionResult> Add(string id)
+        {
+            string userId = User.GetId();
+            await this.userService.AddProductByUserIdAsync(userId, id);
+
+            return this.RedirectToAction("Mine", "Order", new { area = "" });
+        }
     }
 }
