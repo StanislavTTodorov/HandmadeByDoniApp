@@ -30,7 +30,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Cart itams ! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Shop List! Please try agenin later.";
                return this.RedirectToAction("Index", "Home" ,new { area = "" });
             }           
         }
@@ -38,8 +38,34 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpGet]
         public async  Task<IActionResult> Add(string id)
         {
-            string userId = User.GetId();
-            await this.userService.AddProductByUserIdAsync(userId, id);
+            try
+            {
+                string userId = User.GetId();
+                await this.orderService.AddProductByUserIdAsync(userId, id);
+                TempData[SuccessMessage] = "Product was added to Shop List successfully!";
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Shop List ! Please try agenin later.";
+                return this.RedirectToAction("Index", "Home", new { area = "" });
+            }
+           
+
+            return this.RedirectToAction("All", "Product", new { area = ""});
+        }
+        [HttpGet]
+        public async Task<IActionResult> Remove(string id)
+        {
+            try
+            {
+                string userId = User.GetId();
+                await this.orderService.RemoveProductByUserIdAsync(userId, id);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove in Shop List ! Please try agenin later.";
+                return this.RedirectToAction("Mine", "Order", new { area = "" });
+            }
 
             return this.RedirectToAction("Mine", "Order", new { area = "" });
         }

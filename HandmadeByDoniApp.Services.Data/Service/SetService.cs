@@ -1,9 +1,11 @@
-﻿using HandmadeByDoniApp.Data;
+﻿
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
+using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Product;
+using HandmadeByDoniApp.Web.ViewModels.Set;
 using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -47,6 +49,36 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 .All<Set>()
                 .AnyAsync(s => s.Id.ToString() == setId);
 
+            return result;
+        }
+
+        public async Task<ICollection<AllNotInSetViewModel>> GetDecantersInSetAsync()
+        {
+            ICollection<AllNotInSetViewModel> result = await this.repository
+               .All<Decanter>()
+               .Where(d => d.IsSet==false)
+               .Select(d => new AllNotInSetViewModel()
+               {
+                   Id = d.Id.ToString(),
+                   Title = d.Title,
+                   ImageUrl = d.ImageUrl,
+
+               }).ToArrayAsync();
+            return result;
+        }
+
+        public async Task<ICollection<AllNotInSetViewModel>> GetGlassesInSetAsync()
+        {
+            ICollection<AllNotInSetViewModel> result = await this.repository
+                 .All<Glass>()
+                 .Where(g => g.IsSet==false)
+                 .Select(g => new AllNotInSetViewModel()
+                 {
+                     Id = g.Id.ToString(),
+                     Title = g.Title,
+                     ImageUrl= g.ImageUrl,
+
+                 }).ToArrayAsync();
             return result;
         }
 
