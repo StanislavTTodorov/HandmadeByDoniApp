@@ -7,7 +7,7 @@
         public const int ReleaseYear = 2024;
 
         public const int DefaultPage = 1;
-        public const int DefaultEntitiesPerPage = 3;
+        public const int DefaultEntitiesPerPage = 9;
 
         public const string AdminAreaName  = "Admin";
         public const string AdminiRoleName = "Administrator";

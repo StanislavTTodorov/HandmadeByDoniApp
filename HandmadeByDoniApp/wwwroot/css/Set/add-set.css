@@ -1,0 +1,12 @@
+﻿.set-add{
+    display: flex;
+}
+.set-form{
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+.glass{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+}
