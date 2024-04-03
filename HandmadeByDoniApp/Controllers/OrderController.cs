@@ -2,7 +2,6 @@
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -10,12 +9,11 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderService orderService;
-        private readonly IUserService userService;
-        public OrderController(IOrderService orderService,
-                               IUserService userService)
+
+        public OrderController(IOrderService orderService)
         {
             this.orderService = orderService;
-            this.userService = userService;
+
 
         }
 
@@ -31,12 +29,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Shop List! Please try agenin later.";
-               return this.RedirectToAction("Index", "Home" ,new { area = "" });
-            }           
+                return this.RedirectToAction("Index", "Home", new { area = "" });
+            }
         }
 
         [HttpGet]
-        public async  Task<IActionResult> Add(string id)
+        public async Task<IActionResult> Add(string id)
         {
             try
             {
@@ -46,12 +44,11 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Shop List ! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Shop List! Please try agenin later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
            
-
-            return this.RedirectToAction("All", "Product", new { area = ""});
+            return this.RedirectToAction("Mine", "Order", new { id });
         }
         [HttpGet]
         public async Task<IActionResult> Remove(string id)
