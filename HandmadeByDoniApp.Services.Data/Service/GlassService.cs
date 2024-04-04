@@ -59,6 +59,23 @@ namespace HandmadeByDoniApp.Services.Data.Service
             await repository.SaveChangesAsync();
         }
 
+        public async Task EditGlassByIdAndFormModelAsync(string id, GlassFormModel formModel)
+        {
+            Glass glass = await this.repository
+               .All<Glass>()
+               .FirstAsync(g => g.Id.ToString() == id);
+
+            glass.Title = formModel.Title;
+            glass.Description = formModel.Description;
+            glass.ImageUrl = formModel.ImageUrl;
+            glass.Capacity = formModel.Capacity;
+            glass.Price = formModel.Price;
+            glass.GlassCategoryId = formModel.CategoryId;
+            glass.IsSet = formModel.IsSet;
+
+            await this.repository.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistsByIdAsync(string glassId)
         {
             bool exists = await this.repository.AllReadOnly<Glass>()
@@ -120,6 +137,26 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 IsSet = glass.IsSet,
             };
 
+        }
+
+        public async Task<GlassFormModel> GetGlassForEditByIdAsync(string id)
+        {
+            Glass glass = await this.repository
+                .All<Glass>()
+                .Include(h => h.GlassCategory)
+                .Where(h => h.IsActive)
+                .FirstAsync(h => h.Id.ToString() == id);
+
+            return new GlassFormModel
+            {
+                Title = glass.Title,         
+                Description = glass.Description,
+                ImageUrl = glass.ImageUrl,
+                Capacity = glass.Capacity,
+                Price = glass.Price,
+                CategoryId = glass.GlassCategoryId,
+                IsSet = glass.IsSet
+            };
         }
     }
 }

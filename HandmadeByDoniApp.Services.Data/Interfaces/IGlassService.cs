@@ -17,5 +17,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<AllProductCommentViewModel> GetGlassCommentByIdAsync(string glassId);
 
         Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId);
+        Task<GlassFormModel> GetGlassForEditByIdAsync(string id);
+        Task EditGlassByIdAndFormModelAsync(string id, GlassFormModel formModel);
     }
 }

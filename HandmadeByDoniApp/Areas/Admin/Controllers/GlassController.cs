@@ -1,4 +1,5 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
@@ -59,5 +60,69 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             return this.RedirectToAction("Index", "Home", new { area = "" });
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool glassExists = await this.glassService
+                .ExistsByIdAsync(id);
+            if (glassExists == false)
+            {
+                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                return RedirectToAction("All", "Producr", new { area = "" });
+            }
+
+            try
+            {
+                GlassFormModel formModel = await this.glassService
+                    .GetGlassForEditByIdAsync(id);
+                formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, GlassFormModel formModel)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
+                return this.View(formModel);
+            }
+
+            bool glassExists = await this.glassService
+                .ExistsByIdAsync(id);
+            if (glassExists == false)
+            {
+                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                return RedirectToAction("All", "Producr", new { area = "" });
+            }
+
+            try
+            {
+                await this.glassService.EditGlassByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to update the house. Please try again later");
+                formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
+                return View(formModel);
+            }
+
+            TempData[SuccessMessage] = "Glass was edited successfully!";
+            return RedirectToAction("Details", "Glass", new { area = "", id });
+        }
+        private IActionResult GeneralError()
+        {
+            TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later";
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
     }
 }
