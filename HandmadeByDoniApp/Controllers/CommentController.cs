@@ -5,6 +5,7 @@ using HandmadeByDoniApp.Web.ViewModels.Comment;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using Ganss.Xss;
 
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -63,6 +64,9 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, string commentId,CommentFormModel formModel)
         {
+            var sanitizer = new HtmlSanitizer();
+            formModel.Text = sanitizer.Sanitize(formModel.Text);
+
             if (this.ModelState.IsValid == false)
             {
                 return this.View(formModel);
@@ -180,6 +184,9 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> WriteToComment(string id, string commentId, CommentFormModel formModel)
         {
+            var sanitizer = new HtmlSanitizer();
+            formModel.Text = sanitizer.Sanitize(formModel.Text);
+
             if (this.ModelState.IsValid == false)
             {
                 return this.View(formModel);

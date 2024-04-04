@@ -1,4 +1,5 @@
-﻿using HandmadeByDoniApp.Data.Models;
+﻿using Ganss.Xss;
+using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
@@ -96,6 +97,9 @@ namespace HandmadeByDoniApp.Web.Controllers
                 this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
                 return this.RedirectToAction("All", "Pcoduct");
             }
+
+            var sanitizer = new HtmlSanitizer();
+            formModel.Text = sanitizer.Sanitize(formModel.Text);
 
             if (this.ModelState.IsValid == false)
             {

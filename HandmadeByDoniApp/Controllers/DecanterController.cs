@@ -1,4 +1,5 @@
-﻿using HandmadeByDoniApp.Services.Data.Interfaces;
+﻿using Ganss.Xss;
+using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
@@ -82,6 +83,9 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
         {
+            var sanitizer = new HtmlSanitizer();
+            formModel.Text = sanitizer.Sanitize(formModel.Text);
+
             if (this.ModelState.IsValid == false)
             {
                 return this.View("~/Views/Comment/WriteToComment.cshtml", formModel);
