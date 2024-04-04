@@ -6,6 +6,7 @@ using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -56,6 +57,21 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 await repository.AddAsync(newComment);
                 await repository.SaveChangesAsync();
             }
+        }
+
+        public async Task EditBoxByIdAndFormModelAsync(string id, BoxFormModel formModel)
+        {
+            Box box = await this.repository
+               .All<Box>()
+               .FirstAsync(g => g.Id.ToString() == id);
+
+            box.Title = formModel.Title;
+            box.Description = formModel.Description;
+            box.ImageUrl = formModel.ImageUrl;
+            box.Capacity = formModel.Capacity;
+            box.Price = formModel.Price;
+
+            await this.repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByIdAsync(string boxId)
@@ -115,6 +131,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Price = box.Price,
             };
 
+        }
+
+        public async Task<BoxFormModel> GetBoxForEditByIdAsync(string id)
+        {
+            Box box = await this.repository
+               .All<Box>()
+               .FirstAsync(g => g.Id.ToString() == id);
+
+            return new BoxFormModel
+            {
+                Title = box.Title,
+                Description = box.Description,
+                ImageUrl = box.ImageUrl,
+                Capacity = box.Capacity,
+                Price = box.Price
+            };
         }
     }
 }
