@@ -2,6 +2,7 @@
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
+using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using HandmadeByDoniApp.Web.ViewModels.Product;
@@ -55,6 +56,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             await repository.AddAsync(newDecanter);
             await repository.SaveChangesAsync();
+        }
+
+        public async Task EditDecanterByIdAndFormModelAsync(string id, DecanterFormModel formModel)
+        {
+            Decanter decanter = await this.repository
+          .All<Decanter>()
+          .FirstAsync(g => g.Id.ToString() == id);
+
+            decanter.Title = formModel.Title;
+            decanter.Description = formModel.Description;
+            decanter.ImageUrl = formModel.ImageUrl;
+            decanter.Capacity = formModel.Capacity;
+            decanter.Price = formModel.Price;
+            decanter.IsSet = formModel.IsSet;
+
+            await this.repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByIdAsync(string decanterId)
@@ -112,6 +129,23 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Capacity = decanter.Capacity,
                 Price = decanter.Price,
                 IsSet = decanter.IsSet,
+            };
+        }
+
+        public async Task<DecanterFormModel> GetDecanterForEditByIdAsync(string id)
+        {
+            Decanter decanter = await this.repository
+              .All<Decanter>()
+              .FirstAsync(g => g.Id.ToString() == id);
+
+            return new DecanterFormModel
+            {
+                Title = decanter.Title,
+                Description = decanter.Description,
+                ImageUrl = decanter.ImageUrl,
+                Capacity = decanter.Capacity,
+                Price = decanter.Price,
+                IsSet = decanter.IsSet,               
             };
         }
     }
