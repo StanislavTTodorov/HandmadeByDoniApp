@@ -56,7 +56,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             ICollection<AllNotInSetViewModel> result = await this.repository
                .All<Decanter>()
-               .Where(d => d.IsSet==false)
+               .Where(d => d.IsSet==true)
                .Select(d => new AllNotInSetViewModel()
                {
                    Id = d.Id.ToString(),
@@ -71,7 +71,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             ICollection<AllNotInSetViewModel> result = await this.repository
                  .All<Glass>()
-                 .Where(g => g.IsSet==false)
+                 .Where(g => g.IsSet==true)
                  .Select(g => new AllNotInSetViewModel()
                  {
                      Id = g.Id.ToString(),
