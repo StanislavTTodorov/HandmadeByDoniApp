@@ -16,7 +16,7 @@
 @if (!products.Any())
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Welcome to the best place for Art!</h1>         
+        <h1 class="display-4">Welcome to the best place for Art!</h1>
         <p class="lead">
             There are no product in the system currently available.
         </p>
@@ -32,7 +32,10 @@ else
                 <img src="@product.ImageUrl" class="d-block w-100 img" alt="@product.Title">
                 <div class="card-body">
                     <h5 class="card">
-                        <a class="btn btn-primary" asp-area="" asp-controller="Product" asp-action="Details"
+                        <a class="btn btn-primary"
+                           asp-area=""
+                           asp-controller="Product"
+                           asp-action="Details"
                            asp-route-id="@product.Id"> @product.Title</a>
                     </h5>
                 </div>

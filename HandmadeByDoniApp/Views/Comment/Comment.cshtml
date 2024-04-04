@@ -39,6 +39,7 @@
                         <section class="comment-title">
                             <h4 class="">@comment.UserName</h4>
                             <a class="ml-2 btn btn-info"
+                               asp-area=""
                                asp-controller="Comment"
                                asp-action="WriteToComment"
                                asp-route-id="@Model.Id"
@@ -46,6 +47,7 @@
                             @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), comment.Id))
                             {
                                 <a class="ml-2 btn btn-warning"
+                                   asp-area=""
                                    asp-controller="Comment"
                                    asp-action="Edit"
                                    asp-route-id="@Model.Id"
@@ -68,6 +70,7 @@
                                         @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), com.Id))
                                         {
                                             <a class="ml-2 btn btn-warning"
+                                               asp-area=""
                                                asp-controller="Comment"
                                                asp-action="Edit"
                                                asp-route-id="@Model.Id"
