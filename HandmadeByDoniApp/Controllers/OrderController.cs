@@ -37,6 +37,12 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add(string id)
         {
+            bool isInSet = await this.orderService.ExistsInSetByIdAsync(id);
+            if (isInSet)
+            {
+                this.TempData[ErrorMessage] = "The product is in Set, you cannot buy it separately. You can see Set from \"See Set\"";
+                return this.RedirectToAction("Details", "Product", new { area = "",id });
+            }
             try
             {
                 string userId = User.GetId();

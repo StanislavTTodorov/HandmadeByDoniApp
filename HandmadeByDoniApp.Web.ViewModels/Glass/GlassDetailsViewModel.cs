@@ -11,5 +11,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Glass
 
         public bool IsSet { get; set; }
 
+        public string? SetId { get; set; }
+
     }
 }

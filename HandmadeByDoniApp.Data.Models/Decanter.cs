@@ -43,5 +43,7 @@ namespace HandmadeByDoniApp.Data.Models
 
         public bool IsSet { get; set; }
 
+        public string? SetId { get; set; }
+
     }
 }

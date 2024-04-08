@@ -45,7 +45,15 @@ namespace HandmadeByDoniApp.Services.Data.Service
         public async Task CreateSetAsync(SetFormModel model)
         {
             ICollection<Glass> glasses = new HashSet<Glass>();
-
+            Set set = new Set()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Price = model.Price,
+                CreatedOn = DateTime.Now,
+                IsActive = true
+            };
             Glass glassOne = new Glass()
             {
                 Title = model.GlassOne.Title,
@@ -57,6 +65,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CreatedOn = DateTime.Now,
                 IsActive = true,
                 IsSet = true,
+                SetId = set.Id.ToString()
 
             };
             glasses.Add(glassOne);
@@ -72,6 +81,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CreatedOn = DateTime.Now,
                 IsActive = true,
                 IsSet = true,
+                SetId = set.Id.ToString()
 
             };
             glasses.Add(glassTwo);
@@ -88,6 +98,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
+                    SetId = set.Id.ToString()
 
                 };
                 glasses.Add(glassThree);
@@ -102,6 +113,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
+                    SetId = set.Id.ToString()
 
                 };
                 glasses.Add(glassFour);
@@ -110,16 +122,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 await this.repository.AddAsync(glassFour);
             }
 
-            Set set = new Set()
-            {
-                Title = model.Title,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                Price = model.Price,
-                CreatedOn = DateTime.Now,
-                Glasss = glasses,
-                IsActive = true
-            };
+            set.Glasss = glasses;
+
             if (model.Decanter != null)
             {
                 Decanter decanter = new Decanter()
@@ -132,12 +136,14 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
+                    SetId = set.Id.ToString()
                 };
                 set.DecanterId = decanter.Id;
                 set.Decanter = decanter;
 
                 await this.repository.AddAsync(decanter);
             }
+
 
             await this.repository.AddAsync(glassOne);
             await this.repository.AddAsync(glassTwo);

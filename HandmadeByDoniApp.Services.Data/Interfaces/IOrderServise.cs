@@ -11,6 +11,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task AddProductByUserIdAsync(string userId, string id);
         Task<MineProductViewModel> AllMineProductsAsync(string userId);
         Task CreateRegisterOrderAsync(ApplicationUser user);
+        Task<bool> ExistsInSetByIdAsync(string id);
         Task RemoveProductByUserIdAsync(string userId, string id);
     }
 }

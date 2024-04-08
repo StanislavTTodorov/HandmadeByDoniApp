@@ -20,13 +20,13 @@
             <p><i>(@(Model.IsSet ? "In Set" : "Not Set"))</i></p>
 
             <div class="form-inline">
-                @if (Model.IsSet)
+                @if (Model.IsSet && Model.SetId!=null)
                 {
                     <a class="ml-2 btn btn-primary"
                        asp-area=""
-                       asp-controller="Details"
-                       asp-action="Product"
-                       asp-route-id="@Model.Id">See Set</a>
+                       asp-controller="Product"
+                       asp-action="Details"
+                       asp-route-id="@Model.SetId">See Set</a>
                 }
                 else
                 {

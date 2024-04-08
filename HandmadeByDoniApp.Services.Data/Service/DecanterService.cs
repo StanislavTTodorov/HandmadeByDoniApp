@@ -129,6 +129,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Capacity = decanter.Capacity,
                 Price = decanter.Price,
                 IsSet = decanter.IsSet,
+                SetId = decanter.SetId,
             };
         }
 
@@ -145,7 +146,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = decanter.ImageUrl,
                 Capacity = decanter.Capacity,
                 Price = decanter.Price,
-                IsSet = decanter.IsSet,               
+                IsSet = decanter.IsSet,                
             };
         }
     }

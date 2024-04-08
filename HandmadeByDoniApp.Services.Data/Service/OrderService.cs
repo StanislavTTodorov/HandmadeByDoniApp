@@ -165,5 +165,26 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 await this.repository.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> ExistsInSetByIdAsync(string id)
+        {
+            Glass? glass = await this.repository
+                .All<Glass>()
+                .FirstOrDefaultAsync(g=>g.Id.ToString()==id);
+            Decanter? decanter =  await this.repository
+                .All<Decanter>()
+                .FirstOrDefaultAsync(g => g.Id.ToString() == id);
+            
+            if(glass!=null && glass.SetId!=null)
+            {
+                return true;
+            }
+            if (decanter != null && decanter.SetId != null)
+            {
+                return true;
+            }
+            return false;
+
+        }
     }
 }

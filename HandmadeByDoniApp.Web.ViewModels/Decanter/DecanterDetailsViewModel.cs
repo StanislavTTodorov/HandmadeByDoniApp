@@ -8,5 +8,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Decanter
         public int Capacity { get; set; }
 
         public bool IsSet { get; set; }
+
+        public string? SetId { get; set; }
     }
 }
