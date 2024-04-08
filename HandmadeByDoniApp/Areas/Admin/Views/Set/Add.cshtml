@@ -1,4 +1,4 @@
-﻿@model SetAddFormModel
+﻿@model SetFormModel
 @{
     ViewData["Title"] = "Add Set";
 }
@@ -7,73 +7,11 @@
 </head>
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />
-<section class="set-add">
-    <section class="set-form">
-        <div class="col-sm-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="FormModel.Title"></label>
-                    <input asp-for="FormModel.Title" class="form-control" placeholder="Title...">
-                    <span asp-validation-for="FormModel.Title" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FormModel.Description"></label>
-                    <textarea asp-for="FormModel.Description" rows="4" class="form-control" placeholder="Description..."></textarea>
-                    <span asp-validation-for="FormModel.Description" class="small textdanger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FormModel.ImageUrl"></label>
-                    <input asp-for="FormModel.ImageUrl" class="form-control" placeholder="Your fine URL here...">
-                    <span asp-validation-for="FormModel.ImageUrl" class="small textdanger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FormModel.Price"></label>
-                    <input asp-for="FormModel.Price" class="form-control">
-                    <span asp-validation-for="FormModel.Price" class="small textdanger"></span>
-                </div>
 
-                <div class="text-center">
-                    <input class="btn btn-primary mt-3" type="submit" value="Save" />
-                </div>
-            </form>
-        </div>
-    </section>
-    <section class="set-form">
-        <div class="glass">
-            @if (Model.Glasses.Any())
-            {
-                @foreach (var glass in Model.Glasses)
-                {
-                    <div class="card col-2 mb-3 ">
-                        <img class="card-img-list" src="@glass.ImageUrl" alt="Image">
-                        <div class="card-body text-center">
-                            <h5>@glass.Title</h5>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>No products</p>
-            }
-        </div>
-        <div class="glass">
-            @if (Model.Decanters.Any())
-            {
-                @foreach (var decanter in Model.Decanters)
-                {
-                    <div class="card mb-3 col-2">
-                        <img class="card-img-list" src="@decanter.ImageUrl" alt="Image">
-                        <div class="card-body text-center">
-                            <h5>@decanter.Title</h5>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>No products</p>
-            }
-        </div>
-    </section>
-</section>
+<partial name="_SetFormPartial" model="@Model" />
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+

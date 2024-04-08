@@ -16,10 +16,12 @@
 .navbar-menu >ul >li{
     display: inline-block;
 }
+
 .navbar-menu li{
     display: block;
     /*padding: 0.5em;*/
     position: relative;
+    white-space: nowrap;
    
 }
 .navbar-menu li:hover>ul{

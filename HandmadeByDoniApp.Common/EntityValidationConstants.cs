@@ -49,6 +49,13 @@ namespace HandmadeByDoniApp.Common
 
             public const int DescriptionMaxLength = 2048;
 
+            public const string NumberOfCupsMax = "10";
+            public const string NumberOfCupsMin = "1";
+
+            public const string NumberOfDecanterMax = "1";
+            public const string NumberOfDecanterMin = "0";
+
+
             public const int ImageUrlMaxLength = 2048;
 
             public const string PriceMaxLength = "7000";

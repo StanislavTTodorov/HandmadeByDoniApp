@@ -14,7 +14,8 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<AllProductCommentViewModel> GetSetCommentByIdAsync(string setId);
 
         Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId);
-        Task<ICollection<AllNotInSetViewModel>> GetGlassesInSetAsync();
-        Task<ICollection<AllNotInSetViewModel>> GetDecantersInSetAsync();
+        
+        Task CreateSetAsync(SetFormModel model);
+        Task<SetDetailsViewModel> GetSetDetailsByIdAsync(string id);
     }
 }

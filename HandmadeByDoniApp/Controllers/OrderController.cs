@@ -1,6 +1,7 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Order;
+using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
@@ -65,6 +66,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
 
             return this.RedirectToAction("Mine", "Order", new { area = "" });
+        }
+
+        [HttpGet]
+        public  IActionResult AddOrder(ProductsAllViewModel products)
+        {
+            return Ok(products);
         }
     }
 }

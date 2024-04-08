@@ -169,7 +169,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         ImageUrl = g.ImageUrl,
                         Price = g.Price,
                         CreatedOn = g.CreatedOn,
-                        IsActive = g.IsActive
+                        IsActive = g.IsActive,
+                        IsSet = g.IsSet,
+                        
                     }).ToListAsync();
                     break;
                 case ProductsName.Decanter:
@@ -181,7 +183,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         ImageUrl = d.ImageUrl,
                         Price = d.Price,
                         CreatedOn = d.CreatedOn,
-                        IsActive = d.IsActive
+                        IsActive = d.IsActive,
+                        IsSet = d.IsSet,
+                        
                     }).ToListAsync();
                     break;
                 case ProductsName.Box:
@@ -193,7 +197,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         ImageUrl = b.ImageUrl,
                         Price = b.Price,
                         CreatedOn = b.CreatedOn,
-                        IsActive = b.IsActive
+                        IsActive = b.IsActive,
+                        IsSet = false
+
                     }).ToListAsync();
                     break;
                 case ProductsName.Set:
@@ -205,20 +211,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         ImageUrl = s.ImageUrl,
                         Price = s.Price,
                         CreatedOn = s.CreatedOn,
-                        IsActive = s.IsActive
+                        IsActive = s.IsActive,
+                        IsSet = false
+                        
                     }).ToListAsync();
                     break;
                 default:
-                    allProductsModels = await setQuery.Select(s => new ProductsAllViewModel
-                    {
-                        Id = s.Id.ToString(),
-                        Title = s.Title,
-                        Description = s.Description,
-                        ImageUrl = s.ImageUrl,
-                        Price = s.Price,
-                        CreatedOn = s.CreatedOn,
-                        IsActive = s.IsActive
-                    }).ToListAsync();
+                    //allProductsModels = await setQuery.Select(s => new ProductsAllViewModel
+                    //{
+                    //    Id = s.Id.ToString(),
+                    //    Title = s.Title,
+                    //    Description = s.Description,
+                    //    ImageUrl = s.ImageUrl,
+                    //    Price = s.Price,
+                    //    CreatedOn = s.CreatedOn,
+                    //    IsActive = s.IsActive
+                    //}).ToListAsync();
                     break;
             }
 
@@ -250,7 +258,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = x.ImageUrl,
                 Price = x.Price,
                 CreatedOn = x.CreatedOn,
-                IsActive = x.IsActive
+                IsActive = x.IsActive,
+                IsSet = x.IsSet,
+
             }).ToListAsync();
             List<ProductsAllViewModel> decanterModels = await decanterQuery.Select(x => new ProductsAllViewModel
             {
@@ -260,7 +270,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = x.ImageUrl,
                 Price = x.Price,
                 CreatedOn = x.CreatedOn,
-                IsActive = x.IsActive
+                IsActive = x.IsActive,
+                IsSet = x.IsSet,
+
             }).ToListAsync();
             List<ProductsAllViewModel> boxModels = await boxQuery.Select(x => new ProductsAllViewModel
             {
@@ -270,7 +282,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = x.ImageUrl,
                 Price = x.Price,
                 CreatedOn = x.CreatedOn,
-                IsActive = x.IsActive
+                IsActive = x.IsActive,
+                IsSet = false
             }).ToListAsync();
             List<ProductsAllViewModel> setModels = await setQuery.Select(x => new ProductsAllViewModel
             {
@@ -280,7 +293,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = x.ImageUrl,
                 Price = x.Price,
                 CreatedOn = x.CreatedOn,
-                IsActive = x.IsActive
+                IsActive = x.IsActive,
+                IsSet = false
             }).ToListAsync();
 
             allProductModels.AddRange(glassModels);

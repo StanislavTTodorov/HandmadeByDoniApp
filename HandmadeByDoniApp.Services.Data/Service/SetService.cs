@@ -3,7 +3,6 @@ using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Web.ViewModels.Set;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +42,110 @@ namespace HandmadeByDoniApp.Services.Data.Service
             }
         }
 
+        public async Task CreateSetAsync(SetFormModel model)
+        {
+            ICollection<Glass> glasses = new HashSet<Glass>();
+
+            Glass glassOne = new Glass()
+            {
+                Title = model.GlassOne.Title,
+                Description = model.GlassOne.Description,
+                ImageUrl = model.GlassOne.ImageUrl,
+                Capacity = model.GlassOne.Capacity,
+                Price = 0,
+                GlassCategoryId = model.GlassOne.CategoryId,
+                CreatedOn = DateTime.Now,
+                IsActive = true,
+                IsSet = true,
+
+            };
+            glasses.Add(glassOne);
+
+            Glass glassTwo = new Glass()
+            {
+                Title = model.GlassTwo.Title,
+                Description = model.GlassTwo.Description,
+                ImageUrl = model.GlassTwo.ImageUrl,
+                Capacity = model.GlassTwo.Capacity,
+                Price = 0,
+                GlassCategoryId = model.GlassTwo.CategoryId,
+                CreatedOn = DateTime.Now,
+                IsActive = true,
+                IsSet = true,
+
+            };
+            glasses.Add(glassTwo);
+            if (model.NumberOfCups == 4)
+            {
+                Glass glassThree = new Glass()
+                {
+                    Title = model.GlassOne.Title,
+                    Description = model.GlassOne.Description,
+                    ImageUrl = model.GlassOne.ImageUrl,
+                    Capacity = model.GlassOne.Capacity,
+                    Price = 0,
+                    GlassCategoryId = model.GlassOne.CategoryId,
+                    CreatedOn = DateTime.Now,
+                    IsActive = true,
+                    IsSet = true,
+
+                };
+                glasses.Add(glassThree);
+                Glass glassFour = new Glass()
+                {
+                    Title = model.GlassTwo.Title,
+                    Description = model.GlassTwo.Description,
+                    ImageUrl = model.GlassTwo.ImageUrl,
+                    Capacity = model.GlassTwo.Capacity,
+                    Price = 0,
+                    GlassCategoryId = model.GlassTwo.CategoryId,
+                    CreatedOn = DateTime.Now,
+                    IsActive = true,
+                    IsSet = true,
+
+                };
+                glasses.Add(glassFour);
+
+                await this.repository.AddAsync(glassThree);
+                await this.repository.AddAsync(glassFour);
+            }
+
+            Set set = new Set()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Price = model.Price,
+                CreatedOn = DateTime.Now,
+                Glasss = glasses,
+                IsActive = true
+            };
+            if (model.Decanter != null)
+            {
+                Decanter decanter = new Decanter()
+                {
+                    Title = model.Decanter.Title,
+                    Description = model.Decanter.Description,
+                    ImageUrl = model.Decanter.ImageUrl,
+                    Capacity = model.Decanter.Capacity,
+                    Price = 0,
+                    CreatedOn = DateTime.Now,
+                    IsActive = true,
+                    IsSet = true,
+                };
+                set.DecanterId = decanter.Id;
+                set.Decanter = decanter;
+
+                await this.repository.AddAsync(decanter);
+            }
+
+            await this.repository.AddAsync(glassOne);
+            await this.repository.AddAsync(glassTwo);
+            await this.repository.AddAsync(set);
+            await this.repository.SaveChangesAsync();
+
+        }
+
         public async Task<bool> ExistsByIdAsync(string setId)
         {
             bool result = await this.repository
@@ -52,40 +155,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return result;
         }
 
-        public async Task<ICollection<AllNotInSetViewModel>> GetDecantersInSetAsync()
-        {
-            ICollection<AllNotInSetViewModel> result = await this.repository
-               .All<Decanter>()
-               .Where(d => d.IsSet==true)
-               .Select(d => new AllNotInSetViewModel()
-               {
-                   Id = d.Id.ToString(),
-                   Title = d.Title,
-                   ImageUrl = d.ImageUrl,
-
-               }).ToArrayAsync();
-            return result;
-        }
-
-        public async Task<ICollection<AllNotInSetViewModel>> GetGlassesInSetAsync()
-        {
-            ICollection<AllNotInSetViewModel> result = await this.repository
-                 .All<Glass>()
-                 .Where(g => g.IsSet==true)
-                 .Select(g => new AllNotInSetViewModel()
-                 {
-                     Id = g.Id.ToString(),
-                     Title = g.Title,
-                     ImageUrl= g.ImageUrl,
-
-                 }).ToArrayAsync();
-            return result;
-        }
+      
 
         public async Task<AllProductCommentViewModel> GetSetCommentByIdAsync(string setId)
         {
             Set set = await this.repository
-    .         AllReadOnly<Set>()
+    .AllReadOnly<Set>()
             .Include(g => g.Comments)
           .ThenInclude(c => c.Comments)
           .FirstAsync(g => g.Id.ToString() == setId);
@@ -106,6 +181,43 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
                 })
             };
+        }
+
+        public async Task<SetDetailsViewModel> GetSetDetailsByIdAsync(string setId)
+        {
+            Set set = await this.repository.AllReadOnly<Set>()
+                 .Include(s=>s.Glasss)
+                 .Include(s => s.Decanter)
+                 .FirstAsync(s => s.Id.ToString() == setId);
+
+           SetDetailsViewModel model = new SetDetailsViewModel
+            {
+                Id = set.Id.ToString(),
+                Title = set.Title,
+                Description = set.Description,
+                ImageUrl = set.ImageUrl,
+                Price = set.Price,
+                SetProducts = set.Glasss.Select(g=> new AllProductViewModel
+                {
+                    Id= g.Id.ToString(),
+                    Title= g.Title,
+                    Description= g.Description,
+                    ImageUrl= g.ImageUrl
+                }).ToArray(),
+            };
+
+            if (set.DecanterId != null && set.Decanter!=null)
+            {
+                model.SetProducts.Add(new AllProductViewModel
+                {
+                    Id = set.Decanter.Id.ToString(),
+                    Title = set.Decanter.Title,
+                    Description = set.Decanter.Description,
+                    ImageUrl = set.Decanter.ImageUrl,
+                });
+            }
+
+            return model;
         }
     }
 }

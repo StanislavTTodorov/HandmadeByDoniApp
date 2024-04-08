@@ -21,5 +21,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
 
         //[Display(Name = "Active")]
         public bool IsActive { get; set; }
+
+        public bool IsSet { get; set; }
     }
 }

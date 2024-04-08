@@ -16,5 +16,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
 
         public decimal Price { get; set; }
 
+
+
     }
 }

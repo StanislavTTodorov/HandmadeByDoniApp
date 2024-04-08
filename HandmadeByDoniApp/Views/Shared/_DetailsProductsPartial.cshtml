@@ -1,27 +1,14 @@
 ﻿@using HandmadeByDoniApp.Services.Data.Interfaces
 @using HandmadeByDoniApp.Web.Infrastructure.Extensions
-@model ProductsAllViewModel
+@model AllProductViewModel
+
 
 
 <div class="col-md-4">
     <div class="card mb-3">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Image">
         <div class="card-body text-center">
-            <h4>@Model.Title</h4>
-            <h6>(@(Model.IsActive ? "Available" : "Not Available"))</h6>
-            @if (Model.IsSet == false)
-            {
-                <h6>
-                    Price
-                    <b>@($"{Model.Price:f2}") BGN</b>
-                </h6>
-
-                <a class="btn btn-primary"
-                   asp-area=""
-                   asp-controller="Order"
-                   asp-action="Add"
-                   asp-route-id="@Model.Id">Add to Shop List </a>
-            }
+            <h4>@Model.Title</h4>           
             <br />
             <a asp-area=""
                asp-controller="Product"
@@ -31,13 +18,13 @@
 
             @if (User.IsAdmin())
             {
-                <a asp-area="Admin"
-                   asp-controller="Product"
+                <a asp-area=""
+                   asp-controller=""
                    asp-action="Edit"
                    asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
 
-                <a asp-area="Admin"
+                <a asp-area=""
                    asp-controller=""
                    asp-action="Delete"
                    asp-route-id="@Model.Id"
@@ -45,12 +32,10 @@
             }
 
             <a class="ml-2 btn btn-info"
-               asp-area=""
-               asp-controller="Comment"
+               asp-area="" asp-controller="Comment"
                asp-action="Comment"
                asp-route-id="@Model.Id">Comment</a>
 
         </div>
     </div>
 </div>
-
