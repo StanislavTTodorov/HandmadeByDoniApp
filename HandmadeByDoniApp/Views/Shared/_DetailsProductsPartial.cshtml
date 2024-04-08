@@ -18,13 +18,13 @@
 
             @if (User.IsAdmin())
             {
-                <a asp-area=""
-                   asp-controller=""
+                <a asp-area="Admin"
+                   asp-controller="Product"
                    asp-action="Edit"
                    asp-route-id="@Model.Id"
                    class="btn btn-warning">Edit</a>
 
-                <a asp-area=""
+                <a asp-area="Admin"
                    asp-controller=""
                    asp-action="Delete"
                    asp-route-id="@Model.Id"

@@ -1,11 +1,12 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using static HandmadeByDoniApp.Common.EntityValidationConstants.Decanter;
-namespace HandmadeByDoniApp.Web.ViewModels.Decanter
-{
-    public class DecanterFormModel
-    {
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using static HandmadeByDoniApp.Common.EntityValidationConstants.Set;
+using HandmadeByDoniApp.Web.ViewModels.Product;
 
+namespace HandmadeByDoniApp.Web.ViewModels.Set
+{
+    public class OnlySetFormModel
+    {
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
@@ -18,17 +19,10 @@ namespace HandmadeByDoniApp.Web.ViewModels.Decanter
         [Display(Name = "Image Link")]
         public string ImageUrl { get; set; } = null!;
 
-        [Display(Name = "Capacity in Milliliters")]
-        [Range(typeof(int),CapacityMinLength,CapacityMaxLength)]
-        public int Capacity { get; set; }
+        public int NumberOfCups { get; set; }
+
 
         [Range(typeof(decimal), PriceMinLength, PriceMaxLength)]
         public decimal Price { get; set; }
-
-
-        [Display(Name = "Is in Set")]
-        public bool IsSet { get; set; }
-
-        public string? Id {  get; set; }
     }
 }

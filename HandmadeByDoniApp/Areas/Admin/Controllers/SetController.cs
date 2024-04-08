@@ -120,5 +120,113 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool isExists = await this.setService
+                .ExistsByIdAsync(id);
+            if (isExists == false)
+            {
+                TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                return RedirectToAction("All", "Producr", new { area = "" });
+            }
+
+            try
+            {
+                OnlySetFormModel formModel = await this.setService.GetSetForEditByIdAsync(id);
+
+                //formModel.GlassOne.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
+                //formModel.GlassTwo.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
+                //if(formModel.NumberOfCups==4 && 
+                //    formModel.GlassThree!=null && 
+                //    formModel.GlassFour!=null)
+                //{
+                //    formModel.GlassThree.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
+                //    formModel.GlassFour.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
+                //}
+
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, OnlySetFormModel formModel)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                //formModel.GlassOne = new GlassFormModel()
+                //{
+                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //};
+                //formModel.GlassTwo = new GlassFormModel()
+                //{
+                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //};
+                //if (formModel.NumberOfCups == 4)
+                //{
+                //    formModel.GlassThree= new GlassFormModel()
+                //    {
+                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //    };
+                //    formModel.GlassFour= new GlassFormModel()
+                //    {
+                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //    };
+                //}
+                return this.View(formModel);
+            }
+
+            bool isExists = await this.setService
+                .ExistsByIdAsync(id);
+            if (isExists == false)
+            {
+                TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                return RedirectToAction("All", "Producr", new { area = "" });
+            }
+
+            try
+            {
+                await this.setService.EditSetByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to update the house. Please try again later");
+                //formModel.GlassOne = new GlassFormModel()
+                //{
+                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //};
+                //formModel.GlassTwo = new GlassFormModel()
+                //{
+                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //};
+                //if (formModel.NumberOfCups == 4)
+                //{
+                //    formModel.GlassThree = new GlassFormModel()
+                //    {
+                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //    };
+                //    formModel.GlassFour = new GlassFormModel()
+                //    {
+                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
+                //    };
+                //}
+                return View(formModel);
+            }
+
+            TempData[SuccessMessage] = "Set was edited successfully!";
+            return RedirectToAction("Details", "Set", new { area = "", id });
+        }
+        private IActionResult GeneralError()
+        {
+            TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later";
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
     }
 }

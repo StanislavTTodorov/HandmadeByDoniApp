@@ -1,0 +1,49 @@
+﻿@model SetFormModel
+@{
+    ViewData["Title"] = "Edit Set";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Set/add-set.css" asp-append-version="true" />
+</head>
+<h2 class="text-center title">@ViewData["Title"]</h2>
+<hr />
+
+
+
+    <section class="set-add">
+        <section class="set-form">
+            <div class="col-sm-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
+                <form method="post">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title...">
+                    <span asp-validation-for="Title" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" rows="4" class="form-control" placeholder="Description..."></textarea>
+                    <span asp-validation-for="Description" class="small textdanger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl"></label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                    <span asp-validation-for="ImageUrl" class="small textdanger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control">
+                    <span asp-validation-for="Price" class="small textdanger"></span>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3" type="submit" value="Save" />
+                </div>
+            </form>
+            </div>
+        </section>
+
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

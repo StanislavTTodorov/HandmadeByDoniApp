@@ -33,7 +33,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.setService.ExistsByIdAsync(id);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Set with the provided id does not exist!";
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -50,78 +50,76 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Comment(string id)
-        //{
-        //    bool isBoxExists = await this.boxService.ExistsByIdAsync(id);
-        //    if (isBoxExists == false)
-        //    {
-        //        this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
-        //        return this.RedirectToAction("All", "Pcoduct");
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> Comment(string id)
+        {
+            bool isExists = await this.setService.ExistsByIdAsync(id);
+            if (isExists == false)
+            {
+                this.TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                return this.RedirectToAction("All", "Pcoduct");
+            }
 
-        //    try
-        //    {
+            try
+            {
 
-        //        AllProductCommentViewModel viewModel = await this.boxService.GetBoxCommentByIdAsync(id);
-        //        return this.View("~/Views/Comment/Comment.cshtml", viewModel);
-        //        // return this.View(viewModel);
+                AllProductCommentViewModel viewModel = await this.setService.GetSetCommentByIdAsync(id);
+                return this.View("~/Views/Comment/Comment.cshtml", viewModel);
+            }
+            catch (Exception)
+            {
 
-        //    }
-        //    catch (Exception)
-        //    {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                return this.RedirectToAction("All", "Product");
+            }
 
-        //        this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
-        //        return this.RedirectToAction("All", "Product");
-        //    }
+        }
+        [HttpGet]
+        public async Task<IActionResult> WriteComment(string id)
+        {
+            bool isExists = await this.setService.ExistsByIdAsync(id);
+            if (isExists == false)
+            {
+                this.TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                return this.RedirectToAction("All", "Pcoduct");
+            }
 
-        //}
-        //[HttpGet]
-        //public async Task<IActionResult> WriteComment(string id)
-        //{
-        //    bool isBox = await this.boxService.ExistsByIdAsync(id);
-        //    if (isBox == false)
-        //    {
-        //        this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
-        //        return this.RedirectToAction("All", "Pcoduct");
-        //    }
+            CommentFormModel model = new CommentFormModel();
 
-        //    CommentFormModel model = new CommentFormModel();
+            return this.View("~/Views/Comment/WriteToComment.cshtml", model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
+        {
+            bool isExists = await this.setService.ExistsByIdAsync(id);
+            if (isExists == false)
+            {
+                this.TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                return this.RedirectToAction("All", "Pcoduct");
+            }
 
-        //    return this.View("~/Views/Comment/WriteToComment.cshtml", model);
-        //}
-        //[HttpPost]
-        //public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
-        //{
-        //    bool isBox = await this.boxService.ExistsByIdAsync(id);
-        //    if (isBox == false)
-        //    {
-        //        this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
-        //        return this.RedirectToAction("All", "Pcoduct");
-        //    }
+            var sanitizer = new HtmlSanitizer();
+            formModel.Text = sanitizer.Sanitize(formModel.Text);
 
-        //    var sanitizer = new HtmlSanitizer();
-        //    formModel.Text = sanitizer.Sanitize(formModel.Text);
+            if (this.ModelState.IsValid == false)
+            {
+                return this.View("~/Views/Comment/WriteToComment.cshtml", formModel);
+            }
 
-        //    if (this.ModelState.IsValid == false)
-        //    {
-        //        return this.View("~/Views/Comment/WriteToComment.cshtml", formModel);
-        //    }
+            try
+            {
+                string userId = User.GetId();
+                await this.setService.CreateCommentByUserIdAndByProductIdAsync(userId!, formModel, id);
+                TempData[SuccessMessage] = "Comment was added successfully!";
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, UnexpectedError);
+                this.TempData[ErrorMessage] = UnexpectedError;
+            }
 
-        //    try
-        //    {
-        //        string userId = User.GetId();
-        //        await this.boxService.CreateCommentByUserIdAndByProductIdAsync(userId!, formModel, id);
-        //        TempData[SuccessMessage] = "Comment was added successfully!";
-        //    }
-        //    catch (Exception)
-        //    {
-        //        this.ModelState.AddModelError(string.Empty, UnexpectedError);
-        //        this.TempData[ErrorMessage] = UnexpectedError;
-        //    }
-
-        //    return this.RedirectToAction("Comment", "Box", new { id });
-        //}
+            return this.RedirectToAction("Comment", "Set", new { id });
+        }
     }
 }
 

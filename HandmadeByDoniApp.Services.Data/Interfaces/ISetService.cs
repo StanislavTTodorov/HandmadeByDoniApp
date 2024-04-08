@@ -17,5 +17,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         
         Task CreateSetAsync(SetFormModel model);
         Task<SetDetailsViewModel> GetSetDetailsByIdAsync(string id);
+        Task<SetFormModel> GetSetForEditByIdAsync(string id);
+        Task EditSetByIdAndFormModelAsync(string id, OnlySetFormModel formModel);
     }
 }

@@ -11,28 +11,8 @@ using HandmadeByDoniApp.Web.ViewModels.Decanter;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Set
 {
-    public class SetFormModel
-    {
-
-
-        [Required]
-        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
-        public string Title { get; set; } = null!;
-
-        [StringLength(DescriptionMaxLength)]
-        public string? Description { get; set; }
-
-        [Required]
-        [StringLength(ImageUrlMaxLength)]
-        [Display(Name = "Image Link")]
-        public string ImageUrl { get; set; } = null!;
-
-        public int NumberOfCups { get; set; }
-
-
-        [Range(typeof(decimal), PriceMinLength, PriceMaxLength)]
-        public decimal Price { get; set; }
-
+    public class SetFormModel :OnlySetFormModel
+    {     
         public DecanterFormModel? Decanter { get; set; }
 
         public GlassFormModel GlassOne { get; set; } = null!;
@@ -42,11 +22,6 @@ namespace HandmadeByDoniApp.Web.ViewModels.Set
         public GlassFormModel? GlassThree { get; set; }
 
         public GlassFormModel? GlassFour { get; set; } 
-
-
-
-
-
 
     }
 }

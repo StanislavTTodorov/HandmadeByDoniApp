@@ -40,5 +40,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Glass
 
         public IEnumerable<GlassSelectCategoryFormModel> Categories { get; set;}
 
+        public string? Id { get; set; }
+
     }
 }

@@ -171,7 +171,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             bool isCommentidExist = await this.commentService.ExistsByIdAsync(commentId);
 
-            if (string.IsNullOrEmpty(commentId) == false && isCommentidExist == false)
+            if (string.IsNullOrEmpty(commentId) == false  || isCommentidExist == false)
             {
                 this.TempData[ErrorMessage] = "Comment with the provided id does not exist!";
                 return this.RedirectToAction("Comment", "Pcoduct", new { id });
