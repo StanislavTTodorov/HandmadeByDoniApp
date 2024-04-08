@@ -3,20 +3,29 @@ using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Caching.Memory;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
+using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
     public class OrderController : BaseController
     {
         private readonly IOrderService orderService;
+        private readonly IMemoryCache memoryCache;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService,
+            IMemoryCache memoryCache)
         {
             this.orderService = orderService;
+            this.memoryCache = memoryCache;
 
 
         }
+        public List<ProductsAllViewModel> cartItems = null!;
+
 
         [HttpGet]
         public async Task<IActionResult> Mine()
@@ -32,6 +41,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Shop List! Please try agenin later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
+
         }
 
         [HttpGet]
@@ -41,7 +51,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (isInSet)
             {
                 this.TempData[ErrorMessage] = "The product is in Set, you cannot buy it separately. You can see Set from \"See Set\"";
-                return this.RedirectToAction("Details", "Product", new { area = "",id });
+                return this.RedirectToAction("Details", "Product", new { area = "", id });
             }
             try
             {
@@ -54,8 +64,9 @@ namespace HandmadeByDoniApp.Web.Controllers
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Shop List! Please try agenin later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
-           
+
             return this.RedirectToAction("Mine", "Order", new { id });
+
         }
         [HttpGet]
         public async Task<IActionResult> Remove(string id)
@@ -75,9 +86,11 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
 
         [HttpGet]
-        public  IActionResult AddOrder(ProductsAllViewModel products)
+        public async Task<IActionResult> AddOrder()
         {
-            return Ok(products);
+            string userId = User.GetId();
+
+			return this.RedirectToAction("Mine", "Order", new { area = "" });
         }
     }
 }

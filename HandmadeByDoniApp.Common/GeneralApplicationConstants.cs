@@ -13,6 +13,8 @@
         public const string AdminiRoleName = "Administrator";
         public const string DevelopmentAdminEmail = "admin@handmadebydoni.bg";
 
+        public const string CartCacheKey = "CartCacheKey";
+
 
     }
 }
