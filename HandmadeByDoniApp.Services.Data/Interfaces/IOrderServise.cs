@@ -9,9 +9,10 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
     public interface IOrderService
     {
         Task AddProductByUserIdAsync(string userId, string id);
-        Task<MineProductViewModel> AllMineProductsAsync(string userId);
-        Task CreateRegisterOrderAsync(ApplicationUser user);
+        Task<MineProductViewModel> AllMineProductsByUserIdAsync(string userId);
+        Task<bool> CreateRegisterOrderAsync(string userId);
         Task<bool> ExistsInSetByIdAsync(string id);
-        Task RemoveProductByUserIdAsync(string userId, string id);
+		Task<bool> IsActiveByIdAsync(string id);
+		Task RemoveProductByUserIdAsync(string userId, string id);
     }
 }

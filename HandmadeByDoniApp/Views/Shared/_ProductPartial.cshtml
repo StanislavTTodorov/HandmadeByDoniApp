@@ -20,6 +20,7 @@
                    asp-area=""
                    asp-controller="Order"
                    asp-action="Add"
+                   asp-route-returnUrl="@Url.Action("All", "Product", new { area = "" })"
                    asp-route-id="@Model.Id">Add to Shop List </a>
             }
             <br />

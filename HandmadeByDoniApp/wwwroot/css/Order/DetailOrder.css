@@ -1,0 +1,41 @@
+﻿
+.product-center {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-self: center;
+    max-width: 50%;
+}
+
+
+.details,
+.card-list {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+.address{
+  min-width: 50%;
+  justify-content: left;
+  
+}
+.card-list{
+    gap: 1em;
+    justify-content:space-around;
+    
+}
+
+.card-img-list {
+    max-height: 100px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.text-size {
+    font-size: 2.5em;
+}

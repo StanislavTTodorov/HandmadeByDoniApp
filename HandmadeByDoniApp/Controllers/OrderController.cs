@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Memory;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using HandmadeByDoniApp.Web.ViewModels.Address;
 
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -15,17 +16,19 @@ namespace HandmadeByDoniApp.Web.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IMemoryCache memoryCache;
+        private readonly IAddressService addressService;
 
-        public OrderController(IOrderService orderService,
-            IMemoryCache memoryCache)
+        public OrderController(
+            IOrderService orderService,
+            IMemoryCache memoryCache,
+            IAddressService addressService)
         {
             this.orderService = orderService;
             this.memoryCache = memoryCache;
+            this.addressService = addressService;
 
 
-        }
-        public List<ProductsAllViewModel> cartItems = null!;
-
+        }      
 
         [HttpGet]
         public async Task<IActionResult> Mine()
@@ -33,7 +36,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 string userId = User.GetId();
-                MineProductViewModel productViewModel = await this.orderService.AllMineProductsAsync(userId);
+                MineProductViewModel productViewModel = await this.orderService.AllMineProductsByUserIdAsync(userId);
                 return this.View(productViewModel);
             }
             catch (Exception)
@@ -45,16 +48,24 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(string id)
+        public async Task<IActionResult> Add(string id, string returnUrl)
         {
             bool isInSet = await this.orderService.ExistsInSetByIdAsync(id);
             if (isInSet)
             {
-                this.TempData[ErrorMessage] = "The product is in Set, you cannot buy it separately. You can see Set from \"See Set\"";
+                this.TempData[InformationMessage] = "The product is in Set, you cannot buy it separately. You can see Set from \"See Set\"";
                 return this.RedirectToAction("Details", "Product", new { area = "", id });
             }
-            try
+
+            bool isActive = await this.orderService.IsActiveByIdAsync(id);
+            if (isActive==false)
             {
+                this.TempData[InformationMessage] = "Product is not Availability";
+                return this.Redirect(returnUrl);
+			}
+
+            try
+			{
                 string userId = User.GetId();
                 await this.orderService.AddProductByUserIdAsync(userId, id);
                 TempData[SuccessMessage] = "Product was added to Shop List successfully!";
@@ -62,7 +73,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Shop List! Please try agenin later.";
-                return this.RedirectToAction("Index", "Home", new { area = "" });
+                return this.Redirect(returnUrl);
             }
 
             return this.RedirectToAction("Mine", "Order", new { id });
@@ -88,9 +99,49 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddOrder()
         {
-            string userId = User.GetId();
+            try
+            {
+                string userId = User.GetId();
+                bool isAllActiv = await this.orderService.CreateRegisterOrderAsync(userId);
+                if (isAllActiv)
+                {
+                    TempData[SuccessMessage] = "Order was added successfully!";
+                    return this.RedirectToAction("DetailsOrder", "Order", new { area = "" });
+                }
+                else
+                {
+                    this.TempData[ErrorMessage] = "Some of the products are not for sale";
+                }
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove in Shop List ! Please try agenin later.";
+                return this.RedirectToAction("Index", "Home", new { area = "" });
 
+            }
+            
 			return this.RedirectToAction("Mine", "Order", new { area = "" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DetailsOrder()
+        {
+            try
+            {
+                string userId = User.GetId();
+                DetailsOrdarViewModel viewModel = new DetailsOrdarViewModel()
+                {
+                    MineProduct = await this.orderService.AllMineProductsByUserIdAsync(userId),
+                    Address = await this.addressService.GetAddressByUserIdAsync(userId)
+                };
+                         
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                return this.RedirectToAction("Mine", "Order", new { area = "" });
+            }
         }
     }
 }

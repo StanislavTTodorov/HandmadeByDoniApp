@@ -1,0 +1,87 @@
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@model DetailsOrdarViewModel;
+@inject IAddressService addressService
+
+@{
+    ViewBag.Title = "Details Order";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Order/DetailOrder.css" asp-append-version="true" />
+</head>
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+<section class="details">
+    <section class="address text-start">
+
+        @if (Model.Address != null)
+        {
+            
+                string deliveryCompanyName = await this.addressService.GetDeliveryCompanyNameAsyng(Model.Address.DeliveryCompanyId);
+                string methodPaymentName = await this.addressService.GetMethodPaymentNameAsyng(Model.Address.MethodPaymentId);
+            
+            <h3 class="text-center title">Address</h3>
+            <h5> <label asp-for="Address.CountryName"></label> - @Model.Address.CountryName</h5>
+            <h5> <label asp-for="Address.CityName"></label> - @Model.Address.CityName</h5>
+            <h5> <label asp-for="Address.Street"></label> - @Model.Address.Street</h5>
+            <h5> <label asp-for="Address.DeliveryCompanyId"></label> - @deliveryCompanyName</h5>
+            <h5> <label asp-for="Address.MethodPaymentId"></label> - @methodPaymentName</h5>
+            <a asp-area=""
+               asp-controller="Address"
+               asp-action="Edit"
+               class="btn btn-warning">Edit Address </a>
+        }
+        else
+        {
+            <h3 class="text-center title">Add an address to complete the order</h3>
+            <a asp-area=""
+               asp-controller="Address"
+               asp-action="Add"
+               class="btn btn-warning">Add Address </a>
+        }
+    </section>
+    <section class="product-center col-12">
+        <h3 class="text-center title">Product to Buy</h3>
+        @if (Model.MineProduct.Products.Any())
+        {
+
+            @foreach (var product in Model.MineProduct.Products)
+            {
+                <div class="col-8 mt-2">
+                    <div class="card-list">
+                        <img class="card-img-list" src="@product.ImageUrl" alt="Image">
+
+                        <div class="product-info">
+                            <h4>@product.Title</h4>
+                            <h6>
+                                Price: <b>@($"{product.Price:f2}") BGN</b>
+                            </h6>
+                            <h6>
+                                @if (product.IsActive)
+                                {
+                                    <p class="text-info">Available</p>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Not Available</p>
+                                }
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="card-list text-center col-8 mt-4">
+                <h3>Total Price: @($"{Model.MineProduct.totalPrice:f2}")  BGN</h3>
+                <a asp-area=""
+                   asp-controller="Order"
+                   asp-action="AddOrder"
+                   class="align-content-center justify-content-center btn btn-outline-primary text-size">Buy</a>
+            </div>
+        }
+        else
+        {
+            <p class="lead">
+                There are no product in the shop list.
+            </p>
+        }
+    </section>
+</section>

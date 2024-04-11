@@ -1,0 +1,13 @@
+﻿@model AddressFormModel
+@{
+    ViewData["Title"] = "Edit Address";
+}
+<h2 class="text-center title">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_AddressFormPartial" model="@Model" />
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

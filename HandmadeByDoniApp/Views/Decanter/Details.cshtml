@@ -34,6 +34,7 @@
                        asp-area=""
                        asp-controller="Order"
                        asp-action="Add"
+                       asp-route-returnUrl="@Url.Action("Details", "Decanter", new { area = "" })"
                        asp-route-id="@Model.Id">Add to cart</a>
                 }
                 <a class="ml-2 btn btn-info"
