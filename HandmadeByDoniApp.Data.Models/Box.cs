@@ -12,6 +12,7 @@ namespace HandmadeByDoniApp.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.Comments = new HashSet<Comment>();
+            this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
         [Key]
@@ -29,6 +30,8 @@ namespace HandmadeByDoniApp.Data.Models
         public string ImageUrl { get; set; } = null!;
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         [Required]
         public int Capacity { get; set; }

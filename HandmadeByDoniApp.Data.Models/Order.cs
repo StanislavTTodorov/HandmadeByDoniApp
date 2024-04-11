@@ -20,13 +20,13 @@ namespace HandmadeByDoniApp.Data.Models
        // [Required]
        // public DateTime CreaateOn { get; set; }
 
-        ICollection<Box> Boxs { get; set; }
+        public ICollection<Box> Boxs { get; set; }
 
-        ICollection<Decanter> Decanters { get; set; }
+        public ICollection<Decanter> Decanters { get; set; }
 
-        ICollection<Set> Sets { get; set; }
+        public ICollection<Set> Sets { get; set; }
 
-        ICollection<Glass> Glasses { get; set; }
+        public ICollection<Glass> Glasses { get; set; }
 
         [ForeignKey(nameof(User))]
         public Guid ClientId { get; set; }

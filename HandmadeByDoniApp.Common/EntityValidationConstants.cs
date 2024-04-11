@@ -107,7 +107,20 @@ namespace HandmadeByDoniApp.Common
             public const int StreetMaxLength = 90;
             public const int StreetMinLength = 1;
 
-        }
 
+            public const int PhoneNumberMinLength = 7;
+            public const int PhoneNumberMaxLength = 15;
+
+        }
+        public static class DeliveryCompany
+        {
+            public const int NameMaxLength = 60;
+            public const int NameMinLength = 3;
+        }
+        public static class MethodPayment
+        {
+            public const int MethodMaxLength = 60;
+            public const int MethodMinLength = 3;
+        }
     }
 }

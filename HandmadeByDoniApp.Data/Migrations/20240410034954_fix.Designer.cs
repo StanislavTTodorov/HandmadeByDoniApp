@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HandmadeByDoniApp.Data.Migrations
 {
     [DbContext(typeof(HandmadeByDoniAppDbContext))]
-    partial class HandmadeByDoniAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410034954_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,24 +95,10 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasMaxLength(90)
                         .HasColumnType("nvarchar(90)");
 
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("CountryName")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
-
-                    b.Property<int>("DeliveryCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MethodPaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -118,12 +106,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasColumnType("nvarchar(90)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("DeliveryCompanyId");
-
-                    b.HasIndex("MethodPaymentId");
 
                     b.ToTable("Addresses");
                 });
@@ -359,36 +341,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.ToTable("Decantres");
                 });
 
-            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.DeliveryCompany", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeliveryCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Econt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Speedy"
-                        });
-                });
-
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
                 {
                     b.Property<Guid>("Id")
@@ -500,36 +452,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                         {
                             Id = 6,
                             Name = "Champagne glass"
-                        });
-                });
-
-            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.MethodPayment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Method")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MethodPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Method = "Cash payment on delivery"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Method = "Card payment on delivery"
                         });
                 });
 
@@ -816,33 +738,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasForeignKey("SetsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Address", b =>
-                {
-                    b.HasOne("HandmadeByDoniApp.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HandmadeByDoniApp.Data.Models.DeliveryCompany", "DeliveryCompany")
-                        .WithMany()
-                        .HasForeignKey("DeliveryCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HandmadeByDoniApp.Data.Models.MethodPayment", "MethodPayment")
-                        .WithMany()
-                        .HasForeignKey("MethodPaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryCompany");
-
-                    b.Navigation("MethodPayment");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Box", b =>

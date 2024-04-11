@@ -9,6 +9,7 @@ namespace HandmadeByDoniApp.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            
             //builder
             //   .HasOne(o => o.User)
             //   .WithMany(o => o.Orders)

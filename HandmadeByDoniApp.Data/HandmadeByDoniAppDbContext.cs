@@ -32,6 +32,10 @@ namespace HandmadeByDoniApp.Data
 
         public DbSet<Address> Addresses { get; set; } = null!;
 
+        public DbSet<DeliveryCompany>  DeliveryCompanies { get; set; } = null!;
+
+        public DbSet<MethodPayment> MethodPayments { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -48,6 +52,8 @@ namespace HandmadeByDoniApp.Data
 
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new MethodPaymentConfiguration());
+            builder.ApplyConfiguration(new DeliveryCompanyConfiguration());
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new UserOrderConfiguration());
            

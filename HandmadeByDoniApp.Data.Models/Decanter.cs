@@ -12,6 +12,7 @@ namespace HandmadeByDoniApp.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.Comments = new HashSet<Comment>();
+            this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
         [Key]
         public Guid Id { get; set; }
@@ -35,6 +36,7 @@ namespace HandmadeByDoniApp.Data.Models
         public decimal Price { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }

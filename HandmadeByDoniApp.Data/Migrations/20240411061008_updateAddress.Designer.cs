@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HandmadeByDoniApp.Data.Migrations
 {
     [DbContext(typeof(HandmadeByDoniAppDbContext))]
-    partial class HandmadeByDoniAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411061008_updateAddress")]
+    partial class updateAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,19 +376,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Econt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Speedy"
-                        });
+                    b.ToTable("DeliveryCompany");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
@@ -518,19 +508,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MethodPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Method = "Cash payment on delivery"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Method = "Card payment on delivery"
-                        });
+                    b.ToTable("MethodPayment");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Order", b =>

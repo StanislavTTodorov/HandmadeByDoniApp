@@ -13,6 +13,7 @@ namespace HandmadeByDoniApp.Data.Models
             this.Id = Guid.NewGuid();
             this.Glasss = new HashSet<Glass>();
             this.Comments = new HashSet<Comment>();
+            this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
         [Key]
         public Guid Id { get; set; }
@@ -38,6 +39,8 @@ namespace HandmadeByDoniApp.Data.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Glass> Glasss { get; set; }
+
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         [ForeignKey(nameof(Decanter))]
         public Guid? DecanterId { get; set; }
