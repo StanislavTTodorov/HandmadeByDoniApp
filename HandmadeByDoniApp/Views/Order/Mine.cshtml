@@ -9,10 +9,11 @@
 <h2 class="text-center title">@ViewBag.Title</h2>
 <hr />
 
-@if (Model.Products.Any())
-{
-    <article class="product-center col-12">
 
+<article class="product-center col-12">
+
+    @if (Model.Products.Any())
+    {
         @foreach (var product in Model.Products)
         {
             <div class="col-8 mt-2">
@@ -65,11 +66,12 @@
                class="btn btn-outline-primary text-size">Buy</a>
 
         </div>
-    </article>
-}
-else
-{
-    <p class="lead">
-        There are no product in the shop list.
-    </p>
-}
+    }
+    else
+    {
+        <p class="lead">
+            There are no product in the shop list.
+        </p>
+    }
+</article>
+

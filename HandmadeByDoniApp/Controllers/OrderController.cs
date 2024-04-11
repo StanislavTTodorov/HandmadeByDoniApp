@@ -99,14 +99,20 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddOrder()
         {
+            string userId = User.GetId();
+            bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
+            if (isExists == false)
+            {
+                TempData[ErrorMessage] = "You not have Address! You can add your address here";
+                return RedirectToAction("Add", "Address", new { area = "" });
+            }
             try
             {
-                string userId = User.GetId();
                 bool isAllActiv = await this.orderService.CreateRegisterOrderAsync(userId);
+                
                 if (isAllActiv)
                 {
-                    TempData[SuccessMessage] = "Order was added successfully!";
-                    return this.RedirectToAction("DetailsOrder", "Order", new { area = "" });
+                    TempData[SuccessMessage] = "Order was added successfully!";                   
                 }
                 else
                 {
@@ -116,8 +122,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove in Shop List ! Please try agenin later.";
-                return this.RedirectToAction("Index", "Home", new { area = "" });
-
             }
             
 			return this.RedirectToAction("Mine", "Order", new { area = "" });
@@ -142,6 +146,12 @@ namespace HandmadeByDoniApp.Web.Controllers
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OrderStatus()
+        {
+            return this.View();
         }
     }
 }

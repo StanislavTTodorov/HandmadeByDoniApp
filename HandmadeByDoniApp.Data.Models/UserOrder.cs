@@ -34,6 +34,8 @@ namespace HandmadeByDoniApp.Data.Models
         public Guid AddressId { get; set; }
         public Address Address {  get; set; } = null!;
 
+        public bool IsSent { get; set; }
+
 
     }
 }

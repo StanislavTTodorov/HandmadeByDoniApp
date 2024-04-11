@@ -26,53 +26,55 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 .Include(u => u.Glasses)
                 .Include(u => u.Decanters)
                 .FirstAsync(u => u.Id.ToString() == userId);
-            List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
+             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (user != null)
             {
-                List<ProductsAllViewModel> boxs = user.Boxs.Select(x => new ProductsAllViewModel()
-                {
-                    Id = x.Id.ToString(),
-                    Title = x.Title,
-                    Description = x.Description,
-                    CreatedOn = x.CreatedOn,
-                    Price = x.Price,
-                    IsActive = x.IsActive,
-                    ImageUrl = x.ImageUrl
-                }).ToList();
-                List<ProductsAllViewModel> glasses = user.Glasses.Select(x => new ProductsAllViewModel()
-                {
-                    Id = x.Id.ToString(),
-                    Title = x.Title,
-                    Description = x.Description,
-                    CreatedOn = x.CreatedOn,
-                    Price = x.Price,
-                    IsActive = x.IsActive,
-                    ImageUrl = x.ImageUrl
-                }).ToList();
-                List<ProductsAllViewModel> sets = user.Sets.Select(x => new ProductsAllViewModel()
-                {
-                    Id = x.Id.ToString(),
-                    Title = x.Title,
-                    Description = x.Description,
-                    CreatedOn = x.CreatedOn,
-                    Price = x.Price,
-                    IsActive = x.IsActive,
-                    ImageUrl = x.ImageUrl
-                }).ToList();
-                List<ProductsAllViewModel> decanters = user.Decanters.Select(x => new ProductsAllViewModel()
-                {
-                    Id = x.Id.ToString(),
-                    Title = x.Title,
-                    Description = x.Description,
-                    CreatedOn = x.CreatedOn,
-                    Price = x.Price,
-                    IsActive = x.IsActive,
-                    ImageUrl = x.ImageUrl
-                }).ToList();
-                products.AddRange(boxs);
-                products.AddRange(glasses);
-                products.AddRange(sets);
-                products.AddRange(decanters);
+
+                products = GetAllMineProduct(user.Boxs, user.Glasses, user.Sets, user.Decanters);
+                //List<ProductsAllViewModel> boxs = user.Boxs.Select(x => new ProductsAllViewModel()
+                //{
+                //    Id = x.Id.ToString(),
+                //    Title = x.Title,
+                //    Description = x.Description,
+                //    CreatedOn = x.CreatedOn,
+                //    Price = x.Price,
+                //    IsActive = x.IsActive,
+                //    ImageUrl = x.ImageUrl
+                //}).ToList();
+                //List<ProductsAllViewModel> glasses = user.Glasses.Select(x => new ProductsAllViewModel()
+                //{
+                //    Id = x.Id.ToString(),
+                //    Title = x.Title,
+                //    Description = x.Description,
+                //    CreatedOn = x.CreatedOn,
+                //    Price = x.Price,
+                //    IsActive = x.IsActive,
+                //    ImageUrl = x.ImageUrl
+                //}).ToList();
+                //List<ProductsAllViewModel> sets = user.Sets.Select(x => new ProductsAllViewModel()
+                //{
+                //    Id = x.Id.ToString(),
+                //    Title = x.Title,
+                //    Description = x.Description,
+                //    CreatedOn = x.CreatedOn,
+                //    Price = x.Price,
+                //    IsActive = x.IsActive,
+                //    ImageUrl = x.ImageUrl
+                //}).ToList();
+                //List<ProductsAllViewModel> decanters = user.Decanters.Select(x => new ProductsAllViewModel()
+                //{
+                //    Id = x.Id.ToString(),
+                //    Title = x.Title,
+                //    Description = x.Description,
+                //    CreatedOn = x.CreatedOn,
+                //    Price = x.Price,
+                //    IsActive = x.IsActive,
+                //    ImageUrl = x.ImageUrl
+                //}).ToList();
+                //products.AddRange(boxs);
+                //products.AddRange(glasses);
+                //products.AddRange(sets);
+                //products.AddRange(decanters);
             }
             MineProductViewModel viewModel = new MineProductViewModel()
             {
@@ -81,6 +83,56 @@ namespace HandmadeByDoniApp.Services.Data.Service
             };
 
             return viewModel;
+        }
+
+        private List<ProductsAllViewModel> GetAllMineProduct(ICollection<Box> mineBoxs, ICollection<Glass> mineGlasses, ICollection<Set> mineSets, ICollection<Decanter> mineDecanters)
+        {
+            List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
+            List<ProductsAllViewModel> boxs = mineBoxs.Select(x => new ProductsAllViewModel()
+            {
+                Id = x.Id.ToString(),
+                Title = x.Title,
+                Description = x.Description,
+                CreatedOn = x.CreatedOn,
+                Price = x.Price,
+                IsActive = x.IsActive,
+                ImageUrl = x.ImageUrl
+            }).ToList();
+            List<ProductsAllViewModel> glasses = mineGlasses.Select(x => new ProductsAllViewModel()
+            {
+                Id = x.Id.ToString(),
+                Title = x.Title,
+                Description = x.Description,
+                CreatedOn = x.CreatedOn,
+                Price = x.Price,
+                IsActive = x.IsActive,
+                ImageUrl = x.ImageUrl
+            }).ToList();
+            List<ProductsAllViewModel> sets = mineSets.Select(x => new ProductsAllViewModel()
+            {
+                Id = x.Id.ToString(),
+                Title = x.Title,
+                Description = x.Description,
+                CreatedOn = x.CreatedOn,
+                Price = x.Price,
+                IsActive = x.IsActive,
+                ImageUrl = x.ImageUrl
+            }).ToList();
+            List<ProductsAllViewModel> decanters = mineDecanters.Select(x => new ProductsAllViewModel()
+            {
+                Id = x.Id.ToString(),
+                Title = x.Title,
+                Description = x.Description,
+                CreatedOn = x.CreatedOn,
+                Price = x.Price,
+                IsActive = x.IsActive,
+                ImageUrl = x.ImageUrl
+            }).ToList();
+            products.AddRange(boxs);
+            products.AddRange(glasses);
+            products.AddRange(sets);
+            products.AddRange(decanters);
+            return products;
         }
 
         public  async Task<bool> CreateRegisterOrderAsync(string userId)
@@ -173,7 +225,25 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             await repository.AddAsync(newOrder);
 
+            Address address = await this.repository
+                              .All<Address>()
+                              .Include(a => a.DeliveryCompany)
+                              .Include(a => a.MethodPayment)
+                              .FirstAsync();
 
+            UserOrder userOrder = new UserOrder()
+            {
+                User = user,
+                UserId = user.Id,
+                OrderId = newOrder.Id,
+                Order = newOrder,
+                TotalPrice = GetAllMineProduct(newOrder.Boxs, newOrder.Glasses, newOrder.Sets, newOrder.Decanters).Sum(x => x.Price),
+                CreaateOn = DateTime.Now,
+                Address = address,
+                AddressId =address.Id,
+                IsSent = false,
+            };
+            await repository.AddAsync(userOrder);
             await repository.SaveChangesAsync();
             return true;
         }

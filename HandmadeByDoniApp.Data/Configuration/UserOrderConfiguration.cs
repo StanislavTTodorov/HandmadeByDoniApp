@@ -21,13 +21,16 @@ namespace HandmadeByDoniApp.Data.Configuration
             builder.HasOne(x => x.Order)
                 .WithMany()
                 .HasForeignKey(x => x.OrderId)
-                 .OnDelete(DeleteBehavior.Restrict); ;
+                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Address)
                    .WithMany()
                    .HasForeignKey(x=>x.AddressId)
-                    .OnDelete(DeleteBehavior.Restrict); ;
-                
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(h => h.IsSent)
+               .HasDefaultValue(false);
+
         }
     }
 }
