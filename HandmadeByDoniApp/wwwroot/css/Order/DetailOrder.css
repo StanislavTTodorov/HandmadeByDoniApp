@@ -8,7 +8,13 @@
 }
 
 
-.details,
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    gap:2em;
+}
 .card-list {
     display: flex;
     flex-direction: row;

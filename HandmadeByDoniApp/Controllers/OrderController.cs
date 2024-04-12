@@ -108,7 +108,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             try
             {
-                bool isAllActiv = await this.orderService.CreateRegisterOrderAsync(userId);
+                bool isAllActiv = await this.orderService.CreateRegisterUserOrderByUserIdAsync(userId);
                 
                 if (isAllActiv)
                 {
@@ -129,7 +129,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> DetailsOrder()
-        {
+        {         
             try
             {
                 string userId = User.GetId();
@@ -151,7 +151,41 @@ namespace HandmadeByDoniApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderStatus()
         {
-            return this.View();
+            string userId = User.GetId();
+            bool isExists = await this.orderService.ExistsByUserIdAsync(userId);
+            if (isExists == false)
+            {
+                TempData[ErrorMessage] = "You not have Orders! You can product from here";
+                return RedirectToAction("All", "Product", new { area = "" });
+            }
+            try
+            {
+                ICollection<OrderStatusViewModel> viewModel = await this.orderService.GetUserOrdersByUserIdAsync(userId);
+            
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                return this.RedirectToAction("Mine", "Order", new { area = "" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductOrder(string id)
+        {
+            try
+            {
+                string userId = User.GetId();
+                MineProductViewModel productViewModel = await this.orderService.AllOrderProductsByUserIdAsync(userId,id);
+                return this.View(productViewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Order Product! Please try agenin later.";
+                return this.RedirectToAction("Index", "Home", new { area = "" });
+            }
+
         }
     }
 }

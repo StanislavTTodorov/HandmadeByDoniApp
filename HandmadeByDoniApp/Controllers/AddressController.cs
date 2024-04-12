@@ -126,7 +126,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             try
             {
-                await this.addressService.CreateAddressAsync(formModel, User.GetId());
+                await this.addressService.EditAddressAsync(formModel, User.GetId());
                 this.TempData[SuccessMessage] = "Address was added successfully!";
             }
             catch (Exception)

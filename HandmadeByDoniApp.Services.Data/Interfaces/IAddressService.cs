@@ -15,6 +15,6 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<bool> MethodPaymentExistsByIdAsync(int methodPaymentId);
         Task<string> GetDeliveryCompanyNameAsyng(int id);
         Task<string> GetMethodPaymentNameAsyng(int id);
-
+        Task EditAddressAsync(AddressFormModel formModel, string userId);
     }
 }

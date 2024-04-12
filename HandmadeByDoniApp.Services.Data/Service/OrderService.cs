@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -21,60 +22,16 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             ApplicationUser? user = await this.repository
                 .All<ApplicationUser>()
-                .Include(u=>u.Boxs)
+                .Include(u => u.Boxs)
                 .Include(u => u.Sets)
                 .Include(u => u.Glasses)
                 .Include(u => u.Decanters)
                 .FirstAsync(u => u.Id.ToString() == userId);
-             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
+            List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (user != null)
             {
-
                 products = GetAllMineProduct(user.Boxs, user.Glasses, user.Sets, user.Decanters);
-                //List<ProductsAllViewModel> boxs = user.Boxs.Select(x => new ProductsAllViewModel()
-                //{
-                //    Id = x.Id.ToString(),
-                //    Title = x.Title,
-                //    Description = x.Description,
-                //    CreatedOn = x.CreatedOn,
-                //    Price = x.Price,
-                //    IsActive = x.IsActive,
-                //    ImageUrl = x.ImageUrl
-                //}).ToList();
-                //List<ProductsAllViewModel> glasses = user.Glasses.Select(x => new ProductsAllViewModel()
-                //{
-                //    Id = x.Id.ToString(),
-                //    Title = x.Title,
-                //    Description = x.Description,
-                //    CreatedOn = x.CreatedOn,
-                //    Price = x.Price,
-                //    IsActive = x.IsActive,
-                //    ImageUrl = x.ImageUrl
-                //}).ToList();
-                //List<ProductsAllViewModel> sets = user.Sets.Select(x => new ProductsAllViewModel()
-                //{
-                //    Id = x.Id.ToString(),
-                //    Title = x.Title,
-                //    Description = x.Description,
-                //    CreatedOn = x.CreatedOn,
-                //    Price = x.Price,
-                //    IsActive = x.IsActive,
-                //    ImageUrl = x.ImageUrl
-                //}).ToList();
-                //List<ProductsAllViewModel> decanters = user.Decanters.Select(x => new ProductsAllViewModel()
-                //{
-                //    Id = x.Id.ToString(),
-                //    Title = x.Title,
-                //    Description = x.Description,
-                //    CreatedOn = x.CreatedOn,
-                //    Price = x.Price,
-                //    IsActive = x.IsActive,
-                //    ImageUrl = x.ImageUrl
-                //}).ToList();
-                //products.AddRange(boxs);
-                //products.AddRange(glasses);
-                //products.AddRange(sets);
-                //products.AddRange(decanters);
+
             }
             MineProductViewModel viewModel = new MineProductViewModel()
             {
@@ -135,20 +92,20 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return products;
         }
 
-        public  async Task<bool> CreateRegisterOrderAsync(string userId)
+        public async Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId)
         {
             ApplicationUser user = await this.repository
                 .All<ApplicationUser>()
-                .Include(u=>u.Sets)
+                .Include(u => u.Sets)
                 .Include(u => u.Glasses)
                 .Include(u => u.Decanters)
                 .Include(u => u.Boxs)
-                .FirstAsync(u=>u.Id.ToString()==userId);
+                .FirstAsync(u => u.Id.ToString() == userId);
 
             Order newOrder = new Order()
             {
                 User = user,
-                ClientId= user.Id,
+                ClientId = user.Id,
                 Sets = new HashSet<Set>(),
                 Glasses = new HashSet<Glass>(),
                 Decanters = new HashSet<Decanter>(),
@@ -156,13 +113,13 @@ namespace HandmadeByDoniApp.Services.Data.Service
             };
             //Glass
             Glass[] newGlass = new Glass[user.Glasses.Count];
-               
+
             user.Glasses.CopyTo(newGlass, 0);
             foreach (var glass in user.Glasses)
             {
-                if(glass.IsActive==false)
+                if (glass.IsActive == false)
                 {
-                  return false;
+                    return false;
                 }
                 else
                 {
@@ -240,7 +197,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 TotalPrice = GetAllMineProduct(newOrder.Boxs, newOrder.Glasses, newOrder.Sets, newOrder.Decanters).Sum(x => x.Price),
                 CreaateOn = DateTime.Now,
                 Address = address,
-                AddressId =address.Id,
+                AddressId = address.Id,
                 IsSent = false,
             };
             await repository.AddAsync(userOrder);
@@ -325,12 +282,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             Glass? glass = await this.repository
                 .All<Glass>()
-                .FirstOrDefaultAsync(g=>g.Id.ToString()==id);
-            Decanter? decanter =  await this.repository
+                .FirstOrDefaultAsync(g => g.Id.ToString() == id);
+            Decanter? decanter = await this.repository
                 .All<Decanter>()
                 .FirstOrDefaultAsync(g => g.Id.ToString() == id);
-            
-            if(glass!=null && glass.SetId!=null)
+
+            if (glass != null && glass.SetId != null)
             {
                 return true;
             }
@@ -342,25 +299,89 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         }
 
-		public async Task<bool> IsActiveByIdAsync(string id)
-		{
-			bool glass = await this.repository.AllReadOnly<Glass>()
-                .Where(g=>g.IsActive==true)
-				.AnyAsync(g => g.Id.ToString() == id);
+        public async Task<bool> IsActiveByIdAsync(string id)
+        {
+            bool glass = await this.repository.AllReadOnly<Glass>()
+                .Where(g => g.IsActive == true)
+                .AnyAsync(g => g.Id.ToString() == id);
 
-			bool box = await this.repository.AllReadOnly<Box>()
-				.Where(g => g.IsActive == true)
-				.AnyAsync(g => g.Id.ToString() == id);
+            bool box = await this.repository.AllReadOnly<Box>()
+                .Where(g => g.IsActive == true)
+                .AnyAsync(g => g.Id.ToString() == id);
 
-			bool decanter = await this.repository.AllReadOnly<Decanter>()
-				.Where(g => g.IsActive == true)
-				.AnyAsync(g => g.Id.ToString() == id);
+            bool decanter = await this.repository.AllReadOnly<Decanter>()
+                .Where(g => g.IsActive == true)
+                .AnyAsync(g => g.Id.ToString() == id);
 
-			bool set = await this.repository.AllReadOnly<Set>()
-				.Where(g => g.IsActive == true)
-				.AnyAsync(g => g.Id.ToString() == id);
+            bool set = await this.repository.AllReadOnly<Set>()
+                .Where(g => g.IsActive == true)
+                .AnyAsync(g => g.Id.ToString() == id);
 
-			return glass||box||decanter||set;
-		}
-	}
+            return glass || box || decanter || set;
+        }
+
+
+        public async Task<bool> ExistsByUserIdAsync(string userId)
+        {
+            bool exists = await this.repository.AllReadOnly<UserOrder>().AnyAsync(u => u.UserId.ToString() == userId);
+            return exists;
+        }
+
+        public async Task<ICollection<OrderStatusViewModel>> GetUserOrdersByUserIdAsync(string userId)
+        {
+            ICollection<OrderStatusViewModel> orders = await this.repository
+                .All<UserOrder>()
+                .Include(u => u.User)
+                .Include(u => u.Order)
+                .Include(a => a.Address)
+                .Where(u => u.UserId.ToString() == userId)
+                .OrderBy(u => u.CreaateOn)
+                .Select(u => new OrderStatusViewModel()
+                {
+                    OrderId = u.Order.Id.ToString(),
+
+                    OrdersDetails = new OrderViewModel()
+                    {
+                        CountryName = u.Address.CountryName,
+                        CityName = u.Address.CityName,
+                        Street = u.Address.Street,
+                        PhoneNumber = u.Address.PhoneNumber,
+                        DeliveryCompanyName = u.Address.DeliveryCompany.Name,
+                        MethodPayment = u.Address.MethodPayment.Method,
+                        CreaateOn = u.CreaateOn.ToString("dd/MM/yyyy HH:mm"),
+                        TotalPrice = u.TotalPrice.ToString("f2"),
+                        IsSent = u.IsSent
+                    }
+                })
+                .ToArrayAsync();
+
+            return orders;
+
+        }
+
+        public async Task<MineProductViewModel> AllOrderProductsByUserIdAsync(string userId, string orderId)
+        {
+            Order? order = await this.repository
+                 .All<Order>()
+                 .Include(u => u.Boxs)
+                 .Include(u => u.Sets)
+                 .Include(u => u.Glasses)
+                 .Include(u => u.Decanters)
+                 .Where(u => u.Id.ToString() == orderId &&
+                                  u.ClientId.ToString() == userId)
+                 .FirstOrDefaultAsync();
+            List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
+            if (order != null)
+            {
+                products = GetAllMineProduct(order.Boxs, order.Glasses, order.Sets, order.Decanters);
+
+            }
+            MineProductViewModel viewModel = new MineProductViewModel()
+            {
+                totalPrice = products.Sum(x => x.Price),
+                Products = products
+            };
+            return viewModel;
+        }
+    }
 }

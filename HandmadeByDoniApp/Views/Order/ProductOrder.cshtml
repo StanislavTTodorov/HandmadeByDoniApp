@@ -1,0 +1,46 @@
+﻿@model MineProductViewModel
+
+@{
+    ViewBag.Title = "Product in order";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Order/Mine.css" asp-append-version="true" />
+</head>
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+
+
+<article class="product-center col-12">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-8 mt-2">
+                <div class="card-list">
+                    <img class="card-img-list" src="@product.ImageUrl" alt="Image">
+
+                    <div class="product-info">
+                        <h4>@product.Title</h4>
+                        <h6>
+                            Price: <b>@($"{product.Price:f2}") BGN</b>
+                        </h6>                    
+                    </div>
+                    <div class="card-list">
+                        <a asp-area=""
+                           asp-controller="Product"
+                           asp-action="Details"
+                           asp-route-id="@product.Id"
+                           class="btn btn-success">Details</a>
+
+                        <a class="ml-2 btn btn-info"
+                           asp-area=""
+                           asp-controller="Comment"
+                           asp-action="Comment"
+                           asp-route-id="@product.Id">Comment</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="card-list text-center col-8 mt-4">
+            <h3>Total Price: @($"{Model.totalPrice:f2}")  BGN</h3>
+        </div>
+</article>
+

@@ -74,12 +74,30 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return exists;
         }
 
+        public async Task EditAddressAsync(AddressFormModel formModel, string userId)
+        {
+            Address address = await this.repository
+               .All<Address>()
+               .Include(a => a.DeliveryCompany)
+               .Include(a => a.MethodPayment)
+               .Include(a => a.User)
+               .FirstAsync(g => g.ClientId.ToString() == userId);
+
+            address.CityName = formModel.CityName;
+            address.CountryName = formModel.CountryName;
+            address.PhoneNumber = formModel.PhoneNumber;
+            address.MethodPaymentId = formModel.MethodPaymentId;
+            address.DeliveryCompanyId = formModel.DeliveryCompanyId;
+
+            await this.repository.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistsByUserIdAsync(string userId)
         {
             bool exist = await this.repository
                 .AllReadOnly<Address>()
                 .AnyAsync(a => a.ClientId.ToString() == userId);
-               
+
             return exist;
         }
 
@@ -87,9 +105,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             Address? address = await this.repository
                 .AllReadOnly<Address>()
-                .Include(a=>a.DeliveryCompany)
+                .Include(a => a.DeliveryCompany)
                 .Include(a => a.MethodPayment)
-                .FirstOrDefaultAsync(a=>a.ClientId.ToString()==userId);
+                .FirstOrDefaultAsync(a => a.ClientId.ToString() == userId);
             if (address == null)
             {
                 return null;
@@ -101,8 +119,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CityName = address.CityName,
                 Street = address.Street,
                 PhoneNumber = address.PhoneNumber,
-                DeliveryCompanyId = address.DeliveryCompany.Id,                
-                MethodPaymentId  = address.MethodPayment.Id
+                DeliveryCompanyId = address.DeliveryCompany.Id,
+                MethodPaymentId = address.MethodPayment.Id
             };
         }
 
@@ -110,8 +128,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             string[] name = await this.repository
                 .AllReadOnly<DeliveryCompany>()
-                .Where(d=>d.Id==id)
-                .Select(d=>d.Name)
+                .Where(d => d.Id == id)
+                .Select(d => d.Name)
                 .ToArrayAsync();
             return name[0];
         }
@@ -126,7 +144,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return name[0];
         }
 
-            public async Task<bool> MethodPaymentExistsByIdAsync(int methodPaymentId)
+        public async Task<bool> MethodPaymentExistsByIdAsync(int methodPaymentId)
         {
             bool exists = await this.repository
                  .All<MethodPayment>()
