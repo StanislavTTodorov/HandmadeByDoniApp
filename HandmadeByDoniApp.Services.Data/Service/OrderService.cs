@@ -383,5 +383,37 @@ namespace HandmadeByDoniApp.Services.Data.Service
             };
             return viewModel;
         }
+
+        public  async Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync()
+        {
+            ICollection<AdminOrdersViewModel> orders = await this.repository
+                .All<UserOrder>()
+                .Include(u => u.User)
+                .Include(u => u.Order)
+                .Include(a => a.Address)
+                .OrderBy(u => u.IsSent)
+                .ThenByDescending(u => u.CreaateOn)
+                .Select(u => new AdminOrdersViewModel()
+                {
+                    UserId = u.UserId.ToString(),
+                    Email = u.User.Email,
+                    FullName = $"{u.User.FirstName} {u.User.LastName}",
+
+                    OrderId = u.OrderId.ToString(),
+                    AddressId = u.AddressId.ToString(),
+                    Data = u.CreaateOn.ToString("dd/MM/yyyy HH:mm"),
+                    TotalPrice =u.TotalPrice.ToString("f2"),
+                    IsSent = u.IsSent,
+
+                    CountryName = u.Address.CountryName,
+                    CityName = u.Address.CountryName,
+                    Street = u.Address.Street,
+                    PhoneNumber = u.Address.PhoneNumber,
+                    DeliveryCompanyName = u.Address.DeliveryCompany.Name,
+                    MethodPayment = u.Address.MethodPayment.Method,
+
+                }).ToArrayAsync();
+            return orders;
+        }
     }
 }

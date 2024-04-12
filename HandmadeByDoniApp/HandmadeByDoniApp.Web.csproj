@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
+    <Folder Include="Areas\Admin\ViewModels\Order\" />
   </ItemGroup>
 
 </Project>

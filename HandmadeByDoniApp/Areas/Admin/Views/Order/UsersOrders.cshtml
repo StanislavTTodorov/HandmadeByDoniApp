@@ -1,0 +1,52 @@
+﻿@model ICollection<AdminOrdersViewModel>
+@{
+    ViewData["Title"] = "Users Orders";
+}
+<h2 class="text-center title">@ViewData["Title"]</h2>
+<hr />
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            
+            <th><label>Full Name</label></th>
+            <th><label>Email</label></th>
+            <th><label>Phone Number</label></th>
+            <th><label>Address</label></th>
+            <th><label>Data</label></th>
+            <th><label>Delivery Company</label></th>
+            <th><label>Payment</label></th>
+            <th><label>Commands</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td><label>@user.FullName</label></td>
+                <td><label>@user.Email</label></td>
+                <td><label>@user.PhoneNumber</label></td>
+                <td><label>@($"{user.CountryName} {user.CityName} {user.Street}")</label></td>
+                <td><label>@user.Data</label></td>
+                <td><label>@user.DeliveryCompanyName</label></td>
+                <td><label>@($"{user.MethodPayment} {user.TotalPrice}lv")</label></td>
+                <td>
+                        @if (user.IsSent==false)
+                        {
+                        <a class="ml-2 btn btn-primary"
+                           asp-area="Admin"
+                           asp-controller=""
+                           asp-action=""
+                           asp-route-id="">Sent</a>
+                        }
+                    <a class="ml-2 btn btn-primary"
+                       asp-area="Admin"
+                       asp-controller=""
+                       asp-action=""
+                       asp-route-id="@user.AddressId">Products Order</a>
+
+                        
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

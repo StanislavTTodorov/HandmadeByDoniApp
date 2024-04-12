@@ -60,13 +60,25 @@
                         @if (User.IsAdmin())
                         {
                             <li>
+                                <a class="button-memu">Admin Menu</a>
+                                <ul>
+                                    <li>
+                                        <a class="button-memu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">Newst Orders</a>
+                                    </li>
+                                    <li>
+                                        <a class="button-memu" asp-area="Admin" asp-controller="" asp-action="">All User </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add New Products</a>
                                 <ul>
                                     <li>
                                         <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Set</a>
                                         <ul>
                                             <li>
-                                                <p class="button-memu">Set 2 Glass</p>
+                                                <a class="button-memu">Set 2 Glass</a>
                                                 <ul>
                                                     <li>
                                                         <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@true" asp-route-numberOfCups="2">Glass and Decanter</a>
@@ -77,7 +89,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <p class="button-memu">Add Set 4 Glass</p>
+                                                <a class="button-memu">Add Set 4 Glass</a>
                                                 <ul>
                                                     <li>
                                                         <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@true" asp-route-numberOfCups="4">Glass and Decanter</a>

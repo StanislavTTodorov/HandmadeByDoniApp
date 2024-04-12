@@ -14,8 +14,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId);
         Task<bool> ExistsByUserIdAsync(string userId);
         Task<bool> ExistsInSetByIdAsync(string id);
-        //Task<MineProductViewModel> GetOrderProductsByOrderIdAsync(string orderId);
-       // Task<ICollection<OrderViewModel>> GetUserOrderByUserIdAsync(string userId);
+        Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync();
         Task<ICollection<OrderStatusViewModel>> GetUserOrdersByUserIdAsync(string userId);
         Task<bool> IsActiveByIdAsync(string id);
 		Task RemoveProductByUserIdAsync(string userId, string id);
