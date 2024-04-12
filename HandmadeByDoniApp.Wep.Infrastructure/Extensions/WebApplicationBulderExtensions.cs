@@ -1,6 +1,7 @@
 ﻿
 
 using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Web.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,6 +79,10 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
             .GetResult();
 
             return app;
+        }
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }

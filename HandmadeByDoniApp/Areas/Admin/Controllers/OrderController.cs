@@ -25,9 +25,28 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
-                return this.RedirectToAction("Mine", "Order", new { area = "" });
+                return this.RedirectToAction("Index", "Home", new { area = "" });
             }
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Sent(string orderId)
+        {
+            bool isExists = await this.orderService.ExistsByIdAsync(orderId);
+            if (isExists == false)
+            {
+                this.TempData[ErrorMessage] = "Order with the provided id does not exist!";
+                return this.RedirectToAction("UsersOrders", "Order");
+            }
+            try
+            {
+                await this.orderService.EditSentToTrueAsync(orderId);
+                this.TempData[ErrorMessage] = "Sent successfully!";
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+            }
+            return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
+        }
     }
 }

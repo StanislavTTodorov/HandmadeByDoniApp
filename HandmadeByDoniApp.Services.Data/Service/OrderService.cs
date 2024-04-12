@@ -359,7 +359,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         }
 
-        public async Task<MineProductViewModel> AllOrderProductsByUserIdAsync(string userId, string orderId)
+        public async Task<MineProductViewModel> AllOrderProductsByOrderIdAsync(string orderId)
         {
             Order? order = await this.repository
                  .All<Order>()
@@ -367,8 +367,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                  .Include(u => u.Sets)
                  .Include(u => u.Glasses)
                  .Include(u => u.Decanters)
-                 .Where(u => u.Id.ToString() == orderId &&
-                                  u.ClientId.ToString() == userId)
+                 .Where(u => u.Id.ToString() == orderId)
                  .FirstOrDefaultAsync();
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (order != null)
@@ -406,7 +405,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     IsSent = u.IsSent,
 
                     CountryName = u.Address.CountryName,
-                    CityName = u.Address.CountryName,
+                    CityName = u.Address.CityName,
                     Street = u.Address.Street,
                     PhoneNumber = u.Address.PhoneNumber,
                     DeliveryCompanyName = u.Address.DeliveryCompany.Name,
@@ -415,5 +414,28 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 }).ToArrayAsync();
             return orders;
         }
+
+        public async Task<bool> ExistsByIdAsync(string orderId)
+        {
+            bool exists = await repository
+                .All<UserOrder>()
+                .Include(u => u.Order)
+               .AnyAsync(b => b.Order.Id.ToString() == orderId);
+
+            return exists;
+        }
+
+        public async Task EditSentToTrueAsync(string orderId)
+        {
+            UserOrder userOrder = await this.repository
+                .All<UserOrder>()
+                .Include(u => u.Order)
+                .FirstAsync(u=>u.Order.Id.ToString()==orderId);
+
+            userOrder.IsSent = true;
+
+            await this.repository.SaveChangesAsync();
+        }
+
     }
 }

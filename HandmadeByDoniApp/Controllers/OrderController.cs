@@ -176,8 +176,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             try
             {
-                string userId = User.GetId();
-                MineProductViewModel productViewModel = await this.orderService.AllOrderProductsByUserIdAsync(userId,id);
+                MineProductViewModel productViewModel = await this.orderService.AllOrderProductsByOrderIdAsync(id);
                 return this.View(productViewModel);
             }
             catch (Exception)

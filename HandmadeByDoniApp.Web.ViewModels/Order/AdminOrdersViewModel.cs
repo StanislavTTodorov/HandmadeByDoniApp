@@ -1,5 +1,4 @@
 ﻿using HandmadeByDoniApp.Web.ViewModels.Address;
-using HouseRentingSystem.Web.ViewModels.User;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Order
 {

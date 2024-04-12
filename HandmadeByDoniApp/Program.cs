@@ -58,7 +58,9 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-       
+
+        app.EnableOnlineUsersCheck();
+
         if (app.Environment.IsDevelopment())
         {
             app.SeedAdministrator(DevelopmentAdminEmail);
