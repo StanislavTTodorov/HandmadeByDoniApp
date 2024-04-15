@@ -29,6 +29,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = formModel.ImageUrl,
                 Capacity = formModel.Capacity,
                 Price = formModel.Price,
+                IsActive = true,
             };
 
             await repository.AddAsync(newBox);

@@ -53,6 +53,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Price = formModel.Price,
                 GlassCategoryId = formModel.CategoryId,
                 IsSet = formModel.IsSet,
+                IsActive = true,
             };
 
             await repository.AddRangeAsync(newGlass);

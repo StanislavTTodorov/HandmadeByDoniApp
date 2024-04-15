@@ -36,6 +36,7 @@ namespace HandmadeByDoniApp.Data.Models
         public decimal Price { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         [Required]

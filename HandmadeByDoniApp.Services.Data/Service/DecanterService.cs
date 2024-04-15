@@ -52,6 +52,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 ImageUrl = formModel.ImageUrl,
                 Capacity = formModel.Capacity,
                 Price = formModel.Price,
+                IsSet = false,
+                IsActive = true,
             };
 
             await repository.AddAsync(newDecanter);

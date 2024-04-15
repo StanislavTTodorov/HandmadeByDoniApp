@@ -33,5 +33,25 @@ namespace HandmadeByDoniApp.Data.Models
         public DateTime CreatedOn { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        [ForeignKey(nameof(OnComment))]
+        public Guid? CommentId { get; set; }
+        public virtual Comment? OnComment { get; set; }
+
+        [ForeignKey(nameof(Box))]
+        public Guid? BoxId { get; set; }
+        public virtual Box? Box { get; set; }
+
+        [ForeignKey(nameof(Glass))]
+        public Guid? GlassId { get; set; }
+        public virtual Glass? Glass { get; set; }
+
+        [ForeignKey(nameof(Set))]
+        public Guid? SetId { get; set; }
+        public virtual Set? Set { get; set; }
+
+        [ForeignKey(nameof(Decanter))]
+        public Guid? DecanterId { get; set; }
+        public virtual Decanter? Decanter { get; set; }
     }
 }

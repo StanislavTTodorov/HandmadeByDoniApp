@@ -48,5 +48,7 @@ namespace HandmadeByDoniApp.Data.Models
         [ForeignKey(nameof(Order))]
         public Guid? OrderId { get; set; }
         public virtual Order? Order { get; set; }
+
+       
     }
 }

@@ -41,26 +41,25 @@ namespace HandmadeByDoniApp.Data
         {
            
             builder.ApplyConfiguration(new GlassCategoryConfiguration());
+            builder.ApplyConfiguration(new MethodPaymentConfiguration());
+            builder.ApplyConfiguration(new DeliveryCompanyConfiguration());
 
-            builder.ApplyConfiguration(new CommentConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new OrderConfiguration());
+
+            builder.ApplyConfiguration(new SetConfiguration());
 
             builder.ApplyConfiguration(new GlassConfiguration());
             builder.ApplyConfiguration(new DecanterConfiguration());
             builder.ApplyConfiguration(new BoxConfiguration());
+            
 
-            builder.ApplyConfiguration(new SetConfiguration());
-
-            builder.ApplyConfiguration(new OrderConfiguration());
-            builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new MethodPaymentConfiguration());
-            builder.ApplyConfiguration(new DeliveryCompanyConfiguration());
             builder.ApplyConfiguration(new AddressConfiguration());
+            builder.ApplyConfiguration(new CommentConfiguration());
+            
+
             builder.ApplyConfiguration(new UserOrderConfiguration());
            
-
-
-
-
             base.OnModelCreating(builder);
         }
     }
