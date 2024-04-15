@@ -22,7 +22,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Address
         [Display(Name = "Delivery Company")]
         public string DeliveryCompanyName { get; set; } = null!;
 
-        [Display(Name = "Method Payment")]
+        [Display(Name = "Payment Method")]
         public string MethodPayment { get; set; } = null!;
     }
 

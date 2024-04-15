@@ -108,7 +108,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the house. Please try again later");
+                    "Unexpected error occurred while trying to update the glass. Please try again later");
                 formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
                 return View(formModel);
             }

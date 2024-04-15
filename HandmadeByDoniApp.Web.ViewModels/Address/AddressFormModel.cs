@@ -37,7 +37,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Address
         public int DeliveryCompanyId { get; set; }
         public IEnumerable<DeliveryCompanyFormModel> DeliveryCompanies { get; set; }
 
-        [Display(Name = "Method Payment")]
+        [Display(Name = "Payment Method")]
         public int MethodPaymentId { get; set; }
         public IEnumerable<MethodPaymentFormModel> MethodPayments { get; set; }
 

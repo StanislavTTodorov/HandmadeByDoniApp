@@ -24,7 +24,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
         }
@@ -44,7 +44,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
             }
             return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
         }

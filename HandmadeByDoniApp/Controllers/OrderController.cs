@@ -1,13 +1,9 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Order;
-using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Caching.Memory;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
-using HandmadeByDoniApp.Web.ViewModels.Address;
 
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -41,7 +37,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Shop List! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Cart! Please try again later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
 
@@ -60,7 +56,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isActive = await this.orderService.IsActiveByIdAsync(id);
             if (isActive==false)
             {
-                this.TempData[InformationMessage] = "Product is not Availability";
+                this.TempData[InformationMessage] = "Product is not available";
                 return this.Redirect(returnUrl);
 			}
 
@@ -72,12 +68,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Cart! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Cart! Please try again later.";
                 return this.Redirect(returnUrl);
             }
 
             return this.Redirect(returnUrl);
-            //return this.RedirectToAction("Mine", "Order", new { id });
+            
 
         }
         [HttpGet]
@@ -90,7 +86,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove in Shop List ! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove from Cart ! Please try again later.";
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
 
@@ -104,7 +100,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "You not have Address! You can add your address here";
+                TempData[ErrorMessage] = "You don't have Address! Add your address here";
                 return RedirectToAction("Add", "Address", new { area = "" });
             }
             try
@@ -117,12 +113,12 @@ namespace HandmadeByDoniApp.Web.Controllers
                 }
                 else
                 {
-                    this.TempData[ErrorMessage] = "Some of the products are not for sale";
+                    this.TempData[ErrorMessage] = "Some of the products are not available";
                 }
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove in Shop List ! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove from Cart ! Please try again later.";
             }
             
 			return this.RedirectToAction("Mine", "Order", new { area = "" });
@@ -144,7 +140,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -156,7 +152,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.orderService.UserOrderExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[InformationMessage] = "You not have Orders! You can select products from here";
+                TempData[InformationMessage] = "You don't have Orders! You can select products from here";
                 return RedirectToAction("All", "Product", new { area = "" });
             }
             try
@@ -167,7 +163,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -182,7 +178,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Order Product! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Order Product! Please try again later.";
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
 
@@ -200,11 +196,11 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.orderService.DeleteUserOrderByOrderIdAsync(id);
-                this.TempData[ErrorMessage] = "Delete successfully!";
+                this.TempData[ErrorMessage] = "Order is canceled successfully!";
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try agenin later.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
             }
             return this.RedirectToAction("OrderStatus", "Order", new { area = "" });
         }

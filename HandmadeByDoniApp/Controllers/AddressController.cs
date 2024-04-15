@@ -42,13 +42,13 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (MethodPaymentIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected MethodPayment does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected payment method does not exist!");
             }
             bool DeliveryCompanyIdExists = await this.addressService.DeliveryCompanyExistsByIdAsync(formModel.DeliveryCompanyId);
 
             if (DeliveryCompanyIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected DeliveryCompany does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected delivery company does not exist!");
             }
 
             if (this.ModelState.IsValid == false)
@@ -82,7 +82,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "You not have Address! You can add your address here";
+                TempData[ErrorMessage] = "You don't have Address! You can add your address here";
                 return RedirectToAction("Add", "Addres", new { area = "" });
             }
 
@@ -108,13 +108,13 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (MethodPaymentIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected MethodPayment does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected payment method does not exist!");
             }
             bool DeliveryCompanyIdExists = await this.addressService.DeliveryCompanyExistsByIdAsync(formModel.DeliveryCompanyId);
 
             if (DeliveryCompanyIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected DeliveryCompany does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected delivery company does not exist!");
             }
 
             if (this.ModelState.IsValid == false)

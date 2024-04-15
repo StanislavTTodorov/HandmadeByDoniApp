@@ -55,7 +55,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.RedirectToAction("Edit", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose.";
+            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
             return this.RedirectToAction("All", "Product", new { area = "" });
 
         }

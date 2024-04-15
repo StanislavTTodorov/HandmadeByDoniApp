@@ -61,7 +61,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.RedirectToAction("Details", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose.";
+            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
             return this.RedirectToAction("All", "Product");
 
         }

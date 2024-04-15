@@ -136,15 +136,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             {
                 OnlySetFormModel formModel = await this.setService.GetSetForEditByIdAsync(id);
 
-                //formModel.GlassOne.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
-                //formModel.GlassTwo.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
-                //if(formModel.NumberOfCups==4 && 
-                //    formModel.GlassThree!=null && 
-                //    formModel.GlassFour!=null)
-                //{
-                //    formModel.GlassThree.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
-                //    formModel.GlassFour.Categories = await this.glassCategoryService.AllGlassCategoriesAsync();
-                //}
+                
 
                 return View(formModel);
             }
@@ -158,25 +150,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         {
             if (this.ModelState.IsValid == false)
             {
-                //formModel.GlassOne = new GlassFormModel()
-                //{
-                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //};
-                //formModel.GlassTwo = new GlassFormModel()
-                //{
-                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //};
-                //if (formModel.NumberOfCups == 4)
-                //{
-                //    formModel.GlassThree= new GlassFormModel()
-                //    {
-                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //    };
-                //    formModel.GlassFour= new GlassFormModel()
-                //    {
-                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //    };
-                //}
+                
                 return this.View(formModel);
             }
 
@@ -195,26 +169,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the house. Please try again later");
-                //formModel.GlassOne = new GlassFormModel()
-                //{
-                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //};
-                //formModel.GlassTwo = new GlassFormModel()
-                //{
-                //    Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //};
-                //if (formModel.NumberOfCups == 4)
-                //{
-                //    formModel.GlassThree = new GlassFormModel()
-                //    {
-                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //    };
-                //    formModel.GlassFour = new GlassFormModel()
-                //    {
-                //        Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
-                //    };
-                //}
+                    "Unexpected error occurred while trying to update the set. Please try again later");
+                
                 return View(formModel);
             }
 

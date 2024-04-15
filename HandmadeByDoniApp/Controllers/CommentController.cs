@@ -45,7 +45,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment)
             {
-                TempData[ErrorMessage] = "You must be the user wrote of the comment you want to edit!";
+                TempData[ErrorMessage] = "You must be the user, who wrote the comment, which you want to edit!";
 
                 return RedirectToAction("Comment", "Product",new {id});
             }
@@ -85,7 +85,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment && !User.IsAdmin())
             {
-                TempData[ErrorMessage] = "You must be the user wrote of the comment you want to edit!";
+                TempData[ErrorMessage] = "You must be the user, who wrote the comment, which you want to edit!";
 
                 return RedirectToAction("Comment", "Product", new { id });
             }
@@ -97,9 +97,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to edit the Comment. Please try again later or contact administrator!");
+                    "Unexpected error occurred while trying to edit the comment. Please try again later or contact administrator!");
 
-                return View(formModel);// id
+                return View(formModel);
             }
 
             TempData[SuccessMessage] = "Comment was edited successfully!";

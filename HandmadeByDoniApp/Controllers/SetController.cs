@@ -44,7 +44,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator.";
                 return this.RedirectToAction("All", "Product"); ;
             }
 
@@ -69,7 +69,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
 
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator.";
                 return this.RedirectToAction("All", "Product");
             }
 

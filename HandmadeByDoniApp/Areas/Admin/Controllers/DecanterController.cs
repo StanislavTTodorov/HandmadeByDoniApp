@@ -95,7 +95,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the house. Please try again later");
+                    "Unexpected error occurred while trying to update the decanter. Please try again later");
 
                 return View(formModel);
             }
