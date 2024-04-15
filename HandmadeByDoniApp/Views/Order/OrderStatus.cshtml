@@ -28,8 +28,8 @@
                 @if (order.OrdersDetails.IsSent==false)
                 {
                     <a asp-area=""
-                       asp-controller=""
-                       asp-action=""
+                       asp-controller="Order"
+                       asp-action="CancelOrder"
                        asp-route-id="@order.OrderId"
                     class="btn btn-warning">Cancellation of the order</a>
                 }

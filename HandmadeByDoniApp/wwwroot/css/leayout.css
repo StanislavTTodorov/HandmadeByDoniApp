@@ -1,3 +1,5 @@
+@import "../fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css";
+
 .site {
   display: flex;
   flex-direction: column;
@@ -118,9 +120,45 @@
   font-size: 1em;
 }
 
+.site-footer{
+  justify-content: space-between;
+  align-items: center;
+}
+
 .container-footer {
   flex-basis: 40%;
   flex-direction: column;
   padding: 0.5em 1em;
   color: lavender;
+}
+.social-media{
+  
+}
+.social-media-icons{
+  display: inline-block;
+}
+.social-media-icons li{
+  list-style-type: none;
+  padding-right: 1rem;
+   display: inline;
+}
+.social-media-icons i{
+  font-size: 1.2rem;
+    margin: 1ram;
+    color:  rgb(32, 31, 31);
+    font-size: 2em;
+}
+a:hover .fa-square-facebook
+{
+    color: rgb(15, 15, 189);  
+}
+
+a:hover .fa-google-plus
+{
+    color: red;
+}
+
+a:hover .fa-instagram
+{
+    color: rgb(234, 236, 236);
 }

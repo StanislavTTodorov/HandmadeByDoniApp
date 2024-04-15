@@ -53,7 +53,6 @@
                                    asp-route-id="@Model.Id"
                                    asp-route-commentId="@comment.Id">Edit</a>
                             }
-                            @*<p>Answers @comment.Comments.Count()</p>*@
                             <p class="">@comment.Time</p>
                         </section>
                         <section class="comment-text">
@@ -82,14 +81,9 @@
                                         <p>@com.Text</p>
                                     </section>
                                 </div>
-
-
                             }
                         }
-
-
                     </div>
-
                 }
             }
             else

@@ -10,16 +10,16 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
     {
         Task AddProductByUserIdAsync(string userId, string id);
         Task<MineProductViewModel> AllMineProductsByUserIdAsync(string userId);
-        //Task<MineProductViewModel> AllOrderProductsByUserIdAsync(string userId, string orderId);
         Task<MineProductViewModel> AllOrderProductsByOrderIdAsync(string id);
         Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId);
         Task EditSentToTrueAsync(string orderId);
-        Task<bool> ExistsByIdAsync(string orderId);
-        Task<bool> ExistsByUserIdAsync(string userId);
+        Task<bool> UserOrderExistsByOrderIdAsync(string orderId);
+        Task<bool> UserOrderExistsByUserIdAsync(string userId);
         Task<bool> ExistsInSetByIdAsync(string id);
         Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync();
         Task<ICollection<OrderStatusViewModel>> GetUserOrdersByUserIdAsync(string userId);
         Task<bool> IsActiveByIdAsync(string id);
 		Task RemoveProductByUserIdAsync(string userId, string id);
+        Task DeleteUserOrderByOrderIdAsync(string orderId);
     }
 }

@@ -143,8 +143,13 @@
                            asp-area=""
                            asp-controller="Order"
                            asp-action="Add"
-                           asp-route-returnUrl="@Url.Action("All", "Product", new { area = ""  })"
-                           asp-route-id="@product.Id">Add to Shop List </a>
+                           asp-route-returnUrl="@Url.Action("All", "Product", new { area = "",currentPage=Model.CurrentPage,
+                                                                                              productPerPage=Model.ProductPerPage,
+                                                                                              productsName=(int)Model.ProductsName,
+                                                                                              category=Model.GlassCategory,
+                                                                                              searchString=Model.SearchString,
+                                                                                              sorting=(int)Model.ProductSorting })"
+                           asp-route-id="@product.Id">Add to Cart </a>
                     }
                     <br />
                     <a asp-area=""

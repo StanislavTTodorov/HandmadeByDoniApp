@@ -40,7 +40,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
                 return RedirectToAction("All", "Product");
 
-                //return this.NotFound(); -> If you want to return 404 page
+                //return this.NotFound(); -> to return 404 page
             }
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment)
@@ -79,7 +79,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
                 return RedirectToAction("All", "Product");
 
-                //return this.NotFound(); -> If you want to return 404 page
+                //return this.NotFound(); -> to return 404 page
             }
 
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
@@ -171,13 +171,13 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             bool isCommentidExist = await this.commentService.ExistsByIdAsync(commentId);
 
-            if (string.IsNullOrEmpty(commentId) == false  || isCommentidExist == false)
+            if (isCommentidExist == false)
             {
                 this.TempData[ErrorMessage] = "Comment with the provided id does not exist!";
                 return this.RedirectToAction("Comment", "Pcoduct", new { id });
             }
 
-            CommentFormModel model = new CommentFormModel();
+            CommentFormModel model = new CommentFormModel(); 
 
             return this.View(model);
         }

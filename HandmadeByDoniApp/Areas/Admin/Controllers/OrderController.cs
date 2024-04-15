@@ -31,7 +31,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Sent(string orderId)
         {
-            bool isExists = await this.orderService.ExistsByIdAsync(orderId);
+            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(orderId);
             if (isExists == false)
             {
                 this.TempData[ErrorMessage] = "Order with the provided id does not exist!";

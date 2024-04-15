@@ -4,7 +4,7 @@ using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+
 
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -321,7 +321,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
         }
 
 
-        public async Task<bool> ExistsByUserIdAsync(string userId)
+        public async Task<bool> UserOrderExistsByUserIdAsync(string userId)
         {
             bool exists = await this.repository.AllReadOnly<UserOrder>().AnyAsync(u => u.UserId.ToString() == userId);
             return exists;
@@ -415,7 +415,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return orders;
         }
 
-        public async Task<bool> ExistsByIdAsync(string orderId)
+        public async Task<bool> UserOrderExistsByOrderIdAsync(string orderId)
         {
             bool exists = await repository
                 .All<UserOrder>()
@@ -437,5 +437,51 @@ namespace HandmadeByDoniApp.Services.Data.Service
             await this.repository.SaveChangesAsync();
         }
 
+        public async Task DeleteUserOrderByOrderIdAsync(string orderId)
+        {
+            UserOrder userOrder = await this.repository
+                .All<UserOrder>()
+                .Include(u => u.Order)
+                .FirstAsync(u => u.Order.Id.ToString() == orderId);
+
+            Order order = await this.repository
+                .All<Order>()
+                .Include(o=> o.Sets)
+                .Include(o => o.Decanters)
+                .Include(o => o.Glasses)
+                .Include(o => o.Boxs)
+                .FirstAsync(u => u.Id.ToString() == orderId);
+
+            IsActiveTurnOnTrue(order.Sets,
+                               order.Decanters,
+                               order.Glasses,
+                               order.Boxs);
+
+            await this.repository.DeleteAsync(userOrder);
+        }
+
+        private void IsActiveTurnOnTrue(ICollection<Set> sets,
+                                        ICollection<Decanter> decanters,
+                                        ICollection<Glass> glasses,
+                                        ICollection<Box> boxs)
+        {
+            foreach (var set in sets)
+            {
+                set.IsActive = true;
+            }
+            foreach (var decanter in decanters)
+            {
+                decanter.IsActive = true;
+            }
+            foreach (var glasse in glasses)
+            {
+                glasse.IsActive = true;
+            }
+            foreach (var box in boxs)
+            {
+                box.IsActive = true;
+            }
+        }
+        
     }
 }

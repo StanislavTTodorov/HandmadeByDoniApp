@@ -41,20 +41,23 @@ namespace HandmadeByDoniApp.Services.Data.DataRepository
             await DbSet<T>().AddRangeAsync(entity);
         }
 
-        public Task DeleteAsync<T>(T entity) where T : class
+        public async Task DeleteAsync<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            DbSet<T>().Remove(entity);
+
+            await SaveChangesAsync();
         }
 
         public async Task<int> SaveChangesAsync()
         {
-           return await this.dbContext.SaveChangesAsync();
+            return await this.dbContext.SaveChangesAsync();
         }
-        public async Task<int> Save<T>(T entity)where T : class
+
+        public async Task<int> Update<T>(T entity) where T : class
         {
-            this.dbContext.Update(entity);
- 
-          return await this.dbContext.SaveChangesAsync();
+            this.DbSet<T>().Update(entity);
+
+            return await SaveChangesAsync();
         }
 
     }
