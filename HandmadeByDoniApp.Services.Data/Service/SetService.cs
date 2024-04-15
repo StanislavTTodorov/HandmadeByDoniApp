@@ -67,7 +67,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CreatedOn = DateTime.Now,
                 IsActive = true,
                 IsSet = true,
-                SetId = set.Id.ToString()
+                SetId = set.Id
 
             };
             glasses.Add(glassOne);
@@ -83,7 +83,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CreatedOn = DateTime.Now,
                 IsActive = true,
                 IsSet = true,
-                SetId = set.Id.ToString()
+                SetId = set.Id
 
             };
             glasses.Add(glassTwo);
@@ -100,7 +100,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
-                    SetId = set.Id.ToString()
+                    SetId = set.Id
 
                 };
                 glasses.Add(glassThree);
@@ -115,7 +115,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
-                    SetId = set.Id.ToString()
+                    SetId = set.Id
 
                 };
                 glasses.Add(glassFour);
@@ -138,7 +138,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     CreatedOn = DateTime.Now,
                     IsActive = true,
                     IsSet = true,
-                    SetId = set.Id.ToString()
+                    SetId = set.Id
                 };
                 set.DecanterId = decanter.Id;
                 set.Decanter = decanter;

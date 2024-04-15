@@ -129,7 +129,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Capacity = decanter.Capacity,
                 Price = decanter.Price,
                 IsSet = decanter.IsSet,
-                SetId = decanter.SetId,
+                SetId = decanter.SetId.ToString(),
             };
         }
 

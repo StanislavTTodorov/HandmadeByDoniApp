@@ -44,5 +44,9 @@ namespace HandmadeByDoniApp.Data.Models
         public DateTime CreatedOn { get; set; }
 
         public bool IsActive { get; set; }
+
+        [ForeignKey(nameof(Order))]
+        public Guid? OrderId { get; set; }
+        public virtual Order? Order { get; set; }
     }
 }

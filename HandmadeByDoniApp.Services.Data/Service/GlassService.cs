@@ -135,7 +135,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Price = glass.Price,
                 Category = glass.GlassCategory.Name,
                 IsSet = glass.IsSet,
-                SetId = glass.SetId,
+                SetId = glass.SetId.ToString(),
             };
 
         }

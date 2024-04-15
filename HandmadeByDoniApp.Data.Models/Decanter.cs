@@ -45,7 +45,13 @@ namespace HandmadeByDoniApp.Data.Models
 
         public bool IsSet { get; set; }
 
-        public string? SetId { get; set; }
+        [ForeignKey(nameof(Set))]
+        public Guid? SetId { get; set; }
+        public virtual Set? Set { get; set; }
+
+        [ForeignKey(nameof(Order))]
+        public Guid? OrderId { get; set; }
+        public virtual Order? Order { get; set; }
 
     }
 }
