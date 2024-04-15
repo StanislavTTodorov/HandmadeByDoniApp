@@ -40,7 +40,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 await this.orderService.EditSentToTrueAsync(orderId);
-                this.TempData[ErrorMessage] = "Sent successfully!";
+                this.TempData[SuccessMessage] = "Sent successfully!";
             }
             catch (Exception)
             {

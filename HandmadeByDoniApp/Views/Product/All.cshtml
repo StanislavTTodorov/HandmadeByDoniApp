@@ -15,7 +15,7 @@
                 <label asp-for="ProductsName"></label>
                 <select asp-for="ProductsName" class="form-control" onchange="this.form.submit()">
                     <option value="0">All</option>
-                    <option value="1">Gllass</option>
+                    <option value="1">Glass</option>
                     <option value="2">Decanter</option>
                     <option value="3">Box</option>
                     <option value="4">Set</option>
@@ -132,7 +132,7 @@
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>
                     <h6>(@(product.IsActive ? "Available" : "Not Available"))</h6>
-                    @if (product.IsSet == false && product.IsActive==true)
+                    @if (product.IsSet == false && product.IsActive == true)
                     {
                         <h6>
                             Price
@@ -160,11 +160,14 @@
 
                     @if (User.IsAdmin())
                     {
-                        <a asp-area="Admin"
-                           asp-controller="Product"
-                           asp-action="Edit"
-                           asp-route-id="@product.Id"
-                           class="btn btn-warning">Edit</a>
+                       // if (product.IsActive)
+                        {
+                            <a asp-area="Admin"
+                               asp-controller="Product"
+                               asp-action="Edit"
+                               asp-route-id="@product.Id"
+                               class="btn btn-warning">Edit</a>
+                        }
 
                         <a asp-area="Admin"
                            asp-controller=""

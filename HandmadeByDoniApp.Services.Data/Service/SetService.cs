@@ -124,7 +124,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 await this.repository.AddAsync(glassFour);
             }
 
-            set.Glasss = glasses;
+            set.Glass = glasses;
 
             if (model.Decanter != null)
             {
@@ -156,69 +156,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task EditSetByIdAndFormModelAsync(string id, OnlySetFormModel formModel)
         {       
-            //List<GlassFormModel> glassModels = new List<GlassFormModel>();
-            //glassModels.Add(formModel.GlassOne);
-            //glassModels.Add(formModel.GlassTwo);
-            //if(formModel.NumberOfCups==4 &&
-            //    formModel.GlassThree!=null &&
-            //    formModel.GlassFour!=null)
-            //{
-            //    glassModels.Add(formModel.GlassThree);
-            //    glassModels.Add(formModel.GlassFour);
-            //}
-
-            //ICollection<Glass> glasses = new HashSet<Glass>();
-
-            //Glass glassOne = await this.repository
-            //   .All<Glass>()
-            //   .FirstAsync(g => g.Id.ToString() == glassModels[0].Id);
-
-            //glassOne.Title = glassModels[0].Title;
-            //glassOne.Description = glassModels[0].Description;
-            //glassOne.ImageUrl = glassModels[0].ImageUrl;
-            //glassOne.Capacity = glassModels[0].Capacity;
-            //glassOne.GlassCategoryId = glassModels[0].CategoryId;
-
-            //glasses.Add(glassOne);
-
-            //Glass glassTwo = await this.repository
-            //   .All<Glass>()
-            //   .FirstAsync(g => g.Id.ToString() == glassModels[1].Id);
-
-            //glassOne.Title = glassModels[1].Title;
-            //glassOne.Description = glassModels[1].Description;
-            //glassOne.ImageUrl = glassModels[1].ImageUrl;
-            //glassOne.Capacity = glassModels[1].Capacity;
-            //glassOne.GlassCategoryId = glassModels[1].CategoryId;
-
-            //glasses.Add(glassTwo);
-
-            //if(formModel.NumberOfCups == 4)
-            //{
-            //    Glass glassThree = await this.repository
-            // .All<Glass>()
-            // .FirstAsync(g => g.Id.ToString() == glassModels[2].Id);
-
-            //    glassThree.Title = glassModels[2].Title;
-            //    glassThree.Description = glassModels[2].Description;
-            //    glassThree.ImageUrl = glassModels[2].ImageUrl;
-            //    glassThree.Capacity = glassModels[2].Capacity;
-            //    glassThree.GlassCategoryId = glassModels[2].CategoryId;
-
-            //    glasses.Add(glassThree);
-
-            //    Glass glassFour = await this.repository
-            //       .All<Glass>()
-            //       .FirstAsync(g => g.Id.ToString() == glassModels[3].Id);
-
-            //    glassFour.Title = glassModels[3].Title;
-            //    glassFour.Description = glassModels[3].Description;
-            //    glassFour.ImageUrl = glassModels[3].ImageUrl;
-            //    glassFour.Capacity = glassModels[3].Capacity;
-            //    glassFour.GlassCategoryId = glassModels[3].CategoryId;
-
-            //    glasses.Add(glassFour);
-            //}
+            
             Set set = await this.repository
               .All<Set>()
               .FirstAsync(g => g.Id.ToString() == id);
@@ -227,27 +165,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
             set.Description = formModel.Description;
             set.ImageUrl = formModel.ImageUrl;
             set.Price = formModel.Price;
-            //set.Glasss = glasses;
-
-            //if (formModel.Decanter != null)
-            //{
-            //    Decanter decanter = await this.repository
-            //    .All<Decanter>()
-            //    .FirstAsync(g => g.Id == set.DecanterId);
-
-            //    decanter.Title = formModel.Decanter.Title;
-            //    decanter.Description = formModel.Decanter.Description;
-            //    decanter.ImageUrl = formModel.Decanter.ImageUrl;
-            //    decanter.Capacity = formModel.Decanter.Capacity;
-
-            //    set.DecanterId = decanter.Id;
-            //    set.Decanter = decanter;
-            //}
-
-           
+            
             await this.repository.SaveChangesAsync();
-
-
         }
 
         public async Task<bool> ExistsByIdAsync(string setId)
@@ -296,11 +215,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
         public async Task<SetDetailsViewModel> GetSetDetailsByIdAsync(string setId)
         {
             Set set = await this.repository.AllReadOnly<Set>()
-                 .Include(s => s.Glasss)
+                 .Include(s => s.Glass)
                  .Include(s => s.Decanter)
                  .FirstAsync(s => s.Id.ToString() == setId);
 
-            List<AllProductViewModel> setProducts = set.Glasss.Select(g => new AllProductViewModel
+            List<AllProductViewModel> setProducts = set.Glass.Select(g => new AllProductViewModel
             {
                 Id = g.Id.ToString(),
                 Title = g.Title,
@@ -339,12 +258,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
             Set set = await this.repository
                .All<Set>()
                .Include(s => s.Decanter)
-               .Include(h => h.Glasss)
+               .Include(h => h.Glass)
                .ThenInclude(s=>s.GlassCategory)
                .Where(h => h.IsActive)
                .FirstAsync(h => h.Id.ToString() == id);
 
-            List<GlassFormModel> glasses = set.Glasss.Select(g=> new GlassFormModel
+            List<GlassFormModel> glasses = set.Glass.Select(g=> new GlassFormModel
             {
                  Id = g.Id.ToString(),
                  Title = g.Title,
@@ -361,11 +280,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Description = set.Description,
                 ImageUrl = set.ImageUrl,
                 Price = set.Price,
-                NumberOfCups = set.Glasss.Count(),
+                NumberOfCups = set.Glass.Count(),
                 GlassOne = glasses[0],
                 GlassTwo = glasses[1],
-                GlassThree = (set.Glasss.Count()>2)? glasses[2] : null,
-                GlassFour = (set.Glasss.Count() == 4) ? glasses[3] : null,
+                GlassThree = (set.Glass.Count()>2)? glasses[2] : null,
+                GlassFour = (set.Glass.Count() == 4) ? glasses[3] : null,
             };
             if (set.Decanter != null)
             {

@@ -146,7 +146,6 @@ namespace HandmadeByDoniApp.Services.Data.Service
             Glass glass = await this.repository
                 .All<Glass>()
                 .Include(h => h.GlassCategory)
-                .Where(h => h.IsActive)
                 .FirstAsync(h => h.Id.ToString() == id);
 
             return new GlassFormModel

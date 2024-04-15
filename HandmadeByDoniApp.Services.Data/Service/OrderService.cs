@@ -1,4 +1,5 @@
-﻿using HandmadeByDoniApp.Data.Models;
+﻿
+using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Order;
@@ -417,7 +418,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task<bool> UserOrderExistsByOrderIdAsync(string orderId)
         {
-            bool exists = await repository
+            bool exists = await this.repository
                 .All<UserOrder>()
                 .Include(u => u.Order)
                .AnyAsync(b => b.Order.Id.ToString() == orderId);
@@ -458,6 +459,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                                order.Boxs);
 
             await this.repository.DeleteAsync(userOrder);
+            await this.repository.DeleteAsync(order);
         }
 
         private void IsActiveTurnOnTrue(ICollection<Set> sets,
@@ -468,20 +470,33 @@ namespace HandmadeByDoniApp.Services.Data.Service
             foreach (var set in sets)
             {
                 set.IsActive = true;
+                set.OrderId = null;
             }
             foreach (var decanter in decanters)
             {
                 decanter.IsActive = true;
+                decanter.OrderId = null;
             }
             foreach (var glasse in glasses)
             {
                 glasse.IsActive = true;
+                glasse.OrderId = null;
             }
             foreach (var box in boxs)
             {
                 box.IsActive = true;
+                box.OrderId = null;
             }
         }
-        
+
+        public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)
+        {
+            UserOrder userOrder = await this.repository
+               .All<UserOrder>()
+               .Include(u => u.Order)
+              .FirstAsync(b => b.Order.Id.ToString() == orderId);
+
+            return userOrder.IsSent;
+        }
     }
 }

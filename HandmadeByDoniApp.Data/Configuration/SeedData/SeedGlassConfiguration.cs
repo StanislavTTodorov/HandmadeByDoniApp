@@ -141,6 +141,7 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 IsSet = false
             };
             glasses.Add ( madonna );
+
             Glass sineva2 = new Glass()
             {
                 Id = Guid.Parse("D16C0E0E-348E-42E3-BEEF-F90FB4FE1216"),
@@ -155,7 +156,7 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 IsActive = true,
                 IsSet = true,
             };
-            glasses.Add(sineva1);
+            glasses.Add(sineva2);
 
             return glasses;
         }

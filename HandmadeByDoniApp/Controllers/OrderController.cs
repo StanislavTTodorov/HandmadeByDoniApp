@@ -193,7 +193,13 @@ namespace HandmadeByDoniApp.Web.Controllers
                 this.TempData[ErrorMessage] = "Order with the provided id does not exist!";
                 return this.RedirectToAction("OrderStatus", "Order" ,new { areas=""});
             }
-            try
+            bool isSent= await this.orderService.UserOrderIsSentByOrderIdAsync(id);
+            if (isSent == true)
+            {
+                this.TempData[ErrorMessage] = "Order with the provided id can not be canceled, because it is already sent! ";
+                return this.RedirectToAction("OrderStatus", "Order", new { areas = "" });
+            }
+            try 
             {
                 await this.orderService.DeleteUserOrderByOrderIdAsync(id);
                 this.TempData[ErrorMessage] = "Order is canceled successfully!";

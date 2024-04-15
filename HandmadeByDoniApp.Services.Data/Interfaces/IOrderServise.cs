@@ -21,5 +21,6 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<bool> IsActiveByIdAsync(string id);
 		Task RemoveProductByUserIdAsync(string userId, string id);
         Task DeleteUserOrderByOrderIdAsync(string orderId);
+        Task<bool> UserOrderIsSentByOrderIdAsync(string id);
     }
 }

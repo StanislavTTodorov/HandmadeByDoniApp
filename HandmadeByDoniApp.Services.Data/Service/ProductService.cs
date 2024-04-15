@@ -160,7 +160,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 case ProductsName.All:
                     allProductsModels = await Sort(allProductsModels, glassesQuery, decanterQuery, setQuery, boxQuery, queryModel.ProductSorting);
                     break;
-                case ProductsName.Gllass:
+                case ProductsName.Glass:
                     allProductsModels = await glassesQuery.Select(g => new ProductsAllViewModel
                     {
                         Id = g.Id.ToString(),
@@ -217,16 +217,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     }).ToListAsync();
                     break;
                 default:
-                    //allProductsModels = await setQuery.Select(s => new ProductsAllViewModel
-                    //{
-                    //    Id = s.Id.ToString(),
-                    //    Title = s.Title,
-                    //    Description = s.Description,
-                    //    ImageUrl = s.ImageUrl,
-                    //    Price = s.Price,
-                    //    CreatedOn = s.CreatedOn,
-                    //    IsActive = s.IsActive
-                    //}).ToListAsync();
+     
                     break;
             }
 

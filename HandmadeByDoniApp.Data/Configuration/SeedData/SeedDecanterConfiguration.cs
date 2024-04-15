@@ -68,7 +68,8 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 CreatedOn = DateTime.Parse("2024-04-08 12:39:12.3877104"),
                 IsActive = true,
                 IsSet = true,
-                SetId = Guid.Parse("BFA2762A-617C-4119-8462-D599D9588B61")
+                SetId = Guid.Parse("BFA2762A-617C-4119-8462-D599D9588B61"),
+             
             };
             decanters.Add(sineva);
 

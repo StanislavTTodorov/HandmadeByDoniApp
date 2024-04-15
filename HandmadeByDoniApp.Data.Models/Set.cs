@@ -11,7 +11,7 @@ namespace HandmadeByDoniApp.Data.Models
         public Set()
         {
             this.Id = Guid.NewGuid();
-            this.Glasss = new HashSet<Glass>();
+            this.Glass = new HashSet<Glass>();
             this.Comments = new HashSet<Comment>();
             this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
@@ -38,7 +38,7 @@ namespace HandmadeByDoniApp.Data.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-        public virtual ICollection<Glass> Glasss { get; set; }
+        public virtual ICollection<Glass> Glass { get; set; }
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
