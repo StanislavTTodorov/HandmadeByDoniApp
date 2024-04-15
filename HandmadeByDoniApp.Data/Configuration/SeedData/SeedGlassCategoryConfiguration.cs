@@ -4,13 +4,12 @@ using HandmadeByDoniApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HandmadeByDoniApp.Data.Configuration
+namespace HandmadeByDoniApp.Data.Configuration.SeedData
 {
-    public class GlassCategoryConfiguration : IEntityTypeConfiguration<GlassCategory>
+    public class SeedGlassCategoryConfiguration : IEntityTypeConfiguration<GlassCategory>
     {
         public void Configure(EntityTypeBuilder<GlassCategory> builder)
         {
-
             builder.HasData(SeedCategories());
         }
         private ICollection<GlassCategory> SeedCategories()

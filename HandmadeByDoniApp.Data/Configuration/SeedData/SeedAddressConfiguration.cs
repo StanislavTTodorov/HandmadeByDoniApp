@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HandmadeByDoniApp.Data.Configuration
+namespace HandmadeByDoniApp.Data.Configuration.SeedData
 {
-    public class AddressConfiguration : IEntityTypeConfiguration<Address>
+    public class SeedAddressConfiguration : IEntityTypeConfiguration<Address>
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-           // builder.HasData(SeedAddresses());
+           builder.HasData(SeedAddresses());
         }
 
         private ICollection<Address> SeedAddresses()

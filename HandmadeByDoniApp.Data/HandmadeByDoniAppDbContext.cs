@@ -1,4 +1,5 @@
 ﻿using HandmadeByDoniApp.Data.Configuration;
+using HandmadeByDoniApp.Data.Configuration.SeedData;
 using HandmadeByDoniApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -39,27 +40,39 @@ namespace HandmadeByDoniApp.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-           
-            builder.ApplyConfiguration(new GlassCategoryConfiguration());
-            builder.ApplyConfiguration(new MethodPaymentConfiguration());
-            builder.ApplyConfiguration(new DeliveryCompanyConfiguration());
-
             builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new OrderConfiguration());
 
             builder.ApplyConfiguration(new SetConfiguration());
 
             builder.ApplyConfiguration(new GlassConfiguration());
             builder.ApplyConfiguration(new DecanterConfiguration());
             builder.ApplyConfiguration(new BoxConfiguration());
-            
 
-            builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
             
-
             builder.ApplyConfiguration(new UserOrderConfiguration());
-           
+
+            bool seed = false;
+           if(seed)
+            {
+                builder.ApplyConfiguration(new SeedGlassCategoryConfiguration());
+                builder.ApplyConfiguration(new SeedMethodPaymentConfiguration());
+                builder.ApplyConfiguration(new SeedDeliveryCompanyConfiguration());
+
+                builder.ApplyConfiguration(new SeedUserConfiguration());
+                builder.ApplyConfiguration(new SeedOrderConfiguration());
+
+                builder.ApplyConfiguration(new SeedSetConfiguration());
+
+                builder.ApplyConfiguration(new SeedGlassConfiguration());
+                builder.ApplyConfiguration(new SeedDecanterConfiguration());
+                builder.ApplyConfiguration(new SeedBoxConfiguration());
+
+                builder.ApplyConfiguration(new SeedAddressConfiguration());
+                builder.ApplyConfiguration(new SeedCommentConfiguration());
+
+                builder.ApplyConfiguration(new SeedUserOrderConfiguration());
+            }
             base.OnModelCreating(builder);
         }
     }

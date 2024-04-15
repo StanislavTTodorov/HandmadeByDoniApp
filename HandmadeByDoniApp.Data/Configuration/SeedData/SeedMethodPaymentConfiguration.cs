@@ -4,13 +4,12 @@ using HandmadeByDoniApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HandmadeByDoniApp.Data.Configuration
+namespace HandmadeByDoniApp.Data.Configuration.SeedData
 {
-    public class MethodPaymentConfiguration:IEntityTypeConfiguration<MethodPayment>
+    public class SeedMethodPaymentConfiguration:IEntityTypeConfiguration<MethodPayment>
     {
         public void Configure(EntityTypeBuilder<MethodPayment> builder)
         {
-
             builder.HasData(SeedMethodPayment());
         }
         private ICollection<MethodPayment> SeedMethodPayment()

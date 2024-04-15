@@ -3,14 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace HandmadeByDoniApp.Data.Configuration
+namespace HandmadeByDoniApp.Data.Configuration.SeedData
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<Order>
+    public class SeedOrderConfiguration : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-
-           // builder.HasData(SeedOrders());
+            builder.HasData(SeedOrders());
         }
         private ICollection<Order> SeedOrders()
         {

@@ -1,19 +1,14 @@
 ﻿using HandmadeByDoniApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HandmadeByDoniApp.Data.Configuration
+
+namespace HandmadeByDoniApp.Data.Configuration.SeedData
 {
-    public class DeliveryCompanyConfiguration : IEntityTypeConfiguration<DeliveryCompany>
+    public class SeedDeliveryCompanyConfiguration : IEntityTypeConfiguration<DeliveryCompany>
     {
         public void Configure(EntityTypeBuilder<DeliveryCompany> builder)
         {
-
             builder.HasData(SeedDeliveryCompany());
         }
         private ICollection<DeliveryCompany> SeedDeliveryCompany()
