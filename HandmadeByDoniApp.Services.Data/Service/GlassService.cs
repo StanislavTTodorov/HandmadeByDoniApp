@@ -90,8 +90,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
             Glass glass = await this.repository
                 .AllReadOnly<Glass>()
                 .Include(g => g.GlassCategory)
-                .Include(g=>g.Comments)
-                .ThenInclude(c=>c.Comments)
+                .Include(g => g.Comments)
+                .ThenInclude(c => c.Comments)
                  .FirstAsync(g => g.Id.ToString() == glassId);
 
             return new AllProductCommentViewModel
@@ -101,7 +101,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Description = glass.Description,
                 ImageUrl = glass.ImageUrl,
                 Price = glass.Price,
-                Comments = glass.Comments.OrderByDescending(c=>c.CreatedOn).Select(c => new CommentViewModel
+                Comments = glass.Comments.OrderByDescending(c => c.CreatedOn).Select(c => new CommentViewModel
                 {
                     Id = c.Id.ToString(),
                     UserName = c.UserName,
@@ -150,7 +150,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             return new GlassFormModel
             {
-                Title = glass.Title,         
+                Title = glass.Title,
                 Description = glass.Description,
                 ImageUrl = glass.ImageUrl,
                 Capacity = glass.Capacity,
@@ -158,6 +158,26 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 CategoryId = glass.GlassCategoryId,
                 IsSet = glass.IsSet
             };
+        }
+
+        public async Task RecoveryByIdAsync(string id)
+        {
+            Glass glass = await this.repository
+                    .All<Glass>()
+                    .FirstAsync(b => b.Id.ToString() == id);
+
+            glass.IsActive = true;
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteByIdAsync(string id)
+        {
+            Glass glass = await this.repository
+                    .All<Glass>()
+                    .FirstAsync(b => b.Id.ToString() == id);
+
+            glass.IsActive = false;
+            await this.repository.SaveChangesAsync();
         }
     }
 }

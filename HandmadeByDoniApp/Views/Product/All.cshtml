@@ -160,20 +160,39 @@
 
                     @if (User.IsAdmin())
                     {
-                       // if (product.IsActive)
+
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Edit"
+                           asp-route-id="@product.Id"
+                           class="btn btn-warning">Edit</a>
+
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Delete"
+                           asp-route-id="@product.Id"
+                           asp-route-returnUrl="@Url.Action("All", "Product", new { area = "",currentPage=Model.CurrentPage,
+                                                                                              productPerPage=Model.ProductPerPage,
+                                                                                              productsName=(int)Model.ProductsName,
+                                                                                              category=Model.GlassCategory,
+                                                                                              searchString=Model.SearchString,
+                                                                                              sorting=(int)Model.ProductSorting })"
+                           class="btn btn-danger">Delete</a>
+
+                        if (product.IsActive == false)
                         {
                             <a asp-area="Admin"
                                asp-controller="Product"
-                               asp-action="Edit"
+                               asp-action="Recovery"
+                               asp-route-returnUrl="@Url.Action("All", "Product", new { area = "",currentPage=Model.CurrentPage,
+                                                                                              productPerPage=Model.ProductPerPage,
+                                                                                              productsName=(int)Model.ProductsName,
+                                                                                              category=Model.GlassCategory,
+                                                                                              searchString=Model.SearchString,
+                                                                                              sorting=(int)Model.ProductSorting })"
                                asp-route-id="@product.Id"
-                               class="btn btn-warning">Edit</a>
+                               class="btn btn-outline-dark">Recovery from deletion</a>
                         }
-
-                        <a asp-area="Admin"
-                           asp-controller=""
-                           asp-action="Delete"
-                           asp-route-id="@product.Id"
-                           class="btn btn-danger">Delete</a>
                     }
 
                     <a class="ml-2 btn btn-info"

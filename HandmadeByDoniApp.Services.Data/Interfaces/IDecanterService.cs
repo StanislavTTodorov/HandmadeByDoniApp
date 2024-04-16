@@ -19,5 +19,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId);
         Task EditDecanterByIdAndFormModelAsync(string id, DecanterFormModel formModel);
         Task<DecanterFormModel> GetDecanterForEditByIdAsync(string id);
+        Task SoftDeleteByIdAsync(string id);
+        Task RecoveryByIdAsync(string id);
     }
 }

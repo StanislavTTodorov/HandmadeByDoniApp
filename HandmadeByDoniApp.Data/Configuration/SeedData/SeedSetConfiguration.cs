@@ -34,7 +34,9 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_205122%20(Copy).jpg",
                 Price = 120m,
                 IsActive = true,
-                CreatedOn = DateTime.Parse("2024-04-08 12:39:12.3871453")
+                CreatedOn = DateTime.Parse("2024-04-08 12:39:12.3871453"),
+                DecanterId = Guid.Parse("6679B8AE-C473-4514-B5AB-8608DD5C537D"),
+
             };
             ICollection<Set> sets = new HashSet<Set>();
 

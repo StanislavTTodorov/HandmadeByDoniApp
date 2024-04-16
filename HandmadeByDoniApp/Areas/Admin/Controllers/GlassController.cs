@@ -116,12 +116,55 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             TempData[SuccessMessage] = "Glass was edited successfully!";
             return RedirectToAction("Details", "Glass", new { area = "", id });
         }
-        private IActionResult GeneralError()
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id, string returnUrl)
+        {
+            bool isExist = await this.glassService.ExistsByIdAsync(id);
+            if (isExist == false)
+            {
+                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                return this.Redirect(returnUrl);
+            }
+            try
+            {
+                await this.glassService.SoftDeleteByIdAsync(id);
+                TempData[SuccessMessage] = "Glass was delete successfully!";
+                return this.Redirect(returnUrl);
+            }
+            catch (Exception)
+            {
+                return GeneralError(returnUrl);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Recovery(string id, string returnUrl)
+        {
+            bool isExist = await this.glassService.ExistsByIdAsync(id);
+            if (isExist == false)
+            {
+                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                return this.Redirect(returnUrl);
+            }
+            try
+            {
+                await this.glassService.RecoveryByIdAsync(id);
+                TempData[SuccessMessage] = "Glass was recovery successfully!";
+                return this.Redirect(returnUrl);
+            }
+            catch (Exception)
+            {
+                return GeneralError(returnUrl);
+            }
+        }
+        private IActionResult GeneralError(string? returnUrl = null)
         {
             TempData[ErrorMessage] =
                 "Unexpected error occurred! Please try again later";
-
-            return RedirectToAction("Index", "Home", new { area = "" });
+            if (returnUrl == null)
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            return this.Redirect(returnUrl);
         }
 
     }

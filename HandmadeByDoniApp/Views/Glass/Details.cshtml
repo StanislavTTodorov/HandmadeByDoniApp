@@ -57,6 +57,7 @@
                        asp-area="Admin"
                        asp-controller="Glass"
                        asp-action="Delete"
+                       asp-route-returnUrl="@Url.Action("Details", "Box", new { area = "",id=Model.Id })"
                        asp-route-id="@Model.Id">Delete</a>
 
                 }

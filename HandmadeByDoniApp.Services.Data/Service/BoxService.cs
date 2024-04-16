@@ -149,5 +149,25 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 Price = box.Price
             };
         }
+
+        public async Task RecoveryByIdAsync(string id)
+        {
+            Box box = await this.repository
+               .All<Box>()
+               .FirstAsync(b => b.Id.ToString() == id);
+
+            box.IsActive = true;
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteByIdAsync(string id)
+        {
+            Box box = await this.repository
+                .All<Box>()
+                .FirstAsync(b => b.Id.ToString() == id);
+
+            box.IsActive = false;
+            await this.repository.SaveChangesAsync();
+        }
     }
 }

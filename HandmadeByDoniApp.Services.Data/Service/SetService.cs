@@ -300,5 +300,49 @@ namespace HandmadeByDoniApp.Services.Data.Service
             }
             return model;
         }
+
+        public async Task RecoveryByIdAsync(string id)
+        {
+            Set set = await this.repository
+                  .All<Set>()
+                  .Include(set => set.Decanter)
+                  .Include(g => g.Glass)
+                  .FirstAsync(b => b.Id.ToString() == id);
+
+            set.IsActive = true;
+
+            foreach (var glass in set.Glass)
+            {
+                glass.IsActive = true;
+            }
+
+            if (set.DecanterId != null && set.Decanter != null)
+            {
+                set.Decanter.IsActive = true;
+            }
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteByIdAsync(string id)
+        {
+            Set set = await this.repository
+                 .All<Set>()
+                 .Include(set => set.Decanter)
+                 .Include(g => g.Glass)
+                 .FirstAsync(b => b.Id.ToString() == id);
+
+            set.IsActive = false;
+
+            foreach (var glass in set.Glass)
+            {
+                glass.IsActive = false;
+            }
+
+            if(set.DecanterId!=null&&set.Decanter!=null)
+            {
+                set.Decanter.IsActive = false;
+            }
+            await this.repository.SaveChangesAsync();
+        }
     }
 }

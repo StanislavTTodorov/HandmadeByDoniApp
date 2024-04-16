@@ -151,5 +151,25 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 IsSet = decanter.IsSet,                
             };
         }
+
+        public async Task RecoveryByIdAsync(string id)
+        {
+            Decanter decanter = await this.repository
+              .All<Decanter>()
+              .FirstAsync(b => b.Id.ToString() == id);
+
+            decanter.IsActive = true;
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteByIdAsync(string id)
+        {
+            Decanter decanter = await this.repository
+               .All<Decanter>()
+               .FirstAsync(b => b.Id.ToString() == id);
+
+            decanter.IsActive = false;
+            await this.repository.SaveChangesAsync();
+        }
     }
 }

@@ -62,10 +62,11 @@ namespace HandmadeByDoniApp.Data
                 builder.ApplyConfiguration(new SeedUserConfiguration());
                 builder.ApplyConfiguration(new SeedOrderConfiguration());
 
+                builder.ApplyConfiguration(new SeedDecanterConfiguration());
                 builder.ApplyConfiguration(new SeedSetConfiguration());
 
                 builder.ApplyConfiguration(new SeedGlassConfiguration());
-                builder.ApplyConfiguration(new SeedDecanterConfiguration());
+                
                 builder.ApplyConfiguration(new SeedBoxConfiguration());
 
                 builder.ApplyConfiguration(new SeedAddressConfiguration());
