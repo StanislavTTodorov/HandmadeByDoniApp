@@ -75,9 +75,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => glassesQuery
                     .Where(h => h.IsActive)
+                    .Where(h => h.IsSet == false)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => glassesQuery
                     .Where(h => h.IsActive)
+                    .Where(h => h.IsSet == false)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => glassesQuery
                     .Where(h => h.IsActive)
@@ -100,9 +102,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .OrderBy(h => h.CreatedOn),
                 ProductSorting.PriceAscending => decanterQuery
                     .Where(h => h.IsActive)
+                    .Where(h => h.IsSet == false)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => decanterQuery
                     .Where(h => h.IsActive)
+                    .Where(h => h.IsSet ==false)
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => decanterQuery
                     .Where(h => h.IsActive)
@@ -127,7 +131,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .Where(h => h.IsActive)
                     .OrderBy(h => h.Price),
                 ProductSorting.PriceDescending => boxQuery
-                    .Where(h => h.IsActive)
+                    .Where(h => h.IsActive)                   
                     .OrderByDescending(h => h.Price),
                 ProductSorting.Active => boxQuery
                     .Where(h => h.IsActive)

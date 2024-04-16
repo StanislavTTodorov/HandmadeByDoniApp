@@ -54,5 +54,26 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
         }
+        [HttpGet]
+        public async Task<IActionResult> CancelOrder(string id)
+        {
+            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(id);
+            if (isExists == false)
+            {
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Order));
+                return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
+            }           
+
+            try
+            {
+                await this.orderService.DeleteUserOrderByOrderIdAsync(id);
+                this.TempData[SuccessMessage] = string.Format(CancelSuccessfully, nameof(Order));
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "Cancel Order");
+            }
+            return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
+        }
     }
 }

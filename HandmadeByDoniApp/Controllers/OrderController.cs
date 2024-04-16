@@ -200,7 +200,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             try 
             {
                 await this.orderService.DeleteUserOrderByOrderIdAsync(id);
-                this.TempData[ErrorMessage] = string.Format(CancelSuccessfully,nameof(Order));
+                this.TempData[SuccessMessage] = string.Format(CancelSuccessfully,nameof(Order));
             }
             catch (Exception)
             {

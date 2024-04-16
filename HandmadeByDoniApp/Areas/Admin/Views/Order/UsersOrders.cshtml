@@ -42,7 +42,13 @@
                        asp-area=""
                        asp-controller="Order"
                        asp-action="ProductOrder"
-                       asp-route-id="@user.OrderId">Products Order</a>
+                       asp-route-id="@user.OrderId">Order</a>
+
+                    <a asp-area="Admin"
+                       asp-controller="Order"
+                       asp-action="CancelOrder"
+                       asp-route-id="@user.OrderId"
+                       class="btn btn-danger">Delete</a>
 
                         
                 </td>
