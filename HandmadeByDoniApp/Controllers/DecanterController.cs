@@ -38,7 +38,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = UnexpectedError
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return this.RedirectToAction("All", "Product"); ;
             }
         }
