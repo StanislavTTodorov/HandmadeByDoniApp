@@ -9,7 +9,7 @@ using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -35,7 +35,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isBox = await this.boxService.ExistsByIdAsync(id);
             if (isBox == false)
             {
-                this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Box));
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -46,10 +46,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return this.RedirectToAction("All", "Product"); ;
             }
-
         }
 
         [HttpGet]
@@ -58,33 +57,31 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isBoxExists = await this.boxService.ExistsByIdAsync(id);
             if (isBoxExists == false)
             {
-                this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Box));
                 return this.RedirectToAction("All", "Pcoduct");
             }         
 
             try
             {
-
                 AllProductCommentViewModel viewModel = await this.boxService.GetBoxCommentByIdAsync(id);
                 return this.View("~/Views/Comment/Comment.cshtml", viewModel);
-               // return this.View(viewModel);
 
             }
             catch (Exception)
             {
 
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try agenin later or contact administrator.";
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return this.RedirectToAction("All", "Product");
             }
-
         }
+
         [HttpGet]
         public async Task<IActionResult> WriteComment(string id)
         {
             bool isBox = await this.boxService.ExistsByIdAsync(id);
             if (isBox == false)
             {
-                this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Box));
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -92,13 +89,14 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             return this.View("~/Views/Comment/WriteToComment.cshtml", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
         {
             bool isBox = await this.boxService.ExistsByIdAsync(id);
             if (isBox == false)
             {
-                this.TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Box));
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -114,12 +112,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.boxService.CreateCommentByUserIdAndByProductIdAsync(userId!, formModel, id);
-                TempData[SuccessMessage] = "Comment was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Comment));
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
             }
 
             return this.RedirectToAction("Comment", "Box", new { id });

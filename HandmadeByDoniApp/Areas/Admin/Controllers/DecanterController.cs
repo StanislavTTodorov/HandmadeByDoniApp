@@ -1,9 +1,9 @@
 ﻿
+using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
-using HandmadeByDoniApp.Web.ViewModels.Box;
 using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using Microsoft.AspNetCore.Mvc;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
@@ -36,13 +36,13 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 await this.decanterService.CreateDecanterAsync(formModel);
-                TempData[SuccessMessage] = "Decanter was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Decanter));
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Decanter)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Decanter)}");
+                return this.View(formModel);
             }
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
@@ -56,8 +56,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (decanterExists == false)
             {
-                TempData[ErrorMessage] = "Decanter with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Decanter));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -65,13 +65,14 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 DecanterFormModel formModel = await this.decanterService
                     .GetDecanterForEditByIdAsync(id);
 
-                return View(formModel);
+                return this.View(formModel);
             }
             catch (Exception)
             {
-                return GeneralError();
+                return this.GeneralError();
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(string id, DecanterFormModel formModel)
         {
@@ -84,8 +85,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (boxExists == false)
             {
-                TempData[ErrorMessage] = "Decanter with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Decanter));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -94,63 +95,68 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the decanter. Please try again later");
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Decanter)}"));
 
                 return View(formModel);
             }
 
-            TempData[SuccessMessage] = "Decanter was edited successfully!";
-            return RedirectToAction("Details", "Decanter", new { area = "", id });
+            this.TempData[SuccessMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Decanter)}");
+            return this.RedirectToAction("Details", "Decanter", new { area = "", id });
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id, string returnUrl)
         {
             bool isExist = await this.decanterService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Decanter with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Decanter));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.decanterService.SoftDeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Decanter was delete successfully!";
+                this.TempData[SuccessMessage] = string.Format(DeleteSuccessfully,nameof(Decanter));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Recovery(string id, string returnUrl)
         {
             bool isExist = await this.decanterService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Decanter with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Decanter));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.decanterService.RecoveryByIdAsync(id);
-                TempData[SuccessMessage] = "Decanter was recovery successfully!";
+                this.TempData[SuccessMessage] = string.Format(RecoverySuccessfully,nameof(Decanter));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         private IActionResult GeneralError(string? returnUrl = null)
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later";
+            this.TempData[ErrorMessage] = UnexpectedError;
+               
             if (returnUrl == null)
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return this.RedirectToAction("Index", "Home", new { area = "" });
             }
+
             return this.Redirect(returnUrl);
         }
     }

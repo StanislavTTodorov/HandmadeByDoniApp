@@ -1,10 +1,10 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Servises.Data.Models.Product;
-using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 
 
 
@@ -33,6 +33,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.productService = productService;
             this.categoryService = categoryService;
         }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
@@ -61,9 +62,8 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.RedirectToAction("Details", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
+            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
             return this.RedirectToAction("All", "Product");
-
         }
 
         [HttpGet]
@@ -77,8 +77,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             queryModel.GlassCategories = await this.categoryService.AllCategoryNameAsync();
 
             return this.View(queryModel);
-        }
-
-        
+        }       
     }
 }

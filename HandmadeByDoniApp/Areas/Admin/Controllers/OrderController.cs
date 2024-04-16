@@ -2,6 +2,9 @@
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
+using HandmadeByDoniApp.Data.Migrations;
+
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -13,6 +16,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         {
             this.orderService = orderService;
         }
+
         [HttpGet]
         public async Task<IActionResult> UsersOrders()
         {
@@ -24,19 +28,21 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Details Order");
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Sent(string orderId)
         {
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(orderId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = "Order with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Order));
                 return this.RedirectToAction("UsersOrders", "Order");
             }
+
             try
             {
                 await this.orderService.EditSentToTrueAsync(orderId);
@@ -44,7 +50,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Details Order");
             }
             return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
         }

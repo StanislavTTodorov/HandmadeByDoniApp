@@ -7,7 +7,7 @@ using HandmadeByDoniApp.Data.Models;
 using Microsoft.Extensions.Caching.Memory;
 using HandmadeByDoniApp.Web.ViewModels.User;
 
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 using Microsoft.AspNetCore.Authorization;
@@ -111,9 +111,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (result.Succeeded==false)
             {
-                TempData[ErrorMessage] =
-                    "There was an error while logging you in! Please try again later or contact an administrator.";
-
+                TempData[ErrorMessage] = LogginError;
                 return this.View(model);
             }
 

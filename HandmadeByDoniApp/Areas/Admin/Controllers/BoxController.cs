@@ -2,7 +2,8 @@
 using HandmadeByDoniApp.Web.ViewModels.Box;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
+using HandmadeByDoniApp.Data.Models;
 
 
 
@@ -12,12 +13,11 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
     {
         private readonly IBoxService boxService;
 
-
-
         public BoxController(IBoxService boxService)
         {
             this.boxService = boxService;
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -38,13 +38,13 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 await this.boxService.CreateBoxAsync(formModel);
-                TempData[SuccessMessage] = "Box was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Box));
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Box)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Box)}");
+                return this.View(formModel);
             }
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
@@ -58,20 +58,20 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (boxExists==false)
             {
-                TempData[ErrorMessage] = "Box with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Box));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
             {
                 BoxFormModel formModel = await this.boxService
-                    .GetBoxForEditByIdAsync(id);              
+                    .GetBoxForEditByIdAsync(id);
 
-                return View(formModel);
+                return this.View(formModel);
             }
             catch (Exception)
             {
-                return GeneralError();
+                return this.GeneralError();
             }
         }
         [HttpPost]
@@ -86,8 +86,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (boxExists == false)
             {
-                TempData[ErrorMessage] = "Box with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Box));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -96,14 +96,13 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the box. Please try again later");
+                this.ModelState.AddModelError(string.Empty,string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Box)}"));
 
-                return View(formModel);
+                return this.View(formModel);
             }
 
-            TempData[SuccessMessage] = "Box was edited successfully!";
-            return RedirectToAction("Details", "Box", new { area = "", id });
+            TempData[SuccessMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Box)}");
+            return this.RedirectToAction("Details", "Box", new { area = "", id });
         }
 
         [HttpGet]
@@ -112,18 +111,19 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isBox = await this.boxService.ExistsByIdAsync(id);
             if (isBox==false)
             {
-                TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Box));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.boxService.SoftDeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Box was delete successfully!";
+                this.TempData[SuccessMessage] = string.Format(DeleteSuccessfully,nameof(Box));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
         [HttpGet]
@@ -132,31 +132,32 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isBox = await this.boxService.ExistsByIdAsync(id);
             if (isBox == false)
             {
-                TempData[ErrorMessage] = "Box with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Box));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.boxService.RecoveryByIdAsync(id);
-                TempData[SuccessMessage] = "Box was recovery successfully!";
+                this.TempData[SuccessMessage] = string.Format(RecoverySuccessfully,nameof(Box));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
         private IActionResult GeneralError(string? returnUrl = null)
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later";
+            this.TempData[ErrorMessage] = UnexpectedError;
+
             if (returnUrl == null) 
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return this.RedirectToAction("Index", "Home", new { area = "" });
             }
+
             return this.Redirect(returnUrl);
 
         }
-
     }
 }

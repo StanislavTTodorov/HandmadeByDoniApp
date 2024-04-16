@@ -2,7 +2,6 @@
 using HandmadeByDoniApp.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -14,12 +13,13 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             this.product = product;
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<IndexViewModel> viewModels =
                 await this.product.LastTwelveProductsAsync();
-            return View(viewModels);
+            return this.View(viewModels);
         }
 
         [AllowAnonymous]
@@ -28,15 +28,15 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             if (statusCode == 400 || statusCode == 404)
             {
-                return View("Error404");
+                return this.View("Error404");
             }
 
             if (statusCode == 401)
             {
-                return View("Error401");
+                return this.View("Error401");
             }
 
-            return View();
+            return this.View();
         }
     }
 }

@@ -83,8 +83,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
-                _ => glassesQuery
+               ProductSorting.NotActive =>glassesQuery
                      .Where(h => !h.IsActive)
+                     .OrderBy(h => h.CreatedOn),
+                _ => glassesQuery
+                     .Where(h => h.IsActive)
                      .OrderBy(h => h.CreatedOn)
             };
             decanterQuery = queryModel.ProductSorting switch
@@ -105,8 +108,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
+                ProductSorting.NotActive => decanterQuery
+                .Where(h => !h.IsActive)
+                .OrderBy(h => h.CreatedOn),
                 _ => decanterQuery
-                     .Where(h => !h.IsActive)
+                     .Where(h => h.IsActive)
                      .OrderBy(h => h.CreatedOn)
             };
             boxQuery = queryModel.ProductSorting switch
@@ -127,8 +133,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
+                ProductSorting.NotActive => boxQuery
+                .Where(h => !h.IsActive)
+                .OrderBy(h => h.CreatedOn),
                 _ => boxQuery
-                     .Where(h => !h.IsActive)
+                     .Where(h => h.IsActive)
                      .OrderBy(h => h.CreatedOn)
             };
             setQuery = queryModel.ProductSorting switch
@@ -149,8 +158,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     .Where(h => h.IsActive)
                     .OrderBy(h => h.IsActive)
                     .ThenByDescending(h => h.CreatedOn),
+                ProductSorting.NotActive => setQuery
+                .Where(h => !h.IsActive)
+                .OrderBy(h => h.CreatedOn),
                 _ => setQuery
-                     .Where(h => !h.IsActive)
+                     .Where(h => h.IsActive)
                      .OrderBy(h => h.CreatedOn)
             };
 

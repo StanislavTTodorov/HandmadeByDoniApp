@@ -1,15 +1,13 @@
 ﻿using Ganss.Xss;
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.Interfaces;
-using HandmadeByDoniApp.Web.Attributes;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -17,12 +15,9 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class GlassController : BaseController
     {
         private readonly IGlassService glassService;
-        private readonly IGlassCategoryService glassCategoryServise;
-        public GlassController(IGlassCategoryService glassCategoryServise,
-                                IGlassService glassService)
+        public GlassController(IGlassService glassService)
         {
             this.glassService = glassService;
-            this.glassCategoryServise = glassCategoryServise;
         }
 
         [HttpGet]
@@ -32,7 +27,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isGlass = await this.glassService.ExistsByIdAsync(id);
             if (isGlass == false)
             {
-                this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -43,32 +38,30 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator.";
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return this.RedirectToAction("All", "Product");
             }
 
         }
+
         [HttpGet]
         public async Task<IActionResult> Comment(string id)
         {
             bool isGlass = await this.glassService.ExistsByIdAsync(id);
             if (isGlass == false)
             {
-                this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
             try
             {
-
                 AllProductCommentViewModel viewModel = await this.glassService.GetGlassCommentByIdAsync(id);
                 return this.View("~/Views/Comment/Comment.cshtml", viewModel);
-
             }
             catch (Exception)
             {
-
-                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator.";
+                this.TempData[ErrorMessage] = UnexpectedError;
                 return this.RedirectToAction("All", "Product");
             }
 
@@ -80,7 +73,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isGlass = await this.glassService.ExistsByIdAsync(id);
             if (isGlass == false)
             {
-                this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -88,13 +81,14 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             return this.View("~/Views/Comment/WriteToComment.cshtml", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> WriteComment(string id, CommentFormModel formModel)
         {
             bool isGlass = await this.glassService.ExistsByIdAsync(id);
             if (isGlass == false)
             {
-                this.TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -110,12 +104,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.glassService.CreateCommentByUserIdAndByProductIdAsync(userId!, formModel, id);
-                TempData[SuccessMessage] = "Comment was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully, nameof(Comment)); ;
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
             }
 
             return this.RedirectToAction("Comment", "Glass", new { id });

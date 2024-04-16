@@ -4,25 +4,23 @@ using HandmadeByDoniApp.Web.ViewModels.Address;
 using Microsoft.AspNetCore.Mvc;
 
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
+using static HandmadeByDoniApp.Common.GeneralMessages;
+using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
     public class AddressController : BaseController
     {
-        private readonly IOrderService orderService;
   
         private readonly IAddressService addressService;
 
         public AddressController(
-            IOrderService orderService,
             IAddressService addressService)
         {
-            this.orderService = orderService;
             this.addressService = addressService;
 
         }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -30,11 +28,11 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync(),
                 MethodPayments = await this.addressService.AllMethodPaymentsAsync(),
-
             };
 
             return this.View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Add(AddressFormModel formModel)
         {
@@ -42,13 +40,14 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (MethodPaymentIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected payment method does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), PaymentMethodNotExist);
             }
+
             bool DeliveryCompanyIdExists = await this.addressService.DeliveryCompanyExistsByIdAsync(formModel.DeliveryCompanyId);
 
             if (DeliveryCompanyIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected delivery company does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), DeliveryCompanyNotExist);
             }
 
             if (this.ModelState.IsValid == false)
@@ -61,15 +60,15 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.CreateAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = "Address was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
+                return this.View(formModel);
             }
 
             return this.RedirectToAction("DetailsOrder", "Order", new { area = "" });
@@ -82,8 +81,8 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "You don't have Address! You can add your address here";
-                return RedirectToAction("Add", "Addres", new { area = "" });
+                this.TempData[ErrorMessage] = NotHaveAddress;
+                return this.RedirectToAction("Add", "Addres", new { area = "" });
             }
 
             try
@@ -93,11 +92,11 @@ namespace HandmadeByDoniApp.Web.Controllers
                               .GetAddressByUserIdAsync(userId);
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
-                return View(formModel);
+                return this.View(formModel);
             }
             catch (Exception)
             {
-                return GeneralError();
+                return this.GeneralError();
             }
 
         }
@@ -108,13 +107,13 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (MethodPaymentIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), "Selected payment method does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.MethodPaymentId), PaymentMethodNotExist);
             }
-            bool DeliveryCompanyIdExists = await this.addressService.DeliveryCompanyExistsByIdAsync(formModel.DeliveryCompanyId);
 
+            bool DeliveryCompanyIdExists = await this.addressService.DeliveryCompanyExistsByIdAsync(formModel.DeliveryCompanyId);
             if (DeliveryCompanyIdExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), "Selected delivery company does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.DeliveryCompanyId), DeliveryCompanyNotExist);
             }
 
             if (this.ModelState.IsValid == false)
@@ -127,25 +126,24 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.EditAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = "Address was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(EditSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty,string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}");
+                return this.View(formModel);
             }
 
             return this.RedirectToAction("DetailsOrder", "Order", new { area = "" });
         }
         private IActionResult GeneralError()
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later";
+            this.TempData[ErrorMessage] = UnexpectedError;
 
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return this.RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

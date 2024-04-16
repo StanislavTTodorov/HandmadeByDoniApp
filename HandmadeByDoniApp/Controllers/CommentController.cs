@@ -1,10 +1,9 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
-using HandmadeByDoniApp.Services.Data.Service;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using Ganss.Xss;
 
 
@@ -30,34 +29,35 @@ namespace HandmadeByDoniApp.Web.Controllers
             this.boxService = boxService;
             this.setService = setService;
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(string id, string commentId)
         {
             bool commentExists = await this.commentService.ExistsByIdAsync(commentId);
             if (!commentExists)
             {
-                TempData[ErrorMessage] = "Comment with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Comment));
 
-                return RedirectToAction("All", "Product");
+                return this.RedirectToAction("All", "Product");
 
                 //return this.NotFound(); -> to return 404 page
             }
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment)
             {
-                TempData[ErrorMessage] = "You must be the user, who wrote the comment, which you want to edit!";
+                this.TempData[ErrorMessage] = EditComment;
 
-                return RedirectToAction("Comment", "Product",new {id});
+                return this.RedirectToAction("Comment", "Product",new {id});
             }
             try
             {
                 CommentFormModel formModel = await commentService.GetCommentForEditByIdAsync(commentId);
 
-                return View(formModel);
+                return this.View(formModel);
             }
             catch (Exception)
             {
-                return GeneralError();
+                return this.GeneralError();
             }
         }
 
@@ -75,9 +75,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool commentExists = await this.commentService.ExistsByIdAsync(commentId);
             if (!commentExists)
             {
-                TempData[ErrorMessage] = "Comment with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Comment));
 
-                return RedirectToAction("All", "Product");
+                return this.RedirectToAction("All", "Product");
 
                 //return this.NotFound(); -> to return 404 page
             }
@@ -85,9 +85,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment && !User.IsAdmin())
             {
-                TempData[ErrorMessage] = "You must be the user, who wrote the comment, which you want to edit!";
+                this.TempData[ErrorMessage] = EditComment;
 
-                return RedirectToAction("Comment", "Product", new { id });
+                return this.RedirectToAction("Comment", "Product", new { id });
             }
 
             try
@@ -96,15 +96,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to edit the comment. Please try again later or contact administrator!");
-
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Comment)}"));
+                return this.View(formModel);
             }
 
-            TempData[SuccessMessage] = "Comment was edited successfully!";
-            return RedirectToAction("Comment", "Comment", new { id });
+            this.TempData[SuccessMessage] = string.Format(EditSuccessfully,nameof(Comment));
+            return this.RedirectToAction("Comment", "Comment", new { id });
         }
+
         [HttpGet]
         public async Task<IActionResult> Comment(string id)
         {
@@ -132,9 +131,10 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.RedirectToAction("Comment", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can comment.";
+            this.TempData[ErrorMessage] = CommentNotExist;
             return this.RedirectToAction("All", "Product");
         }
+
         [HttpGet]
         public async Task<IActionResult> WriteComment(string id)
         {
@@ -162,7 +162,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.RedirectToAction("WriteComment", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can comment.";
+            this.TempData[ErrorMessage] = CommentNotExist;
             return this.RedirectToAction("All", "Product");
         }
 
@@ -173,7 +173,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (isCommentidExist == false)
             {
-                this.TempData[ErrorMessage] = "Comment with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Comment));
                 return this.RedirectToAction("Comment", "Pcoduct", new { id });
             }
 
@@ -181,6 +181,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             return this.View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> WriteToComment(string id, string commentId, CommentFormModel formModel)
         {
@@ -196,23 +197,23 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.commentService.CreateCommentToCommentByUserIdAndByCommentIdAsync(userId!, formModel, commentId);
-                TempData[SuccessMessage] = "Comment was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Comment));
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
                 return this.View(id);
             }
 
             return this.RedirectToAction("Comment", "Comment", new { id });
         }
+
         private IActionResult GeneralError()
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later or contact administrator";
+            this.TempData[ErrorMessage] = UnexpectedError;
 
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using HandmadeByDoniApp.Services.Data.Interfaces;
-using HandmadeByDoniApp.Web.ViewModels.Box;
+﻿using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using Microsoft.AspNetCore.Mvc;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
@@ -17,6 +17,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             this.glassService = glassService;
             this.glassCategoryServise = glassCategoryServise;
         }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -34,7 +35,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
            
             if (glassCategoryExists == false)
             {
-                this.ModelState.AddModelError(nameof(formModel.CategoryId), "Selected category does not exist!");
+                this.ModelState.AddModelError(nameof(formModel.CategoryId), CategoryNotExist);
             }
 
             if (this.ModelState.IsValid == false)
@@ -47,14 +48,14 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 await this.glassService.CreateGlassAsync(formModel);
-                this.TempData[SuccessMessage] = "Glass was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Glass));
             }
             catch (Exception)
             {
                 formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
-                return View(formModel);
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Glass)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Glass)}");
+                return this.View(formModel);
             }
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
@@ -68,8 +69,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (glassExists == false)
             {
-                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Glass));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -84,6 +85,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return GeneralError();
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(string id, GlassFormModel formModel)
         {
@@ -97,8 +99,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (glassExists == false)
             {
-                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -107,65 +109,67 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the glass. Please try again later");
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Glass)}"));
                 formModel.Categories = await this.glassCategoryServise.AllGlassCategoriesAsync();
-                return View(formModel);
+
+                return this.View(formModel);
             }
 
-            TempData[SuccessMessage] = "Glass was edited successfully!";
-            return RedirectToAction("Details", "Glass", new { area = "", id });
+            this.TempData[SuccessMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Glass)}");
+            return this.RedirectToAction("Details", "Glass", new { area = "", id });
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id, string returnUrl)
         {
             bool isExist = await this.glassService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass));
                 return this.Redirect(returnUrl);
             }
             try
             {
                 await this.glassService.SoftDeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Glass was delete successfully!";
+                this.TempData[SuccessMessage] = string.Format(DeleteSuccessfully, nameof(Glass));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Recovery(string id, string returnUrl)
         {
             bool isExist = await this.glassService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Glass with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass));
                 return this.Redirect(returnUrl);
             }
             try
             {
                 await this.glassService.RecoveryByIdAsync(id);
-                TempData[SuccessMessage] = "Glass was recovery successfully!";
+                this.TempData[SuccessMessage] = string.Format(RecoverySuccessfully, nameof(Glass));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         private IActionResult GeneralError(string? returnUrl = null)
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later";
+            this.TempData[ErrorMessage] = UnexpectedError;
+  
             if (returnUrl == null)
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return this.RedirectToAction("Index", "Home", new { area = "" });
             }
             return this.Redirect(returnUrl);
         }
-
     }
 }

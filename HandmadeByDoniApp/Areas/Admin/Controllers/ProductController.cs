@@ -1,7 +1,7 @@
 ﻿using HandmadeByDoniApp.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -11,23 +11,18 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         private readonly IDecanterService decanterService;
         private readonly IBoxService boxService;
         private readonly ISetService setService;
-        private readonly IProductService productService;
-        private readonly IGlassCategoryService categoryService;
 
         public ProductController(IGlassService glassService,
                                  IDecanterService decanterService,
                                  IBoxService boxService,
-                                 ISetService setService,
-                                 IProductService productService,
-                                 IGlassCategoryService categoryService)
+                                 ISetService setService)
         {
             this.glassService = glassService;
             this.decanterService = decanterService;
             this.boxService = boxService;
             this.setService = setService;
-            this.productService = productService;
-            this.categoryService = categoryService;
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -55,7 +50,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.RedirectToAction("Edit", "Set", new { id });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
+            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
             return this.RedirectToAction("All", "Product", new { area = "" });
 
         }
@@ -86,7 +81,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.RedirectToAction("Delete", "Set", new { id, returnUrl });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
+            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
             return this.RedirectToAction("All", "Product", new { area = "" });
 
         }
@@ -117,8 +112,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.RedirectToAction("Recovery", "Set", new { id, returnUrl });
             }
 
-            this.TempData[ErrorMessage] = "This product does not exist! These are all the products you can choose from.";
-            return this.RedirectToAction("All", "Product", new { area = "" });
+            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
+            return this.Redirect(returnUrl);
 
         }
     }

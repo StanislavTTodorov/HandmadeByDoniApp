@@ -3,8 +3,10 @@ using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Set;
 using Microsoft.AspNetCore.Mvc;
-using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
+using HandmadeByDoniApp.Data.Models;
+
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -12,8 +14,6 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
     {
         private readonly ISetService setService;
         private readonly IGlassCategoryService glassCategoryService;
-        private readonly IGlassService glassService;
-        private readonly IDecanterService decanterService;
 
         public SetController(ISetService setService,
                              IGlassCategoryService glassCategoryService,
@@ -22,9 +22,6 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         {
             this.setService = setService;
             this.glassCategoryService = glassCategoryService;
-            this.glassService = glassService;
-            this.decanterService = decanterService;
-
         }
 
 
@@ -47,10 +44,12 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 Decanter = null
 
             };
+
             if (on)
             {
                 model.Decanter = new DecanterFormModel();
             }
+
             if (model.NumberOfCups == 4)
             {
                 model.GlassThree = new GlassFormModel()
@@ -64,8 +63,9 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
 
 
-            return View(model);
+            return this.View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Add(SetFormModel model)
         {
@@ -74,7 +74,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             if (glassOneCategoryExists == false)
             {
-                this.ModelState.AddModelError(nameof(model.GlassOne.CategoryId), "Selected category does not exist!");
+                this.ModelState.AddModelError(nameof(model.GlassOne.CategoryId), CategoryNotExist);
             }
 
             bool glassTwoCategoryExists = await this.glassCategoryService
@@ -82,7 +82,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             if (glassTwoCategoryExists == false)
             {
-                this.ModelState.AddModelError(nameof(model.GlassTwo.CategoryId), "Selected category does not exist!");
+                this.ModelState.AddModelError(nameof(model.GlassTwo.CategoryId), CategoryNotExist);
             }
 
             if (this.ModelState.IsValid == false)
@@ -102,7 +102,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 await this.setService.CreateSetAsync(model);
-                this.TempData[SuccessMessage] = "Set was added successfully!";
+                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Set));
             }
             catch (Exception)
             {
@@ -114,8 +114,10 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 {
                     Categories = await this.glassCategoryService.AllGlassCategoriesAsync()
                 };
-                this.ModelState.AddModelError(string.Empty, UnexpectedError);
-                this.TempData[ErrorMessage] = UnexpectedError;
+
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Set)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Set)}");
+
                 return View(model);
             }
             return this.RedirectToAction("Index", "Home", new { area = "" });
@@ -128,21 +130,19 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "Set with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Set));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
             {
                 OnlySetFormModel formModel = await this.setService.GetSetForEditByIdAsync(id);
-
-                
-
-                return View(formModel);
+              
+                return this.View(formModel);
             }
             catch (Exception)
             {
-                return GeneralError();
+                return this.GeneralError();
             }
         }
         [HttpPost]
@@ -158,8 +158,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 .ExistsByIdAsync(id);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "Set with the provided id does not exist!";
-                return RedirectToAction("All", "Producr", new { area = "" });
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Set));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
             try
@@ -168,62 +168,66 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Unexpected error occurred while trying to update the set. Please try again later");
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Set)}"));
                 
-                return View(formModel);
+                return this.View(formModel);
             }
 
-            TempData[SuccessMessage] = "Set was edited successfully!";
-            return RedirectToAction("Details", "Set", new { area = "", id });
+            TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Set));
+            return this.RedirectToAction("Details", "Set", new { area = "", id });
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id, string returnUrl)
         {
             bool isExist = await this.setService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Set));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.setService.SoftDeleteByIdAsync(id);
-                TempData[SuccessMessage] = "Set was delete successfully!";
+                this.TempData[SuccessMessage] = string.Format(DeleteSuccessfully,nameof(Set));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Recovery(string id, string returnUrl)
         {
             bool isExist = await this.setService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                TempData[ErrorMessage] = "Set with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Set));
                 return this.Redirect(returnUrl);
             }
+
             try
             {
                 await this.setService.RecoveryByIdAsync(id);
-                TempData[SuccessMessage] = "Set was recovery successfully!";
+                this.TempData[SuccessMessage] = string.Format(RecoverySuccessfully,nameof(Set));
                 return this.Redirect(returnUrl);
             }
             catch (Exception)
             {
-                return GeneralError(returnUrl);
+                return this.GeneralError(returnUrl);
             }
         }
+
         private IActionResult GeneralError(string? returnUrl = null)
         {
-            TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later";
+            this.TempData[ErrorMessage] = UnexpectedError;
+
             if (returnUrl == null)
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return this.RedirectToAction("Index", "Home", new { area = "" });
             }
             return this.Redirect(returnUrl);
         }

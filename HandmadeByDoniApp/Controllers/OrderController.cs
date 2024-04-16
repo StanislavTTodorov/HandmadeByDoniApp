@@ -2,28 +2,23 @@
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
-
+using static HandmadeByDoniApp.Common.GeneralMessages;
+using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
     public class OrderController : BaseController
     {
         private readonly IOrderService orderService;
-        private readonly IMemoryCache memoryCache;
         private readonly IAddressService addressService;
 
         public OrderController(
             IOrderService orderService,
-            IMemoryCache memoryCache,
             IAddressService addressService)
         {
             this.orderService = orderService;
-            this.memoryCache = memoryCache;
             this.addressService = addressService;
-
-
         }      
 
         [HttpGet]
@@ -37,7 +32,8 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Cart! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Cart");
+
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
 
@@ -49,14 +45,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isInSet = await this.orderService.ExistsInSetByIdAsync(id);
             if (isInSet)
             {
-                this.TempData[InformationMessage] = "The product is in Set, you cannot buy it separately. You can see Set from \"See Set\"";
+                this.TempData[InformationMessage] = ProductIsSet;
                 return this.RedirectToAction("Details", "Product", new { area = "", id });
             }
 
             bool isActive = await this.orderService.IsActiveByIdAsync(id);
             if (isActive==false)
             {
-                this.TempData[InformationMessage] = "Product is not available";
+                this.TempData[InformationMessage] = ProductNotAvailable;
                 return this.Redirect(returnUrl);
 			}
 
@@ -64,18 +60,17 @@ namespace HandmadeByDoniApp.Web.Controllers
 			{
                 string userId = User.GetId();
                 await this.orderService.AddProductByUserIdAsync(userId, id);
-                TempData[SuccessMessage] = "Product was added to Cart successfully!";
+                this.TempData[SuccessMessage] = AddProductSuccessfully;
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to Add in Cart! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Order)}");
                 return this.Redirect(returnUrl);
             }
 
-            return this.Redirect(returnUrl);
-            
-
+            return this.Redirect(returnUrl);          
         }
+
         [HttpGet]
         public async Task<IActionResult> Remove(string id)
         {
@@ -86,7 +81,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove from Cart ! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "remove from Cart");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
 
@@ -100,25 +95,26 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[ErrorMessage] = "You don't have Address! Add your address here";
-                return RedirectToAction("Add", "Address", new { area = "" });
+                this.TempData[ErrorMessage] = NotHaveAddress;
+                return this.RedirectToAction("Add", "Address", new { area = "" });
             }
+
             try
             {
                 bool isAllActiv = await this.orderService.CreateRegisterUserOrderByUserIdAsync(userId);
                 
                 if (isAllActiv)
                 {
-                    TempData[SuccessMessage] = "Order was added successfully!";                   
+                    TempData[SuccessMessage] = string.Format(AddSuccessfully, nameof(Order));                
                 }
                 else
                 {
-                    this.TempData[ErrorMessage] = "Some of the products are not available";
+                    this.TempData[ErrorMessage] = ProductNotAvailable;
                 }
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove from Cart ! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "Register Order");
             }
             
 			return this.RedirectToAction("Mine", "Order", new { area = "" });
@@ -140,7 +136,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Details Order");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -152,9 +148,10 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.orderService.UserOrderExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                TempData[InformationMessage] = "You don't have Orders! You can select products from here";
-                return RedirectToAction("All", "Product", new { area = "" });
+                this.TempData[InformationMessage] = NotHaveOrdars;
+                return this.RedirectToAction("All", "Product", new { area = "" });
             }
+
             try
             {
                 ICollection<OrderStatusViewModel> viewModel = await this.orderService.GetUserOrdersByUserIdAsync(userId);
@@ -163,7 +160,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Order Status");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -178,10 +175,9 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Order Product! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Order Product");
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
-
         }
 
         [HttpGet]
@@ -190,23 +186,25 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(id);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = "Order with the provided id does not exist!";
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist,nameof(Order));
                 return this.RedirectToAction("OrderStatus", "Order" ,new { areas=""});
             }
+
             bool isSent= await this.orderService.UserOrderIsSentByOrderIdAsync(id);
             if (isSent == true)
             {
-                this.TempData[ErrorMessage] = "Order with the provided id can not be canceled, because it is already sent! ";
+                this.TempData[ErrorMessage] = OrdarIsSent;
                 return this.RedirectToAction("OrderStatus", "Order", new { areas = "" });
             }
+
             try 
             {
                 await this.orderService.DeleteUserOrderByOrderIdAsync(id);
-                this.TempData[ErrorMessage] = "Order is canceled successfully!";
+                this.TempData[ErrorMessage] = string.Format(CancelSuccessfully,nameof(Order));
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to open Details Order! Please try again later.";
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "Cancel Order");
             }
             return this.RedirectToAction("OrderStatus", "Order", new { area = "" });
         }
