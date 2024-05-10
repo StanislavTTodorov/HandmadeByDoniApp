@@ -187,7 +187,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                               .All<Address>()
                               .Include(a => a.DeliveryCompany)
                               .Include(a => a.MethodPayment)
-                              .FirstAsync();
+                              .FirstAsync(n=>n.ClientId==user.Id);
 
             UserOrder userOrder = new UserOrder()
             {

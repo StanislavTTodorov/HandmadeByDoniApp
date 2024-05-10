@@ -27,12 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandmadeByDoniApp.Servises.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{AEE2F0D7-C604-402E-BED3-E0A3C67B22A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeByDoniApp.Services.Tests", "HandmadeByDoniApp.Services.Tests\HandmadeByDoniApp.Services.Tests.csproj", "{4C15E394-5227-43B9-A0C8-66A31DA76A1E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{65E9C548-1CF1-469F-A66C-4BAF00A0A5F7}"
-	ProjectSection(SolutionItems) = preProject
-		ReadMe.txt = ReadMe.txt
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandmadeByDoniApp.Services.Tests", "HandmadeByDoniApp.Services.Tests\HandmadeByDoniApp.Services.Tests.csproj", "{4C15E394-5227-43B9-A0C8-66A31DA76A1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

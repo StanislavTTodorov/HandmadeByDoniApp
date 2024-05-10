@@ -85,6 +85,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             address.CityName = formModel.CityName;
             address.CountryName = formModel.CountryName;
+            address.Street = formModel.Street;
             address.PhoneNumber = formModel.PhoneNumber;
             address.MethodPaymentId = formModel.MethodPaymentId;
             address.DeliveryCompanyId = formModel.DeliveryCompanyId;
