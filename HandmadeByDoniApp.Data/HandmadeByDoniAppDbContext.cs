@@ -52,7 +52,7 @@ namespace HandmadeByDoniApp.Data
             
             builder.ApplyConfiguration(new UserOrderConfiguration());
 
-            bool seed = true;
+            bool seed = false;
            if(seed)
             {
                 builder.ApplyConfiguration(new SeedGlassCategoryConfiguration());

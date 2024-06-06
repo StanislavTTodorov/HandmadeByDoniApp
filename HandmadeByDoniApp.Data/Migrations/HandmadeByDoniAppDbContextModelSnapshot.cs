@@ -34,7 +34,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("BoxsId");
 
-                    b.ToTable("ApplicationUserBox");
+                    b.ToTable("ApplicationUserBox", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationUserDecanter", b =>
@@ -49,7 +49,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("DecantersId");
 
-                    b.ToTable("ApplicationUserDecanter");
+                    b.ToTable("ApplicationUserDecanter", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationUserGlass", b =>
@@ -64,7 +64,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("GlassesId");
 
-                    b.ToTable("ApplicationUserGlass");
+                    b.ToTable("ApplicationUserGlass", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationUserSet", b =>
@@ -79,7 +79,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("SetsId");
 
-                    b.ToTable("ApplicationUserSet");
+                    b.ToTable("ApplicationUserSet", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Address", b =>
@@ -125,20 +125,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("MethodPaymentId");
 
-                    b.ToTable("Addresses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e2134209-bfe1-4ad3-8b89-e3c8f95b55c0"),
-                            CityName = "Varna",
-                            ClientId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            CountryName = "Bulgaria",
-                            DeliveryCompanyId = 1,
-                            MethodPaymentId = 1,
-                            PhoneNumber = "0898554383",
-                            Street = "137 Slivnitsa Blvd"
-                        });
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.ApplicationUser", b =>
@@ -215,62 +202,6 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("80255d94-aefe-4c1d-abb6-715604db71b0"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "523d2c69-b025-49e2-b98b-5d6740549418",
-                            Email = "admin@handmadebydoni.bg",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@HANDMADEBYDONI.BG",
-                            NormalizedUserName = "ADMIN@HANDMADEBYDONI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF530VgT32JF4tPNEzX7QWG5Ruu/AQmuYStDKABfBWBTMM+OscN3jG/vjDrLP3ia9Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ZLCGPEWE3P3BDNVK526PG2IX6B6N6N44",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@handmadebydoni.bg"
-                        },
-                        new
-                        {
-                            Id = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc3f7fbb-f77e-40b3-aeaa-8cc9d75245ea",
-                            Email = "Rali@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Ralka",
-                            LastName = "Slavova",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "RALI@GMAIL.COM",
-                            NormalizedUserName = "RALI@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImfFRhCzLH1vGnXIksHXRZ0hyeD/4dPdaqwqqbMdiSGdBEcYhtyf05mDibjYS6qgw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7HKI4MSRKJKX2DDLAGLVXU7UGKIJVNIR",
-                            TwoFactorEnabled = false,
-                            UserName = "Rali@gmail.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("371900a3-a5d5-422d-815d-c1d9228c11d0"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8fee1acc-b827-4cb4-a53a-bfbade046f31",
-                            Email = "boris@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Bobi",
-                            LastName = "Borisov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BORIS@GMAIL.COM",
-                            NormalizedUserName = "BORIS@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKZ6sw4/iRtjGuILSgoCCnWgRwOrXmoIBosY/1WrpBezctD47K2wjkzzYgUowbvonQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "37DLJDOBTDVEYX7UIRMCHQ47DPPW5C3I",
-                            TwoFactorEnabled = false,
-                            UserName = "boris@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Box", b =>
@@ -314,42 +245,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Boxs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8dc60af6-5e52-4b64-8e3a-343fb3d425fd"),
-                            Capacity = 6,
-                            CreatedOn = new DateTime(2024, 3, 17, 7, 28, 1, 313, DateTimeKind.Unspecified).AddTicks(3333),
-                            Description = "Box for 6 glasses",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20220212_221050.jpg?t=2024-03-18T10%3A17%3A47.754Z",
-                            IsActive = true,
-                            Price = 60m,
-                            Title = "Box"
-                        },
-                        new
-                        {
-                            Id = new Guid("7e302b06-93b6-493d-8784-4da6eb5c91b8"),
-                            Capacity = 2,
-                            CreatedOn = new DateTime(2024, 3, 18, 18, 5, 28, 153, DateTimeKind.Unspecified).AddTicks(3333),
-                            Description = "Box for 2 glasses",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20220212_211449.jpg",
-                            IsActive = true,
-                            Price = 20m,
-                            Title = "Box"
-                        },
-                        new
-                        {
-                            Id = new Guid("9dfe60c9-5292-4dc5-9365-dc0864f40d4b"),
-                            Capacity = 4,
-                            CreatedOn = new DateTime(2024, 3, 17, 7, 31, 23, 206, DateTimeKind.Unspecified).AddTicks(6667),
-                            Description = "Box for 4 glasses",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20220212_214106.jpg?t=2024-03-18T10%3A16%3A38.799Z",
-                            IsActive = true,
-                            Price = 40m,
-                            Title = "Box"
-                        });
+                    b.ToTable("Boxs", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Comment", b =>
@@ -404,36 +300,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("caf75e4f-1cde-485d-a4b6-8dd88906c84a"),
-                            CreatedOn = new DateTime(2024, 4, 15, 15, 51, 44, 933, DateTimeKind.Unspecified).AddTicks(9021),
-                            GlassId = new Guid("62848c82-cf7b-4367-adce-6779103e87f6"),
-                            Text = "I am very satisfied great product",
-                            UserId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            UserName = "Ralka Slavova"
-                        },
-                        new
-                        {
-                            Id = new Guid("a80db61a-2df1-4bc2-864f-19058d7c1ac4"),
-                            CommentId = new Guid("caf75e4f-1cde-485d-a4b6-8dd88906c84a"),
-                            CreatedOn = new DateTime(2024, 4, 15, 16, 1, 8, 667, DateTimeKind.Unspecified).AddTicks(3314),
-                            Text = "I am very happy :)",
-                            UserId = new Guid("80255d94-aefe-4c1d-abb6-715604db71b0"),
-                            UserName = "Admin Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("ee9e3a69-fb0c-4f9c-bcd3-875eee0a42c6"),
-                            CreatedOn = new DateTime(2024, 4, 15, 16, 3, 9, 916, DateTimeKind.Unspecified).AddTicks(4662),
-                            DecanterId = new Guid("4ef3846b-6c81-4b91-a702-c69b399ef550"),
-                            Text = "I can't wait for it to arrive.",
-                            UserId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            UserName = "Ralka Slavova"
-                        });
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Decanter", b =>
@@ -485,70 +352,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("SetId");
 
-                    b.ToTable("Decantres");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c7c5d614-a354-420a-a816-10ff8e3bd391"),
-                            Capacity = 750,
-                            CreatedOn = new DateTime(2024, 3, 18, 18, 9, 2, 116, DateTimeKind.Unspecified).AddTicks(6667),
-                            Description = "The glory of the lion",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20230724_111227%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 57m,
-                            Title = "The glory of the lion"
-                        },
-                        new
-                        {
-                            Id = new Guid("2ccbd57f-25ab-4dbb-9ec0-238839422e87"),
-                            Capacity = 400,
-                            CreatedOn = new DateTime(2024, 3, 18, 17, 52, 29, 283, DateTimeKind.Unspecified).AddTicks(3333),
-                            Description = "The Madonna",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20230724_112332%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 82m,
-                            Title = "The Madonna"
-                        },
-                        new
-                        {
-                            Id = new Guid("e62e9313-837b-4a77-8d9f-2f6b21993284"),
-                            Capacity = 750,
-                            CreatedOn = new DateTime(2024, 3, 15, 18, 34, 53, 770, DateTimeKind.Unspecified),
-                            Description = "Angels with crowns",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20230501_224607%20().jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 79m,
-                            Title = "Angels with crowns"
-                        },
-                        new
-                        {
-                            Id = new Guid("6679b8ae-c473-4514-b5ab-8608dd5c537d"),
-                            Capacity = 1200,
-                            CreatedOn = new DateTime(2024, 4, 8, 12, 39, 12, 387, DateTimeKind.Unspecified).AddTicks(7104),
-                            Description = "",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_204938%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = true,
-                            Price = 0m,
-                            Title = "Sineva"
-                        },
-                        new
-                        {
-                            Id = new Guid("4ef3846b-6c81-4b91-a702-c69b399ef550"),
-                            Capacity = 1200,
-                            CreatedOn = new DateTime(2024, 3, 22, 9, 26, 30, 560, DateTimeKind.Unspecified),
-                            Description = "Thrace",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20230724_113929%20(Copy).jpg",
-                            IsActive = false,
-                            IsSet = false,
-                            OrderId = new Guid("f95d5a5c-4b30-4453-8f3b-5bce14142dcc"),
-                            Price = 50m,
-                            Title = "Thrace"
-                        });
+                    b.ToTable("Decantres", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.DeliveryCompany", b =>
@@ -566,19 +370,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Econt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Speedy"
-                        });
+                    b.ToTable("DeliveryCompanies", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
@@ -635,131 +427,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("SetId");
 
-                    b.ToTable("Glasses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2b07a00d-9963-4074-8785-2ded25faca31"),
-                            Capacity = 500,
-                            CreatedOn = new DateTime(2024, 3, 18, 10, 55, 1, 846, DateTimeKind.Unspecified).AddTicks(6667),
-                            Description = "Beer glass The Queen 1 glass",
-                            GlassCategoryId = 2,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_213051%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 70.00m,
-                            Title = "The Queen"
-                        },
-                        new
-                        {
-                            Id = new Guid("e72293aa-e080-4b0b-b72e-31adc1ecde96"),
-                            Capacity = 150,
-                            CreatedOn = new DateTime(2024, 4, 7, 12, 6, 12, 827, DateTimeKind.Unspecified).AddTicks(1188),
-                            Description = "",
-                            GlassCategoryId = 3,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20231212_125737%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = true,
-                            Price = 0m,
-                            SetId = new Guid("f57a2a6c-4ddd-46f9-bd6e-8a3faf801527"),
-                            Title = "Two angels"
-                        },
-                        new
-                        {
-                            Id = new Guid("71410857-73db-48b1-b1bc-453bce46706c"),
-                            Capacity = 150,
-                            CreatedOn = new DateTime(2024, 4, 7, 12, 6, 12, 826, DateTimeKind.Unspecified).AddTicks(1188),
-                            Description = "",
-                            GlassCategoryId = 3,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20231212_125737%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = true,
-                            Price = 0m,
-                            SetId = new Guid("f57a2a6c-4ddd-46f9-bd6e-8a3faf801527"),
-                            Title = "Two angels"
-                        },
-                        new
-                        {
-                            Id = new Guid("62848c82-cf7b-4367-adce-6779103e87f6"),
-                            Capacity = 350,
-                            CreatedOn = new DateTime(2024, 3, 27, 12, 41, 56, 143, DateTimeKind.Unspecified).AddTicks(3333),
-                            Description = "Royal Power 1 cup",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20211204_153642%20(Copy).jpg",
-                            IsActive = false,
-                            IsSet = false,
-                            OrderId = new Guid("ee9d71df-d7e4-4f85-a53e-07bfe35c0208"),
-                            Price = 65.00m,
-                            Title = "Royal Power"
-                        },
-                        new
-                        {
-                            Id = new Guid("c8198bc1-2a95-460f-a56a-711042a71f19"),
-                            Capacity = 350,
-                            CreatedOn = new DateTime(2024, 3, 18, 17, 49, 43, 330, DateTimeKind.Unspecified),
-                            Description = "Mermaid 1 cup",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20211204_153938%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 65.00m,
-                            Title = "Mermaid"
-                        },
-                        new
-                        {
-                            Id = new Guid("ad666900-3451-47a4-a8b8-75fce9071005"),
-                            Capacity = 200,
-                            CreatedOn = new DateTime(2024, 4, 8, 12, 39, 12, 387, DateTimeKind.Unspecified).AddTicks(4015),
-                            Description = "",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_205034%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = true,
-                            Price = 0m,
-                            SetId = new Guid("bfa2762a-617c-4119-8462-d599d9588b61"),
-                            Title = "Sineva"
-                        },
-                        new
-                        {
-                            Id = new Guid("1f311aed-e45a-4499-9a99-937503eac6fb"),
-                            Capacity = 300,
-                            CreatedOn = new DateTime(2024, 3, 18, 18, 3, 29, 246, DateTimeKind.Unspecified).AddTicks(6667),
-                            Description = "Firebird 1 cup",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_205953%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 45m,
-                            Title = "Firebird 'Жар птица' "
-                        },
-                        new
-                        {
-                            Id = new Guid("2d249ad1-fcf5-431e-9dbe-9e18a101ba8e"),
-                            Capacity = 400,
-                            CreatedOn = new DateTime(2024, 3, 15, 21, 27, 18, 790, DateTimeKind.Unspecified),
-                            Description = "The Madonna and Child 1 cup",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20231218_162414%20().jpg",
-                            IsActive = true,
-                            IsSet = false,
-                            Price = 67m,
-                            Title = "The Madonna and Child' "
-                        },
-                        new
-                        {
-                            Id = new Guid("d16c0e0e-348e-42e3-beef-f90fb4fe1216"),
-                            Capacity = 200,
-                            CreatedOn = new DateTime(2024, 4, 8, 12, 39, 12, 387, DateTimeKind.Unspecified).AddTicks(4830),
-                            Description = "",
-                            GlassCategoryId = 1,
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_205034%20(Copy).jpg",
-                            IsActive = true,
-                            IsSet = true,
-                            Price = 0m,
-                            SetId = new Guid("bfa2762a-617c-4119-8462-d599d9588b61"),
-                            Title = "Sineva"
-                        });
+                    b.ToTable("Glasses", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.GlassCategory", b =>
@@ -777,39 +445,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GlassCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Wine glass"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Beer glass"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Cognac glass"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Whiskey glass"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Tea cup"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Champagne glass"
-                        });
+                    b.ToTable("GlassCategories", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.MethodPayment", b =>
@@ -827,19 +463,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MethodPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Method = "Cash payment on delivery"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Method = "Card payment on delivery"
-                        });
+                    b.ToTable("MethodPayments", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Order", b =>
@@ -855,19 +479,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ee9d71df-d7e4-4f85-a53e-07bfe35c0208"),
-                            ClientId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb")
-                        },
-                        new
-                        {
-                            Id = new Guid("f95d5a5c-4b30-4453-8f3b-5bce14142dcc"),
-                            ClientId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb")
-                        });
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Set", b =>
@@ -913,30 +525,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Sets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f57a2a6c-4ddd-46f9-bd6e-8a3faf801527"),
-                            CreatedOn = new DateTime(2024, 4, 7, 12, 6, 18, 162, DateTimeKind.Unspecified).AddTicks(8495),
-                            Description = "Two angels 2 cups",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/Cognac%20(Copy).jpg",
-                            IsActive = true,
-                            Price = 105m,
-                            Title = "Two angels 2 cups"
-                        },
-                        new
-                        {
-                            Id = new Guid("bfa2762a-617c-4119-8462-d599d9588b61"),
-                            CreatedOn = new DateTime(2024, 4, 8, 12, 39, 12, 387, DateTimeKind.Unspecified).AddTicks(1453),
-                            DecanterId = new Guid("6679b8ae-c473-4514-b5ab-8608dd5c537d"),
-                            Description = "Sineva - 1 decanter with 2 glasses",
-                            ImageUrl = "https://vxvxeblefmgvrvtnjuha.supabase.co/storage/v1/object/public/image/IMG_20210410_205122%20(Copy).jpg",
-                            IsActive = true,
-                            Price = 120m,
-                            Title = "Sineva"
-                        });
+                    b.ToTable("Sets", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.UserOrder", b =>
@@ -967,27 +556,7 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("UsersOrders");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            OrderId = new Guid("ee9d71df-d7e4-4f85-a53e-07bfe35c0208"),
-                            AddressId = new Guid("e2134209-bfe1-4ad3-8b89-e3c8f95b55c0"),
-                            CreaateOn = new DateTime(2024, 4, 14, 7, 36, 22, 533, DateTimeKind.Unspecified).AddTicks(6115),
-                            IsSent = false,
-                            TotalPrice = 65m
-                        },
-                        new
-                        {
-                            UserId = new Guid("c5ae3631-31a1-4369-9f2e-8eec685c98eb"),
-                            OrderId = new Guid("f95d5a5c-4b30-4453-8f3b-5bce14142dcc"),
-                            AddressId = new Guid("e2134209-bfe1-4ad3-8b89-e3c8f95b55c0"),
-                            CreaateOn = new DateTime(2024, 4, 12, 9, 6, 27, 833, DateTimeKind.Unspecified).AddTicks(8791),
-                            IsSent = true,
-                            TotalPrice = 50m
-                        });
+                    b.ToTable("UsersOrders", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -1290,7 +859,7 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasForeignKey("OrderId");
 
                     b.HasOne("HandmadeByDoniApp.Data.Models.Set", "Set")
-                        .WithMany("Glass")
+                        .WithMany("Glasss")
                         .HasForeignKey("SetId");
 
                     b.Navigation("GlassCategory");
@@ -1444,7 +1013,7 @@ namespace HandmadeByDoniApp.Data.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Glass");
+                    b.Navigation("Glasss");
                 });
 #pragma warning restore 612, 618
         }
