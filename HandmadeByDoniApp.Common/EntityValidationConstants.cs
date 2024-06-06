@@ -4,6 +4,22 @@ namespace HandmadeByDoniApp.Common
 {
     public static class EntityValidationConstants
     {
+        public static class Product
+        {
+            public const int TitleMaxLength = 200;
+            public const int TitleMinLength = 3;
+
+            public const int DescriptionMaxLength = 2048;
+
+            public const string PriceMaxLength = "7000";
+            public const string PriceMinLength = "0";
+        }
+        public static class Categoty
+        {
+            public const int NameMaxLength = 100;
+            public const int NameMinLength = 2;
+        }
+
         public static class GlassCategoty
         {
             public const int NameMaxLength = 100;
