@@ -413,6 +413,28 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         }
 
-       
+        public async Task<bool> ExistsByIdAsync(string productId)
+        {
+            bool exists = await repository.All<Box>()
+                 .AnyAsync(b => b.Id.ToString() == productId);
+
+            return exists;
+        }
+
+        public async Task CreateProductAsync(ProductFormModel formModel)
+        {
+            Product newProduct = new Product()
+            {
+                Title = formModel.Title,
+                Description = formModel.Description,
+                ImageUrl = formModel.ImageUrl,               
+                Price = formModel.Price,
+                CategoryId = formModel.CategoryId,
+                IsActive = true,
+            };
+
+            await repository.AddRangeAsync(newProduct);
+            await repository.SaveChangesAsync();
+        }
     }
 }
