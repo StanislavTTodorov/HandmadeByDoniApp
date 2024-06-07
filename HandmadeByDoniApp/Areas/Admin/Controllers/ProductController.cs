@@ -10,25 +10,14 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
     public class ProductController :BaseAdminController
     {
-        //private readonly IGlassService glassService;
-        //private readonly IDecanterService decanterService;
-        //private readonly IBoxService boxService;
-        //private readonly ISetService setService;
+       
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
 
         public ProductController(
-                                 //IGlassService glassService,
-                                // IDecanterService decanterService,
-                                 //IBoxService boxService,
-                                 //ISetService setService
                                  IProductService productService,
                                  ICategoryService categoryService)
         {
-            //this.glassService = glassService;
-            //this.decanterService = decanterService;
-            //this.boxService = boxService;
-            //this.setService = setService;
             this.productService = productService;
             this.categoryService = categoryService;
         }
