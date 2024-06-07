@@ -4,6 +4,7 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Web.ViewModels.Glass;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -68,8 +69,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 formModel.Categories = await this.categoryService.AllCategoriesAsync();
-                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Glass)}"));
-                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Glass)}");
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Product)}"));
+                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Product)}");
                 return this.View(formModel);
             }
 
@@ -81,100 +82,112 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            //bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            //if (isGlass)
-            //{
-            //    return this.RedirectToAction("Edit", "Glass", new { id });
-            //}
-
-            //bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            //if (isDecanter)
-            //{
-            //    return this.RedirectToAction("Edit", "Decanter", new { id });
-            //}
-
-            //bool isBox = await this.boxService.ExistsByIdAsync(id);
-            //if (isBox)
-            //{
-            //    return this.RedirectToAction("Edit", "Box", new { id });
-            //}
-
-            //bool isSet = await this.setService.ExistsByIdAsync(id);
-            //if (isSet)
-            //{
-            //    return this.RedirectToAction("Edit", "Set", new { id });
-            //}
-            bool isProduct = await this.productService.ExistsByIdAsync(id);
-            if (isProduct)
+            bool productExists = await this.productService
+                .ExistsByIdAsync(id);
+            if (productExists == false)
             {
-                return this.RedirectToAction("Edit", "Set", new { id });
+                TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
             }
 
-            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
-            return this.RedirectToAction("All", "Product", new { area = "" });
-
+            try
+            {
+                ProductFormModel formModel = await this.productService
+                    .GetProductForEditByIdAsync(id);
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, ProductFormModel formModel)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+                return this.View(formModel);
+            }
+
+            bool productExists = await this.productService
+                .ExistsByIdAsync(id);
+            if (productExists == false)
+            {
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product));
+                return this.RedirectToAction("All", "Producr", new { area = "" });
+            }
+
+            try
+            {
+                await this.productService.EditProductByIdAndFormModelAsync(id, formModel);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Product)}"));
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+
+                return this.View(formModel);
+            }
+
+            this.TempData[SuccessMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Product)}");
+            return this.RedirectToAction("Details", "Product", new { area = "", id });
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id, string returnUrl)
         {
-            //bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            //if (isGlass)
-            //{
-            //    return this.RedirectToAction("Delete", "Glass", new { id,returnUrl });
-            //}
-
-            //bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            //if (isDecanter)
-            //{
-            //    return this.RedirectToAction("Delete", "Decanter", new { id, returnUrl });
-            //}
-
-            //bool isBox = await this.boxService.ExistsByIdAsync(id);
-            //if (isBox)
-            //{
-            //    return this.RedirectToAction("Delete", "Box", new { id, returnUrl });
-            //}
-
-            //bool isSet = await this.setService.ExistsByIdAsync(id);
-            //if (isSet)
-            //{
-            //    return this.RedirectToAction("Delete", "Set", new { id, returnUrl });
-            //}
-
-            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
-            return this.RedirectToAction("All", "Product", new { area = "" });
-
+            bool isExist = await this.productService.ExistsByIdAsync(id);
+            if (isExist == false)
+            {
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass));
+                return this.Redirect(returnUrl);
+            }
+            try
+            {
+                await this.productService.SoftDeleteByIdAsync(id);
+                this.TempData[SuccessMessage] = string.Format(DeleteSuccessfully, nameof(productService));
+                return this.Redirect(returnUrl);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError(returnUrl);
+            }
         }
+
         [HttpGet]
         public async Task<IActionResult> Recovery(string id, string returnUrl)
         {
-            //bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            //if (isGlass)
-            //{
-            //    return this.RedirectToAction("Recovery", "Glass", new { id, returnUrl });
-            //}
+            bool isExist = await this.productService.ExistsByIdAsync(id);
+            if (isExist == false)
+            {
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product));
+                return this.Redirect(returnUrl);
+            }
+            try
+            {
+                await this.productService.RecoveryByIdAsync(id);
+                this.TempData[SuccessMessage] = string.Format(RecoverySuccessfully, nameof(Product));
+                return this.Redirect(returnUrl);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError(returnUrl);
+            }
+        }
 
-            //bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            //if (isDecanter)
-            //{
-            //    return this.RedirectToAction("Recovery", "Decanter", new { id, returnUrl });
-            //}
+   
+        private IActionResult GeneralError(string? returnUrl = null)
+        {
+            this.TempData[ErrorMessage] = UnexpectedError;
 
-            //bool isBox = await this.boxService.ExistsByIdAsync(id);
-            //if (isBox)
-            //{
-            //    return this.RedirectToAction("Recovery", "Box", new { id, returnUrl });
-            //}
-
-            //bool isSet = await this.setService.ExistsByIdAsync(id);
-            //if (isSet)
-            //{
-            //    return this.RedirectToAction("Recovery", "Set", new { id, returnUrl });
-            //}
-
-            this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
+            if (returnUrl == null)
+            {
+                return this.RedirectToAction("Index", "Home", new { area = "" });
+            }
             return this.Redirect(returnUrl);
-
         }
     }
 }
