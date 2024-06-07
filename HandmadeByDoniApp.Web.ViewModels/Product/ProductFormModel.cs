@@ -11,6 +11,8 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
             this.Categories = new HashSet<SelectCategoryFormModel>();
         }
 
+        public string? Id { get; set; }
+
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
