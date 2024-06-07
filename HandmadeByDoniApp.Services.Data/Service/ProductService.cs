@@ -3,6 +3,8 @@ using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Servises.Data.Models.Product;
+using HandmadeByDoniApp.Web.ViewModels.Comment;
+using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Home;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Web.ViewModels.Product.Enums;
@@ -347,69 +349,21 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task<IEnumerable<IndexViewModel>> LastTwelveProductsAsync()
         {
-            IEnumerable<IndexViewModel>? lastThreeGlass = await this.repository
-                 .All<Glass>()
-                 .Where(g => g.IsActive &&
-                           g.IsSet == false)
-                 .OrderByDescending(g => g.CreatedOn)
-                 .Take(3)
-                 .Select(g => new IndexViewModel()
-                 {
-                     Id = g.Id.ToString(),
-                     Title = g.Title,
-                     ImageUrl = g.ImageUrl,
-                     CreatedOn = g.CreatedOn
+            IEnumerable<IndexViewModel>? lastTwelveProducts = await this.repository
+                .All<Product>()
+                .Where(g => g.IsActive)
+                .OrderByDescending(g => g.CreatedOn)
+                .Take(12)
+                .Select(g => new IndexViewModel()
+                {
+                    Id = g.Id.ToString(),
+                    Title = g.Title,
+                    ImageUrl = g.ImageUrl,
+                    CreatedOn = g.CreatedOn
 
-                 }).ToArrayAsync();
+                }).ToArrayAsync();
 
-            IEnumerable<IndexViewModel>? lastThreeBoxs = await this.repository
-               .All<Box>()
-               .Where(b => b.IsActive)
-               .OrderByDescending(b => b.CreatedOn)
-               .Take(3)
-               .Select(b => new IndexViewModel()
-               {
-                   Id = b.Id.ToString(),
-                   Title = b.Title,
-                   ImageUrl = b.ImageUrl,
-                   CreatedOn = b.CreatedOn
-               }).ToArrayAsync();
-
-            IEnumerable<IndexViewModel>? lastThreeDecanters = await this.repository
-               .All<Decanter>()
-               .Where(g => g.IsActive &&
-                           g.IsSet == false)
-               .OrderByDescending(d => d.CreatedOn)
-               .Take(3)
-               .Select(d => new IndexViewModel()
-               {
-                   Id = d.Id.ToString(),
-                   Title = d.Title,
-                   ImageUrl = d.ImageUrl,
-                   CreatedOn = d.CreatedOn
-               }).ToArrayAsync();
-
-            IEnumerable<IndexViewModel>? lastThreeSet = await this.repository
-              .All<Set>()
-              .Where(b => b.IsActive)
-              .OrderByDescending(s => s.CreatedOn)
-              .Take(3)
-              .Select(s => new IndexViewModel()
-              {
-                  Id = s.Id.ToString(),
-                  Title = s.Title,
-                  ImageUrl = s.ImageUrl,
-                  CreatedOn = s.CreatedOn
-              }).ToArrayAsync();
-
-            List<IndexViewModel> lastProduct = new List<IndexViewModel>();
-            lastProduct.AddRange(lastThreeGlass);
-            lastProduct.AddRange(lastThreeBoxs);
-            lastProduct.AddRange(lastThreeSet);
-            lastProduct.AddRange(lastThreeDecanters);
-            IEnumerable<IndexViewModel> models = lastProduct.OrderByDescending(g => g.CreatedOn).ToArray();
-
-            return models;
+            return lastTwelveProducts;
 
         }
 
@@ -435,6 +389,63 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             await repository.AddRangeAsync(newProduct);
             await repository.SaveChangesAsync();
+        }
+
+        public Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ProductFormModel> GetProductForEditByIdAsync(string id)
+        {
+            Product product = await this.repository
+                .All<Product>()
+                .Include(h => h.Category)
+                .FirstAsync(h => h.Id.ToString() == id);
+
+            return new ProductFormModel
+            {
+                Title = product.Title,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,              
+                Price = product.Price,
+                CategoryId = product.CategoryId
+            };
+        }
+
+        public async Task EditProductByIdAndFormModelAsync(string id, ProductFormModel formModel)
+        {
+            Product product = await this.repository
+               .All<Product>()
+               .FirstAsync(g => g.Id.ToString() == id);
+
+            product.Title = formModel.Title;
+            product.Description = formModel.Description;
+            product.ImageUrl = formModel.ImageUrl;
+            product.Price = formModel.Price;
+            product.CategoryId = formModel.CategoryId;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteByIdAsync(string id)
+        {
+            Product product = await this.repository
+                   .All<Product>()
+                   .FirstAsync(b => b.Id.ToString() == id);
+
+            product.IsActive = false;
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task RecoveryByIdAsync(string id)
+        {
+            Product product = await this.repository
+                   .All<Product>()
+                   .FirstAsync(b => b.Id.ToString() == id);
+
+            product.IsActive = true;
+            await this.repository.SaveChangesAsync();
         }
     }
 }

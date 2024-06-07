@@ -2,12 +2,13 @@
 
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
+using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.Category;
 using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeByDoniApp.Services.Data.Service
 {
-    public class CategoryService
+    public class CategoryService:ICategoryService
     {
         private readonly IRepository repository;
 
