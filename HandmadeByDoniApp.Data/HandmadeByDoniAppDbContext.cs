@@ -37,6 +37,8 @@ namespace HandmadeByDoniApp.Data
 
         public DbSet<MethodPayment> MethodPayments { get; set; } = null!;
 
+        public DbSet<Product> Products { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -52,7 +54,7 @@ namespace HandmadeByDoniApp.Data
             
             builder.ApplyConfiguration(new UserOrderConfiguration());
 
-            bool seed = true;
+            bool seed = false;
            if(seed)
             {
                 builder.ApplyConfiguration(new SeedCategoryConfiguration());
