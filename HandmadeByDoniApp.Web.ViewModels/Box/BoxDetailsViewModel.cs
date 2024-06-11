@@ -2,7 +2,7 @@
 
 namespace HandmadeByDoniApp.Web.ViewModels.Box
 {
-    public class BoxDetailsViewModel:AllProductViewModel
+    public class BoxDetailsViewModel:ProductViewModel
     {
         public int Capacity { get; set; }
     }

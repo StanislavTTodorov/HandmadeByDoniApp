@@ -4,9 +4,9 @@ using HandmadeByDoniApp.Web.ViewModels.Comment;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Product
 {
-    public class AllProductCommentViewModel: AllProductViewModel
+    public class ProductCommentViewModel: ProductViewModel
     {
-        public AllProductCommentViewModel()
+        public ProductCommentViewModel()
         {
             this.Comments = new HashSet<CommentViewModel>();
         }

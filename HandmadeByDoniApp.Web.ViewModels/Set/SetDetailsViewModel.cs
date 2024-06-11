@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Set
 {
-    public class SetDetailsViewModel: AllProductViewModel
+    public class SetDetailsViewModel: ProductViewModel
     {
         public SetDetailsViewModel()
         {
-            this.SetProducts = new HashSet<AllProductViewModel>();
+            this.SetProducts = new HashSet<ProductViewModel>();
         }
-        public ICollection<AllProductViewModel> SetProducts { get; set; }
+        public ICollection<ProductViewModel> SetProducts { get; set; }
 
         
     }

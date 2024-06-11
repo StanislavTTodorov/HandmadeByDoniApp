@@ -90,8 +90,13 @@ namespace HandmadeByDoniApp.Web.Controllers
                 AddressFormModel? formModel = 
                     await this.addressService
                               .GetAddressByUserIdAsync(userId);
-                formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
-                formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
+
+                if(formModel!=null) 
+                {
+                    formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
+                    formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
+                }
+                
                 return this.View(formModel);
             }
             catch (Exception)

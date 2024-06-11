@@ -11,7 +11,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
     {
         Task<bool> ExistsByIdAsync(string setId);
 
-        Task<AllProductCommentViewModel> GetSetCommentByIdAsync(string setId);
+        Task<ProductCommentViewModel> GetSetCommentByIdAsync(string setId);
 
         Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId);
         

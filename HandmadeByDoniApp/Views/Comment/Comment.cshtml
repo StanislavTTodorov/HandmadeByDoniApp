@@ -1,7 +1,7 @@
 ﻿@using Ganss.Xss
 @using HandmadeByDoniApp.Services.Data.Interfaces
 @using HandmadeByDoniApp.Web.Infrastructure.Extensions
-@model AllProductCommentViewModel
+@model ProductCommentViewModel
 @inject ICommentService CommentService
 
 @{
@@ -26,8 +26,10 @@
     </div>
     <section class="comment-section">
         <div class="write-comment">
-            <a class="ml-2 btn btn-info" asp-controller="Comment" asp-action="WriteComment"
-               asp-route-id="@Model.Id">Write a comment</a>
+            <a class="ml-2 btn btn-info"
+            asp-controller="Product" 
+            asp-action="WriteComment"
+            asp-route-id="@Model.Id">Write a comment</a>
         </div>
         <article>
             @if (Model.Comments.Any())

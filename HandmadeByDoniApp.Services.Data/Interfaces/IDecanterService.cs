@@ -14,7 +14,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
 
         Task<DecanterDetailsViewModel> GetDecanterDetailsByIdAsync(string decanterId);
 
-        Task<AllProductCommentViewModel> GetDecanterCommentByIdAsync(string glassId);
+        Task<ProductCommentViewModel> GetDecanterCommentByIdAsync(string glassId);
 
         Task CreateCommentByUserIdAndByProductIdAsync(string userId, CommentFormModel formModel, string productId);
         Task EditDecanterByIdAndFormModelAsync(string id, DecanterFormModel formModel);

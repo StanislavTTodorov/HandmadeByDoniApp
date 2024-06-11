@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Glass
 {
-    public class GlassDetailsViewModel : AllProductViewModel
+    public class GlassDetailsViewModel : ProductViewModel
     {
         public int Capacity { get; set; }
 
