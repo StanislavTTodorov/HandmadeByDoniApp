@@ -11,20 +11,22 @@ namespace HandmadeByDoniApp.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder
-                .HasMany(x => x.Glasses)
-                .WithMany(x => x.ApplicationUsers);
+            //builder
+            //    .HasMany(x => x.Glasses)
+            //    .WithMany(x => x.ApplicationUsers);
 
+            //builder
+            //   .HasMany(x => x.Sets)
+            //   .WithMany(x => x.ApplicationUsers);
+            //builder
+            //   .HasMany(x => x.Boxs)
+            //   .WithMany(x => x.ApplicationUsers);
+            //builder
+            //   .HasMany(x => x.Decanters)
+            //   .WithMany(x => x.ApplicationUsers);
             builder
-               .HasMany(x => x.Sets)
+               .HasMany(x => x.Products)
                .WithMany(x => x.ApplicationUsers);
-            builder
-               .HasMany(x => x.Boxs)
-               .WithMany(x => x.ApplicationUsers);
-            builder
-               .HasMany(x => x.Decanters)
-               .WithMany(x => x.ApplicationUsers);
-
         }
     }
 }
