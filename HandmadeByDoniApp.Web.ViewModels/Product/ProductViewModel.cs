@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Product
 {
-    public class AllProductViewModel
+    public class ProductViewModel
     {
         public string Id { get; set; } = null!;
 
@@ -16,7 +16,8 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
 
         public decimal Price { get; set; }
 
-
+        [Display(Name = "Category")]
+        public string CategoryName { get; set; } = null!;
 
     }
 }

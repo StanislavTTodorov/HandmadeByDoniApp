@@ -84,7 +84,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return result;
         }
 
-        public async Task<AllProductCommentViewModel> GetDecanterCommentByIdAsync(string glassId)
+        public async Task<ProductCommentViewModel> GetDecanterCommentByIdAsync(string glassId)
         {
             Decanter decanter = await this.repository
                                 .AllReadOnly<Decanter>()
@@ -92,7 +92,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                                 .ThenInclude(c => c.Comments)
                                  .FirstAsync(g => g.Id.ToString() == glassId);
 
-            return new AllProductCommentViewModel
+            return new ProductCommentViewModel
             {
                 Id = decanter.Id.ToString(),
                 Title = decanter.Title,

@@ -3,7 +3,7 @@ using HandmadeByDoniApp.Web.ViewModels.Product;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Decanter
 {
-    public class DecanterDetailsViewModel:AllProductViewModel
+    public class DecanterDetailsViewModel:ProductViewModel
     {      
         public int Capacity { get; set; }
 

@@ -63,7 +63,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             try
             {
-                AllProductCommentViewModel viewModel = await this.boxService.GetBoxCommentByIdAsync(id);
+                ProductCommentViewModel viewModel = await this.boxService.GetBoxCommentByIdAsync(id);
                 return this.View("~/Views/Comment/Comment.cshtml", viewModel);
 
             }

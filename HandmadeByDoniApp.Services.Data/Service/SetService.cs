@@ -180,7 +180,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
 
 
-        public async Task<AllProductCommentViewModel> GetSetCommentByIdAsync(string setId)
+        public async Task<ProductCommentViewModel> GetSetCommentByIdAsync(string setId)
         {
             Set set = await this.repository
               .AllReadOnly<Set>()
@@ -188,7 +188,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
               .ThenInclude(c => c.Comments)
               .FirstAsync(g => g.Id.ToString() == setId);
 
-            return new AllProductCommentViewModel
+            return new ProductCommentViewModel
             {
                 Id = set.Id.ToString(),
                 Title = set.Title,
@@ -219,7 +219,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                  .Include(s => s.Decanter)
                  .FirstAsync(s => s.Id.ToString() == setId);
 
-            List<AllProductViewModel> setProducts = set.Glass.Select(g => new AllProductViewModel
+            List<ProductViewModel> setProducts = set.Glass.Select(g => new ProductViewModel
             {
                 Id = g.Id.ToString(),
                 Title = g.Title,
@@ -230,7 +230,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             if (set.DecanterId != null && set.Decanter != null)
             {
-                AllProductViewModel decanter = new AllProductViewModel
+                ProductViewModel decanter = new ProductViewModel
                 {
                     Id = set.Decanter.Id.ToString(),
                     Title = set.Decanter.Title,
