@@ -33,5 +33,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task SoftDeleteByIdAsync(string id);
 
         Task RecoveryByIdAsync(string id);
+        Task<ProductViewModel> GetProductDetailsByIdAsync(string id);
+        Task<ProductCommentViewModel> GetProductCommentByIdAsync(string id);
     }
 }

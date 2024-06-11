@@ -4,7 +4,6 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Data.Models;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
