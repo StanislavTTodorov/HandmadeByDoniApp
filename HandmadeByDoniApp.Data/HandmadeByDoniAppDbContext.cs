@@ -13,16 +13,7 @@ namespace HandmadeByDoniApp.Data
             : base(options)
         {
         }
-        public DbSet<Glass> Glasses { get; set; } = null!;
-
-        public DbSet<GlassCategory> GlassCategories { get; set; } = null!;
-
-        public DbSet<Set> Sets { get; set; } = null!;
-
-        public DbSet<Decanter> Decantres { get; set; } = null!;
-
-        public DbSet<Box> Boxs { get; set; } = null!;
-
+        
         public DbSet<Comment> Comments { get; set; } = null!;
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
@@ -44,11 +35,11 @@ namespace HandmadeByDoniApp.Data
         {
             builder.ApplyConfiguration(new UserConfiguration());
 
-            builder.ApplyConfiguration(new SetConfiguration());
+           // builder.ApplyConfiguration(new SetConfiguration());
 
-            builder.ApplyConfiguration(new GlassConfiguration());
-            builder.ApplyConfiguration(new DecanterConfiguration());
-            builder.ApplyConfiguration(new BoxConfiguration());
+           // builder.ApplyConfiguration(new GlassConfiguration());
+           // builder.ApplyConfiguration(new DecanterConfiguration());
+           // builder.ApplyConfiguration(new BoxConfiguration());
 
             builder.ApplyConfiguration(new CommentConfiguration());
             

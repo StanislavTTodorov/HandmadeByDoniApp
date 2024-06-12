@@ -107,7 +107,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isProduct = await this.productService.ExistsByIdAsync(id);
             if (isProduct == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass)); ;
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
