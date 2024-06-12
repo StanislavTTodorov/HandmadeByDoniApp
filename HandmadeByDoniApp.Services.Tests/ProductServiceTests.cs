@@ -8,7 +8,7 @@ namespace HandmadeByDoniApp.Services.Tests
     using Data;
     using Data.Interfaces;
     using HandmadeByDoniApp.Data;
-    using static DatabaseSeederBox;
+    using static DatabaseSeederProduct;
 
 #pragma warning disable CS0105 // Using directive appeared previously in this namespace
     using HandmadeByDoniApp.Data;
@@ -16,12 +16,12 @@ namespace HandmadeByDoniApp.Services.Tests
     using HandmadeByDoniApp.Services.Data.Service;
     using HandmadeByDoniApp.Services.Data.DataRepository;
 
-    public class BoxServiceTests
+    public class ProductServiceTests
     {
         private DbContextOptions<HandmadeByDoniAppDbContext> dbOptions;
         private IRepository repository;
 
-        private IBoxService boxService;
+        private IProductService productService;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -35,7 +35,7 @@ namespace HandmadeByDoniApp.Services.Tests
             contex.Database.EnsureCreated();
             SeedDatabaseBox(contex);
 
-            this.boxService = new BoxService(this.repository);
+            this.productService = new ProductService(this.repository);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace HandmadeByDoniApp.Services.Tests
         {
             string existingId = FirstBox.Id.ToString();
 
-            bool result = await this.boxService.ExistsByIdAsync(existingId);
+            bool result = await this.productService.ExistsByIdAsync(existingId);
 
             Assert.IsTrue(result);
         }
@@ -53,7 +53,7 @@ namespace HandmadeByDoniApp.Services.Tests
         {
             string existingId = Guid.NewGuid().ToString();
 
-            bool result = await this.boxService.ExistsByIdAsync(existingId);
+            bool result = await this.productService.ExistsByIdAsync(existingId);
 
             Assert.IsFalse(result);
         }
