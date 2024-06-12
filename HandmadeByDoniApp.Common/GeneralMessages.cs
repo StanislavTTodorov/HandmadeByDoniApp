@@ -7,6 +7,7 @@ namespace HandmadeByDoniApp.Common
         public const string LogginError = "There was an error while logging you in! Please try again later or contact an administrator.";
         public const string UnexpectedError = "Unexpected error occurred! Please try again later or contact administrator.";
         public const string AddSuccessfully = "{0} was added successfully!";
+        public const string RemoveSuccessfully = "{0} was remove successfully!";
         public const string ProductNotExist = "{0} with the provided id does not exist!";
         public const string EditSuccessfully = "{0} was edited successfully!";
         public const string DeleteSuccessfully = "{0} was delete successfully!";

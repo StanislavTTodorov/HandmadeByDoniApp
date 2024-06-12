@@ -8,7 +8,6 @@ using static HandmadeByDoniApp.Common.GeneralMessages;
 using Ganss.Xss;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Data.Models;
 
 
@@ -17,59 +16,16 @@ namespace HandmadeByDoniApp.Web.Controllers
 {
     public class ProductController : BaseController
     {
-        private readonly IGlassService glassService;
-        private readonly IDecanterService decanterService;
-        private readonly IBoxService boxService;
-        private readonly ISetService setService;
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
 
-        public ProductController(IGlassService glassService,
-                                 IDecanterService decanterService,
-                                 IBoxService boxService,
-                                 ISetService setService,
-                                 IProductService productService,
+        public ProductController(IProductService productService,
                                  ICategoryService categoryService)
         {
-            this.glassService = glassService;
-            this.decanterService = decanterService;
-            this.boxService = boxService;
-            this.setService = setService;
+         
             this.productService = productService;
             this.categoryService = categoryService;
         }
-
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    bool isProduct = await this.glassService.ExistsByIdAsync(id);
-        //    if(isProduct)
-        //    {
-        //        return this.RedirectToAction("Details", "Glass", new { id });
-        //    }
-
-        //    bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-        //    if(isDecanter)
-        //    {
-        //        return this.RedirectToAction("Details","Decanter",new { id });
-        //    }
-
-        //    bool isBox =  await this.boxService.ExistsByIdAsync(id);
-        //    if(isBox)
-        //    {
-        //        return this.RedirectToAction("Details", "Box", new { id });
-        //    }
-
-        //    bool isSet = await this.setService.ExistsByIdAsync(id);
-        //    if(isSet)
-        //    {
-        //        return this.RedirectToAction("Details", "Set", new { id });
-        //    }
-
-        //    this.TempData[ErrorMessage] = ProductNotExistChooseFrom;
-        //    return this.RedirectToAction("All", "Product");
-        //}
 
         [HttpGet]
         [AllowAnonymous]

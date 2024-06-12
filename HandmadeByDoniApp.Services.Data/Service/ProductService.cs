@@ -4,7 +4,6 @@ using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Servises.Data.Models.Product;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
-using HandmadeByDoniApp.Web.ViewModels.Glass;
 using HandmadeByDoniApp.Web.ViewModels.Home;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Web.ViewModels.Product.Enums;
