@@ -130,7 +130,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isExist = await this.productService.ExistsByIdAsync(id);
             if (isExist == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Glass));
+                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product));
                 return this.Redirect(returnUrl);
             }
             try
