@@ -1,7 +1,4 @@
 ﻿
-
-using HandmadeByDoniApp.Data.Models;
-using HandmadeByDoniApp.Web.ViewModels.Decanter;
 using HandmadeByDoniApp.Web.ViewModels.Order;
 
 namespace HandmadeByDoniApp.Services.Data.Interfaces
@@ -15,7 +12,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task EditSentToTrueAsync(string orderId);
         Task<bool> UserOrderExistsByOrderIdAsync(string orderId);
         Task<bool> UserOrderExistsByUserIdAsync(string userId);
-        Task<bool> ExistsInSetByIdAsync(string id);
+       // Task<bool> ExistsInSetByIdAsync(string id);
         Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync();
         Task<ICollection<OrderStatusViewModel>> GetUserOrdersByUserIdAsync(string userId);
         Task<bool> IsActiveByIdAsync(string id);

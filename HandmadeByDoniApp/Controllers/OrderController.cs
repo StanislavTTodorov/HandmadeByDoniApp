@@ -41,14 +41,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Add(string id, string returnUrl)
-        {
-            bool isInSet = await this.orderService.ExistsInSetByIdAsync(id);
-            if (isInSet)
-            {
-                this.TempData[InformationMessage] = ProductIsSet;
-                return this.RedirectToAction("Details", "Product", new { area = "", id });
-            }
-
+        {           
             bool isActive = await this.orderService.IsActiveByIdAsync(id);
             if (isActive==false)
             {
@@ -78,6 +71,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.orderService.RemoveProductByUserIdAsync(userId, id);
+                this.TempData[SuccessMessage] = string.Format(RemoveSuccessfully, $"{nameof(Product)}");
             }
             catch (Exception)
             {
