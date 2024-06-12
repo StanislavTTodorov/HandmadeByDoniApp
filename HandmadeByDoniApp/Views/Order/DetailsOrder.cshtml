@@ -20,12 +20,12 @@
                 string methodPaymentName = await this.addressService.GetMethodPaymentNameAsyng(Model.Address.MethodPaymentId);
             
             <h3 class="text-center title">Address</h3>
-            <h5> <label asp-for="Address.CountryName"></label> - @Model.Address.CountryName</h5>
-            <h5> <label asp-for="Address.CityName"></label> - @Model.Address.CityName</h5>
-            <h5> <label asp-for="Address.Street"></label> - @Model.Address.Street</h5>
-            <h5> <label asp-for="Address.PhoneNumber"></label> - @Model.Address.PhoneNumber</h5>
-            <h5> <label asp-for="Address.DeliveryCompanyId"></label> - @deliveryCompanyName</h5>
-            <h5> <label asp-for="Address.MethodPaymentId"></label> - @methodPaymentName</h5>
+            <h5> <label asp-for="@Model.Address.CountryName"></label> - @Model.Address.CountryName</h5>
+            <h5> <label asp-for="@Model.Address.CityName"></label> - @Model.Address.CityName</h5>
+            <h5> <label asp-for="@Model.Address.Street"></label> - @Model.Address.Street</h5>
+            <h5> <label asp-for="@Model.Address.PhoneNumber"></label> - @Model.Address.PhoneNumber</h5>
+            <h5> <label asp-for="@Model.Address.DeliveryCompanyId"></label> - @deliveryCompanyName</h5>
+            <h5> <label asp-for="@Model.Address.MethodPaymentId"></label> - @methodPaymentName</h5>
             <a asp-area=""
                asp-controller="Address"
                asp-action="Edit"
