@@ -72,45 +72,7 @@
                             </li>
 
                             <li>
-                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add New Products</a>
-                                <ul>
-                                    <li>
-                                        <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Add Set</a>
-                                        <ul>
-                                            <li>
-                                                <a class="button-memu">Set from 2 Glasses</a>
-                                                <ul>
-                                                    <li>
-                                                        <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@true" asp-route-numberOfCups="2">Glass and Decanter</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@false" asp-route-numberOfCups="2">Glass </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="button-memu">Set from 4 Glasses</a>
-                                                <ul>
-                                                    <li>
-                                                        <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@true" asp-route-numberOfCups="4">Glass and Decanter</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="button-memu" asp-area="Admin" asp-controller="Set" asp-action="Add" asp-route-on="@false" asp-route-numberOfCups="4">Glass </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="button-memu" asp-area="Admin" asp-controller="Glass" asp-action="Add">Add Glass</a>
-                                    </li>
-                                    <li>
-                                        <a class="button-memu" asp-area="Admin" asp-controller="Box" asp-action="Add">Add Box</a>
-                                    </li>
-                                    <li>
-                                        <a class="button-memu" asp-area="Admin" asp-controller="Decanter" asp-action="Add">Add Decanter</a>
-                                    </li>
-                                </ul>
+                                <a class="button-memu" asp-area="Admin" asp-controller="Product" asp-action="Add">Add New Products</a>                              
                             </li>
                         }
                         <partial name="_LoginPartial" />

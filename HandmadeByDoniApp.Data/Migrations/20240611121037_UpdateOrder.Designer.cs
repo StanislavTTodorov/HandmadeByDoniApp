@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HandmadeByDoniApp.Data.Migrations
 {
     [DbContext(typeof(HandmadeByDoniAppDbContext))]
-    partial class HandmadeByDoniAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240611121037_UpdateOrder")]
+    partial class UpdateOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,9 +94,15 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("BoxId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("DecanterId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -107,6 +115,9 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid?>("GlassId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -139,6 +150,9 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("SetId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -148,6 +162,12 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BoxId");
+
+                    b.HasIndex("DecanterId");
+
+                    b.HasIndex("GlassId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -156,7 +176,53 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("SetId");
+
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Box", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Boxs");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Category", b =>
@@ -183,6 +249,9 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("BoxId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("CommentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -191,7 +260,16 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<Guid?>("DecanterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GlassId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Text")
@@ -208,13 +286,73 @@ namespace HandmadeByDoniApp.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BoxId");
+
                     b.HasIndex("CommentId");
 
+                    b.HasIndex("DecanterId");
+
+                    b.HasIndex("GlassId");
+
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("SetId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Decanter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSet")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<Guid?>("SetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("SetId");
+
+                    b.ToTable("Decantres");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.DeliveryCompany", b =>
@@ -233,6 +371,81 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeliveryCompanies");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<int>("GlassCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSet")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<Guid?>("SetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GlassCategoryId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("SetId");
+
+                    b.ToTable("Glasses");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.GlassCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GlassCategories");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.MethodPayment", b =>
@@ -310,6 +523,52 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Set", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid?>("DecanterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecanterId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Sets");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.UserOrder", b =>
@@ -520,15 +779,59 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Box", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("BoxId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Decanter", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("DecanterId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Glass", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("GlassId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Set", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("SetId");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Box", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Comment", b =>
                 {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Box", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BoxId");
+
                     b.HasOne("HandmadeByDoniApp.Data.Models.Comment", "OnComment")
                         .WithMany("Comments")
                         .HasForeignKey("CommentId");
 
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Decanter", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("DecanterId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Glass", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("GlassId");
+
                     b.HasOne("HandmadeByDoniApp.Data.Models.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Set", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("SetId");
 
                     b.HasOne("HandmadeByDoniApp.Data.Models.ApplicationUser", "User")
                         .WithMany()
@@ -541,6 +844,44 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Decanter", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Set", "Set")
+                        .WithMany()
+                        .HasForeignKey("SetId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Set");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.GlassCategory", "GlassCategory")
+                        .WithMany("Glasses")
+                        .HasForeignKey("GlassCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Set", "Set")
+                        .WithMany("Glass")
+                        .HasForeignKey("SetId");
+
+                    b.Navigation("GlassCategory");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Set");
                 });
 
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Order", b =>
@@ -567,6 +908,21 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Set", b =>
+                {
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Decanter", "Decanter")
+                        .WithMany()
+                        .HasForeignKey("DecanterId");
+
+                    b.HasOne("HandmadeByDoniApp.Data.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Decanter");
 
                     b.Navigation("Order");
                 });
@@ -649,6 +1005,13 @@ namespace HandmadeByDoniApp.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Box", b =>
+                {
+                    b.Navigation("ApplicationUsers");
+
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -659,6 +1022,25 @@ namespace HandmadeByDoniApp.Data.Migrations
                     b.Navigation("Comments");
                 });
 
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Decanter", b =>
+                {
+                    b.Navigation("ApplicationUsers");
+
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Glass", b =>
+                {
+                    b.Navigation("ApplicationUsers");
+
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.GlassCategory", b =>
+                {
+                    b.Navigation("Glasses");
+                });
+
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Order", b =>
                 {
                     b.Navigation("Products");
@@ -667,6 +1049,15 @@ namespace HandmadeByDoniApp.Data.Migrations
             modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Product", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("HandmadeByDoniApp.Data.Models.Set", b =>
+                {
+                    b.Navigation("ApplicationUsers");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("Glass");
                 });
 #pragma warning restore 612, 618
         }

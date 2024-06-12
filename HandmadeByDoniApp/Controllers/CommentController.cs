@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using Ganss.Xss;
+using HandmadeByDoniApp.Data.Models;
 
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -12,22 +13,10 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class CommentController : BaseController
     {
         private readonly ICommentService commentService;
-        private readonly IGlassService glassService;
-        private readonly IDecanterService decanterService;
-        private readonly ISetService setService;
-        private readonly IBoxService boxService;
 
-        public CommentController(ICommentService commentService,
-                                 IBoxService boxService,
-                                 IGlassService glassService,
-                                 IDecanterService decanterService,
-                                 ISetService setService)
+        public CommentController(ICommentService commentService)
         {
-            this.commentService = commentService;
-            this.glassService = glassService;
-            this.decanterService = decanterService;
-            this.boxService = boxService;
-            this.setService = setService;
+            this.commentService = commentService;           
         }
 
         [HttpGet]
@@ -101,70 +90,8 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
 
             this.TempData[SuccessMessage] = string.Format(EditSuccessfully,nameof(Comment));
-            return this.RedirectToAction("Comment", "Comment", new { id });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Comment(string id)
-        {
-            bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            if (isGlass)
-            {
-                return this.RedirectToAction("Comment", "Glass", new { id });
-            }
-
-            bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            if (isDecanter)
-            {
-                return this.RedirectToAction("Comment", "Decanter", new { id });
-            }
-
-            bool isBox = await this.boxService.ExistsByIdAsync(id);
-            if (isBox)
-            {
-                return this.RedirectToAction("Comment", "Box", new { id });
-            }
-
-            bool isSet = await this.setService.ExistsByIdAsync(id);
-            if (isSet)
-            {
-                return this.RedirectToAction("Comment", "Set", new { id });
-            }
-
-            this.TempData[ErrorMessage] = CommentNotExist;
-            return this.RedirectToAction("All", "Product");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> WriteComment(string id)
-        {
-            bool isGlass = await this.glassService.ExistsByIdAsync(id);
-            if (isGlass)
-            {
-                return this.RedirectToAction("WriteComment", "Glass", new { id });
-            }
-
-            bool isDecanter = await this.decanterService.ExistsByIdAsync(id);
-            if (isDecanter)
-            {
-                return this.RedirectToAction("WriteComment", "Decanter", new { id });
-            }
-
-            bool isBox = await this.boxService.ExistsByIdAsync(id);
-            if (isBox)
-            {
-                return this.RedirectToAction("WriteComment", "Box", new { id });
-            }
-
-            bool isSet = await this.setService.ExistsByIdAsync(id);
-            if (isSet)
-            {
-                return this.RedirectToAction("WriteComment", "Set", new { id });
-            }
-
-            this.TempData[ErrorMessage] = CommentNotExist;
-            return this.RedirectToAction("All", "Product");
-        }
+            return this.RedirectToAction("Comment", "Product", new { id });
+        }        
 
         [HttpGet]
         public async Task<IActionResult> WriteToComment(string id, string commentId)
@@ -206,7 +133,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.View(id);
             }
 
-            return this.RedirectToAction("Comment", "Comment", new { id });
+            return this.RedirectToAction("Comment", "Product", new { id });
         }
 
         private IActionResult GeneralError()

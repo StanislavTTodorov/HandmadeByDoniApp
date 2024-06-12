@@ -23,7 +23,7 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 Text = "I am very satisfied great product",
                 UserId = Guid.Parse("C5AE3631-31A1-4369-9F2E-8EEC685C98EB"),
                 CreatedOn = DateTime.Parse("2024-04-15 15:51:44.9339021"),
-                GlassId = Guid.Parse("62848C82-CF7B-4367-ADCE-6779103E87F6")
+               // GlassId = Guid.Parse("62848C82-CF7B-4367-ADCE-6779103E87F6")
 
 
             };
@@ -49,7 +49,7 @@ namespace HandmadeByDoniApp.Data.Configuration.SeedData
                 Text = "I can't wait for it to arrive.",
                 UserId = Guid.Parse("C5AE3631-31A1-4369-9F2E-8EEC685C98EB"),
                 CreatedOn = DateTime.Parse("2024-04-15 16:03:09.9164662"),
-                DecanterId = Guid.Parse("4EF3846B-6C81-4B91-A702-C69B399EF550")
+               // DecanterId = Guid.Parse("4EF3846B-6C81-4B91-A702-C69B399EF550")
             };
             comments.Add(secondComment);
 

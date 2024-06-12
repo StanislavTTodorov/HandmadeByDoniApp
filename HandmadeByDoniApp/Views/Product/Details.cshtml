@@ -1,0 +1,68 @@
+﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@model ProductViewModel
+
+@{
+    ViewBag.Title = "Prduct Details";
+}
+
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="Glass Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>@Model.Description</p>
+            <p>Category: <b>@Model.CategoryName</b></p>
+            @* <p><i>(@(Model.IsSet ? "In Set" : "Not Set"))</i></p>*@
+
+            <div class="form-inline">
+               @*  @if (Model.IsSet && Model.SetId!=null)
+                {
+                    <a class="ml-2 btn btn-primary"
+                       asp-area=""
+                       asp-controller="Product"
+                       asp-action="Details"
+                       asp-route-id="@Model.SetId">See Set</a>
+                }
+                else
+                {*@
+                    <p>Price:<b>@($"({Model.Price:f2}")) BGN</b></p>
+                    <a class="ml-2 btn btn-primary"
+                       asp-area=""
+                       asp-controller="Order"
+                       asp-action="Add"
+                       asp-route-returnUrl="@Url.Action("Details", "Product", new { area = "" })"
+                       asp-route-id="@Model.Id">Add to cart</a>
+                @* }*@
+                <a class="ml-2 btn btn-info"
+                   asp-area=""
+                   asp-controller="Product"
+                   asp-action="Comment"
+                   asp-route-id="@Model.Id">Comment</a>
+            </div>
+            <div class="form-inline">
+                @if (User.IsAdmin())
+                {
+                    <a class="btn btn-warning"
+                       asp-area="Admin"
+                       asp-controller="Glass"
+                       asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+
+                    <a class="ml-2 btn btn-danger"
+                       asp-area="Admin"
+                       asp-controller="Glass"
+                       asp-action="Delete"
+                       asp-route-returnUrl="@Url.Action("All", "Product", new { area = ""})"
+                       asp-route-id="@Model.Id">Delete</a>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

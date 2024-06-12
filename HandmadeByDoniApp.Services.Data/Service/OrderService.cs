@@ -23,16 +23,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             ApplicationUser? user = await this.repository
                 .All<ApplicationUser>()
-                .Include(u => u.Boxs)
-                .Include(u => u.Sets)
-                .Include(u => u.Glasses)
-                .Include(u => u.Decanters)
+                .Include(u=>u.Products)             
                 .FirstAsync(u => u.Id.ToString() == userId);
+
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (user != null)
             {
-                products = GetAllMineProduct(user.Boxs, user.Glasses, user.Sets, user.Decanters);
-
+               products = user.Products.Select(x => new ProductsAllViewModel()
+               {
+                   Id = x.Id.ToString(),
+                   Title = x.Title,
+                   Description = x.Description,
+                   CreatedOn = x.CreatedOn,
+                   Price = x.Price,
+                   IsActive = x.IsActive,
+                   ImageUrl = x.ImageUrl
+               }).ToList();
             }
             MineProductViewModel viewModel = new MineProductViewModel()
             {
@@ -43,80 +49,23 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return viewModel;
         }
 
-        private List<ProductsAllViewModel> GetAllMineProduct(ICollection<Box> mineBoxs, ICollection<Glass> mineGlasses, ICollection<Set> mineSets, ICollection<Decanter> mineDecanters)
-        {
-            List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
-            List<ProductsAllViewModel> boxs = mineBoxs.Select(x => new ProductsAllViewModel()
-            {
-                Id = x.Id.ToString(),
-                Title = x.Title,
-                Description = x.Description,
-                CreatedOn = x.CreatedOn,
-                Price = x.Price,
-                IsActive = x.IsActive,
-                ImageUrl = x.ImageUrl
-            }).ToList();
-            List<ProductsAllViewModel> glasses = mineGlasses.Select(x => new ProductsAllViewModel()
-            {
-                Id = x.Id.ToString(),
-                Title = x.Title,
-                Description = x.Description,
-                CreatedOn = x.CreatedOn,
-                Price = x.Price,
-                IsActive = x.IsActive,
-                ImageUrl = x.ImageUrl
-            }).ToList();
-            List<ProductsAllViewModel> sets = mineSets.Select(x => new ProductsAllViewModel()
-            {
-                Id = x.Id.ToString(),
-                Title = x.Title,
-                Description = x.Description,
-                CreatedOn = x.CreatedOn,
-                Price = x.Price,
-                IsActive = x.IsActive,
-                ImageUrl = x.ImageUrl
-            }).ToList();
-            List<ProductsAllViewModel> decanters = mineDecanters.Select(x => new ProductsAllViewModel()
-            {
-                Id = x.Id.ToString(),
-                Title = x.Title,
-                Description = x.Description,
-                CreatedOn = x.CreatedOn,
-                Price = x.Price,
-                IsActive = x.IsActive,
-                ImageUrl = x.ImageUrl
-            }).ToList();
-            products.AddRange(boxs);
-            products.AddRange(glasses);
-            products.AddRange(sets);
-            products.AddRange(decanters);
-            return products;
-        }
-
         public async Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId)
         {
             ApplicationUser user = await this.repository
                 .All<ApplicationUser>()
-                .Include(u => u.Sets)
-                .Include(u => u.Glasses)
-                .Include(u => u.Decanters)
-                .Include(u => u.Boxs)
+                .Include(u=>u.Products)               
                 .FirstAsync(u => u.Id.ToString() == userId);
 
             Order newOrder = new Order()
             {
                 User = user,
                 ClientId = user.Id,
-                Sets = new HashSet<Set>(),
-                Glasses = new HashSet<Glass>(),
-                Decanters = new HashSet<Decanter>(),
-                Boxs = new HashSet<Box>(),
+                Products = new HashSet<Product>()               
             };
-            //Glass
-            Glass[] newGlass = new Glass[user.Glasses.Count];
+            Product[] newProduct = new Product[user.Products.Count];
 
-            user.Glasses.CopyTo(newGlass, 0);
-            foreach (var glass in user.Glasses)
+            user.Products.CopyTo(newProduct, 0);
+            foreach (var glass in user.Products)
             {
                 if (glass.IsActive == false)
                 {
@@ -127,60 +76,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     glass.IsActive = false;
                 }
             }
-            user.Glasses.Clear();
-            newOrder.Glasses = newGlass;
-            //Box
-            Box[] newBox = new Box[user.Boxs.Count];
-
-            user.Boxs.CopyTo(newBox, 0);
-            foreach (var box in user.Boxs)
-            {
-                if (box.IsActive == false)
-                {
-                    return false;
-                }
-                else
-                {
-                    box.IsActive = false;
-                }
-            }
-            user.Boxs.Clear();
-            newOrder.Boxs = newBox;
-            //Decanter
-            Decanter[] newDecanter = new Decanter[user.Decanters.Count];
-
-            user.Decanters.CopyTo(newDecanter, 0);
-            foreach (var decanter in user.Decanters)
-            {
-                if (decanter.IsActive == false)
-                {
-                    return false;
-                }
-                else
-                {
-                    decanter.IsActive = false;
-                }
-            }
-            user.Decanters.Clear();
-            newOrder.Decanters = newDecanter;
-            //Set
-            Set[] newSet = new Set[user.Sets.Count];
-
-            user.Sets.CopyTo(newSet, 0);
-            foreach (var set in user.Sets)
-            {
-                if (set.IsActive == false)
-                {
-                    return false;
-                }
-                else
-                {
-                    set.IsActive = false;
-                }
-            }
-            user.Sets.Clear();
-            newOrder.Sets = newSet;
-
+            user.Products.Clear();
+            newOrder.Products = newProduct;
+          
             await repository.AddAsync(newOrder);
 
             Address address = await this.repository
@@ -194,8 +92,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 User = user,
                 UserId = user.Id,
                 OrderId = newOrder.Id,
-                Order = newOrder,
-                TotalPrice = GetAllMineProduct(newOrder.Boxs, newOrder.Glasses, newOrder.Sets, newOrder.Decanters).Sum(x => x.Price),
+                Order = newOrder,               
+                TotalPrice = newOrder.Products.Sum(x=>x.Price),
                 CreaateOn = DateTime.Now,
                 Address = address,
                 AddressId = address.Id,
@@ -211,30 +109,13 @@ namespace HandmadeByDoniApp.Services.Data.Service
             ApplicationUser? user = await this.repository.All<ApplicationUser>().FirstAsync(u => u.Id.ToString() == userId);
             if (user != null)
             {
-                if (await this.repository.All<Box>().AnyAsync(b => b.Id.ToString() == productId))
-                {
-                    Box box = await this.repository.All<Box>().Where(b => b.Id.ToString() == productId).FirstAsync();
-                    user.Boxs.Add(box);
+                Product product = await this.repository
+                    .All<Product>()
+                    .Where(b => b.Id.ToString() == productId)
+                    .FirstAsync();
 
-                }
-                else if (await this.repository.All<Glass>().AnyAsync(g => g.Id.ToString() == productId))
-                {
-                    Glass glass = await this.repository.All<Glass>().Where(g => g.Id.ToString() == productId).FirstAsync();
-                    user.Glasses.Add(glass);
-
-                }
-                else if (await this.repository.All<Set>().AnyAsync(g => g.Id.ToString() == productId))
-                {
-                    Set set = await this.repository.All<Set>().Where(g => g.Id.ToString() == productId).FirstAsync();
-                    user.Sets.Add(set);
-
-                }
-                else if (await this.repository.All<Decanter>().AnyAsync(g => g.Id.ToString() == productId))
-                {
-                    Decanter decanter = await this.repository.All<Decanter>().Where(g => g.Id.ToString() == productId).FirstAsync();
-                    user.Decanters.Add(decanter);
-
-                }
+                user.Products.Add(product);
+                
                 await this.repository.SaveChangesAsync();
             }
         }
@@ -243,88 +124,57 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             ApplicationUser? user = await this.repository
                 .All<ApplicationUser>()
-                .Include(u => u.Boxs)
-                .Include(u => u.Sets)
-                .Include(u => u.Glasses)
-                .Include(u => u.Decanters)
+                .Include(u => u.Products)              
                 .FirstAsync(u => u.Id.ToString() == userId);
+
             if (user != null)
             {
-                if (await this.repository.All<Box>().AnyAsync(b => b.Id.ToString() == productId) &&
-                    user.Boxs.Any(b => b.Id.ToString() == productId))
-                {
-                    Box box = await this.repository.All<Box>().Where(b => b.Id.ToString() == productId).FirstAsync();
-                    user.Boxs.Remove(box);
-                }
-                else if (await this.repository.All<Glass>().AnyAsync(b => b.Id.ToString() == productId) &&
-                    user.Glasses.Any(b => b.Id.ToString() == productId))
-                {
-                    Glass glass = await this.repository.All<Glass>().Where(b => b.Id.ToString() == productId).FirstAsync();
-                    user.Glasses.Remove(glass);
-                }
-                else if (await this.repository.All<Set>().AnyAsync(b => b.Id.ToString() == productId) &&
-                    user.Sets.Any(b => b.Id.ToString() == productId))
-                {
-                    Set set = await this.repository.All<Set>().Where(b => b.Id.ToString() == productId).FirstAsync();
-                    user.Sets.Remove(set);
-                }
-                else if (await this.repository.All<Decanter>().AnyAsync(b => b.Id.ToString() == productId) &&
-                    user.Decanters.Any(b => b.Id.ToString() == productId))
-                {
-                    Decanter decanter = await this.repository.All<Decanter>().Where(b => b.Id.ToString() == productId).FirstAsync();
-                    user.Decanters.Remove(decanter);
-                }
-
+                Product product = await this.repository
+                    .All<Product>()
+                    .Where(b => b.Id.ToString() == productId)
+                    .FirstAsync();
+                  user.Products.Remove(product);
+              
                 await this.repository.SaveChangesAsync();
             }
         }
 
-        public async Task<bool> ExistsInSetByIdAsync(string id)
-        {
-            Glass? glass = await this.repository
-                .All<Glass>()
-                .FirstOrDefaultAsync(g => g.Id.ToString() == id);
-            Decanter? decanter = await this.repository
-                .All<Decanter>()
-                .FirstOrDefaultAsync(g => g.Id.ToString() == id);
+        //public async Task<bool> ExistsInSetByIdAsync(string id)
+        //{
+        //    Glass? glass = await this.repository
+        //        .All<Glass>()
+        //        .FirstOrDefaultAsync(g => g.Id.ToString() == id);
+        //    Decanter? decanter = await this.repository
+        //        .All<Decanter>()
+        //        .FirstOrDefaultAsync(g => g.Id.ToString() == id);
 
-            if (glass != null && glass.SetId != null)
-            {
-                return true;
-            }
-            if (decanter != null && decanter.SetId != null)
-            {
-                return true;
-            }
-            return false;
-
-        }
+        //    if (glass != null && glass.SetId != null)
+        //    {
+        //        return true;
+        //    }
+        //    if (decanter != null && decanter.SetId != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         public async Task<bool> IsActiveByIdAsync(string id)
-        {
-            bool glass = await this.repository.AllReadOnly<Glass>()
+        {           
+            bool product = await this.repository.AllReadOnly<Product>()
                 .Where(g => g.IsActive == true)
                 .AnyAsync(g => g.Id.ToString() == id);
 
-            bool box = await this.repository.AllReadOnly<Box>()
-                .Where(g => g.IsActive == true)
-                .AnyAsync(g => g.Id.ToString() == id);
-
-            bool decanter = await this.repository.AllReadOnly<Decanter>()
-                .Where(g => g.IsActive == true)
-                .AnyAsync(g => g.Id.ToString() == id);
-
-            bool set = await this.repository.AllReadOnly<Set>()
-                .Where(g => g.IsActive == true)
-                .AnyAsync(g => g.Id.ToString() == id);
-
-            return glass || box || decanter || set;
+            return product;
         }
 
 
         public async Task<bool> UserOrderExistsByUserIdAsync(string userId)
         {
-            bool exists = await this.repository.AllReadOnly<UserOrder>().AnyAsync(u => u.UserId.ToString() == userId);
+            bool exists = await this.repository
+                .AllReadOnly<UserOrder>()
+                .AnyAsync(u => u.UserId.ToString() == userId);
+
             return exists;
         }
 
@@ -364,17 +214,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             Order? order = await this.repository
                  .All<Order>()
-                 .Include(u => u.Boxs)
-                 .Include(u => u.Sets)
-                 .Include(u => u.Glasses)
-                 .Include(u => u.Decanters)
+                 .Include(u=>u.Products)                
                  .Where(u => u.Id.ToString() == orderId)
                  .FirstOrDefaultAsync();
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (order != null)
             {
-                products = GetAllMineProduct(order.Boxs, order.Glasses, order.Sets, order.Decanters);
-
+                products = order.Products.Select(x => new ProductsAllViewModel()
+                {
+                    Id = x.Id.ToString(),
+                    Title = x.Title,
+                    Description = x.Description,
+                    CreatedOn = x.CreatedOn,
+                    Price = x.Price,
+                    IsActive = x.IsActive,
+                    ImageUrl = x.ImageUrl
+                }).ToList();
             }
             MineProductViewModel viewModel = new MineProductViewModel()
             {
@@ -447,46 +302,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             Order order = await this.repository
                 .All<Order>()
-                .Include(o=> o.Sets)
-                .Include(o => o.Decanters)
-                .Include(o => o.Glasses)
-                .Include(o => o.Boxs)
+                .Include(o=>o.Products)               
                 .FirstAsync(u => u.Id.ToString() == orderId);
-
-            IsActiveTurnOnTrue(order.Sets,
-                               order.Decanters,
-                               order.Glasses,
-                               order.Boxs);
+           
+            IsActiveTurnOnTrue(order.Products);
 
             await this.repository.DeleteAsync(userOrder);
             await this.repository.DeleteAsync(order);
         }
 
-        private void IsActiveTurnOnTrue(ICollection<Set> sets,
-                                        ICollection<Decanter> decanters,
-                                        ICollection<Glass> glasses,
-                                        ICollection<Box> boxs)
+        private void IsActiveTurnOnTrue(ICollection<Product> products)
         {
-            foreach (var set in sets)
+            foreach (var product in products)
             {
-                set.IsActive = true;
-                set.OrderId = null;
-            }
-            foreach (var decanter in decanters)
-            {
-                decanter.IsActive = true;
-                decanter.OrderId = null;
-            }
-            foreach (var glasse in glasses)
-            {
-                glasse.IsActive = true;
-                glasse.OrderId = null;
-            }
-            foreach (var box in boxs)
-            {
-                box.IsActive = true;
-                box.OrderId = null;
-            }
+                product.IsActive = true;
+                product.OrderId = null;
+            }     
         }
 
         public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)

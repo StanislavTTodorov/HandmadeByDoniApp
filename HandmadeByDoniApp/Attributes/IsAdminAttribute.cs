@@ -16,10 +16,13 @@ namespace HandmadeByDoniApp.Web.Attributes
             base.OnActionExecuting(context);           
             if (context.HttpContext.User.IsAdmin() == false)
             {
-  
-                    (context.Controller as Controller).TempData[ErrorMessage] = "You do not have access! ";
-                
-               
+
+                Controller? controller = (context.Controller as Controller);
+                if (controller != null)
+                {
+                    controller.TempData[ErrorMessage] = "You do not have access! ";
+                }
+                                           
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
                     { "controller", "Home" },
