@@ -14,13 +14,9 @@ namespace HandmadeByDoniApp.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            //this.Boxs = new HashSet<Box>();
-            //this.Decanters = new HashSet<Decanter>();
-            //this.Sets = new HashSet<Set>();
-            //this.Glasses = new HashSet<Glass>();
             this.Products = new HashSet<Product>();
-
         }
+
         [Required]
         [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
@@ -29,16 +25,6 @@ namespace HandmadeByDoniApp.Data.Models
         [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
 
-        //public ICollection<Box> Boxs { get; set; }
-
-        //public ICollection<Decanter> Decanters { get; set; }
-
-        //public ICollection<Set> Sets { get; set; }
-
-        //public ICollection<Glass> Glasses { get; set; }
-
         public ICollection<Product> Products { get; set; }
-
-        //public ICollection<Order> Orders { get; set; }
     }
 }

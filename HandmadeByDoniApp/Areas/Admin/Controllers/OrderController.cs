@@ -8,7 +8,7 @@ using HandmadeByDoniApp.Data.Migrations;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
-    public class OrderController : BaseAdminController
+    public class OrderController : BaseAdminController<OrderController>
     {
         private readonly IOrderService orderService;
 

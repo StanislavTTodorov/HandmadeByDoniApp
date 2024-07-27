@@ -7,14 +7,12 @@ using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
-    public class ProductController :BaseAdminController
-    {
-       
+    public class ProductController :BaseAdminController<ProductController>
+    {      
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
 
-        public ProductController(
-                                 IProductService productService,
+        public ProductController(IProductService productService,
                                  ICategoryService categoryService)
         {
             this.productService = productService;
@@ -43,10 +41,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
 
             if (this.ModelState.IsValid == false)
-            {
-                formModel.Categories = await this.categoryService
-                                                 .AllCategoriesAsync();
-                return this.View(formModel);
+            {              
+                return await this.ModelStateNotValid(formModel);
             }
 
             try
@@ -96,8 +92,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         {
             if (this.ModelState.IsValid == false)
             {
-                formModel.Categories = await this.categoryService.AllCategoriesAsync();
-                return this.View(formModel);
+               return await this.ModelStateNotValid(formModel);
             }
 
             bool productExists = await this.productService
@@ -166,7 +161,12 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
         }
 
-   
+        private async  Task<IActionResult> ModelStateNotValid(ProductFormModel formModel)
+        {
+            formModel.Categories = await this.categoryService.AllCategoriesAsync();
+            return this.View(formModel);
+        }
+
         private IActionResult GeneralError(string? returnUrl = null)
         {
             this.TempData[ErrorMessage] = UnexpectedError;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : BaseController<HomeController>
     {
         private readonly IProductService product;
 

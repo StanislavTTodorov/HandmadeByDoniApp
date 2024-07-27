@@ -9,7 +9,7 @@ using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class AddressController : BaseController
+    public class AddressController : BaseController<AddressController>
     {
   
         private readonly IAddressService addressService;

@@ -8,7 +8,7 @@ using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class OrderController : BaseController
+    public class OrderController : BaseController<OrderController>
     {
         private readonly IOrderService orderService;
         private readonly IAddressService addressService;

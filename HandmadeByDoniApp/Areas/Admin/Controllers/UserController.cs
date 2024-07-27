@@ -6,7 +6,7 @@ using static HandmadeByDoniApp.Common.GeneralMessages;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
-    public class UserController : BaseAdminController
+    public class UserController : BaseAdminController<UserController>
     {
         private readonly IUserService userService;
         public UserController(IUserService userService)

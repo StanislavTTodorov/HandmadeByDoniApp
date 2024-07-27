@@ -10,7 +10,7 @@ using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class CommentController : BaseController
+    public class CommentController : BaseController<CommentController>
     {
         private readonly ICommentService commentService;
 

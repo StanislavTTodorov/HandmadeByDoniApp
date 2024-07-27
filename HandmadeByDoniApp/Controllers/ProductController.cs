@@ -14,7 +14,7 @@ using HandmadeByDoniApp.Data.Models;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
-    public class ProductController : BaseController
+    public class ProductController : BaseController<ProductController>
     {
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;

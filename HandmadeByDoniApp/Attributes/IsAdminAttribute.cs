@@ -7,16 +7,12 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 namespace HandmadeByDoniApp.Web.Attributes
 {
     public class IsAdminAttribute:ActionFilterAttribute
-    {
-        
-       
-
+    {           
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);           
             if (context.HttpContext.User.IsAdmin() == false)
             {
-
                 Controller? controller = (context.Controller as Controller);
                 if (controller != null)
                 {

@@ -6,8 +6,11 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
     [Area(AdminAreaName)]
     [Authorize(Roles =AdminiRoleName)]
-    public class BaseAdminController : Controller
+    public class BaseAdminController<T> : Controller where T : BaseAdminController<T>
     {
-        
+        private ILogger<T>? logger;
+
+        protected ILogger<T>? Logger
+            => this.logger ??= HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
     }
 }

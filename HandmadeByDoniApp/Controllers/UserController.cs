@@ -17,7 +17,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 {
     
 
-    public class UserController : BaseController
+    public class UserController : BaseController<UserController>
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;

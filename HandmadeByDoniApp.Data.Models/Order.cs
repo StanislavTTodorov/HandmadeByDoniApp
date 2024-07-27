@@ -8,25 +8,10 @@ namespace HandmadeByDoniApp.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid();
-            //this.Boxs = new HashSet<Box>();
-            //this.Decanters = new HashSet<Decanter>();
-            //this.Sets = new HashSet<Set>();
-            //this.Glasses = new HashSet<Glass>();
             this.Products = new HashSet<Product>();
         }
         [Key]
         public Guid Id { get; set; }
-
-        // [Required]
-        // public DateTime CreaateOn { get; set; }
-
-        // public ICollection<Box> Boxs { get; set; }
-
-        //public ICollection<Decanter> Decanters { get; set; }
-
-        //public ICollection<Set> Sets { get; set; }
-
-        //public ICollection<Glass> Glasses { get; set; }
 
         public ICollection<Product> Products { get; set; }
 

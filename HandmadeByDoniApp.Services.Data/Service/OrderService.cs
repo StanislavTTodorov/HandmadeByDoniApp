@@ -21,24 +21,21 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task<MineProductViewModel> AllMineProductsByUserIdAsync(string userId)
         {
-            ApplicationUser? user = await this.repository
-                .All<ApplicationUser>()
-                .Include(u=>u.Products)             
-                .FirstAsync(u => u.Id.ToString() == userId);
+            ApplicationUser? user = await GetProductsForUserByUserIdAsync(userId);
 
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
             if (user != null)
             {
-               products = user.Products.Select(x => new ProductsAllViewModel()
-               {
-                   Id = x.Id.ToString(),
-                   Title = x.Title,
-                   Description = x.Description,
-                   CreatedOn = x.CreatedOn,
-                   Price = x.Price,
-                   IsActive = x.IsActive,
-                   ImageUrl = x.ImageUrl
-               }).ToList();
+                products = user.Products.Select(x => new ProductsAllViewModel()
+                {
+                    Id = x.Id.ToString(),
+                    Title = x.Title,
+                    Description = x.Description,
+                    CreatedOn = x.CreatedOn,
+                    Price = x.Price,
+                    IsActive = x.IsActive,
+                    ImageUrl = x.ImageUrl
+                }).ToList();
             }
             MineProductViewModel viewModel = new MineProductViewModel()
             {
@@ -51,17 +48,15 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId)
         {
-            ApplicationUser user = await this.repository
-                .All<ApplicationUser>()
-                .Include(u=>u.Products)               
-                .FirstAsync(u => u.Id.ToString() == userId);
+            ApplicationUser user = await GetProductsForUserByUserIdAsync(userId);
 
             Order newOrder = new Order()
             {
                 User = user,
                 ClientId = user.Id,
-                Products = new HashSet<Product>()               
+                Products = new HashSet<Product>()
             };
+
             Product[] newProduct = new Product[user.Products.Count];
 
             user.Products.CopyTo(newProduct, 0);
@@ -76,24 +71,24 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     glass.IsActive = false;
                 }
             }
-            user.Products.Clear();
+            user.Products.Clear();          
             newOrder.Products = newProduct;
-          
+
             await repository.AddAsync(newOrder);
 
             Address address = await this.repository
                               .All<Address>()
                               .Include(a => a.DeliveryCompany)
                               .Include(a => a.MethodPayment)
-                              .FirstAsync(n=>n.ClientId==user.Id);
+                              .FirstAsync(n => n.ClientId == user.Id);
 
             UserOrder userOrder = new UserOrder()
             {
                 User = user,
                 UserId = user.Id,
                 OrderId = newOrder.Id,
-                Order = newOrder,               
-                TotalPrice = newOrder.Products.Sum(x=>x.Price),
+                Order = newOrder,
+                TotalPrice = newOrder.Products.Sum(x => x.Price),
                 CreaateOn = DateTime.Now,
                 Address = address,
                 AddressId = address.Id,
@@ -106,68 +101,25 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task AddProductByUserIdAsync(string userId, string productId)
         {
-            ApplicationUser? user = await this.repository.All<ApplicationUser>().FirstAsync(u => u.Id.ToString() == userId);
-            if (user != null)
-            {
-                Product product = await this.repository
-                    .All<Product>()
-                    .Where(b => b.Id.ToString() == productId)
-                    .FirstAsync();
-
-                user.Products.Add(product);
-                
-                await this.repository.SaveChangesAsync();
-            }
+            bool add = true;
+            await AddOrRemoveProductByUserIdAsync(userId, productId, add);          
         }
-
+       
         public async Task RemoveProductByUserIdAsync(string userId, string productId)
         {
-            ApplicationUser? user = await this.repository
-                .All<ApplicationUser>()
-                .Include(u => u.Products)              
-                .FirstAsync(u => u.Id.ToString() == userId);
-
-            if (user != null)
-            {
-                Product product = await this.repository
-                    .All<Product>()
-                    .Where(b => b.Id.ToString() == productId)
-                    .FirstAsync();
-                  user.Products.Remove(product);
-              
-                await this.repository.SaveChangesAsync();
-            }
+            bool add = false;
+            await AddOrRemoveProductByUserIdAsync(userId, productId, add);
         }
-
-        //public async Task<bool> ExistsInSetByIdAsync(string id)
-        //{
-        //    Glass? glass = await this.repository
-        //        .All<Glass>()
-        //        .FirstOrDefaultAsync(g => g.Id.ToString() == id);
-        //    Decanter? decanter = await this.repository
-        //        .All<Decanter>()
-        //        .FirstOrDefaultAsync(g => g.Id.ToString() == id);
-
-        //    if (glass != null && glass.SetId != null)
-        //    {
-        //        return true;
-        //    }
-        //    if (decanter != null && decanter.SetId != null)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
+        
         public async Task<bool> IsActiveByIdAsync(string id)
-        {           
-            bool product = await this.repository.AllReadOnly<Product>()
+        {
+            bool product = await this.repository
+                .AllReadOnly<Product>()
                 .Where(g => g.IsActive == true)
                 .AnyAsync(g => g.Id.ToString() == id);
 
             return product;
         }
-
 
         public async Task<bool> UserOrderExistsByUserIdAsync(string userId)
         {
@@ -205,16 +157,14 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     }
                 })
                 .ToArrayAsync();
-
             return orders;
-
         }
 
         public async Task<MineProductViewModel> AllOrderProductsByOrderIdAsync(string orderId)
         {
             Order? order = await this.repository
                  .All<Order>()
-                 .Include(u=>u.Products)                
+                 .Include(u => u.Products)
                  .Where(u => u.Id.ToString() == orderId)
                  .FirstOrDefaultAsync();
             List<ProductsAllViewModel> products = new List<ProductsAllViewModel>();
@@ -239,7 +189,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return viewModel;
         }
 
-        public  async Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync()
+        public async Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync()
         {
             ICollection<AdminOrdersViewModel> orders = await this.repository
                 .All<UserOrder>()
@@ -257,7 +207,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     OrderId = u.OrderId.ToString(),
                     AddressId = u.AddressId.ToString(),
                     Data = u.CreaateOn.ToString("dd/MM/yyyy HH:mm"),
-                    TotalPrice =u.TotalPrice.ToString("f2"),
+                    TotalPrice = u.TotalPrice.ToString("f2"),
                     IsSent = u.IsSent,
 
                     CountryName = u.Address.CountryName,
@@ -283,10 +233,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task EditSentToTrueAsync(string orderId)
         {
-            UserOrder userOrder = await this.repository
-                .All<UserOrder>()
-                .Include(u => u.Order)
-                .FirstAsync(u=>u.Order.Id.ToString()==orderId);
+            UserOrder userOrder = await GetUserOrdersByOrderIdAsync(orderId);
 
             userOrder.IsSent = true;
 
@@ -295,20 +242,67 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         public async Task DeleteUserOrderByOrderIdAsync(string orderId)
         {
-            UserOrder userOrder = await this.repository
-                .All<UserOrder>()
-                .Include(u => u.Order)
-                .FirstAsync(u => u.Order.Id.ToString() == orderId);
+            UserOrder userOrder = await GetUserOrdersByOrderIdAsync(orderId);
 
             Order order = await this.repository
                 .All<Order>()
-                .Include(o=>o.Products)               
+                .Include(o => o.Products)
                 .FirstAsync(u => u.Id.ToString() == orderId);
-           
+
             IsActiveTurnOnTrue(order.Products);
 
             await this.repository.DeleteAsync(userOrder);
             await this.repository.DeleteAsync(order);
+        }
+
+        public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)
+        {
+            UserOrder userOrder = await GetUserOrdersByOrderIdAsync(orderId);
+            return userOrder.IsSent;
+        }
+
+        private async Task<Product> GetProductByIdAsync(string productId)
+        {
+            return await this.repository
+                    .All<Product>()
+                    .Where(b => b.Id.ToString() == productId)
+                    .FirstAsync();
+        }
+
+        private async Task<ApplicationUser> GetProductsForUserByUserIdAsync(string userId)
+        {
+            return await this.repository
+                .All<ApplicationUser>()
+                .Include(u => u.Products)
+                .FirstAsync(u => u.Id.ToString() == userId);
+        }
+
+        private async Task<UserOrder> GetUserOrdersByOrderIdAsync(string orderId)
+        {
+            return await this.repository
+                  .All<UserOrder>()
+                  .Include(u => u.Order)
+                  .FirstAsync(u => u.Order.Id.ToString() == orderId);
+        }
+
+        private async Task AddOrRemoveProductByUserIdAsync(string userId, string productId, bool add)
+        {
+            ApplicationUser? user = await this.GetProductsForUserByUserIdAsync(userId);
+
+            if (user != null)
+            {
+                Product product = await GetProductByIdAsync(productId);
+                if (add)
+                {
+                    user.Products.Add(product);
+                }
+                else
+                {
+                    user.Products.Remove(product);
+                }
+
+                await this.repository.SaveChangesAsync();
+            }
         }
 
         private void IsActiveTurnOnTrue(ICollection<Product> products)
@@ -317,17 +311,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             {
                 product.IsActive = true;
                 product.OrderId = null;
-            }     
-        }
-
-        public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)
-        {
-            UserOrder userOrder = await this.repository
-               .All<UserOrder>()
-               .Include(u => u.Order)
-              .FirstAsync(b => b.Order.Id.ToString() == orderId);
-
-            return userOrder.IsSent;
+            }
         }
     }
 }

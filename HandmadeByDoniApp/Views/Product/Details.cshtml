@@ -49,13 +49,13 @@
                 {
                     <a class="btn btn-warning"
                        asp-area="Admin"
-                       asp-controller="Glass"
+                       asp-controller="Product"
                        asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
 
                     <a class="ml-2 btn btn-danger"
                        asp-area="Admin"
-                       asp-controller="Glass"
+                       asp-controller="Product"
                        asp-action="Delete"
                        asp-route-returnUrl="@Url.Action("All", "Product", new { area = ""})"
                        asp-route-id="@Model.Id">Delete</a>
