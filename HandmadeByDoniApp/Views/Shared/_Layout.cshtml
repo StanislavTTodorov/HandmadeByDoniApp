@@ -1,8 +1,13 @@
 ﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@using System.Globalization
 @using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 <!DOCTYPE html>
 <html lang="en">
+@{
+    string english = CultureInfo.CurrentCulture.Name == "en-US" ? "selected" : "";
+    string bulgarian = CultureInfo.CurrentCulture.Name == "bg-BG" ? "selected" : "";
 
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,9 +41,17 @@
             </div>
             <nav class="navbar-menu">
                 <div class="left-menu">
+                    <form id="cultureForm" asp-controller="Home" asp-action="SetCulture" method="get">
+                        <select name="culture" onchange="this.form.submit();">
+                            <option value="en-US" english >English</option>
+                            <option value="bg-BG" bulgarian > Bulgarian</option>
+                        </select>
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                    </form>
+
                     <ul class="menu">
                         <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index" asp-route-culture="en-US">Home</a>
                         </li>
                         <li>
                             <a class="button-memu" asp-area="" asp-controller="Product" asp-action="All">All</a>
@@ -72,7 +85,7 @@
                             </li>
 
                             <li>
-                                <a class="button-memu" asp-area="Admin" asp-controller="Product" asp-action="Add">Add New Products</a>                              
+                                <a class="button-memu" asp-area="Admin" asp-controller="Product" asp-action="Add">Add New Products</a>
                             </li>
                         }
                         <partial name="_LoginPartial" />
@@ -98,18 +111,18 @@
             </div>
             <div class="social-media">
                 <p class="text-center">Contact Us</p>
-            <ul class="social-media-icons">
-                <li>
+                <ul class="social-media-icons">
+                    <li>
                         <a href="https://www.facebook.com/people/%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE%D0%B2%D0%BD%D0%B8-%D1%87%D0%B0%D1%88%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%B8%D0%BD%D0%BE/100087765588244/"><i class="fa-brands fa-square-facebook"></i></a>
-                </li>
-                <li>
+                    </li>
+                    <li>
                         <a href="#"><i class="fa-brands fa-google-plus"></i></a>
-                </li>
-                <li>
+                    </li>
+                    <li>
                         <a href="https://www.instagram.com/art_gift_by_doni?igsh=dmJkYncxaHdqcDg0"><i class="fa-brands fa-instagram"></i></a>
-                </li>
-            </ul>
-    </div>
+                    </li>
+                </ul>
+            </div>
         </footer>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,11 +1,18 @@
-﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
-@model AllProductsQueryModel
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@using HandmadeByDoniApp.Services.Data.Service
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.Extensions.Localization
 
-@{
-    ViewBag.Title = "All Products";
+@model AllProductsQueryModel
+@inject IStringLocalizer<App> L
+
+@{ 
+    ViewBag.Title = App.AllProducts;
 }
 
-<h2 class="text-center title">@ViewBag.Title</h2>
+@* <h2 class="text-center title">@ViewBag.Title</h2>*@
+ <h2 class="text-center title"> @ViewBag.Title </h2>
 <hr />
 
 <form method="get">

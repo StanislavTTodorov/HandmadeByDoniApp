@@ -8,16 +8,30 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using HandmadeByDoniApp.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
-     
+
         public static IServiceCollection AddApplicationServises(this IServiceCollection services)
         {
 
             services.AddServices(typeof(IProductService));
+            //services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    var supportedCultures = new[]
+            //    {
+            //        new CultureInfo("en-US"),
+            //        new CultureInfo("bg-BG"),
+            //    };
+            //    options.DefaultRequestCulture = new RequestCulture("en-US");
+            //    options.SupportedCultures = supportedCultures;
+            //    options.SupportedUICultures = supportedCultures;
+            //});
 
             return services;
         }
