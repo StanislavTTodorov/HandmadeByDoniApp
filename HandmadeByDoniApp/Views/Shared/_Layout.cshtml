@@ -6,6 +6,7 @@
 @{
     string english = CultureInfo.CurrentCulture.Name == "en-US" ? "selected" : "";
     string bulgarian = CultureInfo.CurrentCulture.Name == "bg-BG" ? "selected" : "";
+    string ddd = string.Empty;
 
 }
 <head>
@@ -42,16 +43,26 @@
             <nav class="navbar-menu">
                 <div class="left-menu">
                     <form id="cultureForm" asp-controller="Home" asp-action="SetCulture" method="get">
-                        <select name="culture" onchange="this.form.submit();">
-                            <option value="en-US" english >English</option>
-                            <option value="bg-BG" bulgarian > Bulgarian</option>
+                        <select onchange="setCulture(this.value)">
+                            <option value="en-US" selected=@(CultureInfo.CurrentCulture.Name == "en-US" ? "selected='selected'" : "")>English</option>
+                            <option value="bg-BG" selected=@(CultureInfo.CurrentCulture.Name == "bg-BG" ? "selected='selected'" : "")>Bulgarian</option>
+                            <!-- Добавете други опции тук -->
                         </select>
                         <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
                     </form>
 
+                   <script>
+                        function setCulture(culture) {
+                            var form = document.getElementById('cultureForm');
+                            form.action = `@Url.Action("SetCulture", "Home")?culture=${culture}&returnUrl=${encodeURIComponent('@Context.Request.Path')}`;
+                            form.submit();
+                        }
+                    </script> 
+
+
                     <ul class="menu">
                         <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index" asp-route-culture="en-US">Home</a>
+                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li>
                             <a class="button-memu" asp-area="" asp-controller="Product" asp-action="All">All</a>
@@ -126,6 +137,28 @@
         </footer>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script>
+            function setCulture(culture) {
+                // Запазете избора в localStorage
+                localStorage.setItem('Culture', culture);
+
+                // Презаредете страницата или пренасочете към друга
+                window.location.reload();
+            }
+
+            function getCulture() {
+                return localStorage.getItem('Culture') || 'en-US'; // Задайте подразбираща се култура
+            }
+
+            // При зареждане на страницата, задайте културата от localStorage
+            document.addEventListener('DOMContentLoaded', function () {
+                var culture = getCulture();
+                if (culture) {
+                    document.documentElement.lang = culture;
+                    // При нужда, можете да направите AJAX заявка за новата култура
+                }
+            });
+        </script>
         @await RenderSectionAsync("Scripts", required: false)
     </div>
 </body>

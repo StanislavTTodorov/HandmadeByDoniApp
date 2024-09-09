@@ -105,17 +105,27 @@ public class Program
                 var culture = new CultureInfo(cultureQuery);
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;
+                //var supportedCulturess = new[] { "en-US", "bg-BG" };
+                var localizationOptionss = new RequestLocalizationOptions()
+                    .SetDefaultCulture(cultureQuery)
+                    .AddSupportedCultures(cultureQuery)
+                    .AddSupportedUICultures(cultureQuery);
+
+                app.UseRequestLocalization(localizationOptionss);
+
             }
 
             await next.Invoke();
         });
-        var supportedCulturess = new[] { "en-US", "bg-BG" };
-        var localizationOptionss = new RequestLocalizationOptions()
-            .SetDefaultCulture(supportedCulturess[0])
-            .AddSupportedCultures(supportedCulturess)
-            .AddSupportedUICultures(supportedCulturess);
+        //var supportedCulturess = new[] { "en-US", "bg-BG" };
+        //var localizationOptionss = new RequestLocalizationOptions()
+        //    .SetDefaultCulture(supportedCulturess[0])
+        //    .AddSupportedCultures(supportedCulturess)
+        //    .AddSupportedUICultures(supportedCulturess);
 
-        app.UseRequestLocalization(localizationOptionss);
+        //app.UseRequestLocalization(localizationOptionss);
+
+
         //****//
 
         app.UseRouting();

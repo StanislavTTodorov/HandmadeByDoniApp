@@ -11,6 +11,7 @@ using HandmadeByDoniApp.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 {
@@ -21,17 +22,30 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
         {
 
             services.AddServices(typeof(IProductService));
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("bg-BG"),
+                };
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            //services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             //services.Configure<RequestLocalizationOptions>(options =>
             //{
-            //    var supportedCultures = new[]
-            //    {
-            //        new CultureInfo("en-US"),
-            //        new CultureInfo("bg-BG"),
-            //    };
+            //    var supportedCultures = new[] { "en-US", "bg-BG" };
             //    options.DefaultRequestCulture = new RequestCulture("en-US");
-            //    options.SupportedCultures = supportedCultures;
-            //    options.SupportedUICultures = supportedCultures;
+            //    options.SupportedCultures = supportedCultures.Select(culture => new CultureInfo(culture)).ToList();
+            //    options.SupportedUICultures = options.SupportedCultures;
             //});
+
+            //services.AddControllersWithViews()
+            //        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            //        .AddDataAnnotationsLocalization();
 
             return services;
         }
