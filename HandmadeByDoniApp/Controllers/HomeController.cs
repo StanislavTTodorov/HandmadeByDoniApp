@@ -12,20 +12,22 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class HomeController : BaseController<HomeController>
     {
         private readonly IProductService product;
-        private readonly IStringLocalizer localizer;
+        
 
-        public HomeController(IProductService product, IStringLocalizer localizer)
+        public HomeController(IProductService product)
         {
             this.product = product;
-            this.localizer = localizer;
         }
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult SetCulture(string culture, string returnUrl)
         {
+            if (culture == null) { culture = "en-US"; }
+            if (returnUrl == null) { returnUrl = "/"; }
             Response.Cookies.Append(
            CookieRequestCultureProvider.DefaultCookieName,
            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-           new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+           new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) });
 
             return LocalRedirect(returnUrl); // Пренасочете обратно към страницата, откъдето идва заявката
         }

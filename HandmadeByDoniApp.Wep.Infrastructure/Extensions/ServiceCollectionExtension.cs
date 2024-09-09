@@ -22,6 +22,8 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
         {
 
             services.AddServices(typeof(IProductService));
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]
@@ -33,20 +35,10 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
-            //services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-            //    var supportedCultures = new[] { "en-US", "bg-BG" };
-            //    options.DefaultRequestCulture = new RequestCulture("en-US");
-            //    options.SupportedCultures = supportedCultures.Select(culture => new CultureInfo(culture)).ToList();
-            //    options.SupportedUICultures = options.SupportedCultures;
-            //});
-
-            //services.AddControllersWithViews()
-            //        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-            //        .AddDataAnnotationsLocalization();
-
+            services.AddControllersWithViews()
+           .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+           .AddDataAnnotationsLocalization();
+            
             return services;
         }
 

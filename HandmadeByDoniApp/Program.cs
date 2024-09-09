@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 public class Program
@@ -21,15 +22,8 @@ public class Program
         builder.Services.AddApplicationIdentiry(builder.Configuration);
 
         builder.Services.AddRecaptchaService();
-        //****//
-        // Custom localization for changing the default names of the scheduler control e.g.Appoinment
-        builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+        
 
-        //builder.Services.AddSingleton(typeof(IStringLocalizer), typeof(CustomLocalizationService));
-        //builder.Services.AddSingleton(typeof(CustomLocalizationService));
-
-        // builder.Services.AddSingleton<IStringLocalizer>(provider => new CustomLocalizationService("Resources.App", "Resources"));
-        //****//
         builder.Services.ConfigureApplicationCookie(cfg =>
         {
             cfg.LoginPath = "/User/Login";
@@ -46,24 +40,7 @@ public class Program
 
         builder.Services.AddApplicationServises();
 
-        var localizationSettings = builder.Configuration.GetSection("Localization");
-        //****//
-        // Регистриране на CustomLocalizationService
-        builder.Services.AddSingleton<IStringLocalizer>(provider =>
-            new CustomLocalizationService(
-                localizationSettings["BaseName"],
-                localizationSettings["ResourceDir"]
-            ));
-
-        // Останалата конфигурация за локализация
-        builder.Services.Configure<RequestLocalizationOptions>(options =>
-        {
-            var supportedCultures = new[] { "en-US", "bg-BG" };
-            options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
-            options.SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
-            options.SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
-        });
-        //****//
+        
 
 
         WebApplication app = builder.Build();
@@ -84,46 +61,17 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-        ////bg 
-        //var supportedCultures = app.Configuration.GetSection("Cultures")
-        //  .GetChildren().ToDictionary(x => x.Key, x => x.Value).Keys.ToArray();
 
+        var supportedCultures = new[] { "en-US", "bg-BG" };
 
-        //var localizationOptions = new RequestLocalizationOptions()
-        //    .AddSupportedCultures(supportedCultures)
-        //    .AddSupportedUICultures(supportedCultures)
-        //    .SetDefaultCulture(supportedCultures[0]);
-        //app.UseRequestLocalization(localizationOptions);
-        //var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>().Value;
-        //app.UseRequestLocalization(localizationOptions);
-        //****//
-        app.Use(async (context, next) =>
+        var localizationOptions = new RequestLocalizationOptions
         {
-            var cultureQuery = context.Request.Query["culture"];
-            if (!string.IsNullOrWhiteSpace(cultureQuery))
-            {
-                var culture = new CultureInfo(cultureQuery);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-                //var supportedCulturess = new[] { "en-US", "bg-BG" };
-                var localizationOptionss = new RequestLocalizationOptions()
-                    .SetDefaultCulture(cultureQuery)
-                    .AddSupportedCultures(cultureQuery)
-                    .AddSupportedUICultures(cultureQuery);
+            DefaultRequestCulture = new RequestCulture("en-US"),
+            SupportedCultures = supportedCultures.Select(culture => new CultureInfo(culture[0])).ToList(),
+            SupportedUICultures = supportedCultures.Select(culture => new CultureInfo(culture[1])).ToList(),
+        };
 
-                app.UseRequestLocalization(localizationOptionss);
-
-            }
-
-            await next.Invoke();
-        });
-        //var supportedCulturess = new[] { "en-US", "bg-BG" };
-        //var localizationOptionss = new RequestLocalizationOptions()
-        //    .SetDefaultCulture(supportedCulturess[0])
-        //    .AddSupportedCultures(supportedCulturess)
-        //    .AddSupportedUICultures(supportedCulturess);
-
-        //app.UseRequestLocalization(localizationOptionss);
+        app.UseRequestLocalization(localizationOptions);
 
 
         //****//
@@ -134,6 +82,24 @@ public class Program
         app.UseAuthorization();
 
         app.EnableOnlineUsersCheck();
+        app.Use(async (context, next) =>
+        {
+            var cultureQuery = context.Request.Query["culture"];
+            var cul = context.Request.Cookies;
+            string culture;
+            if (cul[".AspNetCore.Culture"] != null)
+            {
+                var ssss = cul[".AspNetCore.Culture"].Split("=").ToArray()[1];
+                culture = ssss.Split("|").ToArray()[0];
+            }
+            else { culture = "en-US"; }
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = new CultureInfo(culture);             
+            }
+            await next.Invoke();
+        });
 
         if (app.Environment.IsDevelopment())
         {

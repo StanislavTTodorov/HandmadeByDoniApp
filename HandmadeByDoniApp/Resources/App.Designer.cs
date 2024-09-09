@@ -9,8 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace HandmadeByDoniApp.Web.Resources {
-    using HandmadeByDoniApp.Services.Data;
-    using HandmadeByDoniApp.Services.Data.Interfaces;
     using System;
     
     
