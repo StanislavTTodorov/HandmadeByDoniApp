@@ -1,5 +1,6 @@
 ﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
 @using System.Globalization
+@using HandmadeByDoniApp.Web.Resources
 @using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 <!DOCTYPE html>
@@ -36,32 +37,33 @@
                 </button>
             </div>
             <nav class="navbar-menu">
-                <div class="left-menu">
-                    <<form asp-controller="Home" asp-action="SetCulture" method="get">
-                        <select class="button-memu" name="culture" onchange="this.form.submit()">
-                            <option value="">Option</option>
-                            <option value="en-US">English</option>
-                            <option value="bg-BG">Bulgarian</option>
-                        </select>
-                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                        <noscript><button type="submit">Submit</button></noscript>
-                    </form>
-                   
+                <div class="left-menu">                           
                     <ul class="menu">
                         <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <form asp-controller="Home" asp-action="SetCulture" method="get">
+                                <select class="button-memu" name="culture" onchange="this.form.submit()">
+                                    <option value="">@App.Language</option>
+                                    <option value="en-US">@App.English</option>
+                                    <option value="bg-BG">@App.Bulgarian</option>
+                                </select>
+                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                                <noscript><button type="submit">Submit</button></noscript>
+                            </form>
                         </li>
                         <li>
-                            <a class="button-memu" asp-area="" asp-controller="Product" asp-action="All">All</a>
+                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">@App.Home</a>
+                        </li>
+                        <li>
+                            <a class="button-memu" asp-area="" asp-controller="Product" asp-action="All">@App.AllProducts</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li>
-                                <a class="button-memu" asp-area="" asp-controller="Order" asp-action="Mine"> <i class="fa-solid fa-cart-shopping"></i> Cart</a>
+                                <a class="button-memu" asp-area="" asp-controller="Order" asp-action="Mine"> <i class="fa-solid fa-cart-shopping"></i> @App.Cart</a>
                             </li>
 
                             <li>
-                                <a class="button-memu" asp-area="" asp-controller="Order" asp-action="OrderStatus">Order Status</a>
+                                <a class="button-memu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.OrderStatus</a>
                             </li>
                         }
                     </ul>
@@ -74,16 +76,16 @@
                                 <a class="button-memu">Admin Menu</a>
                                 <ul>
                                     <li>
-                                        <a class="button-memu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">Newst Orders</a>
+                                        <a class="button-memu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">@App.NewstOrders</a>
                                     </li>
                                     <li>
-                                        <a class="button-memu" asp-area="Admin" asp-controller="User" asp-action="All">All User </a>
+                                        <a class="button-memu" asp-area="Admin" asp-controller="User" asp-action="All">@App.AllUser </a>
                                     </li>
                                 </ul>
                             </li>
 
                             <li>
-                                <a class="button-memu" asp-area="Admin" asp-controller="Product" asp-action="Add">Add New Products</a>
+                                <a class="button-memu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.AddNewProducts</a>
                             </li>
                         }
                         <partial name="_LoginPartial" />
@@ -99,13 +101,13 @@
         <footer class="site-footer">
             <div class="container-footer">
                 <p>
-                    &copy; Handmade By Doni  @ReleaseYear
+                    &copy; @App.HandmadeByDoni  @ReleaseYear
                     @if (DateTime.UtcNow.Year != ReleaseYear)
                     {
                         @Html.Raw($" - {DateTime.UtcNow.Year}")
                     }
                 </p>
-                <p>Web design by STTodorov</p>
+                <p>@App.WebDesign</p>
             </div>
             <div class="social-media">
                 <p class="text-center">Contact Us</p>

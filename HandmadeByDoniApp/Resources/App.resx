@@ -117,7 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddNewProducts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="All" xml:space="preserve">
+    <value />
+  </data>
   <data name="AllProducts" xml:space="preserve">
     <value>Products All</value>
+  </data>
+  <data name="AllUser" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Bulgarian" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Decanter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="English" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HandmadeByDoni" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Newest" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NewstOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Oldest" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceAscending" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PriceDescending" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductPerPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductSorting" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Set" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WebDesign" xml:space="preserve">
+    <value />
   </data>
 </root>

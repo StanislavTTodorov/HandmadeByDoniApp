@@ -117,7 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="AddNewProducts" xml:space="preserve">
+    <value>Добави нови продукти</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Всички </value>
+  </data>
   <data name="AllProducts" xml:space="preserve">
     <value>Всички продукти</value>
+  </data>
+  <data name="AllUser" xml:space="preserve">
+    <value>Всички потребители</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Наличен</value>
+  </data>
+  <data name="Box" xml:space="preserve">
+    <value>Кутии</value>
+  </data>
+  <data name="Bulgarian" xml:space="preserve">
+    <value>Български</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Кошница</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Коментар</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>лв.</value>
+  </data>
+  <data name="Decanter" xml:space="preserve">
+    <value>Декантери</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детайли</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактирай</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Англиски</value>
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value>Чаши</value>
+  </data>
+  <data name="HandmadeByDoni" xml:space="preserve">
+    <value>Направено от Дони</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Снимка</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Език</value>
+  </data>
+  <data name="Newest" xml:space="preserve">
+    <value>Нови</value>
+  </data>
+  <data name="NewstOrders" xml:space="preserve">
+    <value>Нови поръчки</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Не е наличен</value>
+  </data>
+  <data name="Oldest" xml:space="preserve">
+    <value>Стари</value>
+  </data>
+  <data name="OrderStatus" xml:space="preserve">
+    <value>Статус на поръчката</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="PriceAscending" xml:space="preserve">
+    <value>Възходяща цена</value>
+  </data>
+  <data name="PriceDescending" xml:space="preserve">
+    <value>Нисходяща цена</value>
+  </data>
+  <data name="ProductPerPage" xml:space="preserve">
+    <value>Продукти на страница</value>
+  </data>
+  <data name="ProductSorting" xml:space="preserve">
+    <value>Подреждане на Продукти</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Въстанови</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value>Търсачка </value>
+  </data>
+  <data name="Set" xml:space="preserve">
+    <value>Комплекти</value>
+  </data>
+  <data name="WebDesign" xml:space="preserve">
+    <value>Уеб дизайн от Станислав</value>
   </data>
 </root>
