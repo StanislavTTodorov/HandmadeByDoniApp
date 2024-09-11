@@ -1,17 +1,18 @@
 ﻿@using HandmadeByDoniApp.Services.Data.Interfaces
 @using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@using HandmadeByDoniApp.Web.Resources
 @model ProductsAllViewModel
 
 
 <div class="col-md-4">
     <div class="card mb-3">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="Image">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="@App.Image">
         <div class="card-body text-center">
             <h4>@Model.Title</h4>
-            <h6>(@(Model.IsActive ? "Available" : "Not Available"))</h6>
+            <h6>(@(Model.IsActive ? App.Available : App.NotAvailable))</h6>
             <h6>
-                Price
-                <b>@($"{Model.Price:f2}") BGN</b>
+                @App.Price
+                <b>@($"{Model.Price:f2}") @App.Currency</b>
             </h6>
 
             <a class="btn btn-primary"
@@ -19,13 +20,13 @@
                asp-controller="Order"
                asp-action="Add"
                asp-route-returnUrl="@Url.Action("All", "Product", new { area = "" })"
-               asp-route-id="@Model.Id">Add to Shop List </a>
+               asp-route-id="@Model.Id">@App.Add</a>
             <br />
             <a asp-area=""
                asp-controller="Product"
                asp-action="Details"
                asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
+               class="btn btn-success">@App.Details</a>
 
             @if (User.IsAdmin())
             {
@@ -33,20 +34,20 @@
                    asp-controller="Product"
                    asp-action="Edit"
                    asp-route-id="@Model.Id"
-                   class="btn btn-warning">Edit</a>
+                   class="btn btn-warning">@App.Edit</a>
 
                 <a asp-area="Admin"
                    asp-controller=""
                    asp-action="Delete"
                    asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete</a>
+                   class="btn btn-danger">@App.Delete</a>
             }
 
             <a class="ml-2 btn btn-info"
                asp-area=""
                asp-controller="Comment"
                asp-action="Comment"
-               asp-route-id="@Model.Id">Comment</a>
+               asp-route-id="@Model.Id">@App.Comment</a>
 
         </div>
     </div>

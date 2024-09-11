@@ -123,6 +123,9 @@
   <data name="AddNewProducts" xml:space="preserve">
     <value>Add New Products</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value> All </value>
   </data>
@@ -150,6 +153,9 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
   <data name="Currency" xml:space="preserve">
     <value>BGN</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="HandmadeByDoni" xml:space="preserve">
     <value>Handmade By Doni</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -183,11 +192,20 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
   <data name="Newest" xml:space="preserve">
     <value>Newest</value>
   </data>
   <data name="NewstOrders" xml:space="preserve">
     <value>Newst Orders</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>No comments. Be the first to comment!</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Not Available</value>
@@ -213,6 +231,9 @@
   <data name="ProductSorting" xml:space="preserve">
     <value>Product Sorting</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>
   </data>
@@ -225,7 +246,16 @@
   <data name="Set" xml:space="preserve">
     <value>Set</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
   <data name="WebDesign" xml:space="preserve">
     <value>Web аesign by STTodorov</value>
+  </data>
+  <data name="Write" xml:space="preserve">
+    <value> Write a</value>
   </data>
 </root>

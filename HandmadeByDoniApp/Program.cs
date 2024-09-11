@@ -86,13 +86,16 @@ public class Program
         {
             var cultureQuery = context.Request.Query["culture"];
             var cul = context.Request.Cookies;
-            string culture;
+            string? culture = null;
             if (cul[".AspNetCore.Culture"] != null)
             {
-                var ssss = cul[".AspNetCore.Culture"].Split("=").ToArray()[1];
-                culture = ssss.Split("|").ToArray()[0];
+                var cultureSplit = cul[".AspNetCore.Culture"].Split("=").ToArray()[1];
+                culture = cultureSplit.Split("|").ToArray()[0];
             }
-            else { culture = "en-US"; }
+            if (string.IsNullOrWhiteSpace(culture) || (culture != "bg-BG" && culture != "en-US"))
+            { 
+                culture = "en-US"; 
+            }
             if (!string.IsNullOrWhiteSpace(culture))
             {
                 CultureInfo.CurrentCulture = new CultureInfo(culture);

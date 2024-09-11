@@ -1,6 +1,8 @@
-﻿@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+﻿@using HandmadeByDoniApp.Data.Models
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
 @using System.Globalization
 @using HandmadeByDoniApp.Web.Resources
+@using Microsoft.AspNetCore.Identity
 @using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@
                 </button>
             </div>
             <nav class="navbar-menu">
-                <div class="left-menu">                           
+                <div class="left-menu">
                     <ul class="menu">
                         <li>
                             <form asp-controller="Home" asp-action="SetCulture" method="get">
@@ -50,9 +52,12 @@
                                 <noscript><button type="submit">Submit</button></noscript>
                             </form>
                         </li>
-                        <li>
-                            <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">@App.Home</a>
-                        </li>
+                        @if (!User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li>
+                                <a class="button-memu" asp-area="" asp-controller="Home" asp-action="Index">@App.Home</a>
+                            </li>
+                        }
                         <li>
                             <a class="button-memu" asp-area="" asp-controller="Product" asp-action="All">@App.AllProducts</a>
                         </li>
@@ -110,7 +115,7 @@
                 <p>@App.WebDesign</p>
             </div>
             <div class="social-media">
-                <p class="text-center">Contact Us</p>
+                <p class="text-center">@App.ContactUs</p>
                 <ul class="social-media-icons">
                     <li>
                         <a href="https://www.facebook.com/people/%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE%D0%B2%D0%BD%D0%B8-%D1%87%D0%B0%D1%88%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%B8%D0%BD%D0%BE/100087765588244/"><i class="fa-brands fa-square-facebook"></i></a>

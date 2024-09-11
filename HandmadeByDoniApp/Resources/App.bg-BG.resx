@@ -123,6 +123,9 @@
   <data name="AddNewProducts" xml:space="preserve">
     <value>Добави нови продукти</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Всички </value>
   </data>
@@ -150,6 +153,9 @@
   <data name="Comment" xml:space="preserve">
     <value>Коментар</value>
   </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Свържете се с нас</value>
+  </data>
   <data name="Currency" xml:space="preserve">
     <value>лв.</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="HandmadeByDoni" xml:space="preserve">
     <value>Направено от Дони</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Здравей</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Начало</value>
   </data>
@@ -183,11 +192,20 @@
   <data name="Language" xml:space="preserve">
     <value>Език</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Изход</value>
+  </data>
   <data name="Newest" xml:space="preserve">
     <value>Нови</value>
   </data>
   <data name="NewstOrders" xml:space="preserve">
     <value>Нови поръчки</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Без коментари. Коментирайте първи!</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Не е наличен</value>
@@ -213,6 +231,9 @@
   <data name="ProductSorting" xml:space="preserve">
     <value>Подреждане на Продукти</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрирайте се</value>
+  </data>
   <data name="Restore" xml:space="preserve">
     <value>Въстанови</value>
   </data>
@@ -225,7 +246,16 @@
   <data name="Set" xml:space="preserve">
     <value>Комплекти</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Изпратете</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>на</value>
+  </data>
   <data name="WebDesign" xml:space="preserve">
     <value>Уеб дизайн от Станислав</value>
+  </data>
+  <data name="Write" xml:space="preserve">
+    <value>Напиши</value>
   </data>
 </root>

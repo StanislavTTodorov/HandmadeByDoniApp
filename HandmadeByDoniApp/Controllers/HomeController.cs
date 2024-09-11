@@ -27,7 +27,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             Response.Cookies.Append(
            CookieRequestCultureProvider.DefaultCookieName,
            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-           new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) });
+           new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
             return LocalRedirect(returnUrl); // Пренасочете обратно към страницата, откъдето идва заявката
         }
