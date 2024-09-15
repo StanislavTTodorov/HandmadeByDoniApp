@@ -14,21 +14,21 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="button-memu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@App.Hello, @userFullName</a>
+        <a class="button-memu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@App.L("Hello"), @userFullName</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark button-memu">@App.Logout</button>
+            <button type="submit" class="nav-link btn btn-link text-dark button-memu">@App.L("Logout")</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Register">@App.Register</a>
+        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a>
     </li>
     <li class="nav-item">
-        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Login">@App.Login</a>
+        <a class="button-memu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a>
     </li>
     /*
     <li class="nav-item">

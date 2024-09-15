@@ -6,7 +6,7 @@
 @inject ICommentService CommentService
 
 @{
-    ViewBag.Title = App.Comment;
+    ViewBag.Title = App.L("Comment");
 }
 <h2 class="text-center title">@ViewBag.Title</h2>
 <hr />
@@ -16,7 +16,7 @@
 <section class="product-comment">
     <div class="row col-5">
         <div class="col-4">
-            <img class="card-img-top" style="max-width: 20em;" src="@Model.ImageUrl" alt="@App.Image">
+            <img class="card-img-top" style="max-width: 20em;" src="@Model.ImageUrl" alt="@App.L("Image")">
         </div>
         <div class="card col-5 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>
@@ -30,7 +30,7 @@
             <a class="ml-2 btn btn-info"
             asp-controller="Product" 
             asp-action="WriteComment"
-            asp-route-id="@Model.Id">@App.Write @App.Comment.ToLower()</a>
+               asp-route-id="@Model.Id">@App.L("Write") @App.L("Comment").ToLower()</a>
         </div>
         <article>
             @if (Model.Comments.Any())
@@ -46,7 +46,7 @@
                                asp-controller="Comment"
                                asp-action="WriteToComment"
                                asp-route-id="@Model.Id"
-                               asp-route-commentId="@comment.Id">@App.Write @App.To @comment.UserName</a>
+                               asp-route-commentId="@comment.Id">@App.L("Write") @App.L("To") @comment.UserName</a>
                             @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), comment.Id))
                             {
                                 <a class="ml-2 btn btn-warning"
@@ -54,7 +54,7 @@
                                    asp-controller="Comment"
                                    asp-action="Edit"
                                    asp-route-id="@Model.Id"
-                                   asp-route-commentId="@comment.Id">@App.Edit</a>
+                                   asp-route-commentId="@comment.Id">@App.L("Edit")</a>
                             }
                             <p class="">@comment.Time</p>
                         </section>
@@ -76,7 +76,7 @@
                                                asp-controller="Comment"
                                                asp-action="Edit"
                                                asp-route-id="@Model.Id"
-                                               asp-route-commentId="@com.Id">@App.Edit</a>
+                                               asp-route-commentId="@com.Id">@App.L("Edit")</a>
                                         }
                                         <p class="">@com.Time</p>
                                     </section>
@@ -91,7 +91,7 @@
             }
             else
             {
-                <h2 class="text-center">@App.NoComments</h2>
+                <h2 class="text-center">@App.L("NoComments")</h2>
             }
         </article>
     </section>

@@ -1,8 +1,9 @@
-﻿@model ICollection<OrderStatusViewModel>;
+﻿@using HandmadeByDoniApp.Web.Resources
+@model ICollection<OrderStatusViewModel>;
 
 
 @{
-    ViewBag.Title = "Order Status";
+    ViewBag.Title = $"{App.L("Order")} {App.L("Status")}";
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/DetailOrder.css" asp-append-version="true" />
@@ -15,29 +16,29 @@
     {
         <section class="details">
             <section class="address text-start">
-                <h4 class="text-center title">Order Details </h4>
-                <h5> Country - @order.OrdersDetails.CountryName</h5>
-                <h5> City - @order.OrdersDetails.CityName</h5>
-                <h5> Street - @order.OrdersDetails.Street</h5>
-                <h5> Phone Number - @order.OrdersDetails.PhoneNumber</h5>
-                <h5> Delivery Company - @order.OrdersDetails.DeliveryCompanyName</h5>
-                <h5> Method Payment - @order.OrdersDetails.MethodPayment</h5>
-                <h5> Date - @order.OrdersDetails.CreaateOn</h5>
-                <h5> Status - @((order.OrdersDetails.IsSent) ? "Sent" : " Not Sent")</h5>
-                <h5> Total Price  - @order.OrdersDetails.TotalPrice</h5>
+                <h4 class="text-center title">@App.L("Order") @App.L("Details") </h4>
+                <h5> @App.L("Country") - @order.OrdersDetails.CountryName</h5>
+                <h5> @App.L("City") - @order.OrdersDetails.CityName</h5>
+                <h5> @App.L("Street") - @order.OrdersDetails.Street</h5>
+                <h5> @App.L("PhoneNumber") - @order.OrdersDetails.PhoneNumber</h5>
+                <h5> @App.L("DeliveryCompany") - @order.OrdersDetails.DeliveryCompanyName</h5>
+                <h5> @App.L("MethodPayment") - @order.OrdersDetails.MethodPayment</h5>
+                <h5> @App.L("Date") - @order.OrdersDetails.CreaateOn</h5>
+                <h5> @App.L("Status") - @((order.OrdersDetails.IsSent) ? App.L("Sent") : App.L("NotSent"))</h5>
+                <h5> @App.L("Total") @App.L("Price")  - @order.OrdersDetails.TotalPrice</h5>
                 @if (order.OrdersDetails.IsSent==false)
                 {
                     <a asp-area=""
                        asp-controller="Order"
                        asp-action="CancelOrder"
                        asp-route-id="@order.OrderId"
-                    class="btn btn-warning">Cancellation of the order</a>
+                       class="btn btn-warning">@App.L("CancellationOrder")</a>
                 }
                 <a class="btn btn-outline-primary"
                    asp-area=""
                    asp-controller="Order"
                    asp-action="ProductOrder"
-                   asp-route-id="@(@order.OrderId)">Products in Order</a>
+                   asp-route-id="@(@order.OrderId)">@App.L("ProductsOrder")</a>
             </section>
         </section>
     }

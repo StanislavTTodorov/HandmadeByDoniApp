@@ -120,11 +120,11 @@
   <data name="Add" xml:space="preserve">
     <value>Добави</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
   <data name="AddNewProducts" xml:space="preserve">
     <value>Добави нови продукти</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Адрес</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Всички </value>
@@ -153,9 +153,6 @@
   <data name="Comment" xml:space="preserve">
     <value>Коментар</value>
   </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Свържете се с нас</value>
-  </data>
   <data name="Currency" xml:space="preserve">
     <value>лв.</value>
   </data>
@@ -180,9 +177,6 @@
   <data name="HandmadeByDoni" xml:space="preserve">
     <value>Направено от Дони</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Здравей</value>
-  </data>
   <data name="Home" xml:space="preserve">
     <value>Начало</value>
   </data>
@@ -192,20 +186,11 @@
   <data name="Language" xml:space="preserve">
     <value>Език</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Вход</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Изход</value>
-  </data>
   <data name="Newest" xml:space="preserve">
     <value>Нови</value>
   </data>
   <data name="NewstOrders" xml:space="preserve">
     <value>Нови поръчки</value>
-  </data>
-  <data name="NoComments" xml:space="preserve">
-    <value>Без коментари. Коментирайте първи!</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Не е наличен</value>
@@ -231,9 +216,6 @@
   <data name="ProductSorting" xml:space="preserve">
     <value>Подреждане на Продукти</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрирайте се</value>
-  </data>
   <data name="Restore" xml:space="preserve">
     <value>Въстанови</value>
   </data>
@@ -246,16 +228,124 @@
   <data name="Set" xml:space="preserve">
     <value>Комплекти</value>
   </data>
+  <data name="WebDesign" xml:space="preserve">
+    <value>Уеб дизайн от Станислав</value>
+  </data>
+  <data name="NewProducts" xml:space="preserve">
+    <value>Нови продукти</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Свържи се с нас</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Здравей</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Изход</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Без коментар</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрирай се</value>
+  </data>
   <data name="Submit" xml:space="preserve">
-    <value>Изпратете</value>
+    <value>Изпрати</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>на</value>
   </data>
-  <data name="WebDesign" xml:space="preserve">
-    <value>Уеб дизайн от Станислав</value>
-  </data>
   <data name="Write" xml:space="preserve">
     <value>Напиши</value>
+  </data>
+  <data name="ShopList" xml:space="preserve">
+    <value>Списък  с покупки</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Купи</value>
+  </data>
+  <data name="NoProducts" xml:space="preserve">
+    <value>Няма продукт в списъка с покупки.</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Общо</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Поръчка</value>
+  </data>
+  <data name="AddAddressCompleteOrder" xml:space="preserve">
+    <value>Добавете адрес, за да завършите поръчката.</value>
+  </data>
+  <data name="ProductBuy" xml:space="preserve">
+    <value>Продукти за закупуване</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Държава</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Улица</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефонен номер</value>
+  </data>
+  <data name="DeliveryCompany" xml:space="preserve">
+    <value>Фирма за доставка</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Изпратено</value>
+  </data>
+  <data name="NotSent" xml:space="preserve">
+    <value>Не е изпратено</value>
+  </data>
+  <data name="CancellationOrder" xml:space="preserve">
+    <value>Анулиране на поръчката</value>
+  </data>
+  <data name="ProductsOrder" xml:space="preserve">
+    <value>Продукти в поръчката</value>
+  </data>
+  <data name="UsersOrders" xml:space="preserve">
+    <value>Потребителски поръчки</value>
+  </data>
+  <data name="MethodPayment" xml:space="preserve">
+    <value>Метод на плащане</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Пълно Име</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>И-мейл</value>
+  </data>
+  <data name="Commands" xml:space="preserve">
+    <value>Команди</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="AdminMenu" xml:space="preserve">
+    <value>Админи меню</value>
+  </data>
+  <data name="UserIsOnline" xml:space="preserve">
+    <value>Потребителят е онлайн</value>
   </data>
 </root>

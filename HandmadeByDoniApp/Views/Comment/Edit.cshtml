@@ -1,7 +1,7 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
 @model CommentFormModel
 @{
-    ViewData["Title"] = $"{App.Add} {App.Edit}";
+    ViewData["Title"] = $"{App.L("Add")} {App.L("Edit")}";
 }
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />
@@ -16,7 +16,7 @@
                 <span asp-validation-for="Text" class="small textdanger"></span>
             </div>
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="@App.Submit" />
+                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Submit")" />
             </div>
         </form>
     </div>

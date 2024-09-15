@@ -1,6 +1,7 @@
-﻿@model ProductFormModel
+﻿@using HandmadeByDoniApp.Web.Resources
+@model ProductFormModel
 @{
-    ViewData["Title"] = "Edit Product";
+    ViewData["Title"] = $"{App.L("Edit")} {App.L("Product")}";
 }
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />

@@ -8,7 +8,7 @@
 
 
 @{
-    ViewBag.Title = App.AllProducts;
+    ViewBag.Title = App.L("AllProducts");
 }
 
 @* <h2 class="text-center title">@ViewBag.Title</h2>*@
@@ -19,20 +19,20 @@
     <div class="row">
         <div class="form-group col-md-2">
             <div class="form-group">
-                <label asp-for="ProductsName">@App.AllProducts</label>
+                <label asp-for="ProductsName">@App.L("AllProducts")</label>
                 <select asp-for="ProductsName" class="form-control" onchange="this.form.submit()">
-                    <option value="0">@App.All</option>
-                    <option value="1">@App.Glass</option>
-                    <option value="2">@App.Decanter</option>
-                    <option value="3">@App.Box</option>
-                    <option value="4">@App.Set</option>
+                    <option value="0">@App.L("All")</option>
+                    <option value="1">@App.L("Glass")</option>
+                    <option value="2">@App.L("Decanter")</option>
+                    <option value="3">@App.L("Box")</option>
+                    <option value="4">@App.L("Set")</option>
                 </select>
             </div>
         </div>
         <div class="form-group col-md-3 d-flex justify-content-lg-between">
 
             <div class="form-group">
-                <label asp-for="ProductPerPage">@App.ProductPerPage</label>
+                <label asp-for="ProductPerPage">@App.L("ProductPerPage")</label>
                 <select asp-for="ProductPerPage" class="form-control" onchange="this.form.submit()">
                     <option value="9">9</option>
                     <option value="18">18</option>
@@ -44,10 +44,10 @@
                 <div class="form-group">
                     <label asp-for="GlassCategory"></label>
                     <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
-                        <option value="">@App.All</option>
+                        <option value="">@App.L("All")</option>
                         @foreach (var category in Model.GlassCategories)
                         {
-                            <option value="@category">@category</option>
+                            <option value="@category">@App.L(category)</option>
                         }
                     </select>
                 </div>
@@ -55,27 +55,27 @@
         </div>
 
         <div class="form-group col-md-3">
-            <label asp-for="SearchString">@App.Search</label>
+            <label asp-for="SearchString">@App.L("Search")</label>
             <input asp-for="SearchString" class="form-control" placeholder="..." onchange="this.form.submit()">
         </div>
 
         <div class="form-group col-md-2">
             <div class="form-group">
-                <label asp-for="ProductSorting">@App.ProductSorting</label>
+                <label asp-for="ProductSorting">@App.L("ProductSorting")</label>
                 <select asp-for="ProductSorting" class="form-control" onchange="this.form.submit()">
-                    <option value="0">@App.Newest</option>
-                    <option value="1">@App.Oldest</option>
-                    <option value="2">@App.PriceAscending</option>
-                    <option value="3">@App.PriceDescending</option>
-                    <option value="4">@App.Available</option>
-                    <option value="5">@App.NotAvailable</option>
+                    <option value="0">@App.L("Newest")</option>
+                    <option value="1">@App.L("Oldest")</option>
+                    <option value="2">@App.L("PriceAscending")</option>
+                    <option value="3">@App.L("PriceDescending")</option>
+                    <option value="4">@App.L("Available")</option>
+                    <option value="5">@App.L("NotAvailable")</option>
                 </select>
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group mt-3 p-2">
-                <input type="submit" value="@App.Search" class="btn button-memu" />
+                <input type="submit" value="@App.L("Search")" class="btn button-memu" />
             </div>
         </div>
     </div>
@@ -135,15 +135,15 @@
         @* <partial name="_ProductPartial" model="@product"  />*@
         <div class="col-md-4">
             <div class="card mb-3">
-                <img class="card-img-top" src="@product.ImageUrl" alt="@App.Image">
+                <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")">
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>
-                    <h6>(@(product.IsActive ? App.Available : App.NotAvailable))</h6>
+                    <h6>(@(product.IsActive ? App.L("Available") : App.L("NotAvailable")))</h6>
                     @if (product.IsActive == true)
                     {
                         <h6>
-                            @App.Price
-                            <b>@($"{product.Price:f2}") @App.Currency</b>
+                            @App.L("Price")
+                            <b>@($"{product.Price:f2}") @App.L("Currency")</b>
                         </h6>
 
                         <a class="btn btn-primary"
@@ -156,14 +156,14 @@
                                                                                               category=Model.GlassCategory,
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
-                           asp-route-id="@product.Id"> @App.Add</a>
+                           asp-route-id="@product.Id"> @App.L("Add")</a>
                     }
                     <br />
                     <a asp-area=""
                        asp-controller="Product"
                        asp-action="Details"
                        asp-route-id="@product.Id"
-                       class="btn btn-success">@App.Details</a>
+                       class="btn btn-success">@App.L("Details")</a>
 
                     @if (User.IsAdmin())
                     {
@@ -172,7 +172,7 @@
                            asp-controller="Product"
                            asp-action="Edit"
                            asp-route-id="@product.Id"
-                           class="btn btn-warning">@App.Edit</a>
+                           class="btn btn-warning">@App.L("Edit")</a>
 
                         <a asp-area="Admin"
                            asp-controller="Product"
@@ -184,7 +184,7 @@
                                                                                               category=Model.GlassCategory,
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
-                           class="btn btn-danger">@App.Delete</a>
+                           class="btn btn-danger">@App.L("Delete")</a>
 
                         if (product.IsActive == false)
                         {
@@ -198,7 +198,7 @@
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
                                asp-route-id="@product.Id"
-                               class="btn btn-dark">@App.Restore</a>
+                               class="btn btn-dark">@App.L("Restore")</a>
                         }
                     }
 
@@ -206,7 +206,7 @@
                        asp-area=""
                        asp-controller="Product"
                        asp-action="Comment"
-                       asp-route-id="@product.Id">@App.Comment</a>
+                       asp-route-id="@product.Id">@App.L("Comment")</a>
 
                 </div>
             </div>

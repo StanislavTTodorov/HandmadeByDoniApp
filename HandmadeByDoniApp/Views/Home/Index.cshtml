@@ -1,7 +1,9 @@
-﻿@model IEnumerable<IndexViewModel>
+﻿@using HandmadeByDoniApp.Web.Resources
+@model IEnumerable<IndexViewModel>
 
 @{
-    ViewData["Title"] = "New Products"; var products = Model.ToList();
+    ViewData["Title"] = App.L("NewProducts"); 
+    var products = Model.ToList();
 }
 <head>
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
@@ -29,14 +31,14 @@ else
         @foreach (IndexViewModel product in products)
         {
             <div class="min-card w-25">
-                <img src="@product.ImageUrl" class="d-block w-100 img" alt="@product.Title">
+                <img src="@product.ImageUrl" class="d-block w-100 img" alt="@App.L("Image")">
                 <div class="card-body">
                     <h5 class="card">
                         <a class="btn btn-primary"
                            asp-area=""
                            asp-controller="Product"
                            asp-action="Details"
-                           asp-route-id="@product.Id"> @product.Title</a>
+                           asp-route-id="@product.Id">@App.L("Name"): @product.Title</a>
                     </h5>
                 </div>
             </div>

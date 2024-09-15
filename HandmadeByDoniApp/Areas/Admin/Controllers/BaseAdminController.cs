@@ -12,5 +12,6 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
         protected ILogger<T>? Logger
             => this.logger ??= HttpContext.RequestServices.GetRequiredService<ILogger<T>>();
+
     }
 }

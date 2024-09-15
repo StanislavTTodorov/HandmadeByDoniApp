@@ -59,13 +59,26 @@ namespace HandmadeByDoniApp.Web.Resources {
                 resourceCulture = value;
             }
         }
-        
+        public static string L(string word)
+        {
+            string newWord = ResourceManager.GetString(word, resourceCulture);
+            return string.IsNullOrEmpty(newWord) ? word : newWord;
+        }
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AddAddressCompleteOrder {
+            get {
+                return ResourceManager.GetString("AddAddressCompleteOrder", resourceCulture);
             }
         }
         
@@ -84,6 +97,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AdminMenu {
+            get {
+                return ResourceManager.GetString("AdminMenu", resourceCulture);
             }
         }
         
@@ -144,6 +166,24 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Buy {
+            get {
+                return ResourceManager.GetString("Buy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CancellationOrder {
+            get {
+                return ResourceManager.GetString("CancellationOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Cart {
             get {
                 return ResourceManager.GetString("Cart", resourceCulture);
@@ -156,6 +196,24 @@ namespace HandmadeByDoniApp.Web.Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Commands {
+            get {
+                return ResourceManager.GetString("Commands", resourceCulture);
             }
         }
         
@@ -180,9 +238,27 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -207,6 +283,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DeliveryCompany {
+            get {
+                return ResourceManager.GetString("DeliveryCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
@@ -225,9 +310,27 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
             }
         }
         
@@ -306,9 +409,36 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string MethodPayment {
+            get {
+                return ResourceManager.GetString("MethodPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Newest {
             get {
                 return ResourceManager.GetString("Newest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NewProducts {
+            get {
+                return ResourceManager.GetString("NewProducts", resourceCulture);
             }
         }
         
@@ -333,6 +463,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string NoProducts {
+            get {
+                return ResourceManager.GetString("NoProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string NotAvailable {
             get {
                 return ResourceManager.GetString("NotAvailable", resourceCulture);
@@ -341,6 +480,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NotSent {
+            get {
+                return ResourceManager.GetString("NotSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  .
         /// </summary>
         public static string Oldest {
             get {
@@ -351,9 +499,27 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  .
+        /// </summary>
         public static string OrderStatus {
             get {
                 return ResourceManager.GetString("OrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
             }
         }
         
@@ -387,9 +553,36 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductBuy {
+            get {
+                return ResourceManager.GetString("ProductBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ProductPerPage {
             get {
                 return ResourceManager.GetString("ProductPerPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProductsOrder {
+            get {
+                return ResourceManager.GetString("ProductsOrder", resourceCulture);
             }
         }
         
@@ -414,9 +607,27 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Restore {
             get {
                 return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -441,9 +652,45 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Sent {
+            get {
+                return ResourceManager.GetString("Sent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Set {
             get {
                 return ResourceManager.GetString("Set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ShopList {
+            get {
+                return ResourceManager.GetString("ShopList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Street {
+            get {
+                return ResourceManager.GetString("Street", resourceCulture);
             }
         }
         
@@ -459,9 +706,45 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserIsOnline {
+            get {
+                return ResourceManager.GetString("UserIsOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UsersOrders {
+            get {
+                return ResourceManager.GetString("UsersOrders", resourceCulture);
             }
         }
         

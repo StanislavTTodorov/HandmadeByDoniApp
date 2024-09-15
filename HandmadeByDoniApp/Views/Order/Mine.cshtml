@@ -1,7 +1,9 @@
-﻿@model MineProductViewModel
+﻿@using HandmadeByDoniApp.Web.Resources
+
+@model MineProductViewModel
 
 @{
-    ViewBag.Title = "Shop List";
+    ViewBag.Title = App.L("ShopList");
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/Mine.css" asp-append-version="true" />
@@ -18,21 +20,21 @@
         {
             <div class="col-8 mt-2">
                 <div class="card-list">
-                    <img class="card-img-list" src="@product.ImageUrl" alt="Image">
+                    <img class="card-img-list" src="@product.ImageUrl" alt="@App.L("Image")">
 
                     <div class="product-info">
                         <h4>@product.Title</h4>
                         <h6>
-                            Price: <b>@($"{product.Price:f2}") BGN</b>
+                            @App.L("Price"): <b>@($"{product.Price:f2}") @App.L("Currency")</b>
                         </h6>
                         <h6>
                             @if (product.IsActive)
                             {
-                                <p class="text-info">Available</p>
+                                <p class="text-info">@App.L("Available")</p>
                             }
                             else
                             {
-                                <p class="text-danger">Not Available</p>
+                                <p class="text-danger">@App.L("NotAvailable")</p>
                             }
                         </h6>
                     </div>
@@ -41,36 +43,36 @@
                            asp-controller="Product"
                            asp-action="Details"
                            asp-route-id="@product.Id"
-                           class="btn btn-success">Details</a>
+                           class="btn btn-success">@App.L("Details")</a>
 
                         <a asp-area=""
                            asp-controller="Order"
                            asp-action="Remove"
                            asp-route-id="@product.Id"
-                           class="btn btn-primary">Remove</a>
+                           class="btn btn-primary">@App.L("Remove")</a>
 
                         <a class="ml-2 btn btn-info"
                            asp-area=""
                            asp-controller="Comment"
                            asp-action="Comment"
-                           asp-route-id="@product.Id">Comment</a>
+                           asp-route-id="@product.Id">@App.L("Comment")</a>
                     </div>
                 </div>
             </div>
         }
         <div class="card-list text-center col-8 mt-4">
-            <h3>Total Price: @($"{Model.totalPrice:f2}")  BGN</h3>
+            <h3>@App.L("Total") @App.L("Price").ToLower(): @($"{Model.totalPrice:f2}")  @App.L("Currency")</h3>
             <a asp-area=""
                asp-controller="Order"
                asp-action="DetailsOrder"
-               class="btn btn-outline-primary text-size">Buy</a>
+               class="btn btn-outline-primary text-size"> @App.L("Buy")</a>
 
         </div>
     }
     else
     {
         <p class="lead">
-            There are no product in the shop list.
+            @App.L("NoProducts")
         </p>
     }
 </article>

@@ -12,7 +12,7 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class HomeController : BaseController<HomeController>
     {
         private readonly IProductService product;
-        
+
 
         public HomeController(IProductService product)
         {

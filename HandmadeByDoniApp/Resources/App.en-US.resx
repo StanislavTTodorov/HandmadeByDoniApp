@@ -120,11 +120,11 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="AddNewProducts" xml:space="preserve">
     <value>Add New Products</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Address</value>
   </data>
   <data name="All" xml:space="preserve">
     <value> All </value>
@@ -133,7 +133,7 @@
     <value>All  Products</value>
   </data>
   <data name="AllUser" xml:space="preserve">
-    <value>AllUser</value>
+    <value>All User</value>
   </data>
   <data name="Available" xml:space="preserve">
     <value>Available</value>
@@ -152,9 +152,6 @@
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
-  </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact Us</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>BGN</value>
@@ -180,9 +177,6 @@
   <data name="HandmadeByDoni" xml:space="preserve">
     <value>Handmade By Doni</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Hello</value>
-  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -192,20 +186,11 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
   <data name="Newest" xml:space="preserve">
     <value>Newest</value>
   </data>
   <data name="NewstOrders" xml:space="preserve">
     <value>Newst Orders</value>
-  </data>
-  <data name="NoComments" xml:space="preserve">
-    <value>No comments. Be the first to comment!</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Not Available</value>
@@ -231,9 +216,6 @@
   <data name="ProductSorting" xml:space="preserve">
     <value>Product Sorting</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register</value>
-  </data>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>
   </data>
@@ -246,16 +228,124 @@
   <data name="Set" xml:space="preserve">
     <value>Set</value>
   </data>
+  <data name="WebDesign" xml:space="preserve">
+    <value>Web аesign by STTodorov</value>
+  </data>
+  <data name="NewProducts" xml:space="preserve">
+    <value>New Products</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>No Comments</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>To</value>
-  </data>
-  <data name="WebDesign" xml:space="preserve">
-    <value>Web аesign by STTodorov</value>
+    <value>to</value>
   </data>
   <data name="Write" xml:space="preserve">
-    <value> Write a</value>
+    <value>Write</value>
+  </data>
+  <data name="ShopList" xml:space="preserve">
+    <value>Shop List</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="NoProducts" xml:space="preserve">
+    <value>There are no product in the shop list.</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="AddAddressCompleteOrder" xml:space="preserve">
+    <value>Add an address to complete the order.</value>
+  </data>
+  <data name="ProductBuy" xml:space="preserve">
+    <value>Products to Buy</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="DeliveryCompany" xml:space="preserve">
+    <value>Delivery Company</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="NotSent" xml:space="preserve">
+    <value>Not Sent</value>
+  </data>
+  <data name="CancellationOrder" xml:space="preserve">
+    <value>Cancellation of the order</value>
+  </data>
+  <data name="ProductsOrder" xml:space="preserve">
+    <value>Products in Orders</value>
+  </data>
+  <data name="UsersOrders" xml:space="preserve">
+    <value>Users Orders</value>
+  </data>
+  <data name="MethodPayment" xml:space="preserve">
+    <value>Method Payment</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Commands" xml:space="preserve">
+    <value>Commands</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="AdminMenu" xml:space="preserve">
+    <value>Admin Menu</value>
+  </data>
+  <data name="UserIsOnline" xml:space="preserve">
+    <value>User Is Online</value>
   </data>
 </root>
