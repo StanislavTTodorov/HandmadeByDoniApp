@@ -47,6 +47,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             try
             {
+                //Запис на снимка 
+                formModel.ImageUrl = await UploadImage(formModel.Image, formModel.Title);
                 await this.productService.CreateProductAsync(formModel);
                 this.TempData[SuccessMessage] = string.Format(AddSuccessfully, nameof(Product));
             }
@@ -160,7 +162,24 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.GeneralError(returnUrl);
             }
         }
+        public async Task<string> UploadImage(IFormFile imageFile,string name)
+        {
 
+            // Определете пътя за съхранение
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            Directory.CreateDirectory(uploadPath); // Създава папката, ако не съществува
+
+            // Уникално име за файла
+            var fileName = $"{name}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+            var filePath = Path.Combine(uploadPath, fileName);
+
+            // Запазване на файла
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return $"/uploads/{fileName}";
+        }
         private async  Task<IActionResult> ModelStateNotValid(ProductFormModel formModel)
         {
             formModel.Categories = await this.categoryService.AllCategoriesAsync();

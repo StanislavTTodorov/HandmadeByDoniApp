@@ -1,5 +1,6 @@
 ﻿using HandmadeByDoniApp.Web.ViewModels.Category;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using static HandmadeByDoniApp.Common.EntityValidationConstants.Product;
 
 namespace HandmadeByDoniApp.Web.ViewModels.Product
@@ -9,6 +10,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
         public ProductFormModel()
         {
             this.Categories = new HashSet<SelectCategoryFormModel>();
+            this.Images = new HashSet<IFormFile>();
         }
 
         public string? Id { get; set; }
@@ -20,9 +22,11 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
         [StringLength(DescriptionMaxLength)]
         public string? Description { get; set; }
 
-        [Required]
-        [Display(Name = "Image Link")]
-        public string ImageUrl { get; set; } = null!;
+        public string? ImageUrl { get; set; }
+
+        [Required(ErrorMessage = "Please Upload Files")]
+        [Display(Name = "Upload Files")]
+        public IEnumerable<IFormFile> Images { get; set; } 
 
         [Range(typeof(decimal), PriceMinLength, PriceMaxLength)]
         public decimal Price { get; set; }
