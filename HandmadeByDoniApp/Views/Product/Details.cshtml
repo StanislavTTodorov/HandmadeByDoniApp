@@ -12,7 +12,8 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="@App.L("Image")">
+            @* <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="@App.L("Image")"> *@
+            <partial name="_ImageUrlsPartial" model="@Model" />
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>

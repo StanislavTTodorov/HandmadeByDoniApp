@@ -1,0 +1,25 @@
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@model ProductViewModel
+@{
+    string[] imageUrls = Model.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();
+}
+
+<div id="productCarousel" class="w-100" data-bs-ride="carousel">
+
+        @foreach (var imageUrl in imageUrls)
+        {
+            <div class="carousel-item @(imageUrl == imageUrls.First() ? "active" : "")">
+                <img src="@imageUrl" class="d-block w-100 img" alt="Image">
+            </div>
+        }
+    <!-- Контроли за предишна и следваща снимка -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

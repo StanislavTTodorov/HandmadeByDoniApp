@@ -4,6 +4,7 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Data.Models;
+using AngleSharp.Css.Values;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -48,7 +49,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             try
             {
                 //Запис на снимка 
-                formModel.ImageUrl = await UploadImage(formModel.Image, formModel.Title);
+                formModel.ImageUrls = await UploadImage(formModel);
                 await this.productService.CreateProductAsync(formModel);
                 this.TempData[SuccessMessage] = string.Format(AddSuccessfully, nameof(Product));
             }
@@ -162,23 +163,32 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.GeneralError(returnUrl);
             }
         }
-        public async Task<string> UploadImage(IFormFile imageFile,string name)
+        public async Task<string> UploadImage(ProductFormModel formModel)
         {
 
             // Определете пътя за съхранение
             var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             Directory.CreateDirectory(uploadPath); // Създава папката, ако не съществува
+            string Date = DateTime.Now.ToShortDateString().Replace(" г.", string.Empty);
+            List<string> imageUrls = new List<string>();
 
-            // Уникално име за файла
-            var fileName = $"{name}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
-            var filePath = Path.Combine(uploadPath, fileName);
-
-            // Запазване на файла
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            foreach (var imageFile in formModel.Images)
             {
-                await imageFile.CopyToAsync(fileStream);
+                // Уникално име за файла с разширение
+                string fileName = $"{formModel.Title}_{Date}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+                string filePath = Path.Combine(uploadPath, fileName);
+
+                // Запазване на файла
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(fileStream);
+                }
+
+                // Добавяне на URL към списъка
+                imageUrls.Add($"/uploads/{fileName}");
             }
-            return $"/uploads/{fileName}";
+
+            return string.Join(",", imageUrls);
         }
         private async  Task<IActionResult> ModelStateNotValid(ProductFormModel formModel)
         {

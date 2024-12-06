@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = App.L("NewProducts"); 
     var products = Model.ToList();
+    ProductViewModel productViewModel = new ProductViewModel();
 }
 <head>
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
@@ -30,8 +31,31 @@ else
     <div class="card-product">
         @foreach (IndexViewModel product in products)
         {
+            productViewModel.ImageUrl = product.ImageUrl;
+            @*  string[] imageUrls = product.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray(); *@
             <div class="min-card w-25">
-                <img src="@product.ImageUrl" class="d-block w-100 img" alt="@App.L("Image")">
+
+                @* <img src="@product.ImageUrl" class="d-block w-100 img" alt="@App.L("Image")"> *@
+               @*  <div id="productCarousel" data-bs-ride="carousel">
+                    <div>
+                        @foreach (var imageUrl in imageUrls)
+                        {
+                            <div class="carousel-item @(imageUrl == imageUrls.First() ? "active" : "")">
+                                <img src="@imageUrl" class="d-block w-100 img" alt="@App.L("Image")">
+                            </div>
+                        }
+                    </div>
+                    <!-- Контроли за предишна и следваща снимка -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div> *@
+                <partial name="_ImageUrlsPartial" model="@productViewModel" />
                 <div class="card-body">
                     <h5 class="card">
                         <a class="btn btn-primary"

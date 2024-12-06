@@ -22,7 +22,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Product
         [StringLength(DescriptionMaxLength)]
         public string? Description { get; set; }
 
-        public string? ImageUrl { get; set; }
+        public string? ImageUrls { get; set; }
 
         [Required(ErrorMessage = "Please Upload Files")]
         [Display(Name = "Upload Files")]

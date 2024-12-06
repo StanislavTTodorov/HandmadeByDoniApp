@@ -198,7 +198,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             {
                 Title = formModel.Title,
                 Description = formModel.Description,
-                ImageUrl = formModel.ImageUrl,
+                ImageUrl = formModel.ImageUrls,
                 Price = formModel.Price,
                 CategoryId = formModel.CategoryId,
                 IsActive = true,
@@ -243,7 +243,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             {
                 Title = product.Title,
                 Description = product.Description,
-                ImageUrl = product.ImageUrl,
+                ImageUrls = product.ImageUrl,
                 Price = product.Price,
                 CategoryId = product.CategoryId
             };
@@ -255,7 +255,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
        
             product.Title = formModel.Title;
             product.Description = formModel.Description;
-            product.ImageUrl = formModel.ImageUrl;
+            product.ImageUrl = formModel.ImageUrls;
             product.Price = formModel.Price;
             product.CategoryId = formModel.CategoryId;
 

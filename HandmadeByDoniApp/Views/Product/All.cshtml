@@ -9,6 +9,7 @@
 
 @{
     ViewBag.Title = App.L("AllProducts");
+    ProductViewModel productViewModel = new ProductViewModel();
 }
 
 @* <h2 class="text-center title">@ViewBag.Title</h2>*@
@@ -135,7 +136,9 @@
         @* <partial name="_ProductPartial" model="@product"  />*@
         <div class="col-md-4">
             <div class="card mb-3">
-                <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")">
+                @* <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")"> *@
+                @{productViewModel.ImageUrl = product.ImageUrl;}
+                <partial name="_ImageUrlsPartial" model="@productViewModel" />
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>
                     <h6>(@(product.IsActive ? App.L("Available") : App.L("NotAvailable")))</h6>

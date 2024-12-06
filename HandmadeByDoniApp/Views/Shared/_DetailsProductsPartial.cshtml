@@ -6,7 +6,7 @@
 
 <div class="col-md-4">
     <div class="card mb-3">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="Image">
+        <partial name="_ImageUrlsPartial" model="@Model" />
         <div class="card-body text-center">
             <h4>@Model.Title</h4>           
             <br />
