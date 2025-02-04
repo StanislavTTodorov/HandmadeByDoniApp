@@ -67,8 +67,8 @@ public class Program
         var localizationOptions = new RequestLocalizationOptions
         {
             DefaultRequestCulture = new RequestCulture("en-US"),
-            SupportedCultures = supportedCultures.Select(culture => new CultureInfo(culture[0])).ToList(),
-            SupportedUICultures = supportedCultures.Select(culture => new CultureInfo(culture[1])).ToList(),
+            SupportedCultures = supportedCultures.Select(culture => new CultureInfo(culture)).ToList(),
+            SupportedUICultures = supportedCultures.Select(culture => new CultureInfo(culture)).ToList(),
         };
 
         app.UseRequestLocalization(localizationOptions);

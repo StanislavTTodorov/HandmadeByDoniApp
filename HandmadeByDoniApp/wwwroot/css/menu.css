@@ -29,15 +29,18 @@
 }
 
 
-.button-memu{
+.button-menu {
+    position: relative;
+    z-index: 10;
     display: block;
     background-color: #C16519;
     color: #fff;
     padding: 0.5em 1em;
     border-radius: 0.3em;
+    pointer-events: auto;
 }
 .navbar-menu li:hover>.button-memu,
-.button-memu:hover{
+.button-menu:hover{
 
     background-color: rgb(182, 118, 93);
     color: white;

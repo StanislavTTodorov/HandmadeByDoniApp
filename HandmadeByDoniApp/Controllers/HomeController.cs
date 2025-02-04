@@ -18,12 +18,19 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             this.product = product;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult SetCulture(string culture, string returnUrl)
         {
-            if (culture == null) { culture = "en-US"; }
-            if (returnUrl == null) { returnUrl = "/"; }
+            if (culture == null)
+            { 
+                culture = "en-US"; 
+            }
+            if (returnUrl == null) 
+            {
+                returnUrl = "/";
+            }
             Response.Cookies.Append(
            CookieRequestCultureProvider.DefaultCookieName,
            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
@@ -31,11 +38,12 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             return LocalRedirect(returnUrl); // Пренасочете обратно към страницата, откъдето идва заявката
         }
+
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<IndexViewModel> viewModels =
-                await this.product.LastTwelveProductsAsync();
+            IEnumerable<IndexViewModel> viewModels = await this.product.LastTwelveProductsAsync();
             return this.View(viewModels);
         }
 

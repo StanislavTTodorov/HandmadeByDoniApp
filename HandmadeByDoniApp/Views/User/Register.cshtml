@@ -11,38 +11,76 @@
             <h2 class="text-center m-4">Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-floating mb-2">
                 <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Email"></label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-2">
-                <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+
+            <div class="form-floating mb-2 position-relative">
+                <input asp-for="Password" class="form-control password-field" id="passwordField" type="password" autocomplete="new-password" aria-required="true" />
                 <label asp-for="Password"></label>
                 <span asp-validation-for="Password" class="text-danger"></span>
+
+                <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2 toggle-password">
+                    <i class="fa fa-eye"></i>
+                </button>
             </div>
-            <div class="form-floating mb-2">
-                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+
+            <div class="form-floating mb-2 position-relative">
+                <input asp-for="ConfirmPassword" class="form-control password-field" id="confirmPasswordField" type="password" autocomplete="new-password" aria-required="true" />
                 <label asp-for="ConfirmPassword"></label>
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2 toggle-password">
+                    <i class="fa fa-eye"></i>
+                </button>
             </div>
+
             <div class="form-floating mb-2">
                 <input asp-for="FirstName" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="FirstName"></label>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
+
             <div class="form-floating mb-2">
                 <input asp-for="LastName" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="LastName"></label>
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
 
-            <recaptcha-v3 form-id="registerForm" action="Register" class="w-100 btn btn-lg btn-primary">Register</recaptcha-v3>
+            <recaptcha-v3 form-id="registerForm" action="Register" class="w-100 border-light button-menu">Register</recaptcha-v3>
         </form>
+        <button type="button" class="mt-2 w-100 border-light  button-menu">
+            <span>Log in wiht Google</span>
+        </button>
     </div>
 </div>
 
 @section Scripts {
     <recaptcha-script />
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toggle-password").forEach(button => {
+                button.addEventListener("click", function () {
+                    let container = this.closest('.position-relative'); // Взимаме родителския контейнер
+                    let input = container.querySelector('input'); // Намираме полето за парола
+                    let icon = this.querySelector("i"); // Взимаме иконата вътре в бутона
+
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove("fa-eye");
+                        icon.classList.add("fa-eye-slash");
+                    } else {
+                        input.type = "password";
+                        icon.classList.remove("fa-eye-slash");
+                        icon.classList.add("fa-eye");
+                    }
+                });
+            });
+        });
+
+    </script>
 }
