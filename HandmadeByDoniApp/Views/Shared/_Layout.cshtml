@@ -22,16 +22,6 @@
 
 </head>
 
-<style>
-    .language-selector {
-        font-size: 16px;
-        text-decoration: none;
-        color: #000;
-        display: flex;
-        align-items: center;
-    }
-</style>
-
 <body>
     <div class="site">
         <header class="site-header">
@@ -51,15 +41,15 @@
             <nav class="navbar-menu">
                 <div class="left-menu">
                     <ul class="menu">
-
-                        <li>
-                            @if (!(User.Identity?.IsAuthenticated ?? false))
+                         @if (!(User.Identity?.IsAuthenticated ?? false))
                             {
-                                <a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a>
-                            }
-                        </li>
-
                         <li>
+                           
+                                <a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a>
+                            
+                        </li>
+                        }
+                        
                             @*    <form  asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
                             <select style="max-width:80px" class="button-menu" name="culture" onchange="this.form.submit()">
                             <option value="" class="white-globe"> 🌍 </option>
@@ -68,27 +58,26 @@
                             </select>
                             <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
                             </form>  *@
-                            <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+                           @*  <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
                                 <select class="w-100 button-menu" name="culture" onchange="this.form.submit()" id="culture-select">
                                     <option hidden value="">@App.L("Language")</option> 
-                                    <option value="en-US" data-flag="https://flagpedia.net/data/flags/h80/gb.png" ></option>
-                                    <option value="bg-BG" data-flag="https://flagpedia.net/data/flags/h80/bg.png"></option>
+                                    <option value="en-US" data-flag="https://flagpedia.net/data/flags/h80/gb.png"></option>
+                                    <option value="bg-BG" data-flag="https://flagpedia.net/data/flags/h80/bg.png"><</option>
                                 </select>
                                 <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                            </form>
-                            
-                        </li>
-                        <li>
-                            <form asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
-                                <select class="button-menu" name="culture" onchange="this.form.submit()">
+                            </form> *@
+                        
+                    @*     <li>
+                            <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+                                <select name="culture" onchange="this.form.submit()" id="culture-select" class="button-menu">
                                     <option hidden value="">@App.L("Language")</option>
-                                    <option value="en-US">@App.L("English")</option>
-                                    <option value="bg-BG">@App.L("Bulgarian")</option>
+                                    <option data-flag="https://flagpedia.net/data/flags/h80/gb.png" value="en-US">@App.L("English")</option>
+                                    <option data-flag="https://flagpedia.net/data/flags/h80/bg.png" value="bg-BG">@App.L("Bulgarian")</option>
                                 </select>
                                 <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                                @*  <noscript><button type="submit">Submit</button></noscript> *@
+                                @*  <noscript><button type="submit">Submit</button></noscript> 
                             </form>
-                        </li>
+                        </li> *@
                         <li>
                             <a class="button-menu" asp-area="" asp-controller="Product" asp-action="All">@App.L("AllProducts")</a>
                         </li>
@@ -118,12 +107,11 @@
                                     <li>
                                         <a class="button-menu" asp-area="Admin" asp-controller="User" asp-action="All">@App.L("AllUser") </a>
                                     </li>
+                                    <li>
+                                        <a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a>
+                                    </li>
                                 </ul>
-                            </li>
-
-                            <li>
-                                <a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a>
-                            </li>
+                            </li>                         
                         }
                         <partial name="_LoginPartial" />
                     </ul>
@@ -144,7 +132,7 @@
                         @Html.Raw($" - {DateTime.UtcNow.Year}")
                     }
                 </p>
-                <p>@App.L("WebDesign")</p>
+                <p>@App.L("WebDesign")</p>  
             </div>
             <div class="social-media">
                 <p class="text-center">@App.L("ContactUs")</p>
@@ -167,26 +155,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         @await RenderSectionAsync("Scripts", required: false)
-        <script>
-            $(document).ready(function () {
-                $('#culture-select').select2({
-                    templateResult: function (data) {
-                        if (!data.element) return data.text;
-                        var flagUrl = $(data.element).data('flag');
-                        if (!flagUrl) { return data.text; }
-                        var $result =   $('<span><img src="' + flagUrl + '" style="width: 30px; vertical-align: middle;" /> </span>');
-                        return $result;
-                    },
-                    templateSelection: function (data) {
-                        if (!data.element) return data.text;
-                        var flagUrl = $(data.element).data('flag');
-                        if (!flagUrl) { return data.text; }
-                        var $result = $('<span><img src="' + flagUrl + '" style="width: 30px; vertical-align: middle;" /> </span>');
-                        return $result;
-                    }
-                });
-            });
-        </script>
     </div>
 </body>
 

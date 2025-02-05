@@ -21,6 +21,18 @@
             <button type="submit" class="nav-link btn btn-link text-white button-menu">@App.L("Logout")</button>
         </form>
     </li>
+
+    <li>
+        <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+            <select name="culture" onchange="this.form.submit()" id="culture-select" class="button-menu">
+                <option hidden value="">@App.L("Language")</option>
+                <option data-flag="https://flagpedia.net/data/flags/h80/gb.png" value="en-US">@App.L("English")</option>
+                <option data-flag="https://flagpedia.net/data/flags/h80/bg.png" value="bg-BG">@App.L("Bulgarian")</option>
+            </select>
+            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+            @*  <noscript><button type="submit">Submit</button></noscript> *@
+        </form>
+    </li>
 }
 else
 {
@@ -29,6 +41,18 @@ else
     </li>
     <li class="nav-item">
         <a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a>
+    </li>
+
+    <li>
+        <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+            <select name="culture" onchange="this.form.submit()" id="culture-select" class="button-menu">
+                <option hidden value="">@App.L("Language")</option>
+                <option data-flag="https://flagpedia.net/data/flags/h80/gb.png" value="en-US">@App.L("English")</option>
+                <option data-flag="https://flagpedia.net/data/flags/h80/bg.png" value="bg-BG">@App.L("Bulgarian")</option>
+            </select>
+            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+            @*  <noscript><button type="submit">Submit</button></noscript> *@
+        </form>
     </li>
     /*
     <li class="nav-item">
