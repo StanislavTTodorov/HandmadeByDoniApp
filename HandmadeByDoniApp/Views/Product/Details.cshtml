@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = App.L("Details"); //"Prduct Details";
+    string carouselId = null;
 }
 
 <h2 class="text-center title">@ViewBag.Title</h2>
@@ -13,7 +14,7 @@
     <div class="row">
         <div class="col-4">
             @* <img class="card-img-top" style="width: 20rem;" src="@Model.ImageUrl" alt="@App.L("Image")"> *@
-            <partial name="_ImageUrlsPartial" model="@Model" />
+            <partial name="_ImageUrlsPartial" model="@(Model.ImageUrl,carouselId)" />
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>

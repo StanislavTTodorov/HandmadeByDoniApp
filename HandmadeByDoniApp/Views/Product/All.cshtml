@@ -97,14 +97,14 @@
 <div class="row mb-5">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary  @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="Product"
-           asp-action="All"
-           asp-route-currentPage="@previousPage"
-           asp-route-productPerPage="@(Model.ProductPerPage)"
-           asp-route-productsName="@((int)Model.ProductsName)"
-           asp-route-category="@Model.GlassCategory"
-           asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)"><<</a>
+        asp-controller="Product"
+        asp-action="All"
+        asp-route-currentPage="@previousPage"
+        asp-route-productPerPage="@(Model.ProductPerPage)"
+        asp-route-productsName="@((int)Model.ProductsName)"
+        asp-route-category="@Model.GlassCategory"
+        asp-route-searchString="@Model.SearchString"
+        asp-route-sorting="@((int)Model.ProductSorting)"><<</a>
     </div>
 
     @{
@@ -114,14 +114,14 @@
 
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-           asp-controller="Product"
-           asp-action="All"
-           asp-route-currentPage="@(Model.CurrentPage + 1)"
-           asp-route-productPerPage="@(Model.ProductPerPage)"
-           asp-route-productsName="@((int)Model.ProductsName)"
-           asp-route-category="@Model.GlassCategory"
-           asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)">>></a>
+        asp-controller="Product"
+        asp-action="All"
+        asp-route-currentPage="@(Model.CurrentPage + 1)"
+        asp-route-productPerPage="@(Model.ProductPerPage)"
+        asp-route-productsName="@((int)Model.ProductsName)"
+        asp-route-category="@Model.GlassCategory"
+        asp-route-searchString="@Model.SearchString"
+        asp-route-sorting="@((int)Model.ProductSorting)">>></a>
     </div>
 </div>
 
@@ -133,12 +133,13 @@
 <div class="row">
     @foreach (var product in Model.Products)
     {
+        string carouselId = $"productCarousel_{product.Id}";
         @* <partial name="_ProductPartial" model="@product"  />*@
         <div class="col-md-4">
             <div class="card mb-3">
                 @* <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")"> *@
                 @{productViewModel.ImageUrl = product.ImageUrl;}
-                <partial name="_ImageUrlsPartial" model="@productViewModel" />
+                <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>
                     <h6>(@(product.IsActive ? App.L("Available") : App.L("NotAvailable")))</h6>

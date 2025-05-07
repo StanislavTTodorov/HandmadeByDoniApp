@@ -1,12 +1,15 @@
 ﻿@using HandmadeByDoniApp.Services.Data.Interfaces
 @using HandmadeByDoniApp.Web.Infrastructure.Extensions
 @model ProductViewModel
+@{
+    string carouselId = null;
+}
 
 
 
 <div class="col-md-4">
     <div class="card mb-3">
-        <partial name="_ImageUrlsPartial" model="@Model" />
+        <partial name="_ImageUrlsPartial" model="@(Model.ImageUrl,carouselId)" />
         <div class="card-body text-center">
             <h4>@Model.Title</h4>           
             <br />
