@@ -39,7 +39,7 @@ namespace HandmadeByDoniApp.Data
             
             builder.ApplyConfiguration(new UserOrderConfiguration());
 
-            bool seed = false;
+            bool seed = true;
            if(seed)
             {
                 builder.ApplyConfiguration(new SeedCategoryConfiguration());
