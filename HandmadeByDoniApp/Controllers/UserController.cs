@@ -12,6 +12,7 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -22,15 +23,18 @@ namespace HandmadeByDoniApp.Web.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMemoryCache memoryCache;
+        private readonly ILogger<UserController> logger;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
-                              IMemoryCache memoryCache)
+                              IMemoryCache memoryCache,
+                              ILogger<UserController> logger)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
 
             this.memoryCache = memoryCache;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -87,13 +91,14 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
+            logger.LogWarning("Login page accessed.");
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             LoginFormModel model = new LoginFormModel()
             {
                 ReturnUrl = returnUrl
             };
-
+            logger.LogWarning("Login page model created.");
             return this.View(model);
         }
 
@@ -101,20 +106,24 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
+            logger.LogWarning("Login post action accessed.");
             if (ModelState.IsValid==false)
             {
+                logger.LogCritical("Model state is not valid.");
                 return this.View(model);
             }
-
+            logger.LogWarning("Model state is valid.");
             var result = 
                 await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            logger.LogWarning("Password sign in result: {result}", result.Succeeded);
 
             if (result.Succeeded==false)
             {
+                logger.LogCritical("Login failed.");
                 TempData[ErrorMessage] = LogginError;
                 return this.View(model);
             }
-
+            logger.LogWarning("Login successful.");
             return this.Redirect(model.ReturnUrl ?? "/Home/Index");
         }
     }
