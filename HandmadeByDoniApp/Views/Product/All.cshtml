@@ -138,7 +138,7 @@
         <div class="col-md-4">
             <div class="card mb-3">
                 @* <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")"> *@
-                @{productViewModel.ImageUrl = product.ImageUrl;}
+               @*  @{productViewModel.ImageUrl = product.ImageUrl;} *@
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>

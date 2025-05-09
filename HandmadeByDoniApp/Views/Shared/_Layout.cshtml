@@ -21,7 +21,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
-
+<style>
+    .fullscreen-modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+    .fullscreen-modal.active {
+        display: flex;
+    }
+    .fullscreen-image {
+        max-width: 90%;
+        max-height: 90%;
+    }
+    .close-btn {
+        position: absolute;
+        top: 20px; right: 30px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+    .modal-nav {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .modal-nav-btn {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 30px;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+</style>
 <body>
     <div class="site">
         <header class="site-header">
@@ -41,43 +83,14 @@
             <nav class="navbar-menu">
                 <div class="left-menu">
                     <ul class="menu">
-                         @if (!(User.Identity?.IsAuthenticated ?? false))
-                            {
-                        <li>
-                           
+                        @if (!(User.Identity?.IsAuthenticated ?? false))
+                        {
+                            <li>
+
                                 <a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a>
-                            
-                        </li>
+
+                            </li>
                         }
-                        
-                            @*    <form  asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
-                            <select style="max-width:80px" class="button-menu" name="culture" onchange="this.form.submit()">
-                            <option value="" class="white-globe"> 🌍 </option>
-                            <option value="en-US"> 🇬🇧 </option>
-                            <option value="bg-BG">🇧🇬 </option>
-                            </select>
-                            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                            </form>  *@
-                           @*  <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
-                                <select class="w-100 button-menu" name="culture" onchange="this.form.submit()" id="culture-select">
-                                    <option hidden value="">@App.L("Language")</option> 
-                                    <option value="en-US" data-flag="https://flagpedia.net/data/flags/h80/gb.png"></option>
-                                    <option value="bg-BG" data-flag="https://flagpedia.net/data/flags/h80/bg.png"><</option>
-                                </select>
-                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                            </form> *@
-                        
-                    @*     <li>
-                            <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
-                                <select name="culture" onchange="this.form.submit()" id="culture-select" class="button-menu">
-                                    <option hidden value="">@App.L("Language")</option>
-                                    <option data-flag="https://flagpedia.net/data/flags/h80/gb.png" value="en-US">@App.L("English")</option>
-                                    <option data-flag="https://flagpedia.net/data/flags/h80/bg.png" value="bg-BG">@App.L("Bulgarian")</option>
-                                </select>
-                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                                @*  <noscript><button type="submit">Submit</button></noscript> 
-                            </form>
-                        </li> *@
                         <li>
                             <a class="button-menu" asp-area="" asp-controller="Product" asp-action="All">@App.L("AllProducts")</a>
                         </li>
@@ -111,7 +124,7 @@
                                         <a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a>
                                     </li>
                                 </ul>
-                            </li>                         
+                            </li>
                         }
                         <partial name="_LoginPartial" />
                     </ul>
@@ -121,6 +134,14 @@
         <div class="container-main">
             <main role="main" class="">
                 @RenderBody()
+                <div id="fullscreenModal" class="fullscreen-modal">
+                    <span class="close-btn" onclick="closeFullscreen()">&times;</span>
+                    <div class="modal-nav">
+                        <button class="modal-nav-btn" onclick="navigateFullscreen(-1)">❮</button>
+                        <button class="modal-nav-btn" onclick="navigateFullscreen(1)">❯</button>
+                    </div>
+                    <img id="fullscreenImage" class="fullscreen-image" src="" alt="Fullscreen image">
+                </div>
             </main>
         </div>
         <footer class="site-footer">
@@ -132,7 +153,7 @@
                         @Html.Raw($" - {DateTime.UtcNow.Year}")
                     }
                 </p>
-                <p>@App.L("WebDesign")</p>  
+                <p>@App.L("WebDesign")</p>
             </div>
             <div class="social-media">
                 <p class="text-center">@App.L("ContactUs")</p>
@@ -151,10 +172,11 @@
         </footer>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/full-screen-imges.js" asp-append-version="true"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-         @await RenderSectionAsync("Scripts", required: false)
+        @await RenderSectionAsync("Scripts", required: false)
     </div>
 </body>
 
