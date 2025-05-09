@@ -81,6 +81,10 @@ namespace HandmadeByDoniApp.Web.Controllers
                 return this.View(model);
             }
 
+            //За сега ще е така при Google login TODO
+            string token =  await userManager.GenerateEmailConfirmationTokenAsync(user);
+            result = await userManager.ConfirmEmailAsync(user, token);
+
             await signInManager.SignInAsync(user, false);
             //this.memoryCache.Remove(UsersCacheKey);
 
