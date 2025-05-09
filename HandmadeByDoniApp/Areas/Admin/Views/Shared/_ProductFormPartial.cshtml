@@ -14,29 +14,68 @@
                 <span asp-validation-for="Description" class="small textdanger"></span>
             </div>
 
-                <div class="form-group">
-                    <label asp-for="Images"></label>
-                    <input asp-for="Images" type="file" accept="image/*" multiple />
-                    <span asp-validation-for="Images" class="small textdanger"></span>
-                </div>               
-                <div class="form-group">
-                    <label asp-for="Price">@App.L("Price")</label>
-                    <input asp-for="Price" class="form-control">
-                    <span asp-validation-for="Price" class="small textdanger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId">@App.L("Category")</label>
-                    <select asp-for="CategoryId" class="form-control">
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category.Id">@App.L(category.Name)</option>
-                        }
-                    </select>
-                    <span asp-validation-for="CategoryId" class="small text-danger"></span>
-                </div>
-                <div class="text-center">
-                    <input class="btn btn-primary mt-3" type="submit" value="@App.L("Save")" />
-                </div>
+            <div class="form-group">
+                <label asp-for="Images"></label>
+                <input asp-for="Images" type="file" accept="image/*" multiple />
+                <span asp-validation-for="Images" class="small textdanger"></span>
+                @if (Model.ImageUrls != null)
+                {
+                    @* List<string> images = Model.ImageUrls.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    foreach (var img in images)
+                    {
+                        string carouselId = null;
+                        <partial name="_ImageUrlsPartial" model="@(img,carouselId)" />
+                        <button type="button" onclick="removeImage('@img')">Delete</button>
+                    }
+                    <button type="button" onclick="@(Model.ImageUrls = string.Join(",",images))">Save images  </button>
+                *@
+                    <input type="hidden" id="ImageUrls" name="ImageUrls" value="@Model.ImageUrls" />
+
+                    List<string> images = Model.ImageUrls.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    foreach (var img in images)
+                    {
+                        string encodedId = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(img));
+                        string? carouselId = null;
+                        <div id="img-@encodedId" class="mb-2">
+                            <partial name="_ImageUrlsPartial" model="@(img, carouselId)" />
+                            <button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeImage('@img')">@App.L("Delete")</button>
+                        </div>
+                    }
+                 }
+            </div>
+            <div class="form-group">
+                <label asp-for="Price">@App.L("Price")</label>
+                <input asp-for="Price" class="form-control">
+                <span asp-validation-for="Price" class="small textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId">@App.L("Category")</label>
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@App.L(category.Name)</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Save")" />
+            </div>
         </form>
     </div>
 </div>
+<script>
+    function removeImage(imgUrl) {
+        const encodedId = btoa(imgUrl);
+        const container = document.getElementById(`img-${encodedId}`);
+        if (container) {
+            container.remove();
+        }
+
+        const imageInput = document.getElementById("ImageUrls");
+        if (imageInput) {
+            const urls = imageInput.value.split(',').filter(url => url !== imgUrl);
+            imageInput.value = urls.join(',');
+        }
+    }
+</script>

@@ -262,7 +262,7 @@
 </div>
     <script>
         let currentImageIndex = 0;
-        const images = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(imageUrls))
+        const images = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(imageUrls));
 
         document.addEventListener('DOMContentLoaded', function () {
             const thumbnails = document.querySelectorAll('.gallery-img');

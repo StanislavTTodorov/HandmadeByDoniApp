@@ -4,7 +4,7 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Web.ViewModels.Product;
 using HandmadeByDoniApp.Data.Models;
-using AngleSharp.Css.Values;
+
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 {
@@ -12,12 +12,15 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
     {      
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
+        private ILogger logger;
 
         public ProductController(IProductService productService,
-                                 ICategoryService categoryService)
+                                 ICategoryService categoryService,
+                                 ILogger<ProductController> logger)
         {
             this.productService = productService;
             this.categoryService = categoryService;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -108,6 +111,16 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             try
             {
+                if(string.IsNullOrEmpty(formModel.ImageUrls))
+                {
+                    formModel.ImageUrls = await UploadImage(formModel);
+                }
+                else
+                {
+                    formModel.ImageUrls +=  "," + await UploadImage(formModel);
+                }
+                await DeleteUnnecessaryImage(formModel);
+                
                 await this.productService.EditProductByIdAndFormModelAsync(id, formModel);
             }
             catch (Exception)
@@ -118,7 +131,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.View(formModel);
             }
 
-            this.TempData[SuccessMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Product)}");
+            this.TempData[SuccessMessage] = string.Format(EditSuccessfully,$"{nameof(Product)}");
             return this.RedirectToAction("Details", "Product", new { area = "", id });
         }
 
@@ -163,31 +176,63 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 return this.GeneralError(returnUrl);
             }
         }
+        private async Task DeleteUnnecessaryImage(ProductFormModel formModel)
+        {
+            ProductFormModel exformModel = await this.productService.GetProductForEditByIdAsync(formModel.Id!);
+            if (exformModel != null && exformModel.ImageUrls != null)
+            {
+                List<string> exImeges = exformModel.ImageUrls.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                //List<string> newImeges = formModel.ImageUrls.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                foreach (string eximg in exImeges)
+                {
+                    if (formModel.ImageUrls!=null&&!formModel.ImageUrls.Contains(eximg))
+                    {
+                        // Извличане на физическия път до изображението
+                        string fileToDelete = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", eximg.TrimStart('/'));
+
+                        if (System.IO.File.Exists(fileToDelete))
+                        {
+                            System.IO.File.Delete(fileToDelete);
+                            logger.LogWarning($"Изтрито изображение: {fileToDelete}");
+                        }
+                        else
+                        {
+                            logger.LogWarning($"Файлът не съществува: {fileToDelete}");
+                        }
+                    }
+                }
+            }           
+        }
         public async Task<string> UploadImage(ProductFormModel formModel)
         {
-
+            logger.LogWarning("В метод UploadImage");
             // Определете пътя за съхранение
             var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            logger.LogWarning("Определен е пътя за съхранение");
             Directory.CreateDirectory(uploadPath); // Създава папката, ако не съществува
-            string Date = DateTime.Now.ToShortDateString().Replace(" г.", string.Empty);
+            //string Date = DateTime.Now.ToShortDateString().Replace(" г.", string.Empty);
             List<string> imageUrls = new List<string>();
-
+            logger.LogWarning($"{uploadPath} И е Зъздаден нов imageUrls");
             foreach (var imageFile in formModel.Images)
             {
-                // Уникално име за файла с разширение
-                string fileName = $"{formModel.Title}_{Date}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+                 // Уникално име за файла с разширение
+                 //string fileName = $"{formModel.Title}_{Date}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+                string fileName = $"{formModel.Title.Replace(" ","_")}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+                logger.LogWarning($"fileName = {fileName}");
                 string filePath = Path.Combine(uploadPath, fileName);
-
+                logger.LogWarning($"filePath = {filePath}");
                 // Запазване на файла
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await imageFile.CopyToAsync(fileStream);
+                    logger.LogWarning($"Запазване на файла");
                 }
 
                 // Добавяне на URL към списъка
                 imageUrls.Add($"/uploads/{fileName}");
             }
 
+            logger.LogWarning("финал на UploadImage");
             return string.Join(",", imageUrls);
         }
         private async  Task<IActionResult> ModelStateNotValid(ProductFormModel formModel)
