@@ -37,7 +37,7 @@ else
             string carouselId = $"productCarousel_{product.Id}";
             @* productViewModel.ImageUrl = product.ImageUrl; *@
              @*  string[] imageUrls = product.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();  *@
-             <div class="min-card w-25">
+            <div class="min-card w-25 shadow-lg">
 
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId )" />
                 <div class="card-body">

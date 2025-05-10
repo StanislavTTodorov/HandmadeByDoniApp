@@ -9,9 +9,11 @@
 
 @{
     ViewBag.Title = App.L("AllProducts");
-    ProductViewModel productViewModel = new ProductViewModel();
+    // ProductViewModel productViewModel = new ProductViewModel();
 }
-
+<head>
+    <link rel="stylesheet" href="~/css/comment.css" asp-append-version="true" />
+</head>
 @* <h2 class="text-center title">@ViewBag.Title</h2>*@
 <h2 class="text-center title"> @ViewBag.Title </h2>
 <hr />
@@ -75,8 +77,13 @@
         </div>
 
         <div class="col-md-2">
-            <div class="form-group mt-3 p-2">
-                <input type="submit" value="@App.L("Search")" class="btn button-memu" />
+            <div class="form-group mt-3 p-1 ">
+                <input type="submit" value="@App.L("Search")" class="btn button-memu" style="   
+                                                                                                z-index: 10;
+                                                                                                background-color: #C16519;
+                                                                                                color: #fff;
+                                                                                                border-radius: 0.3em;
+                                                                                            " />
             </div>
         </div>
     </div>
@@ -136,7 +143,7 @@
         string carouselId = $"productCarousel_{product.Id}";
         @* <partial name="_ProductPartial" model="@product"  />*@
         <div class="col-md-4">
-            <div class="card mb-3">
+            <div class="card-all mb-3 shadow-lg">
                 @* <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")"> *@
                @*  @{productViewModel.ImageUrl = product.ImageUrl;} *@
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />

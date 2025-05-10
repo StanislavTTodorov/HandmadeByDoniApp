@@ -98,11 +98,11 @@
 }
 
 .title {
-  margin-top:1em;
-  padding: 0.2em;
-  background-color: rgb(211, 77, 37);
-  color: white;
-
+    margin-top: 1em;
+    padding: 0.2em;
+    background-color: rgb(211, 77, 37);
+    color: white;
+    box-shadow: 0 -6px 10px -2px rgba(0,0,0,0.2), 0 6px 10px -2px rgba(0,0,0,0.2);
 }
 
 .product-comment {

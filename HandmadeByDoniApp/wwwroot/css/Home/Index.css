@@ -12,12 +12,14 @@
 
 .min-card
 {
-    border: 2px solid black ;
+   /* border: 2px solid black ;*/
+   border-radius: 1em;
     
 }
-.card-body{
+.card-body {
     display: flex;
     justify-content: center;
+    border-radius: 1em;
 }
 .img
 {
