@@ -11,6 +11,7 @@
     string userFullName = await UserService.GetFullNameByIdAsync(User.GetId());
 }
 
+
 <nav class="navbar-menu-img">
     <button class="menu-toggle" onclick="toggleMobileMenu()">☰ Меню</button>
     <div class="mobile-menu navbar-menu-mobile" id="mobileMenu">
@@ -36,7 +37,7 @@
             }
             else
             {
-                <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li>
+                @* <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li> *@
                 <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a></li>
             }
 
@@ -94,8 +95,8 @@
                 }
                 else
                 {
-                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li>
-                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a></li>
+                    @* <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li> *@
+                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login" title="@App.L("Login")">@App.L("Login") </a></li>
                 }
                 <li>
                     <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">

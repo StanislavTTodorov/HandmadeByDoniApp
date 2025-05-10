@@ -348,4 +348,13 @@
   <data name="UserIsOnline" xml:space="preserve">
     <value>User Is Online</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="LogInGoogle" xml:space="preserve">
+    <value>Log in with Google</value>
+  </data>
 </root>
