@@ -42,7 +42,7 @@
   font-size: 1em;
 }
 
-.navbar-menu {
+.navbar-menu-img {
  background-image: url(//img.pikbest.com/wp/202345/painted-rainbow-wine-glasses-painting-on-a_9586196.jpg!w700wp);
   background-position: 0% 35%;
 
@@ -167,4 +167,95 @@ a:hover .fa-instagram
 }
 .white-globe {
     filter: invert(1); /* ѕреобразува цветовете (за черна икона ще € направи б€ла) */
+}
+
+/*.menu-toggle {
+    display: none;
+    background-color: #C16519;
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 1em;
+    background-color: #f7f7f7;
+    padding: 1em;
+}
+
+    .mobile-menu a {
+        text-decoration: none;
+        color: #333;
+    }
+
+@media (max-width: 1430px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .left-menu, .right-menu {
+        display: none;
+    }
+
+    .mobile-menu.show {
+        display: flex;
+    }
+}*/
+.menu-toggle {
+    display: none;
+    background-color: #C16519;
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 0.3em;
+    cursor: pointer;
+    margin: 0em;
+    top: 1.5em;
+    left: 1em;
+    position: relative;
+    z-index: 2;
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 4.8em; /* разсто€ние под бутона */
+    left: 0em; /* леко вл€во */
+    background-color: #f9f9f9;
+    padding: 1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    border-radius: 0.5em;
+    z-index: 1;
+    max-width: 30% 
+}
+
+    .mobile-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-menu li {
+        margin-bottom: 0.7em;
+    }
+
+    .mobile-menu.show {
+        display: block;
+    }
+
+/* ѕоказва бутона и скрива десктоп менюта при мобилен изглед */
+@media (max-width: 1430px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .left-menu,
+    .right-menu {
+        display: none;
+    }
 }

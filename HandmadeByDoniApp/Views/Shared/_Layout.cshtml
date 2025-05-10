@@ -3,7 +3,14 @@
 @using System.Globalization
 @using HandmadeByDoniApp.Web.Resources
 @using Microsoft.AspNetCore.Identity
+@using HandmadeByDoniApp.Services.Data.Interfaces
 @using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserService UserService
+@{
+    string userFullName = await UserService.GetFullNameByIdAsync(User.GetId());
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,28 +31,35 @@
 <style>
     .fullscreen-modal {
         position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background: rgba(0, 0, 0, 0.9);
         display: none;
         align-items: center;
         justify-content: center;
         z-index: 9999;
     }
-    .fullscreen-modal.active {
-        display: flex;
-    }
+
+        .fullscreen-modal.active {
+            display: flex;
+        }
+
     .fullscreen-image {
         max-width: 90%;
         max-height: 90%;
     }
+
     .close-btn {
         position: absolute;
-        top: 20px; right: 30px;
+        top: 20px;
+        right: 30px;
         font-size: 30px;
         color: white;
         cursor: pointer;
     }
+
     .modal-nav {
         position: absolute;
         width: 100%;
@@ -53,6 +67,7 @@
         display: flex;
         justify-content: space-between;
     }
+
     .modal-nav-btn {
         background: rgba(0, 0, 0, 0.5);
         color: white;
@@ -64,10 +79,11 @@
         cursor: pointer;
     }
 
-    .btn{
+    .btn {
         margin: 0.3em;
     }
 </style>
+
 <body>
     <div class="site">
         <header class="site-header">
@@ -84,56 +100,7 @@
                         aria-label="Toggle navigation">
                 </button>
             </div>
-            <nav class="navbar-menu">
-                <div class="left-menu">
-                    <ul class="menu">
-                        @if (!(User.Identity?.IsAuthenticated ?? false))
-                        {
-                            <li>
-
-                                <a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a>
-
-                            </li>
-                        }
-                        <li>
-                            <a class="button-menu" asp-area="" asp-controller="Product" asp-action="All">@App.L("AllProducts")</a>
-                        </li>
-                        @if (User.Identity?.IsAuthenticated ?? false)
-                        {
-                            <li>
-                                <a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine"> <i class="fa-solid fa-cart-shopping"></i> @App.L("Cart")</a>
-                            </li>
-
-                            <li>
-                                <a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-                <div class="right-menu">
-                    <ul class="menu">
-
-                        @if (User.IsAdmin())
-                        {
-                            <li>
-                                <a class="button-menu">@App.L("AdminMenu")</a>
-                                <ul>
-                                    <li>
-                                        <a class="button-menu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">@App.L("NewstOrders")</a>
-                                    </li>
-                                    <li>
-                                        <a class="button-menu" asp-area="Admin" asp-controller="User" asp-action="All">@App.L("AllUser") </a>
-                                    </li>
-                                    <li>
-                                        <a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        <partial name="_LoginPartial" />
-                    </ul>
-                </div>
-            </nav>
+            <partial name="_NavBar" />
         </header>
         <div class="container-main">
             <main role="main" class="">
@@ -162,18 +129,18 @@
             <div class="social-media">
                 <p class="text-center">@App.L("ContactUs")</p>
                 <ul class="social-media-icons">
-                    <li>
-                        <a href="https://www.facebook.com/people/%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE%D0%B2%D0%BD%D0%B8-%D1%87%D0%B0%D1%88%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%B8%D0%BD%D0%BE/100087765588244/"><i class="fa-brands fa-square-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa-brands fa-google-plus"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/art_gift_by_doni?igsh=dmJkYncxaHdqcDg0"><i class="fa-brands fa-instagram"></i></a>
-                    </li>
+                    <li><a href="https://www.facebook.com/people/%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE%D0%B2%D0%BD%D0%B8-%D1%87%D0%B0%D1%88%D0%B8-%D0%B7%D0%B0-%D0%B2%D0%B8%D0%BD%D0%BE/100087765588244/"><i class="fa-brands fa-square-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-google-plus"></i></a></li>
+                    <li><a href="https://www.instagram.com/art_gift_by_doni?igsh=dmJkYncxaHdqcDg0"><i class="fa-brands fa-instagram"></i></a></li>
                 </ul>
             </div>
         </footer>
+        <script>
+            function toggleMobileMenu() {
+                var menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('show');
+            }
+        </script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/full-screen-imges.js" asp-append-version="true"></script>

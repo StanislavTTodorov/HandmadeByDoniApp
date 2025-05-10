@@ -1,0 +1,113 @@
+﻿@using HandmadeByDoniApp.Services.Data.Interfaces
+@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.AspNetCore.Identity
+@using HandmadeByDoniApp.Web.Infrastructure.Extensions
+@using HandmadeByDoniApp.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@inject IUserService UserService
+@{
+    string userFullName = await UserService.GetFullNameByIdAsync(User.GetId());
+}
+
+<nav class="navbar-menu-img">
+    <button class="menu-toggle" onclick="toggleMobileMenu()">☰ Меню</button>
+    <div class="mobile-menu navbar-menu-mobile" id="mobileMenu">
+        <ul>
+            <li><a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a></li>
+            <li><a class="button-menu" asp-area="" asp-controller="Product" asp-action="All">@App.L("AllProducts")</a></li>
+            @if (User.IsAdmin())
+            {
+                <li>
+                    <a class="button-menu">@App.L("AdminMenu")</a>
+                    <ul>
+                        <li><a class="button-menu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">@App.L("NewstOrders")</a></li>
+                        <li> <a class="button-menu" asp-area="Admin" asp-controller="User" asp-action="All">@App.L("AllUser") </a></li>
+                        <li><a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a></li>
+                    </ul>
+                </li>
+            }
+
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine">@App.L("Cart")</a></li>
+                <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+            }
+            else
+            {
+                <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li>
+                <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a></li>
+            }
+
+            <li>
+                <form asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+                    <select name="culture" onchange="this.form.submit()" class="button-menu">
+                        <option hidden value="">@App.L("Language")</option>
+                        <option value="en-US">@App.L("English")</option>
+                        <option value="bg-BG">@App.L("Bulgarian")</option>
+                    </select>
+                    <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-menu">
+        <div class="left-menu">
+            <ul class="menu">
+                @if (!(User.Identity?.IsAuthenticated ?? false))
+                {
+                    <li> <a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a></li>
+                }
+                <li><a class="button-menu" asp-area="" asp-controller="Product" asp-action="All">@App.L("AllProducts")</a></li>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine"> <i class="fa-solid fa-cart-shopping"></i> @App.L("Cart")</a></li>
+
+                    <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+                }
+            </ul>
+        </div>
+        <div class="right-menu">
+            <ul class="menu">
+
+                @if (User.IsAdmin())
+                {
+                    <li>
+                        <a class="button-menu">@App.L("AdminMenu")</a>
+                        <ul>
+                            <li><a class="button-menu" asp-area="Admin" asp-controller="Order" asp-action="UsersOrders">@App.L("NewstOrders")</a></li>
+                            <li> <a class="button-menu" asp-area="Admin" asp-controller="User" asp-action="All">@App.L("AllUser") </a></li>
+                            <li><a class="button-menu" asp-area="Admin" asp-controller="Product" asp-action="Add">@App.L("AddNewProducts")</a></li>
+                        </ul>
+                    </li>
+                }
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item"><a class="button-menu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@App.L("Hello"), @userFullName</a></li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-white button-menu">@App.L("Logout")</button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li>
+                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a></li>
+                }
+                <li>
+                    <form class="button-menu" asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
+                        <select name="culture" onchange="this.form.submit()" id="culture-select" class="button-menu">
+                            <option hidden value="">@App.L("Language")</option>
+                            <option data-flag="https://flagpedia.net/data/flags/h80/gb.png" value="en-US">@App.L("English")</option>
+                            <option data-flag="https://flagpedia.net/data/flags/h80/bg.png" value="bg-BG">@App.L("Bulgarian")</option>
+                        </select>
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

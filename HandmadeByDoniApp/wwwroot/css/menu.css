@@ -3,28 +3,57 @@
     position: absolute;
     top: 100%;
     left: 0%;
-    padding: 0.1em ;
+    padding: 0.1em;
 }
-.navbar-menu ul ul ul { 
+
+.navbar-menu-mobile ul ul {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 100%;
+    padding: 0.4em;
+    margin-top: -1em;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    border-radius: 0.5em;
+    z-index: 10;
+}
+
+    .navbar-menu-mobile ul ul ul {
+        top: 0%;
+        left: 100%;
+        margin-top: -0.1em;
+    }
+
+/*.navbar-menu-mobile > ul > ul > li {
+    display: inline-block;
+}*/
+
+.navbar-menu ul ul ul {
     top: 0%;
     left: 100%;
     margin-top: -0.1em;
 }
-.navbar-menu ul ul li{
+
+.navbar-menu ul ul li {
     padding: 0.1em;
 }
-.navbar-menu >ul >li{
+
+.navbar-menu > ul > li {
     display: inline-block;
 }
-
-.navbar-menu li{
+/*.navbar-menu-mobile >ul > li {
+    padding: 0.5em;
+}*/
+.navbar-menu-mobile li,
+.navbar-menu li {
     display: block;
     /*padding: 0.5em;*/
     position: relative;
     white-space: nowrap;
-   
 }
-.navbar-menu li:hover>ul{
+.navbar-menu-mobile li:hover > ul,
+.navbar-menu li:hover > ul {
     display: block;
 }
 
@@ -39,10 +68,9 @@
     border-radius: 0.3em;
     pointer-events: auto;
 }
-
-.navbar-menu li:hover>.button-memu,
-.button-menu:hover{
-
-    background-color: rgb(182, 118, 93);
-    color: white;
-}
+    .navbar-menu-mobile li:hover > .button-memu,
+    .navbar-menu li:hover > .button-memu,
+    .button-menu:hover {
+        background-color: rgb(182, 118, 93);
+        color: white;
+    }
