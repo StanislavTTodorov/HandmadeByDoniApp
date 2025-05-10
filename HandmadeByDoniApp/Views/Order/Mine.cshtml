@@ -18,10 +18,12 @@
     {
         @foreach (var product in Model.Products)
         {
+            string carouselId = $"productCarousel_{product.Id}";
             <div class="col-8 mt-2">
                 <div class="card-list">
-                    <img class="card-img-list" src="@product.ImageUrl" alt="@App.L("Image")">
-
+                   
+                    @* <img class="card-img-list" src="@product.ImageUrl" alt="@App.L("Image")"> *@
+                    <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                     <div class="product-info">
                         <h4>@product.Title</h4>
                         <h6>
@@ -37,7 +39,7 @@
                                 <p class="text-danger">@App.L("NotAvailable")</p>
                             }
                         </h6>
-                    </div>
+                    
                     <div class="card-list">
                         <a asp-area=""
                            asp-controller="Product"
@@ -53,9 +55,10 @@
 
                         <a class="ml-2 btn btn-info"
                            asp-area=""
-                           asp-controller="Comment"
+                           asp-controller="Product"
                            asp-action="Comment"
                            asp-route-id="@product.Id">@App.L("Comment")</a>
+                    </div>
                     </div>
                 </div>
             </div>
