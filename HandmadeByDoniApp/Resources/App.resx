@@ -219,7 +219,8 @@
   <data name="Restore" xml:space="preserve">
     <value />
   </data>
-  <data name="Search" xml:space="preserve">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Search" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
   <data name="SearchString" xml:space="preserve">
@@ -388,6 +389,18 @@
     <value />
   </data>
   <data name="AddComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoProductInSystem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Welcome" xml:space="preserve">
     <value />
   </data>
 </root>

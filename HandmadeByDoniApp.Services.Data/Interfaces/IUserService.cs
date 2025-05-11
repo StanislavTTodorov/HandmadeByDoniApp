@@ -7,5 +7,6 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
     {
         Task<IEnumerable<UserViewModel>> AllUsersAsync();
         Task<string> GetFullNameByIdAsync(string userId);
+        Task<bool> IsUserHasOrderAsync(string userId);
     }
 }

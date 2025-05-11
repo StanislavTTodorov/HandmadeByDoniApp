@@ -22,10 +22,8 @@
 @if (!products.Any())
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Welcome to the best place for Art!</h1>
-        <p class="lead">
-            There are no product in the system currently available.
-        </p>
+        <h1 class="display-4">  @App.L("Welcome")</h1>
+        <p class="lead">@App.L("NoProductInSystem")</p>
         <hr class="my-4">
     </div>
 }

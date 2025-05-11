@@ -390,4 +390,16 @@
   <data name="AddComment" xml:space="preserve">
     <value>Добави коментар</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Качване на файлове</value>
+  </data>
+  <data name="NoProductInSystem" xml:space="preserve">
+    <value>В момента няма налични продукти в системата.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добре дошли на най-доброто място за изкуство!</value>
+  </data>
 </root>

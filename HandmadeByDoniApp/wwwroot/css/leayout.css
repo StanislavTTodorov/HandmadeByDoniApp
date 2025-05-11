@@ -134,8 +134,10 @@
   padding: 0.5em 0;
   color: lavender;
 }
-.social-media{
-  
+.site-footer p {
+    margin-bottom:0;
+}
+.social-media {
 }
 .social-media-icons{
   display: inline-block;

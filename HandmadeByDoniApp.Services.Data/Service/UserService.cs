@@ -1,10 +1,10 @@
 ﻿
-
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
+using static HandmadeByDoniApp.Common.EntityValidationConstants;
 
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -12,10 +12,13 @@ namespace HandmadeByDoniApp.Services.Data.Service
     public class UserService : IUserService
     {
         private readonly IRepository repository;
+        private readonly IOrderService orderService;
 
-        public UserService(IRepository repository)
+        public UserService(IRepository repository, IOrderService orderService)
         {
             this.repository = repository;
+            this.orderService = orderService;
+
         }
 
         public async Task<IEnumerable<UserViewModel>> AllUsersAsync()
@@ -24,7 +27,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 .All<ApplicationUser>()
                 .Select(x => new UserViewModel
                 {
-                    Id  =x.Id.ToString(),
+                    Id = x.Id.ToString(),
                     Email = x.Email,
                     FullName = $"{x.FirstName} {x.LastName}",
 
@@ -32,7 +35,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             return userViews;
         }
-      
+
 
         public async Task<string> GetFullNameByIdAsync(string userId)
         {
@@ -45,6 +48,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
             }
 
             return $"{user.FirstName} {user.LastName}";
+        }
+
+        public async Task<bool> IsUserHasOrderAsync(string userId)
+        {         
+            bool isExists = await this.orderService.UserOrderExistsByUserIdAsync(userId);
+            return isExists;
         }
     }
 }

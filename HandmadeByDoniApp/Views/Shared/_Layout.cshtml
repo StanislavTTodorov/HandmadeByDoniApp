@@ -117,14 +117,13 @@
         </div>
         <footer class="site-footer">
             <div class="container-footer">
-                <p>
-                    &copy; @App.L("HandmadeByDoni")  @ReleaseYear
+                <p> &copy; @App.L("HandmadeByDoni")  @ReleaseYear
                     @if (DateTime.UtcNow.Year != ReleaseYear)
                     {
                         @Html.Raw($" - {DateTime.UtcNow.Year}")
                     }
                 </p>
-                <p>@App.L("WebDesign")</p>
+                <p> @App.L("WebDesign")</p>
             </div>
             <div class="social-media">
                 <p class="container-footer text-center">@App.L("ContactUs")</p>

@@ -9,6 +9,7 @@
 @inject IUserService UserService
 @{
     string userFullName = await UserService.GetFullNameByIdAsync(User.GetId());
+    bool isUserHasOrder = await UserService.IsUserHasOrderAsync(User.GetId());
 }
 
 
@@ -33,7 +34,10 @@
             @if (User.Identity?.IsAuthenticated ?? false)
             {
                 <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine">@App.L("Cart")</a></li>
+                if (isUserHasOrder)
+                {
                 <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+                }
             }
             else
             {
@@ -65,7 +69,10 @@
                 {
                     <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine"> <i class="fa-solid fa-cart-shopping"></i> @App.L("Cart")</a></li>
 
-                    <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+                    if (isUserHasOrder)
+                    {
+                        <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+                    }
                 }
             </ul>
         </div>

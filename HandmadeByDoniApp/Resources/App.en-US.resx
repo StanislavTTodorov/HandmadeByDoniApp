@@ -229,7 +229,7 @@
     <value>Set</value>
   </data>
   <data name="WebDesign" xml:space="preserve">
-    <value>Web аesign by STTodorov</value>
+    <value>Web Dаesign by STTodorov</value>
   </data>
   <data name="NewProducts" xml:space="preserve">
     <value>New Products</value>
@@ -371,5 +371,17 @@
   </data>
   <data name="AddComment" xml:space="preserve">
     <value>Add comment</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>Upload Files</value>
+  </data>
+  <data name="NoProductInSystem" xml:space="preserve">
+    <value> There are no product in the system currently available.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to the best place for Art!</value>
   </data>
 </root>
