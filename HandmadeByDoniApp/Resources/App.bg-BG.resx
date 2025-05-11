@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Добави</value>
+    <value>Добави в кошница</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Премахни</value>
@@ -214,7 +214,7 @@
     <value>Продукти на страница</value>
   </data>
   <data name="ProductSorting" xml:space="preserve">
-    <value>Подреждане на Продукти</value>
+    <value>Подреди по:</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Въстанови</value>
@@ -313,7 +313,7 @@
     <value>Статус</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>Изпратено</value>
+    <value>Изпрати</value>
   </data>
   <data name="NotSent" xml:space="preserve">
     <value>Не е изпратено</value>
@@ -356,5 +356,38 @@
   </data>
   <data name="LogInGoogle" xml:space="preserve">
     <value>Вход с Google</value>
+  </data>
+  <data name="SearchByWord" xml:space="preserve">
+    <value>Ключова дума</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Продукти</value>
+  </data>
+  <data name="Wine glass" xml:space="preserve">
+    <value>Чаша за вино</value>
+  </data>
+  <data name="Beer glass" xml:space="preserve">
+    <value>Чаша за бира</value>
+  </data>
+  <data name="Cognac glass" xml:space="preserve">
+    <value>Чаша за коняк</value>
+  </data>
+  <data name="Whiskey glass" xml:space="preserve">
+    <value>Чаша за уиски</value>
+  </data>
+  <data name="Tea Glass" xml:space="preserve">
+    <value>Чаша за чай</value>
+  </data>
+  <data name="Champagne glass" xml:space="preserve">
+    <value>Чаша за шампанско</value>
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value>Детайли за поръчката</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Плащане</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Добави коментар</value>
   </data>
 </root>

@@ -35,10 +35,7 @@ else
         @foreach (IndexViewModel product in products)
         {
             string carouselId = $"productCarousel_{product.Id}";
-            @* productViewModel.ImageUrl = product.ImageUrl; *@
-             @*  string[] imageUrls = product.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();  *@
             <div class="min-card w-25 shadow-lg">
-
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId )" />
                 <div class="card-body">
                     <h5 class="card">
@@ -46,7 +43,7 @@ else
                            asp-area=""
                            asp-controller="Product"
                            asp-action="Details"
-                           asp-route-id="@product.Id">@App.L("Name"): @product.Title</a>
+                           asp-route-id="@product.Id">@* @App.L("Name"):  *@@product.Title</a>
                     </h5>
                 </div>
             </div>

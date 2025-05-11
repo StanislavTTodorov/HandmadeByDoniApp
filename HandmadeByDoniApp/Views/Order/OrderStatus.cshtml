@@ -3,7 +3,7 @@
 
 
 @{
-    ViewBag.Title = $"{App.L("Order")} {App.L("Status")}";
+    ViewBag.Title = App.L("OrderStatus");
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/DetailOrder.css" asp-append-version="true" />
@@ -16,7 +16,7 @@
     {
         <section class="details">
             <section class="address text-start">
-                <h4 class="text-center title">@App.L("Order") @App.L("Details") </h4>
+                <h4 class="text-center title">@App.L("OrderDetails")</h4>
                 <h5> @App.L("Country") - @order.OrdersDetails.CountryName</h5>
                 <h5> @App.L("City") - @order.OrdersDetails.CityName</h5>
                 <h5> @App.L("Street") - @order.OrdersDetails.Street</h5>

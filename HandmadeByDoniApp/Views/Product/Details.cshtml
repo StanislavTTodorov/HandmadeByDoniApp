@@ -22,7 +22,7 @@
             <p>@App.L("Category"): <b>@App.L(Model.CategoryName)</b></p>
 
             <div class="form-inline">
-                <p>@App.L("Price"):<b>@($"({Model.Price:f2}")) @App.L("Currency")</b></p>
+                <p>@App.L("Price"): <b>@($"{Model.Price:f2}") @App.L("Currency")</b></p>
                 <a class="ml-2 btn btn-primary"
                    asp-area=""
                    asp-controller="Order"

@@ -21,19 +21,30 @@
 <form method="get">
     <div class="row">
         <div class="form-group col-md-2">
-            <div class="form-group">
-                <label asp-for="ProductsName">@App.L("AllProducts")</label>
+            @*<div class="form-group">
+                <label asp-for="ProductsName">@App.L("Products")</label>
                 <select asp-for="ProductsName" class="form-control" onchange="this.form.submit()">
-                    <option value="0">@App.L("All")</option>
-                    <option value="1">@App.L("Glass")</option>
-                    <option value="2">@App.L("Decanter")</option>
-                    <option value="3">@App.L("Box")</option>
-                    <option value="4">@App.L("Set")</option>
+                <option value="0">@App.L("All")</option>
+                <option value="1">@App.L("Glass")</option>
+                <option value="2">@App.L("Decanter")</option>
+                <option value="3">@App.L("Box")</option>
+                <option value="4">@App.L("Set")</option>
                 </select>
-            </div>
-        </div>
-        <div class="form-group col-md-3 d-flex justify-content-lg-between">
+                </div> *@
+                    <div class="form-group">
+                        <label asp-for="GlassCategory">@App.L("Category")</label>
+                        <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
+                            <option value="">@App.L("AllProducts")</option>
+                    @foreach (var category in Model.GlassCategories)
+                    {
+                                        <option value="@category">@App.L(category)</option>
+                    }
+                        </select>
+                    </div>
 
+        </div>
+        @*  d-flex justify-content-lg-between *@
+        <div class="form-group col-md-2">
             <div class="form-group">
                 <label asp-for="ProductPerPage">@App.L("ProductPerPage")</label>
                 <select asp-for="ProductPerPage" class="form-control" onchange="this.form.submit()">
@@ -42,23 +53,23 @@
                     <option value="27">27</option>
                 </select>
             </div>
-            @if ((int)Model.ProductsName == 1)
+            @*  @if ((int)Model.ProductsName == 1)
             {
-                <div class="form-group">
-                    <label asp-for="GlassCategory"></label>
-                    <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
-                        <option value="">@App.L("All")</option>
-                        @foreach (var category in Model.GlassCategories)
-                        {
-                            <option value="@category">@App.L(category)</option>
-                        }
-                    </select>
-                </div>
+            <div class="form-group">
+            <label asp-for="GlassCategory"></label>
+            <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
+            <option value="">@App.L("AllProducts")</option>
+            @foreach (var category in Model.GlassCategories)
+            {
+            <option value="@category">@App.L(category)</option>
             }
+            </select>
+            </div>
+            } *@
         </div>
 
         <div class="form-group col-md-3">
-            <label asp-for="SearchString">@App.L("Search")</label>
+            <label asp-for="SearchString">@App.L("SearchByWord")</label>
             <input asp-for="SearchString" class="form-control" placeholder="..." onchange="this.form.submit()">
         </div>
 
@@ -78,7 +89,7 @@
 
         <div class="col-md-2">
             <div class="form-group mt-3 p-1 ">
-                <input type="submit" value="@App.L("Search")" class="btn button-memu" style="   
+                <input type="submit" value="@App.L("Search")" class="btn button-memu" style="
                                                                                                 z-index: 10;
                                                                                                 background-color: #C16519;
                                                                                                 color: #fff;
@@ -104,14 +115,14 @@
 <div class="row mb-5">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary  @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-        asp-controller="Product"
-        asp-action="All"
-        asp-route-currentPage="@previousPage"
-        asp-route-productPerPage="@(Model.ProductPerPage)"
-        asp-route-productsName="@((int)Model.ProductsName)"
-        asp-route-category="@Model.GlassCategory"
-        asp-route-searchString="@Model.SearchString"
-        asp-route-sorting="@((int)Model.ProductSorting)"><<</a>
+           asp-controller="Product"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-productPerPage="@(Model.ProductPerPage)"
+           asp-route-productsName="@((int)Model.ProductsName)"
+           asp-route-category="@Model.GlassCategory"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-sorting="@((int)Model.ProductSorting)"><<</a>
     </div>
 
     @{
@@ -121,14 +132,14 @@
 
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-        asp-controller="Product"
-        asp-action="All"
-        asp-route-currentPage="@(Model.CurrentPage + 1)"
-        asp-route-productPerPage="@(Model.ProductPerPage)"
-        asp-route-productsName="@((int)Model.ProductsName)"
-        asp-route-category="@Model.GlassCategory"
-        asp-route-searchString="@Model.SearchString"
-        asp-route-sorting="@((int)Model.ProductSorting)">>></a>
+           asp-controller="Product"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-productPerPage="@(Model.ProductPerPage)"
+           asp-route-productsName="@((int)Model.ProductsName)"
+           asp-route-category="@Model.GlassCategory"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-sorting="@((int)Model.ProductSorting)">>></a>
     </div>
 </div>
 
@@ -145,7 +156,7 @@
         <div class="col-md-4">
             <div class="card-all mb-3 shadow-lg">
                 @* <img class="card-img-top" src="@product.ImageUrl" alt="@App.L("Image")"> *@
-               @*  @{productViewModel.ImageUrl = product.ImageUrl;} *@
+                @*  @{productViewModel.ImageUrl = product.ImageUrl;} *@
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>

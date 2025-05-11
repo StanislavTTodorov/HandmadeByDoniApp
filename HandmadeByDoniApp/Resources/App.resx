@@ -357,4 +357,37 @@
   <data name="LogInGoogle" xml:space="preserve">
     <value />
   </data>
+  <data name="SearchByWord" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Wine glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Beer glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Cognac glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Whiskey glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tea Glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Champagne glass" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value />
+  </data>
 </root>

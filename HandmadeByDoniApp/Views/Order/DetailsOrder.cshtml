@@ -4,7 +4,7 @@
 @inject IAddressService addressService
 
 @{
-    ViewBag.Title = $"{App.L("Details")} {App.L("Order")}";
+    ViewBag.Title = App.L("OrderDetails");
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/DetailOrder.css" asp-append-version="true" />
@@ -19,8 +19,8 @@
             
                 string deliveryCompanyName = await this.addressService.GetDeliveryCompanyNameAsyng(Model.Address.DeliveryCompanyId);
                 string methodPaymentName = await this.addressService.GetMethodPaymentNameAsyng(Model.Address.MethodPaymentId);
-            
-            <h3 class="text-center title">Address</h3>
+
+            <h3 class="text-center title">@App.L("Address")</h3>
             <h5> <label asp-for="@Model.Address.CountryName">@App.L("Country")</label> - @Model.Address.CountryName</h5>
             <h5> <label asp-for="@Model.Address.CityName">@App.L("City")</label> - @Model.Address.CityName</h5>
             <h5> <label asp-for="@Model.Address.Street">@App.L("Street")</label> - @Model.Address.Street</h5>
