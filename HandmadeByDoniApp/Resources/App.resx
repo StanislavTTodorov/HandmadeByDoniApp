@@ -472,4 +472,25 @@
   <data name="addNew" xml:space="preserve">
     <value />
   </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openOrderProduct" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openOrderStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openDetailsOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegisterOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="removeFromCart" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openCart" xml:space="preserve">
+    <value />
+  </data>
 </root>

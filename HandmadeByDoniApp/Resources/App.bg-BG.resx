@@ -471,4 +471,25 @@
   <data name="addNew" xml:space="preserve">
     <value>добавяне на нов</value>
   </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>отказ на поръчката</value>
+  </data>
+  <data name="openOrderProduct" xml:space="preserve">
+    <value>отваряне на Поръчан продукт.</value>
+  </data>
+  <data name="openOrderStatus" xml:space="preserve">
+    <value>отваряне на Състояние на поръчката.</value>
+  </data>
+  <data name="openDetailsOrder" xml:space="preserve">
+    <value>отваряне на подробности за поръчката.</value>
+  </data>
+  <data name="RegisterOrder" xml:space="preserve">
+    <value>регистриране на поръчка.</value>
+  </data>
+  <data name="removeFromCart" xml:space="preserve">
+    <value>премахване от количката.</value>
+  </data>
+  <data name="openCart" xml:space="preserve">
+    <value>отваряне на количката.</value>
+  </data>
 </root>

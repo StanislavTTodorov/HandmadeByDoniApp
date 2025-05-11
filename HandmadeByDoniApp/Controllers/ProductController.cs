@@ -9,6 +9,7 @@ using Ganss.Xss;
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Comment;
 using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Web.Resources;
 
 
 
@@ -47,7 +48,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isProduct = await this.productService.ExistsByIdAsync(id);
             if (isProduct == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product)); ;
+                this.TempData[ErrorMessage] = $"{App.L(nameof(Product))} {App.L("ProductNotExist")}"; //string.Format(ProductNotExist, nameof(Product)); ;
                 return this.RedirectToAction("All", "Product");
             }
 
@@ -58,7 +59,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = UnexpectedError;
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");// UnexpectedError;
                 return this.RedirectToAction("All", "Product");
             }
         }
@@ -69,7 +70,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isProduct = await this.productService.ExistsByIdAsync(id);
             if (isProduct == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product)); ;
+                this.TempData[ErrorMessage] = $"{App.L(nameof(Product))} {App.L("ProductNotExist")}";// string.Format(ProductNotExist, nameof(Product)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -80,7 +81,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = UnexpectedError;
+                this.TempData[ErrorMessage] = App.L("UnexpectedError"); //UnexpectedError;
                 return this.RedirectToAction("All", "Product");
             }
 
@@ -92,7 +93,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isProduct = await this.productService.ExistsByIdAsync(id);
             if (isProduct == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product)); ;
+                this.TempData[ErrorMessage] = $"{App.L(nameof(Product))} {App.L("ProductNotExist")}"; //string.Format(ProductNotExist, nameof(Product)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -107,7 +108,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isProduct = await this.productService.ExistsByIdAsync(id);
             if (isProduct == false)
             {
-                this.TempData[ErrorMessage] = string.Format(ProductNotExist, nameof(Product)); ;
+                this.TempData[ErrorMessage] = $"{App.L(nameof(Product))} {App.L("ProductNotExist")}"; //string.Format(ProductNotExist, nameof(Product)); ;
                 return this.RedirectToAction("All", "Pcoduct");
             }
 
@@ -123,12 +124,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.productService.CreateCommentByUserIdAndByProductIdAsync(userId!, formModel, id);
-                this.TempData[SuccessMessage] = string.Format(AddSuccessfully, nameof(Comment)); ;
+                this.TempData[SuccessMessage] = $"{App.L(nameof(Comment))} {App.L("AddSuccessfully")}"; //string.Format(AddSuccessfully, nameof(Comment)); ;
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}"));
-                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
+                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addNew")} {App.L(nameof(Comment))}"; // string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
             }
 
             return this.RedirectToAction("Comment", "Product", new { id });

@@ -453,4 +453,25 @@
   <data name="addNew" xml:space="preserve">
     <value>add new</value>
   </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>Cancel Order</value>
+  </data>
+  <data name="openOrderProduct" xml:space="preserve">
+    <value>open Order Product</value>
+  </data>
+  <data name="openOrderStatus" xml:space="preserve">
+    <value>open Order Status</value>
+  </data>
+  <data name="openDetailsOrder" xml:space="preserve">
+    <value>open Details Order</value>
+  </data>
+  <data name="RegisterOrder" xml:space="preserve">
+    <value>Register Order</value>
+  </data>
+  <data name="removeFromCart" xml:space="preserve">
+    <value>remove From Cart</value>
+  </data>
+  <data name="openCart" xml:space="preserve">
+    <value>open Cart</value>
+  </data>
 </root>

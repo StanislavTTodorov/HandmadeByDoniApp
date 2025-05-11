@@ -14,7 +14,7 @@
 
 
 <nav class="navbar-menu-img">
-    <button class="menu-toggle" onclick="toggleMobileMenu()">☰ Меню</button>
+    <button class="menu-toggle" onclick="toggleMobileMenu()">☰ @App.L("Menu")</button>
     <div class="mobile-menu navbar-menu-mobile" id="mobileMenu">
         <ul>
             <li><a class="button-menu" asp-area="" asp-controller="Home" asp-action="Index">@App.L("Home")</a></li>
@@ -36,15 +36,24 @@
                 <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="Mine">@App.L("Cart")</a></li>
                 if (isUserHasOrder)
                 {
-                <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
+                    <li><a class="button-menu" asp-area="" asp-controller="Order" asp-action="OrderStatus">@App.L("OrderStatus")</a></li>
                 }
+            }
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li><a class="button-menu" asp-area="Identity" asp-page="/Account/Manage/Index" title="@App.L("Profile")">@App.L("Profile")</a></li>
+                <li>
+                    <form class="form-inline"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-white button-menu">@App.L("Logout")</button>
+                    </form>
+                </li>
             }
             else
             {
-                @* <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li> *@
-                <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login">@App.L("Login")</a></li>
+                @* <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Register">@App.L("Register")</a></li> *@
+                <li><a class="button-menu" asp-area="" asp-controller="User" asp-action="Login" title="@App.L("Login")">@App.L("Login") </a></li>
             }
-
             <li>
                 <form asp-area="" asp-controller="Home" asp-action="SetCulture" method="get">
                     <select name="culture" onchange="this.form.submit()" class="button-menu">
@@ -93,7 +102,7 @@
 
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item"><a class="button-menu" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@App.L("Hello"), @userFullName</a></li>
+                    <li class="nav-item"><a class="button-menu" asp-area="Identity" asp-page="/Account/Manage/Index" title="@App.L("Profile")">@App.L("Hello"), @userFullName</a></li>
                     <li class="nav-item">
                         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             <button type="submit" class="nav-link btn btn-link text-white button-menu">@App.L("Logout")</button>

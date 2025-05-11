@@ -229,6 +229,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CancelOrder {
+            get {
+                return ResourceManager.GetString("CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CancelSuccessfully {
             get {
                 return ResourceManager.GetString("CancelSuccessfully", resourceCulture);
@@ -688,6 +697,42 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string openCart {
+            get {
+                return ResourceManager.GetString("openCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string openDetailsOrder {
+            get {
+                return ResourceManager.GetString("openDetailsOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string openOrderProduct {
+            get {
+                return ResourceManager.GetString("openOrderProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string openOrderStatus {
+            get {
+                return ResourceManager.GetString("openOrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string OrdarIsSent {
             get {
                 return ResourceManager.GetString("OrdarIsSent", resourceCulture);
@@ -895,6 +940,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string RegisterOrder {
+            get {
+                return ResourceManager.GetString("RegisterOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
@@ -907,6 +961,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string removeFromCart {
+            get {
+                return ResourceManager.GetString("removeFromCart", resourceCulture);
             }
         }
         
