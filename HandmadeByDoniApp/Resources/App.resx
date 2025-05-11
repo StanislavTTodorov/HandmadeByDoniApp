@@ -403,4 +403,76 @@
   <data name="Welcome" xml:space="preserve">
     <value />
   </data>
+  <data name="LogginError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RemoveSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RecoverySuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoryNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductNotExistChooseFrom" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PaymentMethodNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeliveryCompanyNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotHaveAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CommentNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProductNotAvailable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddProductSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotHaveOrdars" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnexpectedErrorTryingTo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PleaseContactAdministrator" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OrdarIsSent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CancelSuccessfully" xml:space="preserve">
+    <value />
+  </data>
+  <data name="editThe" xml:space="preserve">
+    <value />
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>

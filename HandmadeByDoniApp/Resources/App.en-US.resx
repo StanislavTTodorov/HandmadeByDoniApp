@@ -384,4 +384,73 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to the best place for Art!</value>
   </data>
+  <data name="LogginError" xml:space="preserve">
+    <value>There was an error while logging you in!</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Unexpected error occurred!</value>
+  </data>
+  <data name="AddSuccessfully" xml:space="preserve">
+    <value>was added successfully!</value>
+  </data>
+  <data name="RemoveSuccessfully" xml:space="preserve">
+    <value>was remove successfully!</value>
+  </data>
+  <data name="ProductNotExist" xml:space="preserve">
+    <value>with the provided id does not exist!</value>
+  </data>
+  <data name="EditSuccessfully" xml:space="preserve">
+    <value>was edited successfully!</value>
+  </data>
+  <data name="DeleteSuccessfully" xml:space="preserve">
+    <value>was delete successfully!</value>
+  </data>
+  <data name="RecoverySuccessfully" xml:space="preserve">
+    <value>was recovered successfully!!</value>
+  </data>
+  <data name="CategoryNotExist" xml:space="preserve">
+    <value>Selected category does not exist!</value>
+  </data>
+  <data name="ProductNotExistChooseFrom" xml:space="preserve">
+    <value>This product does not exist! These are all the products you can choose from.</value>
+  </data>
+  <data name="PaymentMethodNotExist" xml:space="preserve">
+    <value>Selected payment method does not exist!</value>
+  </data>
+  <data name="DeliveryCompanyNotExist" xml:space="preserve">
+    <value>Selected delivery company does not exist!</value>
+  </data>
+  <data name="NotHaveAddress" xml:space="preserve">
+    <value>You don't have Address! You can add your address here:</value>
+  </data>
+  <data name="EditComment" xml:space="preserve">
+    <value>You must be the user, who wrote the comment, which you want to edit!</value>
+  </data>
+  <data name="CommentNotExist" xml:space="preserve">
+    <value>This product does not exist! These are all the products you can comment.</value>
+  </data>
+  <data name="ProductNotAvailable" xml:space="preserve">
+    <value>Some of the products are not available.</value>
+  </data>
+  <data name="AddProductSuccessfully" xml:space="preserve">
+    <value>Product was added to Cart successfully!</value>
+  </data>
+  <data name="NotHaveOrdars" xml:space="preserve">
+    <value>You don't have Orders! You can select products from here</value>
+  </data>
+  <data name="UnexpectedErrorTryingTo" xml:space="preserve">
+    <value>Unexpected error occurred while trying to</value>
+  </data>
+  <data name="PleaseContactAdministrator" xml:space="preserve">
+    <value>Please try again later or contact administrator.</value>
+  </data>
+  <data name="OrdarIsSent" xml:space="preserve">
+    <value>Order with the provided id can not be canceled, because it is already sent!</value>
+  </data>
+  <data name="CancelSuccessfully" xml:space="preserve">
+    <value>is canceled successfully!</value>
+  </data>
+  <data name="editThe" xml:space="preserve">
+    <value>edit the</value>
+  </data>
 </root>

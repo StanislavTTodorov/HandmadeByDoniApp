@@ -2,6 +2,7 @@
 using HandmadeByDoniApp.Web.Infrastructure.Extensions;
 using HandmadeByDoniApp.Web.ViewModels.Address;
 using Microsoft.AspNetCore.Mvc;
+using HandmadeByDoniApp.Web.Resources;
 
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
@@ -60,14 +61,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.CreateAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = string.Format(AddSuccessfully,nameof(Address));
+                this.TempData[SuccessMessage] = $"{App.L(nameof(Address))} {App.L("AddSuccessfully")}";// string.Format(AddSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}"));
-                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
+                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L($"add new {nameof(Address)}")}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
                 return this.View(formModel);
             }
 
@@ -131,14 +132,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.EditAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = string.Format(EditSuccessfully,nameof(Address));
+                this.TempData[SuccessMessage] = $"{App.L(nameof(Address))} {App.L("EditSuccessfully")}"; //string.Format(EditSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
                 this.ModelState.AddModelError(string.Empty,string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}"));
-                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}");
+                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("editThe")} {App.L($"{nameof(Address)}")}";// string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}");
                 return this.View(formModel);
             }
 

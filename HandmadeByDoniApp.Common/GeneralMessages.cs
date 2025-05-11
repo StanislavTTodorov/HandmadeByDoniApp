@@ -1,11 +1,10 @@
 ﻿
-
 namespace HandmadeByDoniApp.Common
 {
     public static class GeneralMessages
     {
-        public const string LogginError = "There was an error while logging you in! Please try again later or contact an administrator.";
-        public const string UnexpectedError = "Unexpected error occurred! Please try again later or contact administrator.";
+        public const string LogginError = "There was an error while logging you in!";//PleaseContactAdministrator
+        public const string UnexpectedError = "Unexpected error occurred!";         //PleaseContactAdministrator
         public const string AddSuccessfully = "{0} was added successfully!";
         public const string RemoveSuccessfully = "{0} was remove successfully!";
         public const string ProductNotExist = "{0} with the provided id does not exist!";
@@ -23,13 +22,9 @@ namespace HandmadeByDoniApp.Common
         public const string ProductNotAvailable = "Some of the products are not available";
         public const string AddProductSuccessfully = "Product was added to Cart successfully!";
         public const string NotHaveOrdars="You don't have Orders! You can select products from here";
-        public const string UnexpectedErrorTryingTo = "Unexpected error occurred while trying to {0}! Please try again later or contact administrator.";
+        public const string UnexpectedErrorTryingTo = "Unexpected error occurred while trying to {0}!";
+        public const string PleaseContactAdministrator = "Please try again later or contact administrator.";
         public const string OrdarIsSent = "Order with the provided id can not be canceled, because it is already sent!";
         public const string CancelSuccessfully = "{0} is canceled successfully!";
-
-
-
-
-
     }
 }

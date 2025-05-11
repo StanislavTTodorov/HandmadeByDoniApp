@@ -402,4 +402,73 @@
   <data name="Welcome" xml:space="preserve">
     <value>Добре дошли на най-доброто място за изкуство!</value>
   </data>
+  <data name="LogginError" xml:space="preserve">
+    <value>Възникна грешка при влизане в системата!</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Възникна неочаквана грешка!</value>
+  </data>
+  <data name="AddSuccessfully" xml:space="preserve">
+    <value>беше добавено успешно!</value>
+  </data>
+  <data name="RemoveSuccessfully" xml:space="preserve">
+    <value>беше премахнат успешно!</value>
+  </data>
+  <data name="ProductNotExist" xml:space="preserve">
+    <value>с предоставеното ID не съществува!</value>
+  </data>
+  <data name="EditSuccessfully" xml:space="preserve">
+    <value>успешно беше редактиран!</value>
+  </data>
+  <data name="DeleteSuccessfully" xml:space="preserve">
+    <value>беше изтрит успешно!</value>
+  </data>
+  <data name="RecoverySuccessfully" xml:space="preserve">
+    <value>възстановяването беше успешно!</value>
+  </data>
+  <data name="CategoryNotExist" xml:space="preserve">
+    <value>„Избраната категория не съществува!</value>
+  </data>
+  <data name="ProductNotExistChooseFrom" xml:space="preserve">
+    <value>Този продукт не съществува! Ето всички продукти, от които можеш да избираш.</value>
+  </data>
+  <data name="PaymentMethodNotExist" xml:space="preserve">
+    <value>Избраният метод на плащане не съществува!</value>
+  </data>
+  <data name="DeliveryCompanyNotExist" xml:space="preserve">
+    <value>Избраната доставна компания не съществува!"</value>
+  </data>
+  <data name="NotHaveAddress" xml:space="preserve">
+    <value>Нямате адрес! Можете да добавите вашия адрес тук:</value>
+  </data>
+  <data name="EditComment" xml:space="preserve">
+    <value>Трябва да бъдеш потребителят, който е написал коментара, който искаш да редактираш!</value>
+  </data>
+  <data name="CommentNotExist" xml:space="preserve">
+    <value>Този продукт не съществува! Това са всички продукти, върху които можете да коментирате.</value>
+  </data>
+  <data name="ProductNotAvailable" xml:space="preserve">
+    <value>Някои от продуктите не са налични.</value>
+  </data>
+  <data name="AddProductSuccessfully" xml:space="preserve">
+    <value>Продуктът беше успешно добавен в количката!</value>
+  </data>
+  <data name="NotHaveOrdars" xml:space="preserve">
+    <value>Нямате поръчки! Можете да изберете продукти от тук.</value>
+  </data>
+  <data name="UnexpectedErrorTryingTo" xml:space="preserve">
+    <value>Неочаквана грешка възникна при опит за</value>
+  </data>
+  <data name="PleaseContactAdministrator" xml:space="preserve">
+    <value>Моля, опитайте отново по-късно или се свържете с администратора.</value>
+  </data>
+  <data name="OrdarIsSent" xml:space="preserve">
+    <value>Поръчката с предоставеното ID не може да бъде отменена, защото вече е изпратена!</value>
+  </data>
+  <data name="CancelSuccessfully" xml:space="preserve">
+    <value>е успешно отмененa!</value>
+  </data>
+  <data name="editThe" xml:space="preserve">
+    <value>редакция на</value>
+  </data>
 </root>
