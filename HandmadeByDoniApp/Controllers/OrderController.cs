@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Data.Models;
+using HandmadeByDoniApp.Web.Resources;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -32,7 +33,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = string.Format(UnexpectedErrorTryingTo, "open Cart");
+                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("openCart")}"; //string.Format(UnexpectedErrorTryingTo, "open Cart");
 
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -45,7 +46,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isActive = await this.orderService.IsActiveByIdAsync(id);
             if (isActive==false)
             {
-                this.TempData[InformationMessage] = ProductNotAvailable;
+                this.TempData[InformationMessage] = App.L("ProductNotAvailable");// ProductNotAvailable;
                 return this.Redirect(returnUrl);
 			}
 
@@ -53,7 +54,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 			{
                 string userId = User.GetId();
                 await this.orderService.AddProductByUserIdAsync(userId, id);
-                this.TempData[SuccessMessage] = AddProductSuccessfully;
+                this.TempData[SuccessMessage] = AddProductSuccessfully; ///////////////////////////////////////////////////
             }
             catch (Exception)
             {

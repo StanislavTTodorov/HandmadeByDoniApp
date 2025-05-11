@@ -68,7 +68,7 @@ namespace HandmadeByDoniApp.Web.Controllers
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L($"add new {nameof(Address)}")}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
+                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addNew")} {App.L($"{nameof(Address)}")}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
                 return this.View(formModel);
             }
 
@@ -82,7 +82,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = NotHaveAddress;
+                this.TempData[ErrorMessage] = App.L("NotHaveAddress");// NotHaveAddress;
                 return this.RedirectToAction("Add", "Addres", new { area = "" });
             }
 
@@ -147,7 +147,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
         private IActionResult GeneralError()
         {
-            this.TempData[ErrorMessage] = UnexpectedError;
+            this.TempData[ErrorMessage] = App.L("UnexpectedError"); // UnexpectedError;
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }

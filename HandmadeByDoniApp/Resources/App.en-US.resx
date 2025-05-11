@@ -255,9 +255,6 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>to</value>
   </data>
@@ -452,5 +449,8 @@
   </data>
   <data name="editThe" xml:space="preserve">
     <value>edit the</value>
+  </data>
+  <data name="addNew" xml:space="preserve">
+    <value>add new</value>
   </data>
 </root>

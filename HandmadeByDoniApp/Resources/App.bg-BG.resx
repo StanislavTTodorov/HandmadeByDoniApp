@@ -255,9 +255,6 @@
   <data name="Register" xml:space="preserve">
     <value>Регистрирай се</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Изпрати</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>на</value>
   </data>
@@ -470,5 +467,8 @@
   </data>
   <data name="editThe" xml:space="preserve">
     <value>редакция на</value>
+  </data>
+  <data name="addNew" xml:space="preserve">
+    <value>добавяне на нов</value>
   </data>
 </root>
