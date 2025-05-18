@@ -25,6 +25,10 @@
                 <h5> @App.L("MethodPayment") - @order.OrdersDetails.MethodPayment</h5>
                 <h5> @App.L("Date") - @order.OrdersDetails.CreaateOn</h5>
                 <h5> @App.L("Status") - @((order.OrdersDetails.IsSent) ? App.L("Sent") : App.L("NotSent"))</h5>
+                @if(order.OrdersDetails.IsSent)
+                {
+                    <h5> @App.L("Номер на пратката") - @order.OrdersDetails.CreaateOn</h5>
+                }
                 <h5> @App.L("Total") @App.L("Price")  - @order.OrdersDetails.TotalPrice</h5>
                 @if (order.OrdersDetails.IsSent==false)
                 {

@@ -13,7 +13,7 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
 
         Task<bool> CreateRegisterUserOrderByUserIdAsync(string userId);
 
-        Task EditSentToTrueAsync(string orderId);
+        Task EditSentToTrueAsync(string orderId , string? ShipmentNoteNumber = null);
 
         Task<bool> UserOrderExistsByOrderIdAsync(string orderId);
 
@@ -22,6 +22,8 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         Task<ICollection<AdminOrdersViewModel>> GetUserOrdersAsync();
 
         Task<ICollection<OrderStatusViewModel>> GetUserOrdersByUserIdAsync(string userId);
+
+        Task<EditOrderViewModel> GetUserOrderByOrdeIdAsync(string orderId);
 
         Task<bool> IsActiveByIdAsync(string id);
 

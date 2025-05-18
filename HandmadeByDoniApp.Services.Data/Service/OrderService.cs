@@ -153,7 +153,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         MethodPayment = u.Address.MethodPayment.Method,
                         CreaateOn = u.CreaateOn.ToString("dd/MM/yyyy HH:mm"),
                         TotalPrice = u.TotalPrice.ToString("f2"),
-                        IsSent = u.IsSent
+                        IsSent = u.IsSent,
+                        ShipmentNoteNumber = u.ShipmentNoteNumber?? "",
+                        
                     }
                 })
                 .ToArrayAsync();
@@ -209,6 +211,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Data = u.CreaateOn.ToString("dd/MM/yyyy HH:mm"),
                     TotalPrice = u.TotalPrice.ToString("f2"),
                     IsSent = u.IsSent,
+                    ShipmentNoteNumber = u.ShipmentNoteNumber,
 
                     CountryName = u.Address.CountryName,
                     CityName = u.Address.CityName,
@@ -231,11 +234,15 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return exists;
         }
 
-        public async Task EditSentToTrueAsync(string orderId)
+        public async Task EditSentToTrueAsync(string orderId, string? ShipmentNoteNumber = null)
         {
             UserOrder userOrder = await GetUserOrdersByOrderIdAsync(orderId);
 
             userOrder.IsSent = true;
+            if (ShipmentNoteNumber != null)
+            {
+                userOrder.ShipmentNoteNumber = ShipmentNoteNumber;
+            }
 
             await this.repository.SaveChangesAsync();
         }
@@ -259,6 +266,27 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             UserOrder userOrder = await GetUserOrdersByOrderIdAsync(orderId);
             return userOrder.IsSent;
+        }
+
+        public async Task<EditOrderViewModel> GetUserOrderByOrdeIdAsync(string orderId)
+        {
+            UserOrder userOrder= await this.repository.All<UserOrder>()
+                                                        .Include(u => u.User)                                              
+                                                        .FirstAsync(u => u.OrderId.ToString() == orderId);
+
+            if(userOrder == null)
+            {
+                return new EditOrderViewModel();
+            }
+
+            return new EditOrderViewModel()
+            {
+                ShipmentNoteNumber = userOrder.ShipmentNoteNumber?? "",
+                OrderId = userOrder.OrderId.ToString(),
+                //UserEmail = userOrder.User.Email,
+               // UserName = $"{userOrder.User.FirstName} {userOrder.User.LastName}",
+                //IsSent = userOrder.IsSent,
+            };
         }
 
         private async Task<Product> GetProductByIdAsync(string productId)

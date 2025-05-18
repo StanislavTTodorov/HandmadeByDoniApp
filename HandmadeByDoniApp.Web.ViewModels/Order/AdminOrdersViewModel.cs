@@ -19,5 +19,7 @@ namespace HandmadeByDoniApp.Web.ViewModels.Order
         public string TotalPrice {  get; set; } = null!;
 
         public bool IsSent { get; set; }
+
+        public string? ShipmentNoteNumber { get; set; }
     }
 }

@@ -36,6 +36,8 @@ namespace HandmadeByDoniApp.Data.Models
 
         public bool IsSent { get; set; }
 
+        public string? ShipmentNoteNumber { get; set; }
+
 
     }
 }
