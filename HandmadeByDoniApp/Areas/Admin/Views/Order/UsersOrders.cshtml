@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = App.L("UsersOrders");
 }
+<head>
+    <link rel="stylesheet" href="~/css/Order/UsersOrders.css" asp-append-version="true" />
+</head>
+
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />
 
@@ -11,11 +15,11 @@
         <tr>
 
             <th><label>@App.L("FullName")</label></th>
-            <th><label>@App.L("Email")</label></th>
+            <th class ="hide-on-small"><label>@App.L("Email")</label></thc>
             <th><label>@App.L("Phone")</label></th>
             <th><label>@App.L("Address")</label></th>
-            <th><label>@App.L("Date")</label></th>
-            <th><label>@App.L("DeliveryCompany")</label></th>
+            <th class="hide-on-small"><label>@App.L("Date")</label></th>
+            <th class="hide-on-small"><label>@App.L("DeliveryCompany")</label></th>
             <th><label>@App.L("Payment")</label></th>
             <th><label>@App.L("Commands")</label></th>
         </tr>
@@ -25,11 +29,11 @@
         {
             <tr>
                 <td><label>@user.FullName</label></td>
-                <td><label>@user.Email</label></td>
+                <td class="hide-on-small"><label>@user.Email</label></td>
                 <td><label>@user.PhoneNumber</label></td>
                 <td><label>@($"{user.CountryName}, {user.CityName}, {user.Street}")</label></td>
-                <td><label>@user.Data</label></td>
-                <td><label>@user.DeliveryCompanyName</label></td>
+                <td class="hide-on-small"><label>@user.Data</label></td>
+                <td class="hide-on-small"><label>@user.DeliveryCompanyName</label></td>
                 <td><label>@($"{user.MethodPayment} {user.TotalPrice}{App.L("Currency")}")</label></td>
                 <td>
                     @if (user.IsSent == false)
@@ -40,25 +44,13 @@
                            asp-action="Sent"
                            asp-route-orderId="@user.OrderId">@App.L("Sent")</a>
 
-                     @*    <button type="button"
-                        class="ml-2 btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#sentModal-@user.OrderId">
-                            @App.L("Sent")
-                        </button> *@
-
                     }
                     <a class="ml-2 btn btn-primary"
                     asp-area=""
                     asp-controller="Order"
                     asp-action="ProductOrder"
                     asp-route-id="@user.OrderId">@App.L("OrderDetails")</a>
-
-                    @* <a asp-area="Admin"
-                       asp-controller="Order"
-                       asp-action="CancelOrder"
-                       asp-route-id="@user.OrderId"
-                       class="btn btn-danger">@App.L("Delete")</a>    *@        
+        
 
                     <button type="button"
                     class="btn btn-danger"
@@ -89,37 +81,9 @@
                     </div>
                 </div>
             </div>
-    @*         <div class="modal fade" id="sentModal-@user.OrderId" tabindex="-1" aria-labelledby="sentModal-@user.OrderId" aria-hidden="true">
-                @{
-                    string shipmentNoteNumber = "string.Empty";
-                    <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">@App.L("AddShipmentNoteNumber")</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@App.L("Close")"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                    <textarea data-bind="@shipmentNoteNumber" data-shipmentNoteNumber="@shipmentNoteNumber" rows="4" class="form-control" placeholder="@App.L("shipmentNoteNumber")..."></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                                <form method="post" asp-area="Admin" asp-controller="Order" asp-action="EditOrderIdAsync" asp-route-orderId="@user.OrderId" asp-route-shipmentNoteNumber="@shipmentNoteNumber">
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@App.L("Cancel")</button>
-                                    <button type="submit" class="btn btn-danger">@App.L("Save")</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                }
-            </div> *@        
+          
         }
     </tbody>
 </table>
 
-@* <script>
-    document.getElementById('shipmentNoteNumber').value = 'Вашата стойност тук';
-</script> *@
 

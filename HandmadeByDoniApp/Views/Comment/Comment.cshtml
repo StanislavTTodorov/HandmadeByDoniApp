@@ -9,18 +9,19 @@
     ViewBag.Title = App.L("Comment");
     string? carouselId = null;
 }
-<h2 class="text-center title">@ViewBag.Title</h2>
-<hr />
 <head>
     <link href="~/css/comment.css" rel="stylesheet" />
 </head>
+<h2 class="text-center title">@ViewBag.Title</h2>
+<hr />
+
 <section class="product-comment">
-    <div class="row col-5">
-        <div class="col-4">
+    <div class="row col-lg-5">
+        <div class="col-lg-4">
             @* productViewModel  <img class="card-img-top" style="max-width: 20em;" src="@Model.ImageUrl" alt="@App.L("Image")"> *@
             <partial class="card-img-top" style="max-width: 20em;" name="_ImageUrlsPartial" model="@(Model.ImageUrl,carouselId)" />
         </div>
-        <div class="card col-5 border-0">
+        <div class="card col-lg-5 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>
             <p>@Model.Description</p>
 

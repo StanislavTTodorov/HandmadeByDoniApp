@@ -42,10 +42,11 @@
                 <div class="mt-3 t border-light button-menu d-flex justify-content-center align-items-center">
                     <a asp-controller="User" asp-action="Register" class="w-100 text-white text-center">@App.L("Register")</a>
                 </div>
+                
             </form>
-            <button type="button" class="mt-2 w-100  border-light button-menu">
-                <span>@App.L("LogInGoogle")</span>
-            </button>
+            <div class="mt-3 t border-light button-menu d-flex justify-content-center align-items-center">
+                <a  asp-controller="Google" asp-action="Google" class="w-100 text-white text-center">@App.L("LogInGoogle")</a>
+            </div>
         </section>
     </div>
 </div>

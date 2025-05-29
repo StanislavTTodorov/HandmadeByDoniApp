@@ -492,4 +492,31 @@
   <data name="openCart" xml:space="preserve">
     <value>отваряне на количката.</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профил</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteThisOrder" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете тази поръчка?</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Потвърждение</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Не</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Предишна страница</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Следваща страница</value>
+  </data>
 </root>

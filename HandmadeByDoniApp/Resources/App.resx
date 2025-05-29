@@ -493,4 +493,31 @@
   <data name="openCart" xml:space="preserve">
     <value />
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AreYouSureYouWantToDeleteThisOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="No" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value />
+  </data>
 </root>

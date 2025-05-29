@@ -7,14 +7,13 @@
 
 
 .card-body-list,
-.card-list{
+.card-list {
     display: flex;
     flex-direction: row;
     gap: 1em;
     justify-content: space-between;
     align-items: center;
-
-
+   
 }
 .card-img-list{
     max-height: 200px;
@@ -27,4 +26,10 @@
 }
 .text-size{
     font-size: 2.5em;
+}
+@media (max-width: 1024px) {
+    .card-list {
+        flex-wrap: wrap; /* за по-добра поддръжка при тесни екрани */
+    }
+    
 }

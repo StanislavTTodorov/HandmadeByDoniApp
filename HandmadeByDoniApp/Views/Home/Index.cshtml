@@ -29,11 +29,11 @@
 }
 else
 {
-    <div class="card-product">
+    <div class=" card-product row">
         @foreach (IndexViewModel product in products)
         {
             string carouselId = $"productCarousel_{product.Id}";
-            <div class="min-card w-25 shadow-lg">
+            <div class="min-card  w-25 shadow-lg">
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId )" />
                 <div class="card-body">
                     <h5 class="card">

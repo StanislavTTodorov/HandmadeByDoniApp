@@ -41,6 +41,14 @@
     border-radius: 1em;
 }
 
+@media (max-width: 1024px) {
+    .product-comment {
+        flex-wrap: wrap; /* за по-добра поддръжка при тесни екрани */
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 
 .summary[open]:hover{
   

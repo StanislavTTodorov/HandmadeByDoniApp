@@ -122,7 +122,7 @@
            asp-route-productsName="@((int)Model.ProductsName)"
            asp-route-category="@Model.GlassCategory"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)"><<</a>
+           asp-route-sorting="@((int)Model.ProductSorting)">@App.L("PreviousPage")</a>
     </div>
 
     @{
@@ -139,7 +139,7 @@
            asp-route-productsName="@((int)Model.ProductsName)"
            asp-route-category="@Model.GlassCategory"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)">>></a>
+           asp-route-sorting="@((int)Model.ProductSorting)">@App.L("NextPage")</a>
     </div>
 </div>
 

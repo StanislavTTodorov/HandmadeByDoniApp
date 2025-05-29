@@ -23,7 +23,7 @@
                 <div class="card-list">
                    
                     @* <img class="card-img-list" src="@product.ImageUrl" alt="@App.L("Image")"> *@
-                    <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
+                    <partial class="w-50" name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                     <div class="product-info">
                         <h4>@product.Title</h4>
                         <h6>

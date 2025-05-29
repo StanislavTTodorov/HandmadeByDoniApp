@@ -29,3 +29,8 @@
     max-height: 80%;
     min-height: 80%;
 }
+@media (max-width: 1024px) {
+    .w-25 {
+        width: 100% !important;
+    }
+}

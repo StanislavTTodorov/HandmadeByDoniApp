@@ -2,7 +2,7 @@
 .product-center {
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     align-self: center;
     max-width: 50%;
 }
@@ -44,4 +44,13 @@
 
 .text-size {
     font-size: 2.5em;
+}
+@media (max-width: 1024px) {
+    .details {
+        flex-wrap: wrap; /* за по-добра поддръжка при тесни екрани */
+    }
+    .address,
+    .product-center {
+        max-width: 85%;
+    }
 }

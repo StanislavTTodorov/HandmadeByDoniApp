@@ -11,12 +11,12 @@
         <form method="post">
             
             <div class="form-group">
-                <label asp-for="Text"></label>
+                <label asp-for="Text">@App.L("Text") </label>
                 <textarea asp-for="Text" rows="4" class="form-control" placeholder="@App.L("Comment")..."></textarea>
                 <span asp-validation-for="Text" class="small textdanger"></span>
            </div>
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Submit")" />
+                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Sent")" />
             </div>
         </form>
     </div>

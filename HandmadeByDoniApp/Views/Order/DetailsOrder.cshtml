@@ -49,11 +49,11 @@
             @foreach (var product in Model.MineProduct.Products)
             {
                 string carouselId = $"productCarousel_{product.Id}";
-                <div class="col-8 mt-2">
+                <div class="col-9 mt-2">
                     <div class="card-list">
                         @* <img class="card-img-list" src="@product.ImageUrl" alt="@App.L("Image")"> *@
                         <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
-                        <div class="product-info">
+                        <div class="product-info col-5 align-items-start ">
                             <h4>@product.Title</h4>
                             <h6>
                                 @App.L("Price"): <b>@($"{product.Price:f2}") @App.L("Currency")</b>

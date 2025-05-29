@@ -474,4 +474,31 @@
   <data name="openCart" xml:space="preserve">
     <value>open Cart</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteThisOrder" xml:space="preserve">
+    <value>Are you sure you want to delete this order?</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Previous Page</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Next Page</value>
+  </data>
 </root>
