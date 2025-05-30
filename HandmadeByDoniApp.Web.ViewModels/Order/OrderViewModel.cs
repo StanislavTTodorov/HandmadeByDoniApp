@@ -19,15 +19,12 @@ namespace HandmadeByDoniApp.Web.ViewModels.Order
 
     public class EditOrderViewModel
     {
-        public string OrderId { get; set; } = null!;
-
-       // public bool IsSent { get; set; }
-
+        public string Id { get; set; } = null!;
+        public string Address { get; set; } = null!;
         public string ShipmentNoteNumber { get; set; } = null!;
-
-        //public string UserName { get; set; } = null!;
-
-        //public string UserEmail { get; set; } = null!;
-
+        public string UserName { get; set; } = null!;
+        public string UserEmail { get; set; } = null!;
+        public string UserPhone { get; set; } = null!;
+        public string MethodPayment { get; set; } = null!;
     }
 }

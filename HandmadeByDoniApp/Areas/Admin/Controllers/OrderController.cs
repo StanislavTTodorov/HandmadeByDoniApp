@@ -78,9 +78,9 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditOrderIdAsync(string orderId)
+        public async Task<IActionResult> AddShipmentNoteNumber(string id)
         {
-            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(orderId);
+            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(id);
             if (isExists == false)
             {
                 this.TempData[ErrorMessage] = App.L("NotHaveOrdars");//NotHaveOrdars;
@@ -89,7 +89,8 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             try
             {
-                EditOrderViewModel formModel = await this.orderService.GetUserOrderByOrdeIdAsync(orderId);
+                EditOrderViewModel formModel = await this.orderService.GetUserOrderByOrdeIdAsync(id);
+                //return this.View("~/Admin/Views/Order/AddShipmentNoteNumber.cshtml", formModel);
                 return View(formModel);
             }
             catch (Exception)
@@ -100,10 +101,10 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditOrderIdAsync(AdminOrdersViewModel formModel  /*string orderId,string shipmentNoteNumber*//*EditOrderViewModel formModel*/)
+        public async Task<IActionResult> AddShipmentNoteNumber(EditOrderViewModel formModel  /*string id,string shipmentNoteNumber*//*EditOrderViewModel formModel*/)
         {
 
-            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(/*orderId*/formModel.OrderId);
+            bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(/*id*/formModel.Id);
             if (isExists == false)
             {
                 this.TempData[ErrorMessage] = App.L("NotHaveOrdars");//NotHaveOrdars;
@@ -112,7 +113,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
 
             try
             {
-                await this.orderService.EditSentToTrueAsync(/*orderId, shipmentNoteNumber */formModel.OrderId, formModel.ShipmentNoteNumber);
+                await this.orderService.EditSentToTrueAsync(/*id, shipmentNoteNumber */formModel.Id, formModel.ShipmentNoteNumber);
             }
             catch (Exception)
             {

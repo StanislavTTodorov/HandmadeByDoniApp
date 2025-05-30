@@ -130,6 +130,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AddShipmentNoteNumber {
+            get {
+                return ResourceManager.GetString("AddShipmentNoteNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AddSuccessfully {
             get {
                 return ResourceManager.GetString("AddSuccessfully", resourceCulture);
@@ -256,9 +265,27 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Card_payment_on_delivery {
+            get {
+                return ResourceManager.GetString("Card payment on delivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Cart {
             get {
                 return ResourceManager.GetString("Cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Cash_payment_on_delivery {
+            get {
+                return ResourceManager.GetString("Cash payment on delivery", resourceCulture);
             }
         }
         
@@ -1121,6 +1148,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ShipmentNoteNumber {
+            get {
+                return ResourceManager.GetString("ShipmentNoteNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ShopList {
             get {
                 return ResourceManager.GetString("ShopList", resourceCulture);
@@ -1151,6 +1187,15 @@ namespace HandmadeByDoniApp.Web.Resources {
         public static string Tea_Glass {
             get {
                 return ResourceManager.GetString("Tea Glass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TheSent {
+            get {
+                return ResourceManager.GetString("TheSent", resourceCulture);
             }
         }
         

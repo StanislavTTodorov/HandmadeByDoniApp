@@ -519,4 +519,19 @@
   <data name="NextPage" xml:space="preserve">
     <value>Следваща страница</value>
   </data>
+  <data name="ShipmentNoteNumber" xml:space="preserve">
+    <value> Номер на товарителница </value>
+  </data>
+  <data name="Cash payment on delivery" xml:space="preserve">
+    <value>Плащане в брой при доставка</value>
+  </data>
+  <data name="Card payment on delivery" xml:space="preserve">
+    <value>Плащане с карта при доставка</value>
+  </data>
+  <data name="TheSent" xml:space="preserve">
+    <value>Изпратен</value>
+  </data>
+  <data name="AddShipmentNoteNumber" xml:space="preserve">
+    <value>Добави номер на товарителница</value>
+  </data>
 </root>

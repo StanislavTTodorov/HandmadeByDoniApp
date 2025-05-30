@@ -520,4 +520,19 @@
   <data name="NextPage" xml:space="preserve">
     <value />
   </data>
+  <data name="ShipmentNoteNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Cash payment on delivery" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Card payment on delivery" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheSent" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddShipmentNoteNumber" xml:space="preserve">
+    <value />
+  </data>
 </root>

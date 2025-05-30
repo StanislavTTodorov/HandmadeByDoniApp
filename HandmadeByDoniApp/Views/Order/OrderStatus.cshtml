@@ -21,13 +21,13 @@
                 <h5> @App.L("City") - @order.OrdersDetails.CityName</h5>
                 <h5> @App.L("Street") - @order.OrdersDetails.Street</h5>
                 <h5> @App.L("PhoneNumber") - @order.OrdersDetails.PhoneNumber</h5>
-                <h5> @App.L("DeliveryCompany") - @order.OrdersDetails.DeliveryCompanyName</h5>
-                <h5> @App.L("MethodPayment") - @order.OrdersDetails.MethodPayment</h5>
+                <h5>@App.L("DeliveryCompany") - @App.L(order.OrdersDetails.DeliveryCompanyName) </h5>
+                <h5> @App.L("MethodPayment") - @App.L(order.OrdersDetails.MethodPayment) </h5>
                 <h5> @App.L("Date") - @order.OrdersDetails.CreaateOn</h5>
-                <h5> @App.L("Status") - @((order.OrdersDetails.IsSent) ? App.L("Sent") : App.L("NotSent"))</h5>
+                <h5> @App.L("Status") - @((order.OrdersDetails.IsSent) ? App.L("TheSent") : App.L("NotSent"))</h5>
                 @if(order.OrdersDetails.IsSent)
                 {
-                    <h5> @App.L("Номер на пратката") - @order.OrdersDetails.CreaateOn</h5>
+                    <h5> @App.L("ShipmentNoteNumber") - @order.OrdersDetails.ShipmentNoteNumber</h5>
                 }
                 <h5> @App.L("Total") @App.L("Price")  - @order.OrdersDetails.TotalPrice</h5>
                 @if (order.OrdersDetails.IsSent==false)
