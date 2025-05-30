@@ -1,0 +1,51 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Manage your account";
+    var tab = ViewBag.SelectedTab as string ?? "Profile";
+}
+
+<h2>Manage your account</h2>
+<p>Change your account settings</p>
+<hr />
+
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav flex-column nav-pills">
+            <li class="nav-item">
+                <a class="nav-link @(tab == "Profile" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(tab == "Email" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Email">Email</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(tab == "Password" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Password">Password</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(tab == "TwoFactor" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="TwoFactor">Two-factor authentication</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(tab == "PersonalData" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="PersonalData">Personal data</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        @switch (tab)
+        {
+            case "Email":
+                @await Html.PartialAsync("_EditEmail", new ChangeEmailViewModel())
+                break;
+            case "Password":
+                @await Html.PartialAsync("_EditPassword", new ChangePasswordViewModel())
+                break;
+            case "TwoFactor":
+                @await Html.PartialAsync("_TwoFactor")
+                break;
+            case "PersonalData":
+                @await Html.PartialAsync("_PersonalData")
+                break;
+            default:
+                @await Html.PartialAsync("_Profile")
+                break;
+        }
+    </div>
+</div>
