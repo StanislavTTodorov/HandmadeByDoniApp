@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using HandmadeByDoniApp.Web.Resources;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -63,9 +64,6 @@ namespace HandmadeByDoniApp.Web.Controllers
                 LastName = model.LastName
             };
 
-            // await this.userManager.AddClaimAsync(user, new Claim("FirstName", model.FirstName));
-            // await this.userManager.AddClaimAsync(user, new Claim("LastName", model.LastName));
-
             await this.userManager.SetEmailAsync(user, model.Email);
             await this.userManager.SetUserNameAsync(user, model.Email);
 
@@ -87,7 +85,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             result = await userManager.ConfirmEmailAsync(user, token);
 
             await signInManager.SignInAsync(user, false);
-            //this.memoryCache.Remove(UsersCacheKey);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -96,14 +93,14 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
-            logger.LogWarning("Login page accessed.");
+            //logger.LogWarning("Login page accessed.");
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             LoginFormModel model = new LoginFormModel()
             {
                 ReturnUrl = returnUrl
             };
-            logger.LogWarning("Login page model created.");
+            //logger.LogWarning("Login page model created.");
             return this.View(model);
         }
 
@@ -111,243 +108,208 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
-            logger.LogWarning("Login post action accessed.");
+            //logger.LogWarning("Login post action accessed.");
             if (ModelState.IsValid == false)
             {
-                logger.LogCritical("Model state is not valid.");
+                //logger.LogCritical("Model state is not valid.");
                 return this.View(model);
             }
-            logger.LogWarning("Model state is valid.");
-            var result =
-                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            logger.LogWarning("Password sign in result: {result}", result.Succeeded);
+            //logger.LogWarning("Model state is valid.");
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            //logger.LogWarning("Password sign in result: {result}", result.Succeeded);
 
             if (result.Succeeded == false)
             {
-                logger.LogCritical("Login failed.");
+                //logger.LogCritical("Login failed.");
                 TempData[ErrorMessage] = LogginError;
                 return this.View(model);
             }
-            logger.LogWarning("Login successful.");
+            //logger.LogWarning("Login successful.");
             return this.Redirect(model.ReturnUrl ?? "/Home/Index");
         }
-        [HttpPost]
-        public async Task<IActionResult> Logout(string? returnUrl = null)
+       
+        [HttpGet]
+        public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return this.Redirect("/Home/Index");
-            // return RedirectToAction("Index", "Home");
+            try
+            {
+                //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            }
+
+            catch (Exception ex)
+            {
+                logger.LogWarning($"Logout Error: {ex.Message}");
+            }
+            // return this.Redirect("/Home/Index");
+            return RedirectToAction("Index", "Home");
         }
-        //[HttpGet]
-        //public async Task<IActionResult> ProfileSettings()
-        //{
-        //    var user = await userManager.GetUserAsync(User);
-
-        //    var model = new UserProfileViewModel
-        //    {
-        //        Email = user.Email,
-        //        PhoneNumber = user.PhoneNumber,
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName
-        //    };
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ProfileSettings(UserProfileViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View(model);
-
-        //    var user = await userManager.GetUserAsync(User);
-        //    if (user == null)
-        //        return NotFound();
-
-        //    user.FirstName = model.FirstName;
-        //    user.LastName = model.LastName;
-        //    user.PhoneNumber = model.PhoneNumber;
-
-        //    var result = await userManager.UpdateAsync(user);
-        //    if (!result.Succeeded)
-        //    {
-        //        foreach (var error in result.Errors)
-        //            ModelState.AddModelError(string.Empty, error.Description);
-        //        return View(model);
-        //    }
-
-        //    TempData[SuccessMessage] = "Профилът е обновен успешно!";
-        //    return RedirectToAction(nameof(ProfileSettings));
-        //}
-
+  
         [HttpGet]
         public async Task<IActionResult> ProfileSettings(string tab = "Profile")
         {
+            ViewBag.SelectedTab = tab;
             switch (tab)
             {
                 case "Email":
-                    ViewBag.SelectedTab = "Email";
                     return View(new ChangeEmailViewModel());
-                    //return PartialView("_EditEmail", new ChangeEmailViewModel());
                 case "Password":
-                    ViewBag.SelectedTab = "Password";
                     return View(new ChangePasswordViewModel());
-                    //return PartialView("_EditPassword", new ChangePasswordViewModel());
                 case "TwoFactor":
                     //return PartialView("_TwoFactor");
-                case "PersonalData":
-                    //return PartialView("_PersonalData");
                 case "Profile":
                 default:
+
+                    if (tab == "TwoFactor")
+                    {
+                        this.TempData[ErrorMessage] = "В процес на разработка";
+                    }
+
                     ViewBag.SelectedTab = "Profile";
                     var user = await userManager.GetUserAsync(User);
                     var model = new UserProfileViewModel
                     {
                         Email = user.Email,
-                        PhoneNumber = user.PhoneNumber,
+                        //PhoneNumber = user.PhoneNumber,
                         FirstName = user.FirstName,
                         LastName = user.LastName
                     };
                     return View(model);
             }
-            //ViewBag.SelectedTab = tab;
-
-            //if (tab == "Profile")
-            //{
-            //    var user = await userManager.GetUserAsync(User);
-            //    var model = new UserProfileViewModel
-            //    {
-            //        Email = user.Email,
-            //        PhoneNumber = user.PhoneNumber,
-            //        FirstName = user.FirstName,
-            //        LastName = user.LastName
-            //    };
-
-            //    return View("Manage", model); // manage is the main view, not partial
-            //}
-
-            //return View("Manage"); // only tab content is loaded via partial
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProfile(UserProfileViewModel model)
         {
-            ViewBag.SelectedTab = "Profile";
-
-            if (!ModelState.IsValid)
-                return View("Manage", model);
-
-            var user = await userManager.GetUserAsync(User);
-            if (user == null) return NotFound();
-
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.PhoneNumber = model.PhoneNumber;
-
-            var result = await userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
+            try
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
-                return View("Manage", model);
+                ViewBag.SelectedTab = "Profile";
+
+                if (!ModelState.IsValid)
+                {
+                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
+                }
+
+                var user = await userManager.GetUserAsync(User);
+                if (user == null) return NotFound();
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                //user.PhoneNumber = model.PhoneNumber;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+
+                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
+                }
+
+                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
             }
-
-            TempData["SuccessMessage"] = "Profile updated successfully.";
-            return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
+            catch (Exception ex)
+            {
+                logger.LogWarning($"UpdateProfile Error: {ex.Message}");
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
+            }
+            
         }
-
-
-        [HttpGet]
-        public IActionResult ChangeEmail() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var user = await userManager.GetUserAsync(User);
-            var passwordValid = await userManager.CheckPasswordAsync(user, model.Password);
-
-            if (!passwordValid)
+            try
             {
-                ModelState.AddModelError(string.Empty, "Invalid password.");
-                return View(model);
+                if (!ModelState.IsValid)
+                {
+                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
+                }
+
+                var user = await userManager.GetUserAsync(User);
+                var passwordValid = await userManager.CheckPasswordAsync(user, model.Password);
+
+                if (!passwordValid)
+                {
+                    this.TempData[ErrorMessage] = App.L("InvalidPassword");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
+                }
+
+                var token = await userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
+                var result = await userManager.ChangeEmailAsync(user, model.NewEmail, token);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError("", error.Description);
+
+                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
+                }
+
+                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                return RedirectToAction(nameof(ProfileSettings));
             }
-
-            var token = await userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
-            var result = await userManager.ChangeEmailAsync(user, model.NewEmail, token);
-
-            if (!result.Succeeded)
+            catch (Exception ex)
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError("", error.Description);
-                return View(model);
+                logger.LogWarning($"ChangeEmail Error: {ex.Message}");
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
             }
-
-            TempData["SuccessMessage"] = "Email updated successfully.";
-            return RedirectToAction(nameof(ProfileSettings));
+            
         }
-
-        [HttpGet]
-        public IActionResult ChangePassword() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var user = await userManager.GetUserAsync(User);
-            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
-            if (!result.Succeeded)
+            try
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError("", error.Description);
-                return View(model);
-            }
+                if (!ModelState.IsValid)
+                {
+                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
+                }
 
-            await signInManager.RefreshSignInAsync(user); // keep user signed in
-            TempData["SuccessMessage"] = "Password changed successfully.";
+                var user = await userManager.GetUserAsync(User);
+                var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError("", error.Description);
+
+                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
+
+                }
+
+                await signInManager.RefreshSignInAsync(user); // keep user signed in
+                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                return RedirectToAction(nameof(ProfileSettings));
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning($"ChangePassword Error: {ex.Message}");
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
+            }
+           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TwoFactor()
+        {         
             return RedirectToAction(nameof(ProfileSettings));
         }
-
-        [HttpGet]
-        public async Task<IActionResult> LoadTabContent(string tab)
-        {
-            switch (tab)
-            {
-                case "Email":
-                    return PartialView("_EditEmail", new ChangeEmailViewModel());
-                case "Password":
-                    return PartialView("_EditPassword", new ChangePasswordViewModel());
-                case "TwoFactor":
-                    return PartialView("_TwoFactor");
-                case "PersonalData":
-                    return PartialView("_PersonalData");
-                case "Profile":
-                default:
-                    var user = await userManager.GetUserAsync(User);
-                    var model = new UserProfileViewModel
-                    {
-                        Email = user.Email,
-                        PhoneNumber = user.PhoneNumber,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName
-                    };
-                    return PartialView("_Profile", model);
-            }
-        }
-
-        // Примерни действия, ако искаш отделни заявки за всяка секция:
-        //public IActionResult EditEmail() => View();
-        //public IActionResult EditPassword() => View();
-        public IActionResult TwoFactor() => View();
-        public IActionResult PersonalData() => View();
     }
 }

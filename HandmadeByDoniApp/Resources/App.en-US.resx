@@ -516,4 +516,46 @@
   <data name="AddShipmentNoteNumber" xml:space="preserve">
     <value>Add Shipment Number</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="ChangePersonalInfo" xml:space="preserve">
+    <value>Update Personal Info</value>
+  </data>
+  <data name="FillAllFields" xml:space="preserve">
+    <value>Fill in all fields.</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Change Email</value>
+  </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>New Email</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="ManageYourAccount" xml:space="preserve">
+    <value>Manage your account</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Invalid Password</value>
+  </data>
+  <data name="UpdatedSuccessfully" xml:space="preserve">
+    <value>Updated Successfully</value>
+  </data>
 </root>

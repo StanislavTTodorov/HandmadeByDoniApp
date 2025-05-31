@@ -17,9 +17,9 @@ namespace HandmadeByDoniApp.Web.ViewModels.User
         [Display(Name = "Email")]
         public string Email { get; set; } = null!;
 
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string? PhoneNumber { get; set; } 
+        //[Phone]
+        //[Display(Name = "Phone number")]
+        //public string? PhoneNumber { get; set; } 
 
         [Required]
         [Display(Name = "First name")]
@@ -33,22 +33,22 @@ namespace HandmadeByDoniApp.Web.ViewModels.User
     public class ChangeEmailViewModel
     {
         [Required, EmailAddress, Display(Name = "New Email")]
-        public string NewEmail { get; set; }
+        public string NewEmail { get; set; } = null!;
 
         [Required, DataType(DataType.Password), Display(Name = "Current Password")]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
     }
     public class ChangePasswordViewModel
     {
         [Required, DataType(DataType.Password), Display(Name = "Current Password")]
-        public string CurrentPassword { get; set; }
+        public string CurrentPassword { get; set; } = null!;
 
         [Required, DataType(DataType.Password), Display(Name = "New Password")]
-        public string NewPassword { get; set; }
+        public string NewPassword { get; set; } = null!;
 
         [Required, DataType(DataType.Password), Display(Name = "Confirm Password")]
         [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; } = null!;
     }
 
 

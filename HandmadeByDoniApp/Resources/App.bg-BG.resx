@@ -534,4 +534,46 @@
   <data name="AddShipmentNoteNumber" xml:space="preserve">
     <value>Добави номер на товарителница</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="ChangePersonalInfo" xml:space="preserve">
+    <value>Актуализирай лична информация</value>
+  </data>
+  <data name="FillAllFields" xml:space="preserve">
+    <value>Попълнете всички полета</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Промяна на имейл</value>
+  </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>Нов имейл</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Актуализирай</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Смяна на парола</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текуща парола</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Нова парола</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Потвърдете паролата</value>
+  </data>
+  <data name="ManageYourAccount" xml:space="preserve">
+    <value>Управление на вашия акаунт</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Невалидна парола</value>
+  </data>
+  <data name="UpdatedSuccessfully" xml:space="preserve">
+    <value>Актуализирано успешно</value>
+  </data>
 </root>
