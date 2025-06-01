@@ -150,7 +150,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
 #if DEBUG
             string confirmationLink = $"https://localhost:7142/User/ConfirmEmail?email={Uri.EscapeDataString(user.Email)}&token={Uri.EscapeDataString(token)}";
 #else
-            string confirmationLink = $"https://185.89.126.217:8080/User/ConfirmEmail?email={Uri.EscapeDataString(model.Email)}&token={Uri.EscapeDataString(token)}";
+            string confirmationLink = $"https://185.89.126.217:8080/User/ConfirmEmail?email={Uri.EscapeDataString(user.Email)}&token={Uri.EscapeDataString(token)}";
 #endif
 
             string emailBody = $@"
