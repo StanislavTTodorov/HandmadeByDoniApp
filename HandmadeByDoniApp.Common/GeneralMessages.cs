@@ -26,5 +26,6 @@ namespace HandmadeByDoniApp.Common
         public const string PleaseContactAdministrator = "Please try again later or contact administrator.";
         public const string OrdarIsSent = "Order with the provided id can not be canceled, because it is already sent!";
         public const string CancelSuccessfully = "{0} is canceled successfully!";
+        public const string Name = "HandmadeByDoni";
     }
 }

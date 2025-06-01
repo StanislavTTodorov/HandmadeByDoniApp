@@ -50,6 +50,11 @@ namespace HandmadeByDoniApp.Web.ViewModels.User
         [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; } = null!;
     }
+    public class ConfirmEmailViewModel
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
+    }
 
 
 }

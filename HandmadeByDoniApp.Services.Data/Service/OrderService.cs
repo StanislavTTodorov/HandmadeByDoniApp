@@ -1,4 +1,5 @@
 ﻿
+using HandmadeByDoniApp.Common;
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
@@ -13,10 +14,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
     public class OrderService : IOrderService
     {
         private readonly IRepository repository;
+        private IEmailService emailService;
 
-        public OrderService(IRepository repository)
+        public OrderService(IRepository repository, IEmailService emailService)
         {
             this.repository = repository;
+            this.emailService = emailService;
         }
 
         public async Task<MineProductViewModel> AllMineProductsByUserIdAsync(string userId)
@@ -96,6 +99,10 @@ namespace HandmadeByDoniApp.Services.Data.Service
             };
             await repository.AddAsync(userOrder);
             await repository.SaveChangesAsync();
+
+            string body = emailService.GetConfirmOrderEmail(userOrder); 
+            await emailService.SendEmailAsync(userOrder.User.Email, $"Поръчка от {GeneralMessages.Name}", body);
+
             return true;
         }
 

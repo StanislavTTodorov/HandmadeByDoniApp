@@ -12,9 +12,9 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using HandmadeByDoniApp.Web.Resources;
+using HandmadeByDoniApp.Services.Data.Interfaces;
+
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -26,17 +26,20 @@ namespace HandmadeByDoniApp.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMemoryCache memoryCache;
         private readonly ILogger<UserController> logger;
+        private IEmailService emailService;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
                               UserManager<ApplicationUser> userManager,
                               IMemoryCache memoryCache,
-                              ILogger<UserController> logger)
+                              ILogger<UserController> logger,
+                              IEmailService emailService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
 
             this.memoryCache = memoryCache;
             this.logger = logger;
+            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -54,39 +57,85 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             if (ModelState.IsValid == false)
             {
-                model.LastName = string.Empty;
+                this.TempData[ErrorMessage] = App.L("FillAllFields");
                 return this.View(model);
             }
 
             ApplicationUser user = new ApplicationUser()
             {
                 FirstName = model.FirstName,
-                LastName = model.LastName
+                LastName = model.LastName,
+                Email = model.Email,
+                UserName = model.Email,                
+               
             };
-
-            await this.userManager.SetEmailAsync(user, model.Email);
-            await this.userManager.SetUserNameAsync(user, model.Email);
 
             IdentityResult result =
                 await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded == false)
             {
-                foreach (IdentityError error in result.Errors)
+                user = await userManager.FindByEmailAsync(model.Email);
+                if (user == null || user.EmailConfirmed)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-
-                return this.View(model);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return this.View(model);
+                }        
             }
 
-            //За сега ще е така при Google login TODO
             string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-            result = await userManager.ConfirmEmailAsync(user, token);
 
-            await signInManager.SignInAsync(user, false);
+            string body = emailService.GetConfirmEmail(token, user);
+            bool res = await emailService.SendEmailAsync(model.Email, App.L("ConfirmEmail"), body);
+
+            if (res)
+            {
+                this.TempData[SuccessMessage] = App.L("EmailSentSuccess");               
+            }
+            else
+            {
+                this.TempData[ErrorMessage] = App.L("ЕmailSendError");
+            }
+
+            // await signInManager.SignInAsync(user, false);
 
             return this.RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string? email = null, string? token=null)
+        {
+            if(string.IsNullOrEmpty(email)|| string.IsNullOrEmpty(token))
+            {
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                return this.RedirectToAction("Index", "Home");
+            }
+        
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                TempData[ErrorMessage] = App.L("UserNotFound");
+                return RedirectToAction("Index", "Home");
+            }
+            var result = await userManager.ConfirmEmailAsync(user, token);
+
+            if(!result.Succeeded)
+            {
+                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            var model = new ConfirmEmailViewModel
+            {
+                Email = email,
+                Token = string.Empty
+            };
+
+            return View(model);
         }
 
         [HttpGet]
@@ -112,8 +161,17 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (ModelState.IsValid == false)
             {
                 //logger.LogCritical("Model state is not valid.");
+                TempData[ErrorMessage] = App.L("FillAllFields");
                 return this.View(model);
             }
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user != null && user.EmailConfirmed == false)
+            {
+                TempData[ErrorMessage] = "ConfirmEmailPrompt";
+                return this.Redirect(model.ReturnUrl ?? "/Home/Index");
+            }
+
             //logger.LogWarning("Model state is valid.");
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             //logger.LogWarning("Password sign in result: {result}", result.Succeeded);
@@ -121,7 +179,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (result.Succeeded == false)
             {
                 //logger.LogCritical("Login failed.");
-                TempData[ErrorMessage] = LogginError;
+                TempData[ErrorMessage] = App.L("LogginError");
                 return this.View(model);
             }
             //logger.LogWarning("Login successful.");
