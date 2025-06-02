@@ -1,12 +1,11 @@
 ﻿@using Ganss.Xss
 @using HandmadeByDoniApp.Services.Data.Interfaces
 @using HandmadeByDoniApp.Web.Infrastructure.Extensions
-@using HandmadeByDoniApp.Web.Resources
 @model ProductCommentViewModel
 @inject ICommentService CommentService
 
 @{
-    ViewBag.Title = App.L("Comment");
+    ViewBag.Title = L["Comment"];
     string? carouselId = null;
 }
 <head>
@@ -33,7 +32,7 @@
             <a class="ml-2 btn btn-info"
             asp-controller="Product" 
             asp-action="WriteComment"
-               asp-route-id="@Model.Id">@App.L("Write") @App.L("Comment").ToLower()</a>
+               asp-route-id="@Model.Id">@L["Write"] @(L["Comment"].ToString().ToLower())</a>
         </div>
         <article>
             @if (Model.Comments.Any())
@@ -49,7 +48,7 @@
                                asp-controller="Comment"
                                asp-action="WriteToComment"
                                asp-route-id="@Model.Id"
-                               asp-route-commentId="@comment.Id">@App.L("Write") @App.L("To") @comment.UserName</a>
+                               asp-route-commentId="@comment.Id">@L["Write"] @L["To"] @comment.UserName</a>
                             @if (await this.CommentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), comment.Id))
                             {
                                 <a class="ml-2 btn btn-warning"
@@ -57,7 +56,7 @@
                                    asp-controller="Comment"
                                    asp-action="Edit"
                                    asp-route-id="@Model.Id"
-                                   asp-route-commentId="@comment.Id">@App.L("Edit")</a>
+                                   asp-route-commentId="@comment.Id">@L["Edit"]</a>
                             }
                             <p class="">@comment.Time</p>
                         </section>
@@ -79,7 +78,7 @@
                                                asp-controller="Comment"
                                                asp-action="Edit"
                                                asp-route-id="@Model.Id"
-                                               asp-route-commentId="@com.Id">@App.L("Edit")</a>
+                                               asp-route-commentId="@com.Id">@L["Edit"]</a>
                                         }
                                         <p class="">@com.Time</p>
                                     </section>
@@ -94,7 +93,7 @@
             }
             else
             {
-                <h2 class="text-center">@App.L("NoComments")</h2>
+                <h2 class="text-center">@L["NoComments"]</h2>
             }
         </article>
     </section>

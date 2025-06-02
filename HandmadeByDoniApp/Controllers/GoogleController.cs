@@ -13,7 +13,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Google()
         {         
-            this.TempData[ErrorMessage] = $"{App.L("В процес на разработка")}";
+            this.TempData[ErrorMessage] = $"{L["В процес на разработка"]}";
             return this.Redirect("/User/Login");
         }
     }

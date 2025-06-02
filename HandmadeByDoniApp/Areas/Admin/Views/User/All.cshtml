@@ -1,10 +1,11 @@
-﻿
+﻿@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<App> L
 @using HandmadeByDoniApp.Web.Infrastructure.Middlewares;
-@using HandmadeByDoniApp.Web.Resources
 @model IEnumerable<UserViewModel>
 
 @{
-    ViewBag.Title = App.L("AllUsers");
+    ViewBag.Title = L["AllUsers"];
 }
 
 <h2 class="text-center title">@ViewBag.Title</h2>
@@ -13,9 +14,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><label>@App.L("Email")</label></th>
-            <th><label>@App.L("FullName")</label></th>           
-            <th><label>@App.L("UserIsOnline")</label></th>
+            <th><label>@L["Email"]</label></th>
+            <th><label>@L["FullName"]</label></th>           
+            <th><label>@L["UserIsOnline"]</label></th>
         </tr>
     </thead>
     <tbody>

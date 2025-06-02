@@ -3,8 +3,8 @@ using HandmadeByDoniApp.Web.ViewModels.Order;
 using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
-using HandmadeByDoniApp.Web.Resources;
 using HandmadeByDoniApp.Data.Models;
+using Microsoft.Extensions.Localization;
 
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
@@ -16,6 +16,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
         public OrderController(IOrderService orderService)
         {
             this.orderService = orderService;
+
         }
 
         [HttpGet]
@@ -83,7 +84,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(orderId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = App.L("NotHaveOrdars");//NotHaveOrdars;
+                this.TempData[ErrorMessage] = L["NotHaveOrdars"];//NotHaveOrdars;
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }
 
@@ -94,7 +95,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");//UnexpectedError
+                this.TempData[ErrorMessage] = L["UnexpectedError"];//UnexpectedError
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }         
         }
@@ -106,7 +107,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(/*orderId*/formModel.OrderId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = App.L("NotHaveOrdars");//NotHaveOrdars;
+                this.TempData[ErrorMessage] = L["NotHaveOrdars"];//NotHaveOrdars;
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }
 
@@ -117,13 +118,13 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add The {nameof(Product)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addThe")} {App.L("ShipmentNoteNumber")}";
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addThe"]} {L["ShipmentNoteNumber"]}";
 
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
                 // return this.View(formModel);
             }
 
-            this.TempData[SuccessMessage] = string.Format(EditSuccessfully, $"{App.L("ShipmentNoteNumber")}");
+            this.TempData[SuccessMessage] = string.Format(EditSuccessfully, $"{L["ShipmentNoteNumber"]}");
             return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
         }
 

@@ -2,7 +2,7 @@
 @model IEnumerable<IndexViewModel>
 
 @{
-    ViewData["Title"] = App.L("NewProducts"); 
+    ViewData["Title"] = L["NewProducts"]; 
     var products = Model.ToList();
     // List<ProductViewModel> productViewModels = Model.Select(product => new ProductViewModel
     //         {
@@ -22,8 +22,8 @@
 @if (!products.Any())
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">  @App.L("Welcome")</h1>
-        <p class="lead">@App.L("NoProductInSystem")</p>
+        <h1 class="display-4">  @L["Welcome"]</h1>
+        <p class="lead">@L["NoProductInSystem"]</p>
         <hr class="my-4">
     </div>
 }

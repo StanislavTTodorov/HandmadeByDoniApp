@@ -7,6 +7,7 @@ using static HandmadeByDoniApp.Common.GeneralMessages;
 using Ganss.Xss;
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Web.Resources;
+using Microsoft.Extensions.Localization;
 
 
 namespace HandmadeByDoniApp.Web.Controllers
@@ -14,6 +15,7 @@ namespace HandmadeByDoniApp.Web.Controllers
     public class CommentController : BaseController<CommentController>
     {
         private readonly ICommentService commentService;
+        
 
         public CommentController(ICommentService commentService)
         {
@@ -26,7 +28,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool commentExists = await this.commentService.ExistsByIdAsync(commentId);
             if (!commentExists)
             {
-                this.TempData[ErrorMessage] = $"{App.L(nameof(Comment))} {App.L("ProductNotExist")}"; //string.Format(ProductNotExist, nameof(Comment));
+                this.TempData[ErrorMessage] = $"{L[nameof(Comment)]} {L["ProductNotExist"]}"; //string.Format(ProductNotExist, nameof(Comment));
 
                 return this.RedirectToAction("All", "Product");
 
@@ -35,7 +37,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment)
             {
-                this.TempData[ErrorMessage] = App.L("EditComment");//EditComment;
+                this.TempData[ErrorMessage] = L["EditComment"];//EditComment;
 
                 return this.RedirectToAction("Comment", "Product",new {id});
             }
@@ -65,7 +67,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool commentExists = await this.commentService.ExistsByIdAsync(commentId);
             if (!commentExists)
             {
-                this.TempData[ErrorMessage] = $"{App.L(nameof(Comment))} {App.L("ProductNotExist")}";  //string.Format(ProductNotExist,nameof(Comment));
+                this.TempData[ErrorMessage] = $"{L[nameof(Comment)]} {L["ProductNotExist"]}";  //string.Format(ProductNotExist,nameof(Comment));
 
                 return this.RedirectToAction("All", "Product");
 
@@ -75,7 +77,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isYourComment = await this.commentService.HasUserCommentByUserIdAndByCommentIdAsync(User.GetId(), commentId);
             if (!isYourComment && !User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = App.L("EditComment");// EditComment;
+                this.TempData[ErrorMessage] = L["EditComment"];// EditComment;
 
                 return this.RedirectToAction("Comment", "Product", new { id });
             }
@@ -87,12 +89,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Comment)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addNew")} {App.L($"{nameof(Comment)}")}";
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addNew"]} {L[$"{nameof(Comment)}"]}";
 
                 return this.View(formModel);
             }
 
-            this.TempData[SuccessMessage] = $"{App.L(nameof(Comment))} {App.L("EditSuccessfully")}"; // string.Format(EditSuccessfully,nameof(Comment));
+            this.TempData[SuccessMessage] = $"{L[nameof(Comment)]} {L["EditSuccessfully"]}"; // string.Format(EditSuccessfully,nameof(Comment));
             return this.RedirectToAction("Comment", "Product", new { id });
         }        
 
@@ -103,7 +105,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
             if (isCommentidExist == false)
             {
-                this.TempData[ErrorMessage] = $"{App.L(nameof(Comment))} {App.L("ProductNotExist")}"; //string.Format(ProductNotExist,nameof(Comment));
+                this.TempData[ErrorMessage] = $"{L[nameof(Comment)]} {L["ProductNotExist"]}"; //string.Format(ProductNotExist,nameof(Comment));
                 return this.RedirectToAction("Comment", "Pcoduct", new { id });
             }
 
@@ -127,12 +129,12 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.commentService.CreateCommentToCommentByUserIdAndByCommentIdAsync(userId!, formModel, commentId);
-                this.TempData[SuccessMessage] = $"{App.L(nameof(Comment))} {App.L("AddSuccessfully")}"; //string.Format(AddSuccessfully,nameof(Comment));
+                this.TempData[SuccessMessage] = $"{L[nameof(Comment)]}   {L["AddSuccessfully"]}"; //string.Format(AddSuccessfully,nameof(Comment));
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addNew")} {App.L($"{nameof(Comment)}")}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addNew"]} {L[$"{nameof(Comment)}"]}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Comment)}");
                 return this.View(id);
             }
 
@@ -141,7 +143,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
         private IActionResult GeneralError()
         {
-            this.TempData[ErrorMessage] = App.L("UnexpectedError"); // UnexpectedError;
+            this.TempData[ErrorMessage] = L["UnexpectedError"]; // UnexpectedError;
 
             return this.RedirectToAction("Index", "Home");
         }

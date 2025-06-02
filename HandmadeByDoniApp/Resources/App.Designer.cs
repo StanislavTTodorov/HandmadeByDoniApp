@@ -59,11 +59,11 @@ namespace HandmadeByDoniApp.Web.Resources {
                 resourceCulture = value;
             }
         }
-        public static string L(string word)
-        {
-            string newWord = ResourceManager.GetString(word, resourceCulture);
-            return string.IsNullOrEmpty(newWord) ? word : newWord;
-        }
+        //public static string L(string word)
+        //{
+        //    string newWord = ResourceManager.GetString(word, resourceCulture);
+        //    return string.IsNullOrEmpty(newWord) ? word : newWord;
+        //}
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>

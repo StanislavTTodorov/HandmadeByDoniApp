@@ -1,7 +1,9 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<App> L
 @model ProductFormModel
 @{
-    ViewData["Title"] = $"{App.L("Edit")} {App.L("Product")}";
+    ViewData["Title"] = $"{L["Edit"]} {L["Product"]}";
 }
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />

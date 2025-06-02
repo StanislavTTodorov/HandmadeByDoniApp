@@ -4,7 +4,7 @@
 @inject IAddressService addressService
 
 @{
-    ViewBag.Title = App.L("OrderDetails");
+    ViewBag.Title = L["OrderDetails"];
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/DetailOrder.css" asp-append-version="true" />
@@ -20,29 +20,29 @@
                 string deliveryCompanyName = await this.addressService.GetDeliveryCompanyNameAsyng(Model.Address.DeliveryCompanyId);
                 string methodPaymentName = await this.addressService.GetMethodPaymentNameAsyng(Model.Address.MethodPaymentId);
 
-            <h3 class="text-center title">@App.L("Address")</h3>
-            <h5> <label asp-for="@Model.Address.CountryName">@App.L("Country")</label> - @Model.Address.CountryName</h5>
-            <h5> <label asp-for="@Model.Address.CityName">@App.L("City")</label> - @Model.Address.CityName</h5>
-            <h5> <label asp-for="@Model.Address.Street">@App.L("Street")</label> - @Model.Address.Street</h5>
-            <h5> <label asp-for="@Model.Address.PhoneNumber">@App.L("PhoneNumber")</label> - @Model.Address.PhoneNumber</h5>
-            <h5> <label asp-for="@Model.Address.DeliveryCompanyId">@App.L("DeliveryCompany")</label> - @deliveryCompanyName</h5>
-            <h5> <label asp-for="@Model.Address.MethodPaymentId">@App.L("MethodPayment")</label> - @methodPaymentName</h5>
+            <h3 class="text-center title">@L["Address"]</h3>
+            <h5> <label asp-for="@Model.Address.CountryName">@L["Country"]</label> - @Model.Address.CountryName</h5>
+            <h5> <label asp-for="@Model.Address.CityName">@L["City"]</label> - @Model.Address.CityName</h5>
+            <h5> <label asp-for="@Model.Address.Street">@L["Street"]</label> - @Model.Address.Street</h5>
+            <h5> <label asp-for="@Model.Address.PhoneNumber">@L["PhoneNumber"]</label> - @Model.Address.PhoneNumber</h5>
+            <h5> <label asp-for="@Model.Address.DeliveryCompanyId">@L["DeliveryCompany"]</label> - @deliveryCompanyName</h5>
+            <h5> <label asp-for="@Model.Address.MethodPaymentId">@L["MethodPayment"]</label> - @methodPaymentName</h5>
             <a asp-area=""
                asp-controller="Address"
                asp-action="Edit"
-               class="btn btn-warning">@App.L("Edit") @App.L("Address") </a>
+               class="btn btn-warning">@L["Edit"] @L["Address"] </a>
         }
         else
         {
-            <h3 class="text-center title">@App.L("AddAddressCompleteOrder")</h3>
+            <h3 class="text-center title">@L["AddAddressCompleteOrder"]</h3>
             <a asp-area=""
                asp-controller="Address"
                asp-action="Add"
-               class="btn btn-warning">@App.L("Add") @App.L("Address") </a>
+               class="btn btn-warning">@L["Add"] @L["Address"] </a>
         }
     </section>
     <section class="product-center col-12">
-        <h3 class="text-center title">@App.L("ProductBuy")</h3>
+        <h3 class="text-center title">@L["ProductBuy"]</h3>
         @if (Model.MineProduct.Products.Any())
         {
 
@@ -56,16 +56,16 @@
                         <div class="product-info col-5 align-items-start ">
                             <h4>@product.Title</h4>
                             <h6>
-                                @App.L("Price"): <b>@($"{product.Price:f2}") @App.L("Currency")</b>
+                                @L["Price"]: <b>@($"{product.Price:f2}") @L["Currency"]</b>
                             </h6>
                             <h6>
                                 @if (product.IsActive)
                                 {
-                                    <p class="text-info">@App.L("Available")</p>
+                                    <p class="text-info">@L["Available"]</p>
                                 }
                                 else
                                 {
-                                    <p class="text-danger">@App.L("NotAvailable")</p>
+                                    <p class="text-danger">@L["NotAvailable"]</p>
                                 }
                             </h6>
                         </div>
@@ -73,17 +73,17 @@
                 </div>
             }
             <div class="card-list text-center col-8 mt-4">
-                <h3>@App.L("Total") @App.L("Price").ToLower(): @($"{Model.MineProduct.totalPrice:f2}")  @App.L("Currency")</h3>
+                <h3>@L["Total"] @L["Price"].ToString().ToLower(): @($"{Model.MineProduct.totalPrice:f2}")  @L["Currency"]</h3>
                 <a asp-area=""
                    asp-controller="Order"
                    asp-action="AddOrder"
-                   class="align-content-center justify-content-center btn btn-outline-primary text-size">@App.L("Buy")</a>
+                   class="align-content-center justify-content-center btn btn-outline-primary text-size">@L["Buy"]</a>
             </div>
         }
         else
         {
             <p class="lead">
-                @App.L("NoProducts")
+                @L["NoProducts"]
             </p>
         }
     </section>

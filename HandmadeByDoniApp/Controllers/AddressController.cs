@@ -7,6 +7,7 @@ using HandmadeByDoniApp.Web.Resources;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Data.Models;
+using Microsoft.Extensions.Localization;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -19,7 +20,6 @@ namespace HandmadeByDoniApp.Web.Controllers
             IAddressService addressService)
         {
             this.addressService = addressService;
-
         }
 
         [HttpGet]
@@ -61,14 +61,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.CreateAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = $"{App.L(nameof(Address))} {App.L("AddSuccessfully")}";// string.Format(AddSuccessfully,nameof(Address));
+                this.TempData[SuccessMessage] = $"{L[nameof(Address)]} {L["AddSuccessfully"]}";// string.Format(AddSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
                 this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("addNew")} {App.L($"{nameof(Address)}")}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addNew"]} {L[$"{nameof(Address)}"]}";//string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Address)}");
                 return this.View(formModel);
             }
 
@@ -82,7 +82,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = App.L("NotHaveAddress");// NotHaveAddress;
+                this.TempData[ErrorMessage] = L["NotHaveAddress"];// NotHaveAddress;
                 return this.RedirectToAction("Add", "Addres", new { area = "" });
             }
 
@@ -132,14 +132,14 @@ namespace HandmadeByDoniApp.Web.Controllers
             try
             {
                 await this.addressService.EditAddressAsync(formModel, User.GetId());
-                this.TempData[SuccessMessage] = $"{App.L(nameof(Address))} {App.L("EditSuccessfully")}"; //string.Format(EditSuccessfully,nameof(Address));
+                this.TempData[SuccessMessage] = $"{L[nameof(Address)]}   {L["EditSuccessfully"]}"; //string.Format(EditSuccessfully,nameof(Address));
             }
             catch (Exception)
             {
                 formModel.DeliveryCompanies = await this.addressService.AllDeliveryCompaniesAsync();
                 formModel.MethodPayments = await this.addressService.AllMethodPaymentsAsync();
                 this.ModelState.AddModelError(string.Empty,string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}"));
-                this.TempData[ErrorMessage] = $"{App.L("UnexpectedErrorTryingTo")} {App.L("editThe")} {App.L($"{nameof(Address)}")}";// string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["editThe"]} {L[$"{nameof(Address)}"]}";// string.Format(UnexpectedErrorTryingTo, $"edit the {nameof(Address)}");
                 return this.View(formModel);
             }
 
@@ -147,7 +147,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         }
         private IActionResult GeneralError()
         {
-            this.TempData[ErrorMessage] = App.L("UnexpectedError"); // UnexpectedError;
+            this.TempData[ErrorMessage] = L["UnexpectedError"]; // UnexpectedError;
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }

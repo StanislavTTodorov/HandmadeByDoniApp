@@ -2,7 +2,7 @@
 @model MineProductViewModel
 
 @{
-    ViewBag.Title = App.L("ProductsOrder");
+    ViewBag.Title = L["ProductsOrder"];
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/Mine.css" asp-append-version="true" />
@@ -22,7 +22,7 @@
                 <div class="product-info">
                     <h4>@product.Title</h4>
                     <h6>
-                        @App.L("Price"): <b>@($"{product.Price:f2}") @App.L("Currency")</b>
+                        @L["Price"]: <b>@($"{product.Price:f2}") @L["Currency"]</b>
                     </h6>
                 </div>
                 <div class="card-list">
@@ -30,19 +30,19 @@
                        asp-controller="Product"
                        asp-action="Details"
                        asp-route-id="@product.Id"
-                       class="btn btn-success">@App.L("Details")</a>
+                       class="btn btn-success">@L["Details"]</a>
 
                     <a class="ml-2 btn btn-info"
                        asp-area=""
                        asp-controller="Product"
                        asp-action="Comment"
-                       asp-route-id="@product.Id">@App.L("Comment")</a>       
+                       asp-route-id="@product.Id">@L["Comment"]</a>       
                 </div>
             </div>
         </div>
     }
     <div class="card-list text-center col-8 mt-4">
-        <h3>@App.L("Total") @App.L("Price"): @($"{Model.totalPrice:f2}") @App.L("Currency")</h3>
+        <h3>@L["Total"] @L["Price"]: @($"{Model.totalPrice:f2}") @L["Currency"]</h3>
     </div>
 </article>
 

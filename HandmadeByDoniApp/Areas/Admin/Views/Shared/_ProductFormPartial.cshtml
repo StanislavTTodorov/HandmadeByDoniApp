@@ -1,22 +1,24 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<App> L
 @model ProductFormModel
 <div class="row">
 	<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
 		<form method="post" enctype="multipart/form-data">
 			<div class="form-group">
-				<label asp-for="Title">@App.L("Name")</label>
-				<input asp-for="Title" class="form-control" placeholder="@App.L("Name")...">
+				<label asp-for="Title">@L["Name"]</label>
+				<input asp-for="Title" class="form-control" placeholder="@L["Name"]...">
 				<span asp-validation-for="Title" class="small text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Description">@App.L("Description")</label>
-				<textarea asp-for="Description" rows="4" class="form-control" placeholder="@App.L("Description")..."></textarea>
+				<label asp-for="Description">@L["Description"]</label>
+				<textarea asp-for="Description" rows="4" class="form-control" placeholder="@L["Description"]..."></textarea>
 				<span asp-validation-for="Description" class="small textdanger"></span>
 			</div>
 
 			<div class="form-group mt-2">
-				<label asp-for="Images">@App.L("UploadFiles")</label>
-				<input asp-for="Images" type="file" title="@App.L("Select Files")" accept="image/*" multiple />
+				<label asp-for="Images">@L["UploadFiles"]</label>
+				<input asp-for="Images" type="file" title="@L["Select Files"]" accept="image/*" multiple />
 				<span asp-validation-for="Images" class="small text-danger"></span>
 				@if (Model.ImageUrls != null)
 				{            
@@ -31,28 +33,28 @@
 						string? carouselId = null;
 								<div id="img-@encodedId" class="mb-2">
 									<partial name="_ImageUrlsPartial" model="@(img, carouselId)" />
-									<button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeImage('@img')">@App.L("Delete")</button>
+									<button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeImage('@img')">@L["Delete"]</button>
 								</div>
 					}
 				}
 			</div>
 			<div class="form-group">
-				<label asp-for="Price">@App.L("Price")</label>
+				<label asp-for="Price">@L["Price"]</label>
 				<input asp-for="Price" class="form-control">
 				<span asp-validation-for="Price" class="small textdanger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="CategoryId">@App.L("Category")</label>
+				<label asp-for="CategoryId">@L["Category"]</label>
 				<select asp-for="CategoryId" class="form-control">
 					@foreach (var category in Model.Categories)
 					{
-								<option value="@category.Id">@App.L(category.Name)</option>
+								<option value="@category.Id">@L[category.Name]</option>
 					}
 				</select>
 				<span asp-validation-for="CategoryId" class="small text-danger"></span>
 			</div>
 			<div class="text-center">
-				<input class="btn btn-primary mt-3" type="submit" value="@App.L("Save")" />
+				<input class="btn btn-primary mt-3" type="submit" value="@L["Save"]" />
 			</div>
 		</form>
 	</div>

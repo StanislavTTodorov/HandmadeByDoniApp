@@ -23,7 +23,7 @@ namespace HandmadeByDoniApp.Web.Infrastructure.Extensions
 
             services.AddServices(typeof(IProductService));
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization(/*options => options.ResourcesPath = "Resources"*/);
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]

@@ -2,7 +2,7 @@
 @using HandmadeByDoniApp.Web.Resources
 
 @{
-    ViewData["Title"] = @App.L("Login");
+    ViewData["Title"] = @L["Login"];
 }
 
 <h1 class="text-center title">@ViewData["Title"]</h1>
@@ -16,13 +16,13 @@
 
                 <div class="form-floating mb-2">
                     <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Email" class="form-label">@App.L("Email")</label>
+                    <label asp-for="Email" class="form-label">@L["Email"]</label>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating mb-2 position-relative">
                     <input asp-for="Password" type="password" id="passwordField" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Password" class="form-label">@App.L("Password")</label>
+                    <label asp-for="Password" class="form-label">@L["Password"]</label>
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                     <button type="button" id="togglePassword" class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y me-2">
@@ -32,20 +32,20 @@
 
                 <div class="checkbox mb-3">
                     <label asp-for="RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="RememberMe" /> @App.L("RememberMe")</label>
+                        <input class="form-check-input" asp-for="RememberMe" /> @L["RememberMe"]</label>
                 </div>
 
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 border-light  button-menu">@App.L("Login")</button>
+                    <button id="login-submit" type="submit" class="w-100 border-light  button-menu">@L["Login"]</button>
                 </div>
 
                 <div class="mt-3 t border-light button-menu d-flex justify-content-center align-items-center">
-                    <a asp-controller="User" asp-action="Register" class="w-100 text-white text-center">@App.L("Register")</a>
+                    <a asp-controller="User" asp-action="Register" class="w-100 text-white text-center">@L["Register"]</a>
                 </div>
                 
             </form>
             <div class="mt-3 t border-light button-menu d-flex justify-content-center align-items-center">
-                <a  asp-controller="Google" asp-action="Google" class="w-100 text-white text-center">@App.L("LogInGoogle")</a>
+                <a  asp-controller="Google" asp-action="Google" class="w-100 text-white text-center">@L["LogInGoogle"]</a>
             </div>
         </section>
     </div>

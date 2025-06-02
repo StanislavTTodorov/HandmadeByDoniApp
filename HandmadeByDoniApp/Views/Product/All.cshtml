@@ -8,7 +8,7 @@
 
 
 @{
-    ViewBag.Title = App.L("AllProducts");
+    ViewBag.Title = L["AllProducts"];
     // ProductViewModel productViewModel = new ProductViewModel();
 }
 <head>
@@ -32,12 +32,12 @@
                 </select>
                 </div> *@
                     <div class="form-group">
-                        <label asp-for="GlassCategory">@App.L("Category")</label>
+                        <label asp-for="GlassCategory">@L["Category"]</label>
                         <select asp-for="GlassCategory" class="form-control" onchange="this.form.submit()">
-                            <option value="">@App.L("AllProducts")</option>
+                            <option value="">@L["AllProducts"]</option>
                     @foreach (var category in Model.GlassCategories)
                     {
-                                        <option value="@category">@App.L(category)</option>
+                                        <option value="@category">@L[category]</option>
                     }
                         </select>
                     </div>
@@ -46,7 +46,7 @@
         @*  d-flex justify-content-lg-between *@
         <div class="form-group col-md-2">
             <div class="form-group">
-                <label asp-for="ProductPerPage">@App.L("ProductPerPage")</label>
+                <label asp-for="ProductPerPage">@L["ProductPerPage"]</label>
                 <select asp-for="ProductPerPage" class="form-control" onchange="this.form.submit()">
                     <option value="9">9</option>
                     <option value="18">18</option>
@@ -69,27 +69,27 @@
         </div>
 
         <div class="form-group col-md-3">
-            <label asp-for="SearchString">@App.L("SearchByWord")</label>
+            <label asp-for="SearchString">@L["SearchByWord"]</label>
             <input asp-for="SearchString" class="form-control" placeholder="..." onchange="this.form.submit()">
         </div>
 
         <div class="form-group col-md-2">
             <div class="form-group">
-                <label asp-for="ProductSorting">@App.L("ProductSorting")</label>
+                <label asp-for="ProductSorting">@L["ProductSorting"]</label>
                 <select asp-for="ProductSorting" class="form-control" onchange="this.form.submit()">
-                    <option value="0">@App.L("Newest")</option>
-                    <option value="1">@App.L("Oldest")</option>
-                    <option value="2">@App.L("PriceAscending")</option>
-                    <option value="3">@App.L("PriceDescending")</option>
-                    <option value="4">@App.L("Available")</option>
-                    <option value="5">@App.L("NotAvailable")</option>
+                    <option value="0">@L["Newest"]</option>
+                    <option value="1">@L["Oldest"]</option>
+                    <option value="2">@L["PriceAscending"]</option>
+                    <option value="3">@L["PriceDescending"]</option>
+                    <option value="4">@L["Available"]</option>
+                    <option value="5">@L["NotAvailable"]</option>
                 </select>
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group mt-3 p-1 ">
-                <input type="submit" value="@App.L("Search")" class="btn button-memu" style="
+                <input type="submit" value="@L["Search"]" class="btn button-memu" style="
                                                                                                 z-index: 10;
                                                                                                 background-color: #C16519;
                                                                                                 color: #fff;
@@ -122,7 +122,7 @@
            asp-route-productsName="@((int)Model.ProductsName)"
            asp-route-category="@Model.GlassCategory"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)">@App.L("PreviousPage")</a>
+           asp-route-sorting="@((int)Model.ProductSorting)">@L["PreviousPage"]</a>
     </div>
 
     @{
@@ -139,7 +139,7 @@
            asp-route-productsName="@((int)Model.ProductsName)"
            asp-route-category="@Model.GlassCategory"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.ProductSorting)">@App.L("NextPage")</a>
+           asp-route-sorting="@((int)Model.ProductSorting)">@L["NextPage"]</a>
     </div>
 </div>
 
@@ -160,12 +160,12 @@
                 <partial name="_ImageUrlsPartial" model="@(product.ImageUrl,carouselId)" />
                 <div class="card-body text-center">
                     <h4>@product.Title</h4>
-                    <h6>(@(product.IsActive ? App.L("Available") : App.L("NotAvailable")))</h6>
+                    <h6>(@(product.IsActive ? L["Available"] : L["NotAvailable"]))</h6>
                     @if (product.IsActive == true)
                     {
                         <h6>
-                            @App.L("Price")
-                            <b>@($"{product.Price:f2}") @App.L("Currency")</b>
+                            @L["Price"]
+                            <b>@($"{product.Price:f2}") @L["Currency"]</b>
                         </h6>
 
                         <a class="btn btn-primary"
@@ -178,14 +178,14 @@
                                                                                               category=Model.GlassCategory,
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
-                           asp-route-id="@product.Id"> @App.L("Add")</a>
+                           asp-route-id="@product.Id"> @L["Add"]</a>
                     }
                     <br />
                     <a asp-area=""
                        asp-controller="Product"
                        asp-action="Details"
                        asp-route-id="@product.Id"
-                       class="btn btn-success">@App.L("Details")</a>
+                       class="btn btn-success">@L["Details"]</a>
 
                     @if (User.IsAdmin())
                     {
@@ -194,7 +194,7 @@
                            asp-controller="Product"
                            asp-action="Edit"
                            asp-route-id="@product.Id"
-                           class="btn btn-warning">@App.L("Edit")</a>
+                           class="btn btn-warning">@L["Edit"]</a>
 
                         <a asp-area="Admin"
                            asp-controller="Product"
@@ -206,7 +206,7 @@
                                                                                               category=Model.GlassCategory,
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
-                           class="btn btn-danger">@App.L("Delete")</a>
+                           class="btn btn-danger">@L["Delete"]</a>
 
                         if (product.IsActive == false)
                         {
@@ -220,7 +220,7 @@
                                                                                               searchString=Model.SearchString,
                                                                                               sorting=(int)Model.ProductSorting })"
                                asp-route-id="@product.Id"
-                               class="btn btn-dark">@App.L("Restore")</a>
+                               class="btn btn-dark">@L["Restore"]</a>
                         }
                     }
 
@@ -228,7 +228,7 @@
                        asp-area=""
                        asp-controller="Product"
                        asp-action="Comment"
-                       asp-route-id="@product.Id">@App.L("Comment")</a>
+                       asp-route-id="@product.Id">@L["Comment"]</a>
 
                 </div>
             </div>

@@ -1,7 +1,7 @@
-﻿@using HandmadeByDoniApp.Web.Resources
+﻿
 @model CommentFormModel
 @{
-    ViewData["Title"] = App.L("AddComment");
+    ViewData["Title"] = L["AddComment"];
 }
 <h2 class="text-center title">@ViewData["Title"]</h2>
 <hr />
@@ -11,12 +11,12 @@
         <form method="post">
             
             <div class="form-group">
-                <label asp-for="Text">@App.L("Text") </label>
-                <textarea asp-for="Text" rows="4" class="form-control" placeholder="@App.L("Comment")..."></textarea>
+                <label asp-for="Text">@L["Text"] </label>
+                <textarea asp-for="Text" rows="4" class="form-control" placeholder="@L["Comment"]..."></textarea>
                 <span asp-validation-for="Text" class="small textdanger"></span>
            </div>
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Sent")" />
+                <input class="btn btn-primary mt-3" type="submit" value="@L["Sent"]" />
             </div>
         </form>
     </div>

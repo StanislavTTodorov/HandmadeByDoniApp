@@ -3,7 +3,7 @@
 @model MineProductViewModel
 
 @{
-    ViewBag.Title = App.L("ShopList");
+    ViewBag.Title = L["ShopList"];
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/Mine.css" asp-append-version="true" />
@@ -27,16 +27,16 @@
                     <div class="product-info">
                         <h4>@product.Title</h4>
                         <h6>
-                            @App.L("Price"): <b>@($"{product.Price:f2}") @App.L("Currency")</b>
+                            @L["Price"]: <b>@($"{product.Price:f2}") @L["Currency"]</b>
                         </h6>
                         <h6>
                             @if (product.IsActive)
                             {
-                                <p class="text-info">@App.L("Available")</p>
+                                <p class="text-info">@L["Available"]</p>
                             }
                             else
                             {
-                                <p class="text-danger">@App.L("NotAvailable")</p>
+                                <p class="text-danger">@L["NotAvailable"]</p>
                             }
                         </h6>
                     
@@ -45,37 +45,37 @@
                            asp-controller="Product"
                            asp-action="Details"
                            asp-route-id="@product.Id"
-                           class="btn btn-success">@App.L("Details")</a>
+                           class="btn btn-success">@L["Details"]</a>
 
                         <a asp-area=""
                            asp-controller="Order"
                            asp-action="Remove"
                            asp-route-id="@product.Id"
-                           class="btn btn-primary">@App.L("Remove")</a>
+                           class="btn btn-primary">@L["Remove"]</a>
 
                         <a class="ml-2 btn btn-info"
                            asp-area=""
                            asp-controller="Product"
                            asp-action="Comment"
-                           asp-route-id="@product.Id">@App.L("Comment")</a>
+                           asp-route-id="@product.Id">@L["Comment"]</a>
                     </div>
                     </div>
                 </div>
             </div>
         }
         <div class="card-list text-center col-8 mt-4">
-            <h3>@App.L("Total") @App.L("Price").ToLower(): @($"{Model.totalPrice:f2}")  @App.L("Currency")</h3>
+            <h3>@L["Total"] @L["Price"].ToString().ToLower(): @($"{Model.totalPrice:f2}")  @L["Currency"]</h3>
             <a asp-area=""
                asp-controller="Order"
                asp-action="DetailsOrder"
-               class="btn btn-outline-primary text-size"> @App.L("Buy")</a>
+               class="btn btn-outline-primary text-size"> @L["Buy"]</a>
 
         </div>
     }
     else
     {
         <p class="lead">
-            @App.L("NoProducts")
+            @L["NoProducts"]
         </p>
     }
 </article>
