@@ -6,6 +6,7 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;
 using MimeKit;
+using static HandmadeByDoniApp.Common.GeneralMessages;
 
 namespace HandmadeByDoniApp.Services.Data.Service
 {
@@ -26,7 +27,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Stanislav", "stanislavttodorov7@gmail.com"));
+                message.From.Add(new MailboxAddress(Name,AdminEmail));
                 message.To.Add(MailboxAddress.Parse(toEmail));
                 message.Subject = subject;
 
@@ -58,7 +59,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Копирай 16-символната парола — това е паролата, която използваш в твоя C# код (вместо истинската си Gmail парола)
                  */
                 // Използвай App Password ако имаш включена 2FA
-                await client.AuthenticateAsync("stanislavttodorov7@gmail.com", "lhfz rjfd lljw ctoi");
+                await client.AuthenticateAsync(AdminEmail, AdminPassword);
 
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
