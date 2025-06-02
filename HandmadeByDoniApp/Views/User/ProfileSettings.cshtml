@@ -1,7 +1,7 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
 @model dynamic
 @{
-    ViewData["Title"] = App.L("ManageYourAccount");
+    ViewData["Title"] = L["ManageYourAccount"];
     var tab = ViewBag.SelectedTab as string ?? "Profile";
 }
 
@@ -12,16 +12,16 @@
     <div class="col-md-2">
         <ul class="nav flex-column nav-pills">
             <li class="nav-item">
-                <a class="nav-link @(tab == "Profile" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Profile">@App.L("Profile")</a>
+                <a class="nav-link @(tab == "Profile" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Profile">@L["Profile"]</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @(tab == "Email" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Email">@App.L("Email")</a>
+                <a class="nav-link @(tab == "Email" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Email">@L["Email"]</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @(tab == "Password" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Password">@App.L("Password")</a>
+                <a class="nav-link @(tab == "Password" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="Password">@L["Password"]</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @(tab == "TwoFactor" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="TwoFactor">@App.L("Two-factor authentication")</a>
+                <a class="nav-link @(tab == "TwoFactor" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="TwoFactor">@L["Two-factor authentication"]</a>
             </li>
             @*<li class="nav-item">
                 <a class="nav-link @(tab == "PersonalData" ? "active" : "")" asp-action="ProfileSettings" asp-route-tab="PersonalData">@App.L("Personal data")</a>

@@ -2,15 +2,15 @@
 @model ConfirmEmailViewModel
 
 @{
-    ViewData["Title"] = "Потвърждение на имейл";
+    ViewData["Title"] = L["Потвърждение на имейл"];
 }
 
 <div class="container mt-5">
     <div class="text-center">
-        <h2 class="text-success">Имейлът е успешно потвърден!</h2>
-        <p class="mt-3">Благодарим Ви, <strong>@Model.Email</strong>, че потвърдихте Вашия имейл адрес.</p>
+        <h2 class="text-success">@L["Имейлът е успешно потвърден!"]</h2>
+        <p class="mt-3">@L["Благодарим Ви"], <strong>@Model.Email</strong>, @L["че потвърдихте Вашия имейл адрес."]</p>
 
-        <a class="button-menu" asp-area="" asp-controller="User" asp-action="Login" title="@App.L("Login")">@App.L("Login") </a>
+        <a class="button-menu" asp-area="" asp-controller="User" asp-action="Login" title="@L["Login"]">@L["Login"] </a>
     </div>
 </div>
 

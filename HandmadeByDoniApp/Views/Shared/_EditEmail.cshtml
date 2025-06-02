@@ -1,16 +1,16 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
 @model ChangeEmailViewModel
 
-<h3>@App.L("ChangeEmail")</h3>
+<h3>@L["ChangeEmail"]</h3>
 <form asp-action="ChangeEmail" method="post">
     <div class="form-group">
-        <label asp-for="NewEmail">@App.L("NewEmail")</label>
+        <label asp-for="NewEmail">@L["NewEmail"]</label>
         <input asp-for="NewEmail" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Password">@App.L("Password")</label>
+        <label asp-for="Password">@L["Password"]</label>
         <input asp-for="Password" type="password" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-primary">@App.L("Update")</button>
+    <button type="submit" class="btn btn-primary">@L["Update"]</button>
 </form>
 

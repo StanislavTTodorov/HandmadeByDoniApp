@@ -43,12 +43,12 @@
             @if (SignInManager.IsSignedIn(User))
             {
                @*  <li><a class="button-menu" asp-area="Identity" asp-page="/Account/Manage/Index" title="@App.L("Profile")">@App.L("Profile")</a></li> *@
-                <li> <a class="button-menu" asp-area="" asp-controller="User" asp-action="ProfileSettings" title="@App.L("Profile")">@App.L("Profile")</a></li>
+                <li> <a class="button-menu" asp-area="" asp-controller="User" asp-action="ProfileSettings" title="@L["Profile"]">@L["Profile"]</a></li>
                 <li>
                     @* <form class="form-inline"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                         <button type="submit" class="nav-link btn btn-link text-white button-menu">@App.L("Logout")</button>
                     </form> *@
-                    <a class="button-menu" asp-area="" asp-controller="User" asp-action="Logout" title="@App.L("Logout")">@App.L("Logout") </a>
+                    <a class="button-menu" asp-area="" asp-controller="User" asp-action="Logout" title="@L["Logout"]">@L["Logout"] </a>
                 </li>
             }
             else
@@ -104,8 +104,8 @@
 
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="ProfileSettings" title="@App.L("Profile")">@App.L("Hello"), @userFullName</a></li>
-                    <li class ="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Logout" title="@App.L("Logout")">@App.L("Logout") </a></li>
+                    <li class="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="ProfileSettings" title="@L["Profile"]">@L["Hello"], @userFullName</a></li>
+                    <li class ="nav-item"><a class="button-menu" asp-area="" asp-controller="User" asp-action="Logout" title="@L["Logout"]">@L["Logout"] </a></li>
                    
                 }
                 else

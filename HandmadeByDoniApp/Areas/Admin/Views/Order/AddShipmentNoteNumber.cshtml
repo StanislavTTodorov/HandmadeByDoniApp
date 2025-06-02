@@ -1,7 +1,9 @@
 ﻿@using HandmadeByDoniApp.Web.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<App> L
 @model EditOrderViewModel
 @{
-    ViewData["Title"] = App.L("AddShipmentNoteNumber");
+    ViewData["Title"] = L["AddShipmentNoteNumber"];
 }
 <head>
     <link rel="stylesheet" href="~/css/Order/UsersOrders.css" asp-append-version="true" />
@@ -13,11 +15,11 @@
     <thead>
         <tr>
 
-            <th><label>@App.L("Name")</label></th>
-            <th><label>@App.L("Email")</label></th>
-            <th><label>@App.L("Phone")</label></th>
-            <th><label>@App.L("Address")</label></th>
-            <th><label>@App.L("Payment")</label></th>
+            <th><label>@L["Name"]</label></th>
+            <th><label>@L["Email"]</label></th>
+            <th><label>@L["Phone"]</label></th>
+            <th><label>@L["Address"]</label></th>
+            <th><label>@L["Payment"]</label></th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +28,7 @@
             <td><label>@Model.UserEmail</label></td>
             <td><label>@Model.UserPhone</label></td>
             <td><label>@(Model.Address)</label></td>
-            <td><label>@App.L(Model.MethodPayment)</label></td>
+            <td><label>@L[Model.MethodPayment]</label></td>
         </tr>
     </tbody>
 </table>
@@ -36,12 +38,12 @@
         <form method="post">
             <div class="form-group">
                  
-                <label asp-for="ShipmentNoteNumber">@App.L("ShipmentNoteNumber") </label>
-                <textarea asp-for="ShipmentNoteNumber" rows="4" class="form-control" placeholder="@App.L("1234567")..."></textarea>
+                <label asp-for="ShipmentNoteNumber">@L["ShipmentNoteNumber"] </label>
+                <textarea asp-for="ShipmentNoteNumber" rows="4" class="form-control" placeholder="@L["1234567"]..."></textarea>
                 <span asp-validation-for="ShipmentNoteNumber" class="small textdanger"></span>
             </div>
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="@App.L("Sent")" />
+                <input class="btn btn-primary mt-3" type="submit" value="@L["Sent"]" />
             </div>
         </form>
     </div>

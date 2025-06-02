@@ -4,6 +4,7 @@ using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.User;
 using MailKit.Net.Smtp; 
 using MailKit.Security;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 using static HandmadeByDoniApp.Common.GeneralMessages;
@@ -14,6 +15,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
     {
         private readonly IRepository repository;
         private ILogger<EmailService> logger;
+        //private IStringLocalizer<App>
 
 
         public EmailService(IRepository repository, ILogger<EmailService> logger)

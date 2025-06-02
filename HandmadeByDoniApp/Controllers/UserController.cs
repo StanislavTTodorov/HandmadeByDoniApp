@@ -57,7 +57,7 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             if (ModelState.IsValid == false)
             {
-                this.TempData[ErrorMessage] = App.L("FillAllFields");
+                this.TempData[ErrorMessage] = L["FillAllFields"];
                 return this.View(model);
             }
 
@@ -89,15 +89,15 @@ namespace HandmadeByDoniApp.Web.Controllers
             string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
             string body = emailService.GetConfirmEmail(token, user);
-            bool res = await emailService.SendEmailAsync(model.Email, App.L("ConfirmEmail"), body);
+            bool res = await emailService.SendEmailAsync(model.Email, L["ConfirmEmail"], body);
 
             if (res)
             {
-                this.TempData[SuccessMessage] = App.L("EmailSentSuccess");               
+                this.TempData[SuccessMessage] = L["EmailSentSuccess"];               
             }
             else
             {
-                this.TempData[ErrorMessage] = App.L("ЕmailSendError");
+                this.TempData[ErrorMessage] = L["ЕmailSendError"];
             }
 
             // await signInManager.SignInAsync(user, false);
@@ -111,21 +111,21 @@ namespace HandmadeByDoniApp.Web.Controllers
         {
             if(string.IsNullOrEmpty(email)|| string.IsNullOrEmpty(token))
             {
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                this.TempData[ErrorMessage] = L["UnexpectedError"];
                 return this.RedirectToAction("Index", "Home");
             }
         
             var user = await userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                TempData[ErrorMessage] = App.L("UserNotFound");
+                TempData[ErrorMessage] = L["UserNotFound"];
                 return RedirectToAction("Index", "Home");
             }
             var result = await userManager.ConfirmEmailAsync(user, token);
 
             if(!result.Succeeded)
             {
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                this.TempData[ErrorMessage] = L["UnexpectedError"];
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -161,7 +161,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (ModelState.IsValid == false)
             {
                 //logger.LogCritical("Model state is not valid.");
-                TempData[ErrorMessage] = App.L("FillAllFields");
+                TempData[ErrorMessage] = L["FillAllFields"];
                 return this.View(model);
             }
             var user = await userManager.FindByEmailAsync(model.Email);
@@ -179,7 +179,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             if (result.Succeeded == false)
             {
                 //logger.LogCritical("Login failed.");
-                TempData[ErrorMessage] = App.L("LogginError");
+                TempData[ErrorMessage] = L["LogginError"];
                 return this.View(model);
             }
             //logger.LogWarning("Login successful.");
@@ -246,7 +246,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    this.TempData[ErrorMessage] = L["FillAllFields"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
                 }
 
@@ -264,17 +264,17 @@ namespace HandmadeByDoniApp.Web.Controllers
                     foreach (var error in result.Errors)
                         ModelState.AddModelError(string.Empty, error.Description);
 
-                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    this.TempData[ErrorMessage] = L["UnexpectedError"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
                 }
 
-                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                TempData[SuccessMessage] = L["UpdatedSuccessfully"];
                 return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
             }
             catch (Exception ex)
             {
                 logger.LogWarning($"UpdateProfile Error: {ex.Message}");
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                this.TempData[ErrorMessage] = L["UnexpectedError"];
                 return RedirectToAction(nameof(ProfileSettings), new { tab = "Profile" });
             }
             
@@ -288,7 +288,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    this.TempData[ErrorMessage] = L["FillAllFields"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
                 }
 
@@ -297,7 +297,7 @@ namespace HandmadeByDoniApp.Web.Controllers
 
                 if (!passwordValid)
                 {
-                    this.TempData[ErrorMessage] = App.L("InvalidPassword");
+                    this.TempData[ErrorMessage] = L["InvalidPassword"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
                 }
 
@@ -309,17 +309,17 @@ namespace HandmadeByDoniApp.Web.Controllers
                     foreach (var error in result.Errors)
                         ModelState.AddModelError("", error.Description);
 
-                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    this.TempData[ErrorMessage] = L["UnexpectedError"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
                 }
 
-                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                TempData[SuccessMessage] = L["UpdatedSuccessfully"];
                 return RedirectToAction(nameof(ProfileSettings));
             }
             catch (Exception ex)
             {
                 logger.LogWarning($"ChangeEmail Error: {ex.Message}");
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                this.TempData[ErrorMessage] = L["UnexpectedError"];
                 return RedirectToAction(nameof(ProfileSettings), new { tab = "Email" });
             }
             
@@ -333,7 +333,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    this.TempData[ErrorMessage] = App.L("FillAllFields");
+                    this.TempData[ErrorMessage] = L["FillAllFields"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
                 }
 
@@ -345,19 +345,19 @@ namespace HandmadeByDoniApp.Web.Controllers
                     foreach (var error in result.Errors)
                         ModelState.AddModelError("", error.Description);
 
-                    this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                    this.TempData[ErrorMessage] = L["UnexpectedError"];
                     return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
 
                 }
 
                 await signInManager.RefreshSignInAsync(user); // keep user signed in
-                TempData[SuccessMessage] = App.L("UpdatedSuccessfully");
+                TempData[SuccessMessage] = L["UpdatedSuccessfully"];
                 return RedirectToAction(nameof(ProfileSettings));
             }
             catch (Exception ex)
             {
                 logger.LogWarning($"ChangePassword Error: {ex.Message}");
-                this.TempData[ErrorMessage] = App.L("UnexpectedError");
+                this.TempData[ErrorMessage] = L["UnexpectedError"];
                 return RedirectToAction(nameof(ProfileSettings), new { tab = "Password" });
             }
            
