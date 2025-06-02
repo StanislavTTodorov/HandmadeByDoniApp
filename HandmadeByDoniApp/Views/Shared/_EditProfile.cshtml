@@ -1,0 +1,23 @@
+﻿@using HandmadeByDoniApp.Web.Resources
+@model UserProfileViewModel
+
+<h4>@App.L("ChangePersonalInfo")</h4>
+<form asp-action="UpdateProfile" method="post">
+    <div class="form-group">
+        <label asp-for="Email">@App.L("Email")</label>
+        <input asp-for="Email" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName">@App.L("FirstName")</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">@App.L("LastName")</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    @* <div class="form-group">
+        <label asp-for="PhoneNumber">@App.L("Phone")</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div> *@
+    <button type="submit" class="btn btn-primary">@App.L("Save")</button>
+</form>

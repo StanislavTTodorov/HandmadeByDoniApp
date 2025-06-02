@@ -1,4 +1,5 @@
 ﻿
+using HandmadeByDoniApp.Common;
 using HandmadeByDoniApp.Data.Models;
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
@@ -13,10 +14,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
     public class OrderService : IOrderService
     {
         private readonly IRepository repository;
+        private IEmailService emailService;
 
-        public OrderService(IRepository repository)
+        public OrderService(IRepository repository, IEmailService emailService)
         {
             this.repository = repository;
+            this.emailService = emailService;
         }
 
         public async Task<MineProductViewModel> AllMineProductsByUserIdAsync(string userId)
@@ -96,6 +99,10 @@ namespace HandmadeByDoniApp.Services.Data.Service
             };
             await repository.AddAsync(userOrder);
             await repository.SaveChangesAsync();
+
+            string body = emailService.GetConfirmOrderEmail(userOrder); 
+            await emailService.SendEmailAsync(userOrder.User.Email, $"Поръчка от {GeneralMessages.Name}", body);
+
             return true;
         }
 
@@ -271,7 +278,10 @@ namespace HandmadeByDoniApp.Services.Data.Service
         public async Task<EditOrderViewModel> GetUserOrderByOrdeIdAsync(string orderId)
         {
             UserOrder userOrder= await this.repository.All<UserOrder>()
-                                                        .Include(u => u.User)                                              
+                                                        .Include(u => u.User)
+                                                        .Include(u => u.Order)
+                                                        .Include(a=>a.Address)                                                   
+                                                        .ThenInclude(m=>m.MethodPayment)
                                                         .FirstAsync(u => u.OrderId.ToString() == orderId);
 
             if(userOrder == null)
@@ -282,9 +292,12 @@ namespace HandmadeByDoniApp.Services.Data.Service
             return new EditOrderViewModel()
             {
                 ShipmentNoteNumber = userOrder.ShipmentNoteNumber?? "",
-                OrderId = userOrder.OrderId.ToString(),
-                //UserEmail = userOrder.User.Email,
-               // UserName = $"{userOrder.User.FirstName} {userOrder.User.LastName}",
+                Id = userOrder.OrderId.ToString(),
+                UserEmail = userOrder.User.Email,
+                UserName = $"{userOrder.User.FirstName} {userOrder.User.LastName}",
+                Address = $"{userOrder.Address.CountryName}, {userOrder.Address.CityName}, {userOrder.Address.Street}",
+                UserPhone = userOrder.Address.PhoneNumber,
+                MethodPayment = userOrder.Address.MethodPayment.Method
                 //IsSent = userOrder.IsSent,
             };
         }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HandmadeByDoniApp.Web.Resources {
+namespace Resources.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HandmadeByDoniApp.Web.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HandmadeByDoniApp.Web.Resources.App", typeof(App).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Resources.App", typeof(App).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -59,11 +59,19 @@ namespace HandmadeByDoniApp.Web.Resources {
                 resourceCulture = value;
             }
         }
-        //public static string L(string word)
-        //{
-        //    string newWord = ResourceManager.GetString(word, resourceCulture);
-        //    return string.IsNullOrEmpty(newWord) ? word : newWord;
-        //}
+        public static string L(string word, string? text = null)
+        {
+            string newWord = ResourceManager.GetString(word, resourceCulture);
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.IsNullOrEmpty(newWord) ? word : newWord;
+            }
+            else
+            {
+                return string.Format((string.IsNullOrEmpty(newWord) ? word : newWord), text);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>

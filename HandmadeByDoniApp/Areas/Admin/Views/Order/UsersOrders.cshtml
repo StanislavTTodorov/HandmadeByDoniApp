@@ -41,11 +41,16 @@
                 <td>
                     @if (user.IsSent == false)
                     {
-                        <a class="ml-2 btn btn-primary" *
+                       @*  <a class="ml-2 btn btn-primary" *
                            asp-area="Admin"
                            asp-controller="Order"
                            asp-action="Sent"
-                           asp-route-orderId="@user.OrderId">@L["Sent"]</a>
+                           asp-route-orderId="@user.OrderId">@App.L("Sent")</a> *@
+                        <a class="ml-2 btn btn-primary" *
+                           asp-area="Admin"
+                           asp-controller="Order"
+                           asp-action="AddShipmentNoteNumber"
+                           asp-route-id="@user.OrderId">@App.L("Sent")</a>
 
                     }
                     <a class="ml-2 btn btn-primary"
