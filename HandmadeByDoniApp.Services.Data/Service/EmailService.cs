@@ -15,13 +15,14 @@ namespace HandmadeByDoniApp.Services.Data.Service
     {
         private readonly IRepository repository;
         private ILogger<EmailService> logger;
-        //private IStringLocalizer<App>
+        private readonly IStringLocalizer<App> localizer;
 
 
-        public EmailService(IRepository repository, ILogger<EmailService> logger)
+        public EmailService(IRepository repository, ILogger<EmailService> logger, IStringLocalizer<App> localizer)
         {
             this.repository = repository;
             this.logger = logger;
+            this.localizer = localizer;
         }
 
         public async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
