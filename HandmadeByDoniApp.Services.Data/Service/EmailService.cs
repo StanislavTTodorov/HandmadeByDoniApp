@@ -2,7 +2,8 @@
 using HandmadeByDoniApp.Services.Data.DataRepository;
 using HandmadeByDoniApp.Services.Data.Interfaces;
 using HandmadeByDoniApp.Web.ViewModels.User;
-using MailKit.Net.Smtp; 
+using Resources.Resources;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -14,14 +15,15 @@ namespace HandmadeByDoniApp.Services.Data.Service
     public class EmailService:IEmailService
     {
         private readonly IRepository repository;
-        private ILogger<EmailService> logger;
-        //private IStringLocalizer<App>
+        private readonly ILogger<EmailService> logger;
+        private readonly IStringLocalizer<App> localizer;
 
 
-        public EmailService(IRepository repository, ILogger<EmailService> logger)
+        public EmailService(IRepository repository, ILogger<EmailService> logger, IStringLocalizer<App> localizer)
         {
             this.repository = repository;
             this.logger = logger;
+            this.localizer = localizer;
         }
 
         public async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
