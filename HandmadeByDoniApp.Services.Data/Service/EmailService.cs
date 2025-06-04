@@ -15,7 +15,9 @@ namespace HandmadeByDoniApp.Services.Data.Service
     public class EmailService:IEmailService
     {
         private readonly IRepository repository;
+
         private readonly ILogger<EmailService> logger;
+
         private readonly IStringLocalizer<App> localizer;
 
 
