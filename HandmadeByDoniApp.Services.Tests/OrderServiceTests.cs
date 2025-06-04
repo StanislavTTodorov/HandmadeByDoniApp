@@ -14,6 +14,8 @@ namespace HandmadeByDoniApp.Services.Tests
 #pragma warning restore CS0105 // Using directive appeared previously in this namespace
     using HandmadeByDoniApp.Services.Data.Service;
     using HandmadeByDoniApp.Services.Data.DataRepository;
+    using HandmadeByDoniApp.Services.Data.Interfaces;
+    using HandmadeByDoniApp.Data.Models;
 
     public class OrderServiceTests
     {
@@ -21,6 +23,12 @@ namespace HandmadeByDoniApp.Services.Tests
         private IRepository repository;
 
         private IOrderService orderService;
+        private class FakeEmailService : IEmailService
+        {
+            public string GetConfirmEmail(string token, ApplicationUser user) => string.Empty;
+            public string GetConfirmOrderEmail(UserOrder userOrder) => string.Empty;
+            public Task<bool> SendEmailAsync(string toEmail, string subject, string body) => Task.FromResult(true);
+        }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -34,7 +42,7 @@ namespace HandmadeByDoniApp.Services.Tests
             contex.Database.EnsureCreated();
             SeedDatabaseOrder(contex);
 
-            this.orderService = new OrderService(this.repository);
+            this.orderService = new OrderService(this.repository, new FakeEmailService());
         }
 
         [Test]
