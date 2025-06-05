@@ -90,7 +90,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             var deliveryCompany = address.DeliveryCompany.Name;
             var paymentMethod = address.MethodPayment.Method;
             var shipmentNote = !string.IsNullOrEmpty(userOrder.ShipmentNoteNumber)
-                ? $"<p><strong>Номер на товарителница:</strong> {userOrder.ShipmentNoteNumber}</p>"
+                ? $"<p><strong>{L["ShipmentNoteNumber"]}</strong> {userOrder.ShipmentNoteNumber}</p>"
                 : string.Empty;
 
             var productsHtml = "";
@@ -104,49 +104,49 @@ namespace HandmadeByDoniApp.Services.Data.Service
             }
 
             string emailBody = $@"
-                        <!DOCTYPE html>
-                        <html lang='bg'>
-                        <head>
-                            <meta charset='UTF-8'>
-                        <title>Потвърждение на поръчка</title>
-                        </head>
-                        <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
-                        <h2 style='color: #0066cc;'>Потвърждение на Вашата поръчка</h2>
-                        <p>Здравейте, <strong>{fullName}</strong>,</p>
+                    <!DOCTYPE html>
+                    <html lang='bg'>
+                    <head>
+                        <meta charset='UTF-8'>
+                        <title>{L["ConfirmOrderEmailTitle"]}</title>
+                    </head>
+                    <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+                        <h2 style='color: #0066cc;'>{L["ConfirmOrderEmailHeading"]}</h2>
+                        <p>{L["Greeting"]}, <strong>{fullName}</strong>,</p>
 
-                        <p>Благодарим Ви, че направихте поръчка от нашия онлайн магазин!</p>
+                        <p>{L["ThankYouForOrder"]}</p>
 
-                        <h3>📦 Детайли на поръчката</h3>
-                        <p><strong>Номер на поръчка:</strong> {userOrder.OrderId}</p>
-                        <p><strong>Дата на поръчка:</strong> {orderDate}</p>
-                        <p><strong>Обща сума:</strong> {userOrder.TotalPrice:C}</p>
-                        <p><strong>Статус:</strong> {(userOrder.IsSent ? "Изпратена" : "В процес на подготовка")}</p>
-                            {shipmentNote}
+                        <h3>{L["OrderDetailsHeading"]}</h3>
+                        <p><strong>{L["OrderNumberLabel"]}</strong> {userOrder.OrderId}</p>
+                        <p><strong>{L["OrderDateLabel"]}</strong> {orderDate}</p>
+                        <p><strong>{L["TotalPriceLabel"]}</strong> {userOrder.TotalPrice:C}</p>
+                        <p><strong>{L["Status"]}</strong> {(userOrder.IsSent ? L["OrderSent"] : L["OrderPreparing"])}</p>
+                        {shipmentNote}
 
-                        <h3>🛒 Закупени продукти</h3>
-                            <table style='width: 100%; border-collapse: collapse;'>
-                                <thead>
-                                    <tr>
-                                    <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>Продукт</th>
-                                    <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>Цена</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {productsHtml}
-                                </tbody>
-                            </table>
+                        <h3>{L["PurchasedProductsHeading"]}</h3>
+                        <table style='width: 100%; border-collapse: collapse;'>
+                            <thead>
+                                <tr>
+                                    <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Product"]}</th>
+                                    <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Price"]}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {productsHtml}
+                            </tbody>
+                        </table>
 
-                        <h3>🚚 Данни за доставка</h3>
-                        <p><strong>Адрес:</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
-                        <p><strong>Телефон за контакт:</strong> {address.PhoneNumber}</p>
-                        <p><strong>Куриер:</strong> {deliveryCompany}</p>
-                        <p><strong>Метод на плащане:</strong> {paymentMethod}</p>
+                        <h3>{L["DeliveryDetailsHeading"]}</h3>
+                        <p><strong>{L["Address"]}</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
+                        <p><strong>{L["ContactPhone"]}</strong> {address.PhoneNumber}</p>
+                        <p><strong>{L["Courier"]}</strong> {deliveryCompany}</p>
+                        <p><strong>{L["MethodPayment"]}</strong> {paymentMethod}</p>
 
-                            <br>
-                        <p>Ако имате въпроси, не се колебайте да се свържете с нас!</p>
+                        <br>
+                        <p>{L["QuestionsContactUs"]}</p>
 
-                        <p>С уважение,<br><strong>Екипът на HandmadeByDoni</strong></p>
-                        </body>
+                        <p>{L["Regards"]},<br><strong>{L["HandmadeByDoniTeam"]}</strong></p>
+                    </body>
                     </html>
 ";
 
@@ -166,22 +166,22 @@ namespace HandmadeByDoniApp.Services.Data.Service
                             <html lang='bg'>
                             <head>
                                 <meta charset='UTF-8'>
-                                    <title>Потвърждение на имейл</title>
+                                    <title>{L["ConfirmEmailTitle"]}</title>
                             </head>
                             <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
-                                    <h2 style='color: #0066cc;'>Добре дошли, {user.FirstName}!</h2>
-                                    <p>Благодарим Ви, че се регистрирахте в нашата платформа.</p>
+                                    <h2 style='color: #0066cc;'>{string.Format(L["WelcomeUser"], user.FirstName)}</h2>
+                                    <p>{L["ThankYouForRegistering"]}</p>
 
-                                    <p>Моля, потвърдете Вашия имейл адрес, като кликнете на бутона по-долу:</p>
+                                    <p>{L["PleaseConfirmEmail"]}</p>
 
                                 <p style='margin: 30px 0;'>
                                     <a href='{confirmationLink}' style='padding: 10px 20px; background-color: #28a745; color: #fff;
-                                        text-decoration: none; border-radius: 5px;'>Потвърди имейл</a>
+                                        text-decoration: none; border-radius: 5px;'>{L["ConfirmEmailButton"]}</a>
                                 </p>
 
-                                    <p>Ако не сте се регистрирали при нас, игнорирайте този имейл.</p>
+                                    <p>{L["IgnoreIfNotRegistered"]}</p>
 
-                                    <p>С уважение,<br><strong>Екипът на HandmadeByDoni</strong></p>
+                                    <p>{L["Regards"]},<br><strong>{L["HandmadeByDoniTeam"]}</strong></p>
                             </body>
                                 </html>
                                 ";
