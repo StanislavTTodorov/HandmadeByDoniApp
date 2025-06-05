@@ -8,6 +8,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MimeKit;
+//using Resources.Resources;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 
 namespace HandmadeByDoniApp.Services.Data.Service
@@ -18,14 +19,14 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
         private readonly ILogger<EmailService> logger;
 
-        private readonly IStringLocalizer<App> localizer;
+        private readonly IStringLocalizer<App> L;
 
 
         public EmailService(IRepository repository, ILogger<EmailService> logger, IStringLocalizer<App> localizer)
         {
             this.repository = repository;
             this.logger = logger;
-            this.localizer = localizer;
+            this.L = localizer;
         }
 
         public async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
@@ -78,7 +79,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
                 return false;
             }
             
-        }    
+        }
 
         public string GetConfirmOrderEmail(UserOrder userOrder)
         {
@@ -96,20 +97,20 @@ namespace HandmadeByDoniApp.Services.Data.Service
             foreach (var product in order.Products)
             {
                 productsHtml += $@"
-            <tr>
-                <td style='padding: 8px; border: 1px solid #ccc;'>{product.Title}</td>
-                <td style='padding: 8px; border: 1px solid #ccc;'>{product.Price:C}</td>
-            </tr>";
+                <tr>
+                    <td style='padding: 8px; border: 1px solid #ccc;'>{product.Title}</td>
+                    <td style='padding: 8px; border: 1px solid #ccc;'>{product.Price:C}</td>
+                </tr>";
             }
 
             string emailBody = $@"
-                    <!DOCTYPE html>
-                    <html lang='bg'>
-                    <head>
-                        <meta charset='UTF-8'>
+                        <!DOCTYPE html>
+                        <html lang='bg'>
+                        <head>
+                            <meta charset='UTF-8'>
                         <title>Потвърждение на поръчка</title>
-                    </head>
-                    <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+                        </head>
+                        <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
                         <h2 style='color: #0066cc;'>Потвърждение на Вашата поръчка</h2>
                         <p>Здравейте, <strong>{fullName}</strong>,</p>
 
@@ -120,20 +121,20 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         <p><strong>Дата на поръчка:</strong> {orderDate}</p>
                         <p><strong>Обща сума:</strong> {userOrder.TotalPrice:C}</p>
                         <p><strong>Статус:</strong> {(userOrder.IsSent ? "Изпратена" : "В процес на подготовка")}</p>
-                        {shipmentNote}
+                            {shipmentNote}
 
                         <h3>🛒 Закупени продукти</h3>
-                        <table style='width: 100%; border-collapse: collapse;'>
-                            <thead>
-                                <tr>
+                            <table style='width: 100%; border-collapse: collapse;'>
+                                <thead>
+                                    <tr>
                                     <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>Продукт</th>
                                     <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>Цена</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {productsHtml}
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {productsHtml}
+                                </tbody>
+                            </table>
 
                         <h3>🚚 Данни за доставка</h3>
                         <p><strong>Адрес:</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
@@ -141,11 +142,11 @@ namespace HandmadeByDoniApp.Services.Data.Service
                         <p><strong>Куриер:</strong> {deliveryCompany}</p>
                         <p><strong>Метод на плащане:</strong> {paymentMethod}</p>
 
-                        <br>
+                            <br>
                         <p>Ако имате въпроси, не се колебайте да се свържете с нас!</p>
 
                         <p>С уважение,<br><strong>Екипът на HandmadeByDoni</strong></p>
-                    </body>
+                        </body>
                     </html>
 ";
 
@@ -161,34 +162,31 @@ namespace HandmadeByDoniApp.Services.Data.Service
 #endif
 
             string emailBody = $@"
-                                <!DOCTYPE html>
-                                <html lang='bg'>
-                                <head>
-                                    <meta charset='UTF-8'>
+                            <!DOCTYPE html>
+                            <html lang='bg'>
+                            <head>
+                                <meta charset='UTF-8'>
                                     <title>Потвърждение на имейл</title>
-                                </head>
-                                <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+                            </head>
+                            <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
                                     <h2 style='color: #0066cc;'>Добре дошли, {user.FirstName}!</h2>
                                     <p>Благодарим Ви, че се регистрирахте в нашата платформа.</p>
 
                                     <p>Моля, потвърдете Вашия имейл адрес, като кликнете на бутона по-долу:</p>
 
-                                    <p style='margin: 30px 0;'>
-                                        <a href='{confirmationLink}' style='padding: 10px 20px; background-color: #28a745; color: #fff;
+                                <p style='margin: 30px 0;'>
+                                    <a href='{confirmationLink}' style='padding: 10px 20px; background-color: #28a745; color: #fff;
                                         text-decoration: none; border-radius: 5px;'>Потвърди имейл</a>
-                                    </p>
+                                </p>
 
                                     <p>Ако не сте се регистрирали при нас, игнорирайте този имейл.</p>
 
                                     <p>С уважение,<br><strong>Екипът на HandmadeByDoni</strong></p>
-                                </body>
+                            </body>
                                 </html>
                                 ";
 
             return emailBody;
         }
-
-
-
     }
 }

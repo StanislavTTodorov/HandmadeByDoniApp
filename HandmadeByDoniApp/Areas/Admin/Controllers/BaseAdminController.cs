@@ -1,7 +1,8 @@
-﻿using HandmadeByDoniApp.Web.Resources;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Resources.Resources;
 using static HandmadeByDoniApp.Common.GeneralApplicationConstants;
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers

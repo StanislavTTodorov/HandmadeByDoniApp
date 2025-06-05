@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{AEE2F0D7-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandmadeByDoniApp.Services.Tests", "HandmadeByDoniApp.Services.Tests\HandmadeByDoniApp.Services.Tests.csproj", "{4C15E394-5227-43B9-A0C8-66A31DA76A1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{61585738-A726-2BEB-69E8-040F08657BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{4C15E394-5227-43B9-A0C8-66A31DA76A1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C15E394-5227-43B9-A0C8-66A31DA76A1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C15E394-5227-43B9-A0C8-66A31DA76A1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61585738-A726-2BEB-69E8-040F08657BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61585738-A726-2BEB-69E8-040F08657BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61585738-A726-2BEB-69E8-040F08657BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61585738-A726-2BEB-69E8-040F08657BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

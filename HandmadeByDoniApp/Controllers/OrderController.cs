@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Data.Models;
-using HandmadeByDoniApp.Web.Resources;
+//using HandmadeByDoniApp.Web.Resources;
+using Microsoft.Extensions.Localization;
+using Resources.Resources;
 
 namespace HandmadeByDoniApp.Web.Controllers
 {
@@ -13,13 +15,16 @@ namespace HandmadeByDoniApp.Web.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IAddressService addressService;
+        private IStringLocalizer<App> L;
 
         public OrderController(
             IOrderService orderService,
-            IAddressService addressService)
+            IAddressService addressService, 
+            IStringLocalizer<App> l)
         {
-            this.orderService = orderService;
+            this.orderService = orderService;     
             this.addressService = addressService;
+            this.L = l;
         }      
 
         [HttpGet]
@@ -33,7 +38,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["openCart"]}"; //string.Format(UnexpectedErrorTryingTo, "open Cart");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["openCart"].Value}"; //string.Format(UnexpectedErrorTryingTo, "open Cart");
 
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -46,7 +51,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isActive = await this.orderService.IsActiveByIdAsync(id);
             if (isActive==false)
             {
-                this.TempData[InformationMessage] = L["ProductNotAvailable"];// ProductNotAvailable;
+                this.TempData[InformationMessage] = L["ProductNotAvailable"].Value;// ProductNotAvailable;
                 return this.Redirect(returnUrl);
 			}
 
@@ -54,11 +59,11 @@ namespace HandmadeByDoniApp.Web.Controllers
 			{
                 string userId = User.GetId();
                 await this.orderService.AddProductByUserIdAsync(userId, id);
-                this.TempData[SuccessMessage] = L["AddProductSuccessfully"];// AddProductSuccessfully; ///////////////////////////////////////////////////
+                this.TempData[SuccessMessage] = L["AddProductSuccessfully"].Value;// AddProductSuccessfully; ///////////////////////////////////////////////////
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addNew"]}  {L[nameof(Order)]}"; //string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Order)}");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["addNew"].Value}  {L[nameof(Order)].Value}"; //string.Format(UnexpectedErrorTryingTo, $"add new {nameof(Order)}");
                 return this.Redirect(returnUrl);
             }
 
@@ -72,11 +77,11 @@ namespace HandmadeByDoniApp.Web.Controllers
             {
                 string userId = User.GetId();
                 await this.orderService.RemoveProductByUserIdAsync(userId, id);
-                this.TempData[SuccessMessage] = $"{L[nameof(Product)]} {L["RemoveSuccessfully"]}";// string.Format(RemoveSuccessfully, $"{nameof(Product)}");
+                this.TempData[SuccessMessage] = $"{L[nameof(Product)].Value} {L["RemoveSuccessfully"].Value}";// string.Format(RemoveSuccessfully, $"{nameof(Product)}");
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["removeFromCart"]}";  //string.Format(UnexpectedErrorTryingTo, "remove from Cart");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["removeFromCart"].Value}";  //string.Format(UnexpectedErrorTryingTo, "remove from Cart");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
 
@@ -90,7 +95,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.addressService.ExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = L["NotHaveAddress"]; //NotHaveAddress;
+                this.TempData[ErrorMessage] = L["NotHaveAddress"].Value; //NotHaveAddress;
                 return this.RedirectToAction("Add", "Address", new { area = "" });
             }
 
@@ -100,16 +105,16 @@ namespace HandmadeByDoniApp.Web.Controllers
                 
                 if (isAllActiv)
                 {
-                    TempData[SuccessMessage] = $"{L[nameof(Order)]} {L["AddSuccessfully"]}";// string.Format(AddSuccessfully, nameof(Order));                
+                    TempData[SuccessMessage] = $"{L[nameof(Order)].Value} {L["AddSuccessfully"].Value}";// string.Format(AddSuccessfully, nameof(Order));                
                 }
                 else
                 {
-                    this.TempData[ErrorMessage] = L["ProductNotAvailable"];// ProductNotAvailable ;
+                    this.TempData[ErrorMessage] = L["ProductNotAvailable"].Value;// ProductNotAvailable ;
                 }
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["RegisterOrder"]}"; //string.Format(UnexpectedErrorTryingTo, "Register Order");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["RegisterOrder"].Value}"; //string.Format(UnexpectedErrorTryingTo, "Register Order");
             }
             
 			return this.RedirectToAction("Mine", "Order", new { area = "" });
@@ -131,7 +136,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["openDetailsOrder"]}"; //string.Format(UnexpectedErrorTryingTo, "open Details Order");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["openDetailsOrder"].Value}"; //string.Format(UnexpectedErrorTryingTo, "open Details Order");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -143,7 +148,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.orderService.UserOrderExistsByUserIdAsync(userId);
             if (isExists == false)
             {
-                this.TempData[InformationMessage] = L["NotHaveOrdars"];//NotHaveOrdars;
+                this.TempData[InformationMessage] = L["NotHaveOrdars"].Value;//NotHaveOrdars;
                 return this.RedirectToAction("All", "Product", new { area = "" });
             }
 
@@ -155,7 +160,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["openOrderStatus"]}"; //string.Format(UnexpectedErrorTryingTo, "open Order Status");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["openOrderStatus"].Value}"; //string.Format(UnexpectedErrorTryingTo, "open Order Status");
                 return this.RedirectToAction("Mine", "Order", new { area = "" });
             }
         }
@@ -170,7 +175,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]}   {L["openOrderProduct"]}";// string.Format(UnexpectedErrorTryingTo, "open Order Product");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value}   {L["openOrderProduct"].Value}";// string.Format(UnexpectedErrorTryingTo, "open Order Product");
                 return this.RedirectToAction("Index", "Home", new { area = "" });
             }
         }
@@ -181,25 +186,25 @@ namespace HandmadeByDoniApp.Web.Controllers
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(id);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = $"{L[nameof(Order)]}   {L["ProductNotExist"]}";// string.Format(ProductNotExist,nameof(Order));
+                this.TempData[ErrorMessage] = $"{L[nameof(Order)].Value}   {L["ProductNotExist"].Value}";// string.Format(ProductNotExist,nameof(Order));
                 return this.RedirectToAction("OrderStatus", "Order" ,new { areas=""});
             }
 
             bool isSent= await this.orderService.UserOrderIsSentByOrderIdAsync(id);
             if (isSent == true)
             {
-                this.TempData[ErrorMessage] = L["OrdarIsSent"]; //OrdarIsSent;
+                this.TempData[ErrorMessage] = L["OrdarIsSent"].Value; //OrdarIsSent;
                 return this.RedirectToAction("OrderStatus", "Order", new { areas = "" });
             }
 
             try 
             {
                 await this.orderService.DeleteUserOrderByOrderIdAsync(id);
-                this.TempData[SuccessMessage] = $"{L[nameof(Order)]}   {L["CancelSuccessfully"]}"; //string.Format(CancelSuccessfully,nameof(Order));
+                this.TempData[SuccessMessage] = $"{L[nameof(Order)].Value}   {L["CancelSuccessfully"].Value}"; //string.Format(CancelSuccessfully,nameof(Order));
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["CancelOrder"]}"; //string.Format(UnexpectedErrorTryingTo, "Cancel Order");
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["CancelOrder"].Value}"; //string.Format(UnexpectedErrorTryingTo, "Cancel Order");
             }
             return this.RedirectToAction("OrderStatus", "Order", new { area = "" });
         }     
