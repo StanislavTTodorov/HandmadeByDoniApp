@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 //using Resources.Resources;
 using static HandmadeByDoniApp.Common.GeneralMessages;
+using System.Text;
 
 namespace HandmadeByDoniApp.Services.Data.Service
 {
@@ -188,5 +189,73 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             return emailBody;
         }
+
+        public string GetCancellationOrderEmail(UserOrder userOrder)
+        {
+            var fullName = $"{userOrder.User.FirstName} {userOrder.User.LastName}";
+            var address = userOrder.Address;
+            var order = userOrder.Order;
+            var orderDate = userOrder.CreaateOn.ToString("dd.MM.yyyy");
+            var cancellationDate = DateTime.Now.ToString("dd.MM.yyyy");
+
+            var productsHtml = "";
+            foreach (var product in order.Products)
+            {
+                productsHtml += $@"
+        <tr>
+            <td style='padding: 8px; border: 1px solid #ccc;'>{product.Title}</td>
+            <td style='padding: 8px; border: 1px solid #ccc;'>{product.Price:C}</td>
+        </tr>";
+            }
+
+            string emailBody = $@"
+            <!DOCTYPE html>
+            <html lang='bg'>
+            <head>
+                <meta charset='UTF-8'>
+                <title>{L["CancellationOrderEmailTitle"]}</title>
+            </head>
+            <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+                <h2 style='color: #0066cc;'>{L["CancellationOrderEmailHeading"]}</h2>
+                <p>{L["Greeting"]}, <strong>{fullName}</strong>,</p>
+
+                <p>{L["SorryForCancellation"]}</p>
+
+                <h3>{L["OrderDetailsHeading"]}</h3>
+                <p><strong>{L["OrderNumberLabel"]}</strong> {userOrder.OrderId}</p>
+                <p><strong>{L["OrderDateLabel"]}</strong> {orderDate}</p>
+                <p><strong>{L["CancellationDateLabel"]}</strong> {cancellationDate}</p>
+                <p><strong>{L["TotalPriceLabel"]}</strong> {userOrder.TotalPrice:C}</p>
+                <p><strong>{L["Status"]}</strong> {L["OrderCancelled"]}</p>
+
+                <h3>{L["PurchasedProductsHeading"]}</h3>
+                <table style='width: 100%; border-collapse: collapse;'>
+                    <thead>
+                        <tr>
+                            <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Product"]}</th>
+                            <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Price"]}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {productsHtml}
+                    </tbody>
+                </table>
+
+                <h3>{L["DeliveryDetailsHeading"]}</h3>
+                <p><strong>{L["Address"]}</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
+                <p><strong>{L["ContactPhone"]}</strong> {address.PhoneNumber}</p>
+
+                <br>
+                <p>{L["QuestionsContactUs"]}</p>
+
+                <p>{L["Regards"]},<br><strong>{L["HandmadeByDoniTeam"]}</strong></p>
+            </body>
+            </html>
+    ";
+
+            return emailBody;
+        }
+
     }
 }
+

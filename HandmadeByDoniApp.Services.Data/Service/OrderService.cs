@@ -267,6 +267,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
 
             await this.repository.DeleteAsync(userOrder);
             await this.repository.DeleteAsync(order);
+            string body = this.emailService.GetCancellationOrderEmail(userOrder);
+            await this.emailService.SendEmailAsync(userOrder.User.Email, "", body);
         }
 
         public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)
@@ -322,6 +324,8 @@ namespace HandmadeByDoniApp.Services.Data.Service
         {
             return await this.repository
                   .All<UserOrder>()
+                  .Include(a=>a.Address)
+                  .Include(u=>u.User)
                   .Include(u => u.Order)
                   .FirstAsync(u => u.Order.Id.ToString() == orderId);
         }
