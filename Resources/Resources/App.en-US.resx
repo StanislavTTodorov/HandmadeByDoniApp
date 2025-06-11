@@ -645,4 +645,7 @@
   <data name="IgnoreIfNotRegistered" xml:space="preserve">
     <value>If you did not register with us, please ignore this email.</value>
   </data>
+  <data name="Added" xml:space="preserve">
+    <value>Add</value>
+  </data>
 </root>

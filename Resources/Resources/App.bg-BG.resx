@@ -654,4 +654,7 @@
   <data name="IgnoreIfNotRegistered" xml:space="preserve">
     <value>Ако не сте се регистрирали при нас, игнорирайте този имейл.</value>
   </data>
+  <data name="Added" xml:space="preserve">
+    <value>Добави</value>
+  </data>
 </root>

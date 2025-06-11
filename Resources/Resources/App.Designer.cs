@@ -59,19 +59,7 @@ namespace Resources.Resources {
                 resourceCulture = value;
             }
         }
-        public static string L(string word, string? text = null)
-        {
-            string newWord = ResourceManager.GetString(word, resourceCulture);
-            if (string.IsNullOrEmpty(text))
-            {
-                return string.IsNullOrEmpty(newWord) ? word : newWord;
-            }
-            else
-            {
-                return string.Format((string.IsNullOrEmpty(newWord) ? word : newWord), text);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -96,6 +84,15 @@ namespace Resources.Resources {
         public static string AddComment {
             get {
                 return ResourceManager.GetString("AddComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Added {
+            get {
+                return ResourceManager.GetString("Added", resourceCulture);
             }
         }
         
