@@ -268,7 +268,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             await this.repository.DeleteAsync(userOrder);
             await this.repository.DeleteAsync(order);
             string body = this.emailService.GetCancellationOrderEmail(userOrder);
-            await this.emailService.SendEmailAsync(userOrder.User.Email, "", body);
+            await this.emailService.SendEmailAsync(userOrder.User.Email, "Cancellation", body);
         }
 
         public async Task<bool> UserOrderIsSentByOrderIdAsync(string orderId)

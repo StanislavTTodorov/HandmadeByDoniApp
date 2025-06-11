@@ -29,15 +29,40 @@ namespace HandmadeByDoniApp.Services.Data.Service
             this.logger = logger;
             this.L = localizer;
         }
+        private async Task<bool> SendAdminEmailAsync(string subject, string body)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress(Name, AutoSentEmail));
+                message.To.Add(MailboxAddress.Parse(AdminEmail));
+                message.Subject = subject;
+                message.Body = new TextPart("html") { Text = body };
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(AutoSentEmail, AutoSentPassword);
+
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning($"SendAdminEmailAsync error: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
         {
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress(Name,AdminEmail));
+                message.From.Add(new MailboxAddress(Name, AutoSentEmail));
                 message.To.Add(MailboxAddress.Parse(toEmail));
-                message.Subject = subject;
+                message.Subject = L[subject];
 
                 message.Body = new TextPart("html") { Text = body };
 
@@ -67,10 +92,16 @@ namespace HandmadeByDoniApp.Services.Data.Service
                     Копирай 16-символната парола — това е паролата, която използваш в твоя C# код (вместо истинската си Gmail парола)
                  */
                 // Използвай App Password ако имаш включена 2FA
-                await client.AuthenticateAsync(AdminEmail, AdminPassword);
+                await client.AuthenticateAsync(AutoSentEmail, AutoSentPassword);
 
                 await client.SendAsync(message);
-                await client.DisconnectAsync(true);
+               
+                await client.DisconnectAsync(true); 
+
+                if (subject != "ConfirmEmail")
+                {
+                    await SendAdminEmailAsync(message.Subject, body);
+                }
 
                 return true;
             }
@@ -78,8 +109,7 @@ namespace HandmadeByDoniApp.Services.Data.Service
             {
                 logger.LogWarning($"SendEmailAsync error: {ex.Message}");
                 return false;
-            }
-            
+            }       
         }
 
         public string GetConfirmOrderEmail(UserOrder userOrder)
@@ -202,56 +232,56 @@ namespace HandmadeByDoniApp.Services.Data.Service
             foreach (var product in order.Products)
             {
                 productsHtml += $@"
-        <tr>
-            <td style='padding: 8px; border: 1px solid #ccc;'>{product.Title}</td>
-            <td style='padding: 8px; border: 1px solid #ccc;'>{product.Price:C}</td>
-        </tr>";
+                                <tr>
+                                    <td style='padding: 8px; border: 1px solid #ccc;'>{product.Title}</td>
+                                    <td style='padding: 8px; border: 1px solid #ccc;'>{product.Price:C}</td>
+                                </tr>";
             }
 
             string emailBody = $@"
-            <!DOCTYPE html>
-            <html lang='bg'>
-            <head>
-                <meta charset='UTF-8'>
-                <title>{L["CancellationOrderEmailTitle"]}</title>
-            </head>
-            <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
-                <h2 style='color: #0066cc;'>{L["CancellationOrderEmailHeading"]}</h2>
-                <p>{L["Greeting"]}, <strong>{fullName}</strong>,</p>
+                                <!DOCTYPE html>
+                                <html lang='bg'>
+                                <head>
+                                    <meta charset='UTF-8'>
+                                    <title>{L["CancellationOrderEmailTitle"]}</title>
+                                </head>
+                                <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+                                    <h2 style='color: #0066cc;'>{L["CancellationOrderEmailHeading"]}</h2>
+                                    <p>{L["Greeting"]}, <strong>{fullName}</strong>,</p>
 
-                <p>{L["SorryForCancellation"]}</p>
+                                    <p>{L["SorryForCancellation"]}</p>
 
-                <h3>{L["OrderDetailsHeading"]}</h3>
-                <p><strong>{L["OrderNumberLabel"]}</strong> {userOrder.OrderId}</p>
-                <p><strong>{L["OrderDateLabel"]}</strong> {orderDate}</p>
-                <p><strong>{L["CancellationDateLabel"]}</strong> {cancellationDate}</p>
-                <p><strong>{L["TotalPriceLabel"]}</strong> {userOrder.TotalPrice:C}</p>
-                <p><strong>{L["Status"]}</strong> {L["OrderCancelled"]}</p>
+                                    <h3>{L["OrderDetailsHeading"]}</h3>
+                                    <p><strong>{L["OrderNumberLabel"]}</strong> {userOrder.OrderId}</p>
+                                    <p><strong>{L["OrderDateLabel"]}</strong> {orderDate}</p>
+                                    <p><strong>{L["CancellationDateLabel"]}</strong> {cancellationDate}</p>
+                                    <p><strong>{L["TotalPriceLabel"]}</strong> {userOrder.TotalPrice:C}</p>
+                                    <p><strong>{L["Status"]}</strong> {L["OrderCancelled"]}</p>
 
-                <h3>{L["PurchasedProductsHeading"]}</h3>
-                <table style='width: 100%; border-collapse: collapse;'>
-                    <thead>
-                        <tr>
-                            <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Product"]}</th>
-                            <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Price"]}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {productsHtml}
-                    </tbody>
-                </table>
+                                    <h3>{L["PurchasedProductsHeading"]}</h3>
+                                    <table style='width: 100%; border-collapse: collapse;'>
+                                        <thead>
+                                            <tr>
+                                                <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Product"]}</th>
+                                                <th style='padding: 8px; border: 1px solid #ccc; background-color: #f2f2f2;'>{L["Price"]}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {productsHtml}
+                                        </tbody>
+                                    </table>
 
-                <h3>{L["DeliveryDetailsHeading"]}</h3>
-                <p><strong>{L["Address"]}</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
-                <p><strong>{L["ContactPhone"]}</strong> {address.PhoneNumber}</p>
+                                    <h3>{L["DeliveryDetailsHeading"]}</h3>
+                                    <p><strong>{L["Address"]}</strong> {address.Street}, {address.CityName}, {address.CountryName}</p>
+                                    <p><strong>{L["ContactPhone"]}</strong> {address.PhoneNumber}</p>
 
-                <br>
-                <p>{L["QuestionsContactUs"]}</p>
+                                    <br>
+                                    <p>{L["QuestionsContactUs"]}</p>
 
-                <p>{L["Regards"]},<br><strong>{L["HandmadeByDoniTeam"]}</strong></p>
-            </body>
-            </html>
-    ";
+                                    <p>{L["Regards"]},<br><strong>{L["HandmadeByDoniTeam"]}</strong></p>
+                                </body>
+                                </html>
+                        ";
 
             return emailBody;
         }

@@ -94,7 +94,7 @@ namespace HandmadeByDoniApp.Web.Controllers
             string token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
             string body = emailService.GetConfirmEmail(token, user);
-            bool res = await emailService.SendEmailAsync(model.Email, L["ConfirmEmail"].Value, body);
+            bool res = await emailService.SendEmailAsync(model.Email, "ConfirmEmail", body);
 
             if (res)
             {

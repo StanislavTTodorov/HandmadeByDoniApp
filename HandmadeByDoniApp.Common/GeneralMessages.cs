@@ -27,7 +27,9 @@ namespace HandmadeByDoniApp.Common
         public const string OrdarIsSent = "Order with the provided id can not be canceled, because it is already sent!";
         public const string CancelSuccessfully = "{0} is canceled successfully!";
         public const string Name = "HandmadeByDoni";
+        public const string AutoSentEmail = "stanislavttodorov7@gmail.com";
+        public const string AutoSentPassword = "lhfz rjfd lljw ctoi";
         public const string AdminEmail = "stanislavttodorov7@gmail.com";
-        public const string AdminPassword = "lhfz rjfd lljw ctoi";
+       
     }
 }
