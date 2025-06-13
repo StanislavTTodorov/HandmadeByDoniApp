@@ -21,6 +21,15 @@ public class Program
         builder.Services.AddApplicationDbContext(builder.Configuration);
         builder.Services.AddApplicationIdentiry(builder.Configuration);
 
+        builder.Services.AddAuthentication()
+              .AddGoogle(options =>
+              {
+                  IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+                  options.ClientId = googleAuthNSection["ClientId"] ?? string.Empty;
+                  options.ClientSecret = googleAuthNSection["ClientSecret"] ?? string.Empty;
+              });
+
+
         builder.Services.AddRecaptchaService();
         
 

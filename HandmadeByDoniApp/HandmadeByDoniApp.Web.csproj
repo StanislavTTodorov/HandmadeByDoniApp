@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Griesoft.AspNetCore.ReCaptcha" Version="2.3.0" />
     <PackageReference Include="HtmlSanitizer" Version="8.0.843" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.36" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
@@ -21,6 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.27" />
   </ItemGroup>
 
   <ItemGroup>
