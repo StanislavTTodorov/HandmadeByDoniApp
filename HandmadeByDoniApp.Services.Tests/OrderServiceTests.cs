@@ -29,6 +29,7 @@ namespace HandmadeByDoniApp.Services.Tests
             public string GetConfirmOrderEmail(UserOrder userOrder) => string.Empty;
             public Task<bool> SendEmailAsync(string toEmail, string subject, string body) => Task.FromResult(true);
             public string GetCancellationOrderEmail(UserOrder userOrder) => string.Empty;
+            public string GetOrderSentEmail(UserOrder userOrder) => string.Empty;
         }
 
         [OneTimeSetUp]

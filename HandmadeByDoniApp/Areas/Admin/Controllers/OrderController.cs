@@ -5,6 +5,9 @@ using static HandmadeByDoniApp.Common.NotificationMessagesConstants;
 using static HandmadeByDoniApp.Common.GeneralMessages;
 using HandmadeByDoniApp.Data.Models;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using AngleSharp.Dom;
+using Resources.Resources;
 
 
 namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
@@ -12,11 +15,12 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
     public class OrderController : BaseAdminController<OrderController>
     {
         private readonly IOrderService orderService;
+        private readonly IStringLocalizer<App> L;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IStringLocalizer<App> l)
         {
             this.orderService = orderService;
-
+            this.L = l;
         }
 
         [HttpGet]
@@ -84,7 +88,7 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(id);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = L["NotHaveOrdars"];//NotHaveOrdars;
+                this.TempData[ErrorMessage] = L["NotHaveOrdars"].Value;//NotHaveOrdars;
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }
 
@@ -96,19 +100,19 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData[ErrorMessage] = L["UnexpectedError"];//UnexpectedError
+                this.TempData[ErrorMessage] = L["UnexpectedError"].Value;//UnexpectedError
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }         
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddShipmentNoteNumber(EditOrderViewModel formModel  /*string id,string shipmentNoteNumber*//*EditOrderViewModel formModel*/)
+        public async Task<IActionResult> AddShipmentNoteNumber(EditOrderViewModel formModel)
         {
 
             bool isExists = await this.orderService.UserOrderExistsByOrderIdAsync(/*id*/formModel.Id);
             if (isExists == false)
             {
-                this.TempData[ErrorMessage] = L["NotHaveOrdars"];//NotHaveOrdars;
+                this.TempData[ErrorMessage] = L["NotHaveOrdars"].Value;//NotHaveOrdars;
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
             }
 
@@ -117,15 +121,15 @@ namespace HandmadeByDoniApp.Web.Areas.Admin.Controllers
                 await this.orderService.EditSentToTrueAsync(/*id, shipmentNoteNumber */formModel.Id, formModel.ShipmentNoteNumber);
             }
             catch (Exception)
-            {
-                this.ModelState.AddModelError(string.Empty, string.Format(UnexpectedErrorTryingTo, $"add The {nameof(Product)}"));
-                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"]} {L["addThe"]} {L["ShipmentNoteNumber"]}";
+            {               
+                this.TempData[ErrorMessage] = $"{L["UnexpectedErrorTryingTo"].Value} {L["addThe"].Value} {L["ShipmentNoteNumber"].Value}";
+                this.ModelState.AddModelError(string.Empty, $"{L["UnexpectedErrorTryingTo"].Value} {L["addThe"].Value} {L["ShipmentNoteNumber"].Value}");
 
                 return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
                 // return this.View(formModel);
             }
 
-            this.TempData[SuccessMessage] = string.Format(EditSuccessfully, $"{L["ShipmentNoteNumber"]}");
+            this.TempData[SuccessMessage] = $"{L["EditSuccessfully"].Value} {L["ShipmentNoteNumber"].Value}"  ;//  string.Format(EditSuccessfully, $"{L["ShipmentNoteNumber"].Value}");
             return this.RedirectToAction("UsersOrders", "Order", new { area = "Admin" });
         }
 

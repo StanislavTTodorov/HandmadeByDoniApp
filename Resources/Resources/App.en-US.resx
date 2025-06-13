@@ -576,6 +576,9 @@
   <data name="OrderFrom" xml:space="preserve">
     <value>Order from {0}</value>
   </data>
+  <data name="Added" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="ConfirmOrderEmailTitle" xml:space="preserve">
     <value>Order Confirmation</value>
   </data>
@@ -645,7 +648,13 @@
   <data name="IgnoreIfNotRegistered" xml:space="preserve">
     <value>If you did not register with us, please ignore this email.</value>
   </data>
-  <data name="Added" xml:space="preserve">
-    <value>Add</value>
+  <data name="OrderSentEmailTitle" xml:space="preserve">
+    <value>Order Shipped</value>
+  </data>
+  <data name="OrderSentEmailHeading" xml:space="preserve">
+    <value>Your order has been shipped</value>
+  </data>
+  <data name="OrderSentMessage" xml:space="preserve">
+    <value>We are happy to inform you that your order is on its way.</value>
   </data>
 </root>

@@ -979,11 +979,38 @@ namespace Resources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Order from {0}.
         /// </summary>
         public static string OrderFrom {
             get {
                 return ResourceManager.GetString("OrderFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderSentEmailHeading {
+            get {
+                return ResourceManager.GetString("OrderSentEmailHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderSentEmailTitle {
+            get {
+                return ResourceManager.GetString("OrderSentEmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OrderSentMessage {
+            get {
+                return ResourceManager.GetString("OrderSentMessage", resourceCulture);
             }
         }
         

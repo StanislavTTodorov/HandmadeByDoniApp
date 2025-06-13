@@ -585,6 +585,12 @@
   <data name="ЕmailSendError" xml:space="preserve">
     <value />
   </data>
+  <data name="OrderFrom" xml:space="preserve">
+    <value>Поръчка от {0}</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Добави</value>
+  </data>
   <data name="ConfirmOrderEmailTitle" xml:space="preserve">
     <value>Потвърждение на поръчка</value>
   </data>
@@ -654,7 +660,13 @@
   <data name="IgnoreIfNotRegistered" xml:space="preserve">
     <value>Ако не сте се регистрирали при нас, игнорирайте този имейл.</value>
   </data>
-  <data name="Added" xml:space="preserve">
-    <value>Добави</value>
+  <data name="OrderSentEmailTitle" xml:space="preserve">
+    <value>Поръчката е изпратена</value>
+  </data>
+  <data name="OrderSentEmailHeading" xml:space="preserve">
+    <value>Вашата поръчка е изпратена</value>
+  </data>
+  <data name="OrderSentMessage" xml:space="preserve">
+    <value>С радост Ви информираме, че поръчката Ви е изпратена.</value>
   </data>
 </root>

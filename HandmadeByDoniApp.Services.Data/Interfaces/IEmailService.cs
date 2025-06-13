@@ -15,5 +15,6 @@ namespace HandmadeByDoniApp.Services.Data.Interfaces
         string GetConfirmOrderEmail(UserOrder userOrder);
         string GetConfirmEmail(string token, ApplicationUser user);
         string GetCancellationOrderEmail(UserOrder userOrder);
+        string GetOrderSentEmail(UserOrder userOrder);
     }
 }
